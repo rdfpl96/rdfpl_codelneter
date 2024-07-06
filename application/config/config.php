@@ -679,14 +679,5 @@ require('vendor/autoload.php');
 //Google login API USING
 include_once APPPATH . "libraries/vendor/autoload.php";
 
-// Facebook Login 
+// Facebook 
 require_once APPPATH . '/libraries/vendor/facebook/graph-sdk/src/Facebook/autoload.php';
-
-
-
-
-
-
-
-
-

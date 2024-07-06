@@ -735,7 +735,9 @@ public function policy_ajax(){
     }else if($field_type=='disclaimer'){
       $postArr['disclaimer']=$designation;
     }
-    $postArr['updated_by']=$session['admin_name'];
+
+
+   $postArr['updated_by']=$session['admin_name'];
 
     if($editv==""){
           $sqlQuery=$this->sqlQuery_model->sql_insert('tbl_policy',$postArr);

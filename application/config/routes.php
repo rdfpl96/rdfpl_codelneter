@@ -127,10 +127,17 @@ $route['admin/blogs/edit/(:num)'] = 'AdminPanel/blogs/edit/$1';
 $route['admin/blogs/update/(:num)'] = 'AdminPanel/blogs/update/$1';
 
 //terms and conditions
-$route['admin/terms_conditions']='AdminPanel/blogs/index';
-//$route['admin/blogs/create'] = 'AdminPanel/blogs/create';
-
-// $route['packing-slip']='admin/packing_slip';
+$route['admin/terms_conditions']='AdminPanel/terms_and_conditions/index';
+//shipping policy
+$route['admin/shipping-policy'] = 'AdminPanel/shipping_policy/index';
+//privacy policy
+$route['admin/privacy-policy'] = 'AdminPanel/privacy_policy/index';
+//refund & cancellation Policy
+$route['admin/refund-and-cancelation-policy'] = 'AdminPanel/refund_cancellation_policy/index';
+//faq
+$route['admin/faq'] = 'AdminPanel/faq/index';
+//desclimer
+$route['admin/disclaimer'] = 'AdminPanel/disclaimer/index';
 
 // =========================End Admin Route==================
 
