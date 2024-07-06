@@ -54,7 +54,7 @@
                    </li>
                    
                    <li>
-                      <a class="m-link " href="<?php echo base_url('admin/customers');?>"><i class="icofont-chart-flow"></i> <span>Customers</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/customer');?>"><i class="icofont-chart-flow"></i> <span>Customers</span> </a>
                    </li>
                    <li>
                       <a class="m-link " href="<?php echo base_url('admin/contact_manager');?>"><i class="icofont-chart-flow"></i> <span>Basic Details</span> </a>
