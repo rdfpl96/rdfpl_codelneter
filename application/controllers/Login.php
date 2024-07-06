@@ -13,89 +13,67 @@ class Login extends CI_Controller {
 
 
 
-  public function index(){
+   public function index() {
+    $email_mobi = $this->input->post('email_mobi');
+    $error = 1;
 
-    $email_mobi=$this->input->post('email_mobi');
-    $error=1;
-    
-
-    if(empty($email_mobi)){
-      $error=0;
-      $data['status']=0;
-      $data['message']='Enter your mobile or email Id.';
-     
-    }
-    else if(is_numeric($email_mobi)){
-        if(!checkMobile($email_mobi)){
-            $error=0;
-            $data['status']=0;
-            $data['message']='Enter valid mobile number';
-           
+    if (empty($email_mobi)) {
+        $error = 0;
+        $data['status'] = 0;
+        $data['message'] = 'Enter your mobile or email Id.';
+    } else if (is_numeric($email_mobi)) {
+        if (!checkMobile($email_mobi) || preg_match('/^(.)\1{9}$/', $email_mobi)) {
+            $error = 0;
+            $data['status'] = 0;
+            $data['message'] = 'Enter valid mobile number';
         }
-    }
-    else if(is_string($email_mobi)){
-        
-        if(!filter_var($email_mobi, FILTER_VALIDATE_EMAIL)){
-            $error=0;
-            $data['status']=0;
-            $data['message']='Enter valid email Id';
+    } else if (is_string($email_mobi)) {
+        if (!filter_var($email_mobi, FILTER_VALIDATE_EMAIL)) {
+            $error = 0;
+            $data['status'] = 0;
+            $data['message'] = 'Enter valid email Id';
         }
     }
 
-    if($error==1){
-
-        $userDetail=$this->loginObj->getUserDetailByEmailOrMobile($email_mobi);
-        
-        //print_r($userDetail);
+    if ($error == 1) {
+        $userDetail = $this->loginObj->getUserDetailByEmailOrMobile($email_mobi);
 
         $otp = sprintf("%06d", mt_rand(1, 999999));
-        
-        if(is_array($userDetail) && count($userDetail) > 0){
-          
-          if($userDetail['email']!=""){
-           //echo "step1";
-            $this->emaillibrary->sendOtpMail($userDetail['email'],$otp);
-          }
-          if($userDetail['mobile']!=""){
-            //echo "step2";
-            //$this->sendMobileOtp($email_mobi,$otp);
-            //echo $userDetail['mobile'];
-            $this->emaillibrary->sendOtpOnMobile($userDetail['mobile'],$otp);
-          }
 
-          $sql_update=$this->loginObj->updateUserDataByUserId($userDetail['customer_id'],array('otp'=>$otp));
-          $data['status']=1;
-          //$data['message']='Your OTP send successfully. '.$otp;
-          $data['message']='Your OTP send successfully';
-          echo json_encode($data);
-          exit;
+        if (is_array($userDetail) && count($userDetail) > 0) {
+            if ($userDetail['email'] != "") {
+                $this->emaillibrary->sendOtpMail($userDetail['email'], $otp);
+            }
+            if ($userDetail['mobile'] != "") {
+                $this->emaillibrary->sendOtpOnMobile($userDetail['mobile'], $otp);
+            }
 
-        }else{
-            if(checkemail($email_mobi)){
-                //echo "step4";
-                $this->emaillibrary->sendOtpMail($email_mobi,$otp);
-                $arrPost['email']=trim($email_mobi);
-
-              }else if(preg_match('/^[0-9]{10}+$/', $email_mobi)) {
-                $this->emaillibrary->sendOtpOnMobile($email_mobi,$otp);
-                $arrPost['mobile']=trim($email_mobi);
-              }
-              $arrPost['updated_by']='customer';
-              $arrPost['registered_type']='Manual';
-              $arrPost['otp']=$otp;
-              // print_r($arrPost);
-              $sql_insert=$this->loginObj->insertNewUser($arrPost);
-              $data['status']=1;
-              $data['message']='Your OTP send successfully.';
-              echo json_encode($data);
-              exit;
-        }  
-       
-    }else{
+            $this->loginObj->updateUserDataByUserId($userDetail['customer_id'], ['otp' => $otp]);
+            $data['status'] = 1;
+            $data['message'] = 'Your OTP sent successfully';
+            echo json_encode($data);
+            exit;
+        } else {
+            if (checkemail($email_mobi)) {
+                $this->emaillibrary->sendOtpMail($email_mobi, $otp);
+                $arrPost['email'] = trim($email_mobi);
+            } else if (preg_match('/^[0-9]{10}+$/', $email_mobi)) {
+                $this->emaillibrary->sendOtpOnMobile($email_mobi, $otp);
+                $arrPost['mobile'] = trim($email_mobi);
+            }
+            $arrPost['updated_by'] = 'customer';
+            $arrPost['registered_type'] = 'Manual';
+            $arrPost['otp'] = $otp;
+            $this->loginObj->insertNewUser($arrPost);
+            $data['status'] = 1;
+            $data['message'] = 'Your OTP sent successfully.';
+            echo json_encode($data);
+            exit;
+        }
+    } else {
         echo json_encode($data);
-        exit; 
+        exit;
     }
-        
 }
 
 public function otpVerification() {
