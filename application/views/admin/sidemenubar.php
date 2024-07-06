@@ -72,16 +72,16 @@
                       <a class="m-link " href="https://uat.rdfpl.com/admin/ads_banner"><i class="icofont-chart-flow"></i> <span>Ads Banner List</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/shipping_policy"><i class="icofont-chart-flow"></i> <span>Shipping Policy</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/shipping-policy')?>"><i class="icofont-chart-flow"></i> <span>Shipping Policy</span> </a>
                    </li>
                    <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/banner"><i class="icofont-chart-flow"></i> <span>Add Banner</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/privacy_policy"><i class="icofont-chart-flow"></i> <span>Privacy Policy</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/privacy-policy')?>"><i class="icofont-chart-flow"></i> <span>Privacy Policy</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/refund_and_cancelation_policy"><i class="icofont-chart-flow"></i> <span>Refund &amp; Cancelation Policy</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/refund-and-cancelation-policy')?>"><i class="icofont-chart-flow"></i> <span>Refund &amp; Cancelation Policy</span> </a>
                    </li>
                    <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/newsletter"><i class="icofont-chart-flow"></i> <span>Newsletter</span> </a>
@@ -90,10 +90,10 @@
                       <a class="m-link " href="https://uat.rdfpl.com/admin/team_manager"><i class="icofont-chart-flow"></i> <span>Teams Manager</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/faq"><i class="icofont-chart-flow"></i> <span>FAQ</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/faq')?"><i class="icofont-chart-flow"></i> <span>FAQ</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/disclaimer"><i class="icofont-chart-flow"></i> <span>Disclaimer</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/disclaimer')?>"><i class="icofont-chart-flow"></i> <span>Disclaimer</span> </a>
                    </li>
                    <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/report"><i class="icofont-chart-flow"></i> <span>Reports</span> </a>

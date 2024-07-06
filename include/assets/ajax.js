@@ -4840,81 +4840,81 @@ $(document).on('click','.save-home-testimonial',function(){
 })
 
 
-  $(document).on('click','.save-policy',function(){
-     var designation=$('#summernote').val();
-     var field_type=$('#field-type').val();
-     var editv=$('#edits_id').val();
+$(document).on('click','.save-policy',function(){
+  var designation=$('#summernote').val();
+  var field_type=$('#field-type').val();
+  var editv=$('#edits_id').val();
 
-        if(designation=="" || designation==null){
-          validation('errr','Field is required.','red','errr-error');
-          return false;
-       }else{
-          removeValidation('errr-error');
-         var status=1;
-        }
+     if(designation=="" || designation==null){
+       validation('errr','Field is required.','red','errr-error');
+       return false;
+    }else{
+       removeValidation('errr-error');
+      var status=1;
+     }
 
-      
-           loading('loaderdiv','block');
-          $('.tm-cl').removeClass('save-policy');
+   
+        loading('loaderdiv','block');
+       $('.tm-cl').removeClass('save-policy');
 
-          $.ajax({
-                  url: base_url+'Ajax_function/policy_ajax',
-                  type: 'POST',
-                  dataType:'JSON',
-                   data: ({designation:designation,editv:editv,field_type:field_type}),
-                  success: function(data){
+       $.ajax({
+               url: base_url+'common/policy_ajax',
+               type: 'POST',
+               dataType:'JSON',
+                data: ({designation:designation,editv:editv,field_type:field_type}),
+               success: function(data){
 
-                    if(data.status==1){
+                 if(data.status==1){
 
-                       Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
-                              
-                              if(field_type=='terms-condition'){
-                                document.location.href=base_url+'admin/terms_of_service';
-                              }else if(field_type=='refund-cancelation'){
-                                 document.location.href=base_url+'admin/refund_and_cancelation_policy';
-                              }else if(field_type=='Privacy-policy'){
-                                document.location.href=base_url+'admin/privacy_policy';
-                              }else if(field_type=='shipping-policy'){
-                                document.location.href=base_url+'admin/shipping_policy';
-                              }else if(field_type=='faq'){
-                                document.location.href=base_url+'admin/faq';
-                              }else if(field_type=='disclaimer'){
-                                document.location.href=base_url+'admin/disclaimer';
-                              }
+                    Swal.fire({
+                     position: 'top-end',
+                     // icon: 'success',
+                     title: data.message,
+                     showConfirmButton: false,
+                     color:'white',
+                     background: '#689F39',
+                     timer: 3000
+                        }).then((result) => {
+                           
+                           if(field_type=='terms-condition'){
+                             document.location.href=base_url+'admin/terms_of_service';
+                           }else if(field_type=='refund-cancelation'){
+                              document.location.href=base_url+'admin/refund_and_cancelation_policy';
+                           }else if(field_type=='Privacy-policy'){
+                             document.location.href=base_url+'admin/privacy_policy';
+                           }else if(field_type=='shipping-policy'){
+                             document.location.href=base_url+'admin/shipping_policy';
+                           }else if(field_type=='faq'){
+                             document.location.href=base_url+'admin/faq';
+                           }else if(field_type=='disclaimer'){
+                             document.location.href=base_url+'admin/disclaimer';
+                           }
 
-                              
-                          });
-                       
-                    }else{
-                            Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: data.message,
-                              showConfirmButton: false,
-                              timer: 3000
-                                 }).then((result) => {
-                                $('.tm-cl').addClass('save-policy');
-                               });
+                           
+                       });
+                    
+                 }else{
+                         Swal.fire({
+                           position: 'center',
+                           icon: 'error',
+                           title: data.message,
+                           showConfirmButton: false,
+                           timer: 3000
+                              }).then((result) => {
+                             $('.tm-cl').addClass('save-policy');
+                            });
 
-                    }
+                 }
 
-                     loading('loaderdiv','none');
-                     
+                  loading('loaderdiv','none');
+                  
 
-                   
+                
 
-                   }
+                }
 
-              });
- 
+           });
+
 
 })
 
