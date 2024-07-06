@@ -1,0 +1,437 @@
+,,,,,,,,,,,,,,,,,,,,,,,,,Delivery Type,,,,,,,,,,,,,,,,,,,,,,
+Item Code,Product Name,Product Status,Product In Stock Status,Variants for item code,SKU ID,Pack Size,Units,Price,Variants Stock,Conversion Factor (Kg),Variants Status,Variants In Stock Status,Category Id,category,Sub Category Id,Sub Category name,HSN Code,IGST,CGST,SGST,Ingredients,Shelf life Period,Shelf life Period Type,Storage Condition,International Delivery,National Delivery,Excluding Local & Hyperlocal (Within Maharashtra),Hyperlocal Delivery,Local Delivery,Pick-up from store,Food Habitats,Quick Description,Tags,Image1,Image2,Image3,Image4,Description for Item code,Description header name,Description Details,Description Status,Discription Id,Variants Updated By,Variants Id,Product Updated by,Product Id,Add date
+A1044,Sp. American Badam,1,1,A1044,1044_100,100,g,120,20,0.1,1,1,7,Dryfruits - Trade,27,Dryfruits (w/o Fridge),8021200,12,6,6,Row Almonds,2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,American-Dryfruit.jpg,,,,,,,,,,435,krishna,178,12/10/2022 18:06
+,,,,A1044,1044_250,250,g,300,8,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,436,,,
+,,,,A1044,1044_500,500,g,600,8,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,437,,,
+A1041,American Badam,1,1,A1041,1041_100,100,g,100,20,0.1,1,1,7,Dryfruits - Trade,27,Dryfruits (w/o Fridge),8021200,12,6,6,Row Almonds American,2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,American-Dryfruit.jpg,,,,,,,,,,432,krishna,177,12/10/2022 18:06
+,,,,A1041,1041_250,250,g,250,10,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,433,,,
+,,,,A1041,1041_500,500,g,500,6,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,434,,,
+A1031,Roasted Masala Almonds ,1,1,A1031,1031_100,100,g,200,20,0.1,1,1,3,Dryfruits FG,26,Dryfruits Processed,20081910,12,6,6,"Almonds, Chilli Powder, Iodised Salt & Sugar",2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,429,krishna,176,12/10/2022 18:06
+,,,,A1031,1031_250,250,g,500,10,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,430,,,
+,,,,A1031,1031_500,500,g,1000,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,431,,,
+A1026,Roasted Salted Almonds ,1,1,A1026,1026_100,100,g,200,20,0.1,1,1,3,Dryfruits FG,26,Dryfruits Processed,20081910,12,6,6,"Almonds, Iodised Salt & Sugar",2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,426,krishna,175,12/10/2022 18:06
+,,,,A1026,1026_250,250,g,500,10,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,427,,,
+,,,,A1026,1026_500,500,g,1000,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,428,,,
+A1016,Roasted Black Pepper Cashew ,1,1,A1016,1016_100,100,g,200,11,0.1,1,0,3,Dryfruits FG,26,Dryfruits Processed,20081910,12,6,6,"Cashewnuts, Black Pepper Powder, Iodised Salt & Sugar",2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,krishna,423,krishna,174,12/10/2022 18:06
+,,,,A1016,1016_250,250,g,500,0,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,krishna,424,,,
+,,,,A1016,1016_500,500,g,1000,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,425,,,
+A1006,Roasted Masala Cashew,1,1,A1006,1006_100,100,g,200,20,0.1,1,1,3,Dryfruits FG,26,Dryfruits Processed,20081910,12,6,6,"Cashewnuts, Chilli Powder, Iodised Salt & Sugar",2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,420,krishna,173,12/10/2022 18:06
+,,,,A1006,1006_250,250,g,500,10,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,421,,,
+,,,,A1006,1006_500,500,g,1000,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,422,,,
+A1001,Roasted Salted Cashew ,1,1,A1001,1001_100,100,g,200,20,0.1,1,1,3,Dryfruits FG,26,Dryfruits Processed,20081910,12,6,6,"Cashewnuts, Iodised Salt & Sugar",2,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,417,krishna,172,12/10/2022 18:06
+,,,,A1001,1001_250,250,g,500,10,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,418,,,
+,,,,A1001,1001_500,500,g,1000,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,419,,,
+A0992,Dryfruit Chikki,1,1,A0992,0992_250,250,g,370,20,0.25,1,1,2,Sweets,18,Chikki,2106,5,2.5,2.5,"Pharma Grade Sugar, Almonds, Cashewnuts, Liquid Glucose, Pistachio & Cardamom",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Dryfruit Chikki.jpg,,,,,,,,,,415,krishna,171,12/10/2022 18:06
+,,,,A0992,0992_500,500,g,740,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,416,,,
+A0991,Gulab Chikki,1,1,A0991,0991_250,250,g,340,20,0.25,1,1,2,Sweets,18,Chikki,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Liquid Glucose & Rose Petals",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Gulab Chikki.jpg,,,,,,,,,,413,krishna,170,12/10/2022 18:06
+,,,,A0991,0991_500,500,g,680,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,414,,,
+A0981,Soanpapadi ,1,1,A0981,0981_250,250,g,120,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Refined Wheat Flour, Gram Flour (Besan), Liquid Glucose, Almonds, Pistachio & Cardamom.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Soan-Papadi.png,,,,,,,,,,411,krishna,169,12/10/2022 18:06
+A0954,Akroad Halwa,1,1,A0954,0954_250,250,g,420,10,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,,4,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,1,1,1,1,,,,,,,,,,,,,,409,krishna,168,12/10/2022 18:06
+,,,,A0954,0954_500,500,g,840,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,410,,,
+A0953,Keshar Moong Halwa,1,1,A0953,0953_250,250,g,245,10,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Split Green Gram (Moong Dal), Pharma Grade Sugar, Buffalo Milk, Clarified Butter (Deshi Ghee), Almonds, Pistachio, Cardamom, Saffron",4,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,1,1,1,1,1,,,,,,,,,,,,,,407,krishna,167,12/10/2022 18:06
+,,,,A0953,0953_500,500,g,490,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,408,,,
+A0923,Rossogulla Tin 1Kg,1,1,A0923,0923_01,1,Kg,320,9,1,1,1,2,Sweets,36,Tin Packed Sweets,2106,5,2.5,2.5,"Cow Milk, Pharma Grade Sugar, Cardamom & Citric Acid",6,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",0,0,0,1,1,1,,Soft & Spongy,,Bengali_Rossogullas.jpg,,,,,,,,,,406,krishna,166,12/10/2022 18:06
+A0921,Gilla Rossogulla,1,1,A0921,0921_05,5,pc,140,10,0.32,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Pharma Grade Sugar, Cardamom & Citric Acid",2,days,"Please, keep in refrigerator.",0,0,0,1,1,1,,Soft & Spongy,,Bengali_Rossogullas.jpg,,,,,,,,,,404,krishna,165,12/10/2022 18:06
+,,,,A0921,0921_10,10,pc,280,10,0.63,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,405,,,
+A0919,Rasraj,1,1,A0919,0919_05,5,pc,225,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Dryfruits, Dried Fruits, Cardamom, Saffron, Citric Acid & Silver Leaves (Chandi Waraq)",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,rasraj.jpg,,,,,,,,,,402,krishna,164,12/10/2022 18:06
+,,,,A0919,0919_10,10,pc,450,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,403,,,
+A0918,Pakija ,1,1,A0918,0918_05,5,pc,250,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Dryfruits, Dried Fruits, Cardamom, Saffron, Citric Acid & Silver Leaves (Chandi Waraq)",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,400,krishna,163,12/10/2022 18:06
+,,,,A0918,0918_10,10,pc,500,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,401,,,
+A0917,Pineapple Sandwich,1,1,A0917,0917_05,5,pc,250,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Dryfruits, Dried Fruits, Cardamom, Saffron, Citric Acid & Silver Leaves (Chandi Waraq)",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,398,krishna,162,12/10/2022 18:06
+,,,,A0917,0917_10,10,pc,500,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,399,,,
+A0916,Malai Sandwich,1,1,A0916,0916_05,5,pc,225,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Dryfruits, Dried Fruits, Cardamom, Saffron, Citric Acid & Silver Leaves (Chandi Waraq)",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,396,krishna,161,12/10/2022 18:06
+,,,,A0916,0916_10,10,pc,450,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,397,,,
+A0914,Strawberry Rasmanjuri,1,1,A0914,0914_05,5,pc,225,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Cardamom, Strawberry Crush & Citric Acid",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,394,krishna,160,12/10/2022 18:06
+,,,,A0914,0914_10,10,pc,450,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,395,,,
+A0913,Sp. Basundi,1,1,A0913,0913_250,250,g,175,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Cardamom, Saffron & Citric Acid",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,392,krishna,159,12/10/2022 18:06
+,,,,A0913,0913_500,500,g,350,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,393,,,
+A0912,Keshar Rasmalai,1,1,A0912,0912_05,5,pc,175,10,0.25,1,1,2,Sweets,17,Bengali Sweets,2106,5,2.5,2.5,"Cow Milk, Buffalo Milk, Pharma Grade Sugar, Cardamom, Saffron & Citric Acid",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,390,krishna,158,12/10/2022 18:06
+,,,,A0912,0912_10,10,pc,350,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,391,,,
+A0903,Kalajamun,1,1,A0903,0903_05,5,pc,175,10,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Fine Flour (Maida), Dryfruits, Vanilla Powder & Saffron",3,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,,,Kala-Jamun.jpg,,,,,,,,,,388,krishna,157,12/10/2022 18:06
+,,,,A0903,0903_10,10,pc,350,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,389,,,
+A0902,Mini Jamun,1,1,A0902,0902_250,250,g,140,10,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Fine Flour (Maida), Dryfruits, Cardamom & Saffron",3,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,,,Mini-Jamun.jpg,,,,,,,,,,387,krishna,156,12/10/2022 18:06
+A0901,Gulabjamun,1,1,A0901,0901_05,5,pc,140,10,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Fine Flour (Maida), Dryfruits, Cardamom & Saffron",3,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,,,Gulab-Jamun.jpg,,,,,,,,,,385,krishna,155,12/10/2022 18:06
+,,,,A0901,0901_10,10,pc,280,10,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,386,,,
+A0868,Jalebi,1,1,A0868,0868_250,250,g,145,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,,1,day,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,0,1,1,1,,,,Sp.-Keshar-Jalebi.jpg,,,,,,,,,,382,krishna,154,12/10/2022 18:06
+,,,,A0868,0868_500,500,g,290,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,383,,,
+,,,,A0868,0868_1000,1,Kg,580,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,384,,,
+A0865,Karanji,0,1,A0865,0865_250,250,g,230,20,0.25,0,0,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,,6,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,,,Karanji.jpg,,,,,,,,,,379,krishna,153,12/10/2022 18:06
+,,,,A0865,0865_500,500,g,460,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,380,,,
+,,,,A0865,0865_1000,1,Kg,920,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,381,,,
+A0864,Chana Roast Barfi,1,1,A0864,0864_250,250,g,230,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Gram Flour (Besan), Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Almonds, Pistachio, Spices & Condiments",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,40 Pc.s/Kg,,Chana-Roast-Barfi.jpg,,,,,,,,,,376,krishna,152,12/10/2022 18:06
+,,,,A0864,0864_500,500,g,460,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,377,,,
+,,,,A0864,0864_1000,1,Kg,920,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,378,,,
+A0861,Turkish Delight (Figs),1,1,A0861,0861_480,480,g,1056,20,0.48,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Pharma Grade Sugar, Deshi Ghee, Corn Flour, Cashewnuts, Spices & Condiments",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 Pc.s/Kg,,,,,,,,,,,,373,krishna,151,12/10/2022 18:06
+,,,,A0861,0861_800,800,g,1760,20,0.8,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,374,,,
+,,,,A0861,0861_1200,1.2,Kg,2640,10,1.2,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,375,,,
+A0859,Karachi Halwa,1,1,A0859,0859_250,250,g,180,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Pharma Grade Sugar, Deshi Ghee, Corn Flour, Cashewnuts, Spices & Condiments",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 Pc.s/Kg,,Orange-Karachi-Halwa.jpg,,,,,,,,,,370,krishna,150,12/10/2022 18:06
+,,,,A0859,0859_500,500,g,360,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,371,,,
+,,,,A0859,0859_1000,1,Kg,720,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,372,,,
+A0857,Sp. Keshar Dryfruit Ghari,1,1,A0857,0857_360,360,g,792,20,0.36,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,1,1,1,1,1,,33 Pc.s/Kg,,Sp. Keshar Dryfruit Ghari.jpg,,,,,,,,,,367,krishna,149,12/10/2022 18:06
+,,,,A0857,0857_600,600,g,1320,20,0.6,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,368,,,
+,,,,A0857,0857_900,900,g,1980,10,0.9,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,369,,,
+A0853,Mawa Gujiya,1,1,A0853,0853_250,250,g,195,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Refined Wheat Flour, Clarified Butter (Desi Ghee), Dryfruits, Spices & Condiments & Saffron.",4,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,35 Pc.s/Kg,,Mawa-Gujiya.jpg,,,,,,,,,,364,krishna,148,12/10/2022 18:06
+,,,,A0853,0853_500,500,g,390,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,365,,,
+,,,,A0853,0853_1000,1,Kg,780,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,366,,,
+A0852,Mohanthal,1,1,A0852,0852_250,250,g,230,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Gram Flour (Besan), Buffalo Milk, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Almonds, Pisatchio, Cardamom & Saffron.",4,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,35 Pc.s/Kg,,Mohanthal.jpg,,,,,,,,,,361,krishna,147,12/10/2022 18:06
+,,,,A0852,0852_500,500,g,460,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,362,,,
+,,,,A0852,0852_1000,1,Kg,920,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,363,,,
+A0851,Balushahi,1,1,A0851,0851_250,250,g,195,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Fine Flour (Maida), Curd (Dahi), Clarified Butter (Deshi Ghee), Pharma Grade Sugar, Leavening Agents, Cardamom & Pistachio.",6,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,35 Pc.s/Kg,,Balushahi.png,,,,,,,,,,358,krishna,146,12/10/2022 18:06
+,,,,A0851,0851_500,500,g,390,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,359,,,
+,,,,A0851,0851_1000,1,Kg,780,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,360,,,
+A0850,Keshar Mawa Gujia,0,1,A0850,0850_250,250,g,260,20,0.25,0,0,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Refined Wheat Flour, Clarified Butter (Desi Ghee), Dryfruits, Spices & Condiments & Saffron.",6,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,35 Pc.s/Kg,,Mawa-Gujiya.jpg,,,,,,,,,,355,krishna,145,12/10/2022 18:06
+,,,,A0850,0850_500,500,g,520,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,356,,,
+,,,,A0850,0850_1000,1,Kg,1040,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,357,,,
+A0810,Sweet Bundi,1,1,A0810,0810_250,250,g,160,20,0.25,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,"Pharma Grade Sugar, Gram Flour (Besan), Clarified Butter (Deshi Ghee) & Cardamom.",4,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,0,1,1,1,,,,sweet_boondi.jpg,,,,,,,,,,352,krishna,144,12/10/2022 18:06
+,,,,A0810,0810_500,500,g,320,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,353,,,
+,,,,A0810,0810_1000,1,Kg,640,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,354,,,
+A0809,Methi Ladu,1,1,A0809,0809_250,250,g,320,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Jaggery (Gul), Clarified Butter (Deshi Ghee), Whole Wheat Flour, Fenugreek Seeds (Methi Dana), Resin (Edible Dink), Coconut, Dryfruits,Milk Solids, Spices & Condiments ",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 pc.s/Kg,,Ladu_Methi.jpg,,,,,,,,,,349,krishna,143,12/10/2022 18:06
+,,,,A0809,0809_500,500,g,640,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,350,,,
+,,,,A0809,0809_1000,1,Kg,1280,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,351,,,
+A0808,Dink Ladu,1,1,A0808,0808_250,250,g,320,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Clarified Butter (Deshi Ghee), Pharma Grade Sugar, Resin (Edible Dink), Whole Wheat Flour, Coconut, Dryfruits, Spices & Condiments ",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 pc.s/Kg,,Ladu_Dink.jpg,,,,,,,,,,346,krishna,142,12/10/2022 18:06
+,,,,A0808,0808_500,500,g,640,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,347,,,
+,,,,A0808,0808_1000,1,Kg,1280,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,348,,,
+A0806,Nachani Ladu,1,1,A0806,0806_250,250,g,220,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Nachani Flour, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Almonds, Resin (Dink), Spices & Condiments",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 pc.s/Kg,,Ladu_Nachani.jpg,,,,,,,,,,343,krishna,141,12/10/2022 18:06
+,,,,A0806,0806_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,344,,,
+,,,,A0806,0806_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,345,,,
+A0805,Paushtik Ladu,1,1,A0805,0805_250,250,g,220,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Whole Wheat Flour, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Resin (Dink), Dryfruits, Spices & Condiments.",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 pc.s/Kg,,Ladu_Paushtik.jpg,,,,,,,,,,340,krishna,140,12/10/2022 18:06
+,,,,A0805,0805_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,341,,,
+,,,,A0805,0805_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,342,,,
+A0804,Besan Ladu,1,1,A0804,0804_250,250,g,220,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Pharma Grade Sugar, Gram Flour (Besan), Clarified Butter (Deshi Ghee), Dryfruits, Resin (Edible Dink), Spices & Condiments",14,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,24 pc.s/Kg,,Ladu_Besan7.jpg,,,,,,,,,,337,krishna,139,12/10/2022 18:06
+,,,,A0804,0804_500,500,g,440,19,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,338,,,
+,,,,A0804,0804_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,339,,,
+A0803,Boondi Ladu,0,1,A0803,0803_250,250,g,205,20,0.25,0,0,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Pharma Gade Sugar, Clarified Butter (Deshi Ghee), Gram Flour (Besan), Liquid Glucose, Almonds, Pistachio, Cardamom & Saffron",3,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,24 pc.s/Kg,,Boondi-Ladu.jpg,,,,,,,,,,334,krishna,138,12/10/2022 18:06
+,,,,A0803,0803_500,500,g,410,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,335,,,
+,,,,A0803,0803_1000,1,Kg,820,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,336,,,
+A0802,Sp. Motichoor Ladu,1,1,A0802,0802_250,250,g,205,20,0.25,1,1,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Pharma Gade Sugar, Clarified Butter (Deshi Ghee), Gram Flour (Besan), Almonds, Pistachio, Cardamom & Saffron",3,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,24 pc.s/Kg,,motichoor_laddo.jpg,,,,,,,,,,331,krishna,137,12/10/2022 18:06
+,,,,A0802,0802_500,500,g,410,19,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,332,,,
+,,,,A0802,0802_1000,1,Kg,820,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,333,,,
+A0801,Motichoor Modak,1,1,A0801,0801_250,250,g,195,20,0.25,0,0,2,Sweets,35,Laddu,2106,5,2.5,2.5,"Pharma Gade Sugar, Clarified Butter (Deshi Ghee), Gram Flour (Besan), Almonds, Pistachio, Cardamom & Saffron",3,days,"Room Temperature, Lightly Air-Ventilated, Away from excessive heat & direct sunlight.",0,0,1,1,1,1,,24 pc.s/Kg,,Motichoor-Modak.1.jpg,,,,,,,,,,328,krishna,136,12/10/2022 18:06
+,,,,A0801,0801_500,500,g,390,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,329,,,
+,,,,A0801,0801_1000,1,Kg,780,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,330,,,
+A0799,Aam Ras(Hapus),0,1,A0799,799_250,250,g,175,30,0.25,0,0,2,Sweets,34,FG Seasonal,2106,5,2.5,2.5,"Mango(hapus), Suger, Milk",2,days,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,,,,,,,,,,,325,krishna,135,12/10/2022 18:06
+,,,,A0799,799_500,500,g,350,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,326,,,
+,,,,A0799,799_1000,1,Kg,700,20,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,327,,,
+A0797,SF Keshar Dryfruit Shrikhand,1,1,A0797,797_250,250,g,120,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Fresh Fruits, Pharma Grade Sugar,  Cardamom & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,,,,,,,,,,,322,krishna,134,12/10/2022 18:06
+,,,,A0797,797_500,500,g,240,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,323,,,
+,,,,A0797,797_1000,1,Kg,480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,324,,,
+A0796,Fresh Fruit Shrikhand,1,1,A0796,796_250,250,g,120,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Fresh Fruits, Pharma Grade Sugar,  Cardamom & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,fresh_fruit_shrikahnd.jpg,,,,,,,,,,319,krishna,133,12/10/2022 18:06
+,,,,A0796,796_500,500,g,240,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,320,,,
+,,,,A0796,796_1000,1,Kg,480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,321,,,
+A0795,Ilaichi Shrikhand,1,1,A0795,795_250,250,g,120,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cardamom & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,Ilaichi-Shrikhand.jpg,,,,,,,,,,316,krishna,132,12/10/2022 18:06
+,,,,A0795,795_500,500,g,240,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,317,,,
+,,,,A0795,795_1000,1,Kg,480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,318,,,
+A0794,Mango Shrikhand,1,1,A0794,794_250,250,g,145,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Alphanso Mango Pulp & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,Mango Shrikhand.png,,,,,,,,,,313,krishna,131,12/10/2022 18:06
+,,,,A0794,794_500,500,g,290,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,314,,,
+,,,,A0794,794_1000,1,Kg,580,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,315,,,
+A0793,Keshar Shrikhand,1,1,A0793,793_250,250,g,145,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cardamom, Saffron & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,Shrikhand_Keshar.jpg,,,,,,,,,,310,krishna,130,12/10/2022 18:06
+,,,,A0793,793_500,500,g,290,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,311,,,
+,,,,A0793,793_1000,1,Kg,580,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,312,,,
+A0792,Pineapple Shrikhand,1,1,A0792,792_250,250,g,145,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Pineapple Slices & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,Shrikhand_Pineapple.jpg,,,,,,,,,,307,krishna,129,12/10/2022 18:06
+,,,,A0792,792_500,500,g,290,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,308,,,
+,,,,A0792,792_1000,1,Kg,580,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,309,,,
+A0791,Dryfruit Shrikhand,1,1,A0791,791_250,250,g,170,30,0.25,1,1,2,Sweets,16,Shrikhand,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Almonds, Cashewnuts, Pistachio, Cardamom & Added Curd Culture",14,days,"Cool & Dry Place, Deep Refrigerator, Below 0 degree celcius",0,0,0,1,1,1,,,,Dryfruit-Shrikhand.jpg,,,,,,,,,,304,krishna,128,12/10/2022 18:06
+,,,,A0791,791_500,500,g,340,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,305,,,
+,,,,A0791,791_1000,1,Kg,680,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,306,,,
+A0759,Sp. Keshar DF Thandai,0,1,A0759,761,200,g,120,50,0.2,0,0,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Thandai Masala, Almonds, Cashewnuts, Pistachio & Saffron",1,day,"Cool & Dry Place, Refrigerator",0,0,0,1,1,1,,,,keshar_dryfruit_thandai.jpg,,,,,,,,,,301,krishna,127,12/10/2022 18:06
+,,,,A0759,762,500,g,300,30,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,302,,,
+,,,,A0759,763,1,Kg,600,20,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,303,,,
+A0757,Milk Cake,1,1,A0757,0757_100,100,g,88,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Glucose & Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,Milk-Cake.jpg,,,,,,,,,,297,krishna,126,12/10/2022 18:06
+,,,,A0757,0757_250,250,g,220,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,298,,,
+,,,,A0757,0757_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,299,,,
+,,,,A0757,0757_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,300,,,
+A0756,Anjeer Barfi,1,1,A0756,0756_100,100,g,128,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Figs (Anjeer), Clarified Butter (Deshi Ghee), Almonds, Pistachio & Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,Anjeer-Barfi.jpg,,,,,,,,,,293,krishna,125,12/10/2022 18:06
+,,,,A0756,0756_250,250,g,320,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,294,,,
+,,,,A0756,0756_500,500,g,640,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,295,,,
+,,,,A0756,0756_1000,1,Kg,1280,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,296,,,
+A0755,Mango Barfi,1,1,A0755,0755_100,100,g,108,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Alphanso Mango Pulp, Pharma Grade Sugar, Almonds, Pistachio & Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,sp_mango_barfi.jpg,,,,,,,,,,289,krishna,124,12/10/2022 18:06
+,,,,A0755,0755_250,250,g,270,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,290,,,
+,,,,A0755,0755_500,500,g,540,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,291,,,
+,,,,A0755,0755_1000,1,Kg,1080,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,292,,,
+A0753,Chocolate Barfi,1,1,A0753,0753_100,100,g,88,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cocoa Powder, Cardamom, Permitted Food Flavors & Colors & Silver Leaves (Chandi Waraq).",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,Chocolate-Barfi.jpg,,,,,,,,,,285,krishna,123,12/10/2022 18:06
+,,,,A0753,0753_250,250,g,220,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,286,,,
+,,,,A0753,0753_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,287,,,
+,,,,A0753,0753_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,288,,,
+A0751,Kalakand Barfi,1,1,A0751,0751_100,100,g,84,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Pistachio & Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,Kalakand.jpg,,,,,,,,,,281,krishna,122,12/10/2022 18:06
+,,,,A0751,0751_250,250,g,210,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,282,,,
+,,,,A0751,0751_500,500,g,420,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,283,,,
+,,,,A0751,0751_1000,1,Kg,840,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,284,,,
+A0750,Rose Kalakand Barfi,0,1,A0750,0750_100,100,g,88,20,0.1,1,1,2,Sweets,15,Milk Sweets,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Pistachio & Cardamom, Rose.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,40 pc.s/Kg,,Rose-Kalakand.jpg,,,,,,,,,,277,krishna,121,12/10/2022 18:06
+,,,,A0750,0750_250,250,g,220,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,278,,,
+,,,,A0750,0750_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,279,,,
+,,,,A0750,0750_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,280,,,
+A0744,Orange Badam Modak,0,1,A0744,0744_100,100,g,218,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Almonds, Pharma Grade Sugar, Orange Compound, Cashewnuts, Pistachio, Honey & Liquid Glucose",15,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Orange-Badam-Modak.jpg,,,,,,,,,,273,krishna,120,12/10/2022 18:06
+,,,,A0744,0744_250,250,g,545,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,274,,,
+,,,,A0744,0744_500,500,g,1090,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,275,,,
+,,,,A0744,0744_1000,1,Kg,2180,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,276,,,
+A0742,Kardant Modak,0,1,A0742,0742_100,100,g,128,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Jaggery (Gul), Coconut, Clarified Butter (Deshi Ghee), Almonds, Luquid Glucose, Cashewnuts, Resin(Dink), Pistachio, Dried Dates (Kharik)  Powder, Spices & Condiments, Poppy Seeds (Khaskhas) & Cardamom.",15,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Kardant-Modak-(2).jpg,,,,,,,,,,269,krishna,119,12/10/2022 18:06
+,,,,A0742,0742_250,250,g,320,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,270,,,
+,,,,A0742,0742_500,500,g,640,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,271,,,
+,,,,A0742,0742_1000,1,Kg,1280,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,272,,,
+A0741,Kaju Modak,0,1,A0741,0741_100,100,g,148,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar & Silver Leaves (Chandi Waraq).",15,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Kaju-Modak-(2).jpg,,,,,,,,,,265,krishna,118,12/10/2022 18:06
+,,,,A0741,0741_250,250,g,370,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,266,,,
+,,,,A0741,0741_500,500,g,740,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,267,,,
+,,,,A0741,0741_1000,1,Kg,1480,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,268,,,
+A0740,Motichoor Modak,0,1,A0740,0740_100,100,g,78,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Pharma Gade Sugar, Clarified Butter (Deshi Ghee), Gram Flour (Besan), Almonds, Pistachio, Cardamom & Saffron",3,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,50 pc.s/Kg,,Motichoor-Modak.1.jpg,,,,,,,,,,261,krishna,117,12/10/2022 18:06
+,,,,A0740,0740_250,250,g,195,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,262,,,
+,,,,A0740,0740_500,500,g,390,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,263,,,
+,,,,A0740,0740_1000,1,Kg,780,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,264,,,
+A0736,Besan Modak,0,1,A0736,0736_100,100,g,88,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Pharma Grade Sugar, Gram Flour (Besan), Clarified Butter (Deshi Ghee), Dryfruits, Resin (Edible Dink), Spices & Condiments",15,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,1,1,1,1,1,,50 pc.s/Kg,,default_images.png,,,,,,,,,,257,krishna,116,12/10/2022 18:06
+,,,,A0736,0736_250,250,g,220,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,258,,,
+,,,,A0736,0736_500,500,g,440,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,259,,,
+,,,,A0736,0736_1000,1,Kg,880,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,260,,,
+A0733,Mango Malai Modak,0,1,A0733,0733_100,100,g,108,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Buffalo Milk, Alphanso Mango Pulp, Pharma Grade Sugar, Almonds, Pistachio & Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,50 pc.s/Kg,,Mango-Malai-Modak.jpg,,,,,,,,,,253,krishna,115,12/10/2022 18:06
+,,,,A0733,0733_250,250,g,270,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,254,,,
+,,,,A0733,0733_500,500,g,540,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,255,,,
+,,,,A0733,0733_1000,1,Kg,1080,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,256,,,
+A0732,Malai Modak,0,1,A0732,0732_100,100,g,82,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Pharma Gade Sugar, Clarified Butter (Deshi Ghee), Gram Flour (Besan), Almonds, Pistachio, Cardamom & Saffron",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,50 pc.s/Kg,,Malai-Modak.jpg,,,,,,,,,,249,krishna,114,12/10/2022 18:06
+,,,,A0732,0732_250,250,g,205,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,250,,,
+,,,,A0732,0732_500,500,g,410,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,251,,,
+,,,,A0732,0732_1000,1,Kg,820,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,252,,,
+A0731,Keshar Malai Modak,0,1,A0731,0731_100,100,g,98,20,0.1,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cardamom & Saffron.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,50 pc.s/Kg,,Keshar-Malai-Modak.jpg,,,,,,,,,,245,krishna,113,12/10/2022 18:06
+,,,,A0731,0731_250,250,g,245,20,0.25,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,246,,,
+,,,,A0731,0731_500,500,g,490,20,0.5,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,247,,,
+,,,,A0731,0731_1000,1,Kg,980,10,1,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,248,,,
+A0730,Ukadiche Modak,0,1,A0730,0730_06,6,pc,210,10,0.42,0,0,2,Sweets,33,Modak,2106,5,2.5,2.5,,1,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,,,Ukadiche-Modak.jpg,,,,,,,,,,243,krishna,112,12/10/2022 18:06
+,,,,A0730,0730_12,12,pc,420,10,0.84,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,244,,,
+A0708,Rabadi Pedha,1,1,A0708,0708_100,100,g,98,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,,2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,1,1,1,1,,40 pc.s/Kg,,Rabadi-Pedha.jpg,,,,,,,,,,239,krishna,111,12/10/2022 18:06
+,,,,A0708,0708_250,250,g,245,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,240,,,
+,,,,A0708,0708_500,500,g,490,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,241,,,
+,,,,A0708,0708_1000,1,Kg,980,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,242,,,
+A0706,Chocolate Peda,1,1,A0706,0706_100,100,g,88,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Chocolate Compounds, Pharma Grade Sugar, Coconut, Milk Solids & Cocoa Solids",3,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,1,1,1,1,,60 pc.s/Kg,,Chocolate-Pedha.jpg,,,,,,,,,,235,krishna,110,12/10/2022 18:06
+,,,,A0706,0706_250,250,g,220,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,236,,,
+,,,,A0706,0706_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,237,,,
+,,,,A0706,0706_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,238,,,
+A0705,Kandi Peda,1,1,A0705,0705_100,100,g,88,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cow Milk, Cardamom, Spices & Condiments",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,60 pc.s/Kg,,Kandi-Pedha.jpg,,,,,,,,,,231,krishna,109,12/10/2022 18:06
+,,,,A0705,0705_250,250,g,220,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,232,,,
+,,,,A0705,0705_500,500,g,440,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,233,,,
+,,,,A0705,0705_1000,1,Kg,880,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,234,,,
+A0704,Gupchup ,1,1,A0704,0704_100,100,g,92,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cow Milk, Cardamom, Citric Acid & Saffron.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,80 pc.s/Kg,,pedha_gupchup.jpg,,,,,,,,,,227,krishna,108,12/10/2022 18:06
+,,,,A0704,0704_250,250,g,230,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,228,,,
+,,,,A0704,0704_500,500,g,460,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,229,,,
+,,,,A0704,0704_1000,1,Kg,920,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,230,,,
+A0703,Malai Gulkand Pedha,1,1,A0703,0703_100,100,g,98,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Rose Petal Jam (Gulkand), Almonds, Pistachio, Cardamom & Silver Leaves (Chandi Waraq)",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,45 pc.s/Kg,,Malai-Gulkand-Pedha.jpg,,,,,,,,,,223,krishna,107,12/10/2022 18:06
+,,,,A0703,0703_250,250,g,245,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,224,,,
+,,,,A0703,0703_500,500,g,490,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,225,,,
+,,,,A0703,0703_1000,1,Kg,980,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,226,,,
+A0702,Malai Peda,1,1,A0702,0702_100,100,g,82,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cardamom.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,60 pc.s/Kg,,Pedha_Malai.jpg,,,,,,,,,,219,krishna,106,12/10/2022 18:06
+,,,,A0702,0702_250,250,g,205,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,220,,,
+,,,,A0702,0702_500,500,g,410,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,221,,,
+,,,,A0702,0702_1000,1,Kg,820,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,222,,,
+A0701,Keshar Malai Pedha,1,1,A0701,0701_100,100,g,98,20,0.1,1,1,2,Sweets,32,Peda,2106,5,2.5,2.5,"Buffalo Milk, Pharma Grade Sugar, Cardamom & Saffron.",2,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",0,0,0,1,1,1,,60 pc.s/Kg,,Keshar-Malai-Pedha.jpg,,,,,,,,,,215,krishna,105,12/10/2022 18:06
+,,,,A0701,0701_250,250,g,245,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,216,,,
+,,,,A0701,0701_500,500,g,490,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,217,,,
+,,,,A0701,0701_1000,1,Kg,980,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,218,,,
+A0654,Strawberry Bite,1,1,A0654,0654_250,250,g,370,20,0.25,1,1,2,Sweets,8,Bites,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade sugar, Almonds, Liquid Glucose, Strawbeery Compound & Clarified Butter (Deshi Ghee)",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Bite_Strawberry.jpg,,,,,,,,,,212,krishna,104,12/10/2022 18:06
+,,,,A0654,0654_500,500,g,740,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,213,,,
+,,,,A0654,0654_1000,1,Kg,1480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,214,,,
+A0653,Chocolate Bite,1,1,A0653,0653_250,250,g,370,20,0.25,1,1,2,Sweets,8,Bites,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade sugar, Almonds, Liquid Glucose, Chocolate Compound, Cocoa Solids & Clarified Butter (Deshi Ghee)",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Bite_Chocolate.jpg,,,,,,,,,,209,krishna,103,12/10/2022 18:06
+,,,,A0653,0653_500,500,g,740,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,210,,,
+,,,,A0653,0653_1000,1,Kg,1480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,211,,,
+A0652,Orange Bite,1,1,A0652,0652_250,250,g,370,20,0.25,1,1,2,Sweets,8,Bites,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade sugar, Almonds, Liquid Glucose, Clarified Butter (Deshi Ghee), Orange Compound & Pistachio",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Bite_Orange.jpg,,,,,,,,,,206,krishna,102,12/10/2022 18:06
+,,,,A0652,0652_500,500,g,740,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,207,,,
+,,,,A0652,0652_1000,1,Kg,1480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,208,,,
+A0651,Dryfruit Bite,1,1,A0651,0651_250,250,g,370,20,0.25,1,1,2,Sweets,8,Bites,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade sugar, Almonds, Liquid Glucose, Clarified Butter (Deshi Ghee), Pistachio & Chocolate Compounds.",1,month,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Dryfruit-Bite.jpg,,,,,,,,,,203,krishna,101,12/10/2022 18:06
+,,,,A0651,0651_500,500,g,740,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,204,,,
+,,,,A0651,0651_1000,1,Kg,1480,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,205,,,
+A0606,SF Cranberry Akrod,1,1,A0606,0606_100,100,g,218,20,0.1,1,1,2,Sweets,31,SF Dryfruit Sweets,2106,5,2.5,2.5,"Walnuts, Cranberries, Cashews, Sugar Free Liquid (Combination of Fructo-Oligo Saccharide & Sucralose), Clarified Butter (Deshi Ghee), Almonds & Cardamom",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF-Cranberry-Akroad.jpg,,,,,,,,,,199,krishna,100,12/10/2022 18:06
+,,,,A0606,0606_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,200,,,
+,,,,A0606,0606_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,201,,,
+,,,,A0606,0606_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,202,,,
+A0602,SF Pancham,1,1,A0602,0602_100,100,g,218,20,0.1,1,1,2,Sweets,31,SF Dryfruit Sweets,2106,5,2.5,2.5,"Apricots, Sugar Free Liquid (Combination of Fructo-Oligo Saccharide & Sucralose), Cashewnuts, Almonds, Raisins, Clarified Butter (Deshi Ghee), Pistachio & Cardamom.",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF-Pancham.jpg,,,,,,,,,,195,krishna,99,12/10/2022 18:06
+,,,,A0602,0602_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,196,,,
+,,,,A0602,0602_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,197,,,
+,,,,A0602,0602_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,198,,,
+A0601,SF Khajoor Dryfruit,1,1,A0601,0601_100,100,g,188,20,0.1,1,1,2,Sweets,31,SF Dryfruit Sweets,2106,5,2.5,2.5,"Dates (Khajoor), Sugarfree Liquid (Combination of Fructo-Oligo Saccharide & Sucralose), Almonds, Cashewnuts, Clarified Butter (Deshi Ghee), Pistachio, Cardamom & Saffron.",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF-Khajoor-Dryfruit.jpg,,,,,,,,,,191,krishna,98,12/10/2022 18:06
+,,,,A0601,0601_300,300,g,564,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,192,,,
+,,,,A0601,0601_500,500,g,940,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,193,,,
+,,,,A0601,0601_750,750,g,1410,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,194,,,
+A0564,Kaju Anjeer Basket,1,1,A0564,0564_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Figs (Anjeer), Honey, Silver Leaves & Pistachio.",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,vegan,40 pc.s/Kg,,default_images.png,,,,,,,,,,187,krishna,97,12/10/2022 18:06
+,,,,A0564,0564_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,188,,,
+,,,,A0564,0564_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,189,,,
+,,,,A0564,0564_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,190,,,
+A0563,Pista Tacos,1,1,A0563,0563_100,100,g,248,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,low-sugar,40 pc.s/Kg,,pista_tacos.jpg,,,,,,,,,,183,krishna,96,12/10/2022 18:06
+,,,,A0563,0563_300,300,g,744,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,184,,,
+,,,,A0563,0563_500,500,g,1240,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,185,,,
+,,,,A0563,0563_750,750,g,1860,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,186,,,
+A0562,American Dryfruit,1,1,A0562,0562_100,100,g,198,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Almonds, Cashewnuts, Pistachio & Corn Flakes",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,American-Dryfruit.jpg,,,,,,,,,,179,krishna,95,12/10/2022 18:06
+,,,,A0562,0562_300,300,g,594,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,180,,,
+,,,,A0562,0562_500,500,g,990,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,181,,,
+,,,,A0562,0562_750,750,g,1485,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,182,,,
+A0560,Mango Keshar Wati,1,1,A0560,0560_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,,,,,,,,,,,175,krishna,94,12/10/2022 18:06
+,,,,A0560,0560_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,176,,,
+,,,,A0560,0560_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,177,,,
+,,,,A0560,0560_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,178,,,
+A0559,Dryfruit Rasraj,1,1,A0559,0559_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Almonds, Pistachio, Butterscotch, Liquid Glucose & Silver Leaves",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,vegan,40 pc.s/Kg,,dryfruit_rasraj.jpg,,,,,,,,,,171,krishna,93,12/10/2022 18:06
+,,,,A0559,0559_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,172,,,
+,,,,A0559,0559_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,173,,,
+,,,,A0559,0559_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,174,,,
+A0557,Apricot Balls,1,1,A0557,0557_100,100,g,168,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Cashewnuts & Apricots",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Fusion-Sweets_Apricot-Balls.jpg,,,,,,,,,,167,krishna,92,12/10/2022 18:06
+,,,,A0557,0557_250,250,g,420,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,168,,,
+,,,,A0557,0557_500,500,g,840,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,169,,,
+,,,,A0557,0557_1000,1,Kg,1680,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,170,,,
+A0556,Chocolate Motichoor Ladu,1,1,A0556,0556_100,100,g,128,20,0.1,1,1,2,Sweets,13,Deshi Ghee Sweets,2106,5,2.5,2.5,,10,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,,,,,,,,,,,163,krishna,91,12/10/2022 18:06
+,,,,A0556,0556_300,300,g,384,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,164,,,
+,,,,A0556,0556_500,500,g,640,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,165,,,
+,,,,A0556,0556_750,750,g,960,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,166,,,
+A0553,SF Fruit & Nuts Ladu,1,1,A0553,0553_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF Fruit & Nut Ball.jpg,,,,,,,,,,159,krishna,90,12/10/2022 18:06
+,,,,A0553,0553_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,160,,,
+,,,,A0553,0553_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,161,,,
+,,,,A0553,0553_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,162,,,
+A0552,Cranberry Balls,1,1,A0552,0552_100,100,g,168,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Processed Mango Products (Aampapad & Dry Mango Pieces), Chocolate Compounds, Almonds, Cashewnuts, Milk Solids & Rice Crispies",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Fusion-Sweets_Cranberry-Balls.jpg,,,,,,,,,,155,krishna,89,12/10/2022 18:06
+,,,,A0552,0552_250,250,g,420,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,156,,,
+,,,,A0552,0552_500,500,g,840,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,157,,,
+,,,,A0552,0552_1000,1,Kg,1680,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,158,,,
+A0551,Mango Crunch Delight,1,1,A0551,0551_100,100,g,168,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Processed Mango Products (Aampapad & Dry Mango Pieces), Chocolate Compounds, Almonds, Cashewnuts, Milk Solids & Rice Crispies",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Fusion-Sweets_Mango-Crunch-Delight1.jpg,,,,,,,,,,151,krishna,88,12/10/2022 18:06
+,,,,A0551,0551_250,250,g,420,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,152,,,
+,,,,A0551,0551_500,500,g,840,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,153,,,
+,,,,A0551,0551_1000,1,Kg,1680,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,154,,,
+A0550,Badam Cranberry Casata,1,1,A0550,0550_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Almonds, Pharma Grade Sugar, Cranberries, Cashewnuts, Pistachio, Sugarfree Liquid (Combination of Fructo-Oligo Saccharide & Sucralose), Silver Leaves & Saffron",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,low-sugar,40 pc.s/Kg,,Badam-Cranberry-Kasata.jpg,,,,,,,,,,147,krishna,87,12/10/2022 18:06
+,,,,A0550,0550_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,148,,,
+,,,,A0550,0550_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,149,,,
+,,,,A0550,0550_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,150,,,
+A0549,SF Keshar Honey Dryfruit,1,1,A0549,0549_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF Keshar Honey Pak.jpg,,,,,,,,,,143,krishna,86,12/10/2022 18:06
+,,,,A0549,0549_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,144,,,
+,,,,A0549,0549_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,145,,,
+,,,,A0549,0549_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,146,,,
+A0546,Badam Coconut Balls,1,1,A0546,0546_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,,14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,,,,,,,,,,,139,krishna,85,12/10/2022 18:06
+,,,,A0546,0546_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,140,,,
+,,,,A0546,0546_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,141,,,
+,,,,A0546,0546_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,142,,,
+A0545,Strawberry Almonds Rocher,1,1,A0545,0545_100,100,g,168,20,0.1,1,1,2,Sweets,10,Fusion Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Almonds, Rocher Shells, Milk Solids & Pharma Grade Sugar",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Strawberry-Almond-Rocher.jpg,,,,,,,,,,135,krishna,84,12/10/2022 18:06
+,,,,A0545,0545_240,240,g,404,20,0.24,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,136,,,
+,,,,A0545,0545_400,400,g,672,20,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,137,,,
+,,,,A0545,0545_600,600,Kg,1008,10,0.6,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,138,,,
+A0543,Coconut Rocher,1,1,A0543,0543_100,100,g,168,20,0.1,1,1,2,Sweets,10,Fusion Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Desiccated Coconut, Rocher Shells, Milk Solids, Almonds & Pharma Grade Sugar",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Coconut-Almond-Rocher.jpg,,,,,,,,,,131,krishna,83,12/10/2022 18:06
+,,,,A0543,0543_240,240,g,404,20,0.24,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,132,,,
+,,,,A0543,0543_400,400,g,672,20,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,133,,,
+,,,,A0543,0543_600,600,Kg,1008,10,0.6,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,134,,,
+A0542,Chocolate Almonds Rocher,1,1,A0542,0542_100,100,g,168,20,0.1,1,1,2,Sweets,10,Fusion Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Almonds, Rocher Shells, Milk Solids & Pharma Grade Sugar",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,50 pc.s/Kg,,Chocolate-Almond-Rocher.jpg,,,,,,,,,,127,krishna,82,12/10/2022 18:06
+,,,,A0542,0542_240,240,g,404,20,0.24,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,128,,,
+,,,,A0542,0542_400,400,g,672,20,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,129,,,
+,,,,A0542,0542_600,600,Kg,1008,10,0.6,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,130,,,
+A0541,Dryfruit Truffle,1,1,A0541,0541_100,100,g,168,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Mixed Dried Fruits, Almonds, Cashewnuts, Honey, Liquid Glucose, Poppy Seeds (Khaskhas), Cardamom & Rose Petals",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Dryfruit-Truffle.jpg,,,,,,,,,,123,krishna,81,12/10/2022 18:06
+,,,,A0541,0541_250,250,g,420,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,124,,,
+,,,,A0541,0541_500,500,g,840,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,125,,,
+,,,,A0541,0541_1000,1,Kg,1680,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,126,,,
+A0540,Dryfruit Rajbhog,1,1,A0540,0540_100,100,g,198,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Chocolate Compounds, Almonds, Cashewnuts, Pharma Grade Sugar, Pistachio, Honey & Liquid Glucose",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Dryfruit-Rajbhogss.jpg,,,,,,,,,,119,krishna,80,12/10/2022 18:06
+,,,,A0540,0540_300,300,g,594,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,120,,,
+,,,,A0540,0540_500,500,g,990,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,121,,,
+,,,,A0540,0540_750,750,g,1485,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,122,,,
+A0539,Orange Badam,1,1,A0539,0539_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Almonds, Pharma Grade Sugar, Orange Compound, Cashewnuts, Pistachio, Honey & Liquid Glucose",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Orange-Badam-Modak.jpg,,,,,,,,,,115,krishna,79,12/10/2022 18:06
+,,,,A0539,0539_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,116,,,
+,,,,A0539,0539_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,117,,,
+,,,,A0539,0536_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,118,,,
+A0536,Kaju Maisoor Pak,1,1,A0536,0536_100,100,g,118,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Pharma Grade Sugar, Clarified Butter (Deshi Ghee), Cashewnuts, Fine Flour (Maida), Pistachio & Cardamom.",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,Kaju_Maisoor_Pak.png,,,,,,,,,,111,krishna,78,12/10/2022 18:06
+,,,,A0536,0536_250,250,g,295,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,112,,,
+,,,,A0536,0536_500,500,g,590,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,113,,,
+,,,,A0536,0536_1000,1,Kg,1180,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,114,,,
+A0535,SF Anjeer Dryfruit,1,1,A0535,0535_100,100,g,218,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Figs (Anjeer), Almonds, Cashewnuts, Pistachio, Sugarfree Liquid (Combination of Fructo-Oligo Saccharide & Sucralose), Clarified Butter (Deshi Ghee), Honey & Cardamom.",14,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,sugar-free,40 pc.s/Kg,,SF-Anjeer-Dryfruit.jpg,,,,,,,,,,107,krishna,77,12/10/2022 18:06
+,,,,A0535,0535_300,300,g,654,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,108,,,
+,,,,A0535,0535_500,500,g,1090,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,109,,,
+,,,,A0535,0535_750,750,g,1635,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,110,,,
+A0530,Cashew Choco Berry ,1,1,A0530,0530_100,100,g,280,20,0.1,1,1,2,Sweets,11,Dryfruit Sweets,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Chocolate, Berry Cream",6,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,40 pc.s/Kg,,,,,,,,,,,,103,krishna,76,12/10/2022 18:06
+,,,,A0530,0530_300,300,g,840,20,0.3,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,104,,,
+,,,,A0530,0530_500,500,g,1400,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,105,,,
+,,,,A0530,0530_750,750,g,2100,10,0.75,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,106,,,
+A0507,Strawberry Katli,1,1,A0507,0507_100,100,g,158,20,0.1,1,1,2,Sweets,9,Katli,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Cocoa Solids & Silver Leaves (Chandi Waraq).",7,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,76 pc.s/Kg,,Katli_Strawberry.jpg,,,,,,,,,,99,krishna,75,12/10/2022 18:06
+,,,,A0507,0507_250,250,g,395,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,100,,,
+,,,,A0507,0507_500,500,g,790,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,101,,,
+,,,,A0507,0507_1000,1,Kg,1580,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,102,,,
+A0504,Chocolate Katli,1,1,A0504,0504_100,100,g,158,20,0.1,1,1,2,Sweets,9,Katli,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Cocoa Solids & Silver Leaves (Chandi Waraq).",7,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,76 pc.s/Kg,,chocolate_katli.jpg,,,,,,,,,,95,krishna,74,12/10/2022 18:06
+,,,,A0504,0504_250,250,g,395,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,96,,,
+,,,,A0504,0504_500,500,g,790,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,97,,,
+,,,,A0504,0504_1000,1,Kg,1580,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,98,,,
+A0502,Keshar Katli,1,1,A0502,0502_100,100,g,168,20,0.1,1,1,2,Sweets,9,Katli,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar, Pistachio, Cardamom & Saffron",7,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,vegan,76 pc.s/Kg,,keshar_katli.jpg,,,,,,,,,,91,krishna,73,12/10/2022 18:06
+,,,,A0502,0502_250,250,g,420,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,92,,,
+,,,,A0502,0502_500,500,g,840,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,93,,,
+,,,,A0502,0502_1000,1,Kg,1680,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,94,,,
+A0501,Kaju Katli,1,1,A0501,0501_100,100,g,148,20,0.1,1,1,2,Sweets,9,Katli,2106,5,2.5,2.5,"Cashewnuts, Pharma Grade Sugar & Silver Leaves (Chandi Waraq).",7,days,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,vegan,76 pc.s/Kg,,Katli_Kaju.jpg,,,,,,,,,,87,krishna,72,12/10/2022 18:06
+,,,,A0501,0501_250,250,g,370,20,0.25,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,88,,,
+,,,,A0501,0501_500,500,g,740,20,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,89,,,
+,,,,A0501,0501_1000,1,Kg,1480,10,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,90,,,
+A0401,Khaman,1,1,A0401,0401_250,250,g,100,40,0.25,1,1,6,Snacks,25,Steamed Snacks,2106,5,2.5,2.5,"Gram Flour (Besan), Refined Groundnut Oil, Pharma Grade Sugar, Coriander Leaves, Green Chilli, Iodised Salt, Mustard Seed (Rai), Citric Acid, Sodium Bicarbonate, Sesame Seeds",1,day,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",0,0,0,1,1,1,,,,Khaman-Dhoklaaa.jpg,,,,,,,,,,84,,71,12/10/2022 18:06
+,,,,A0401,0401_500,500,g,200,15,0.5,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,85,,,
+,,,,A0401,0401_1000,1,Kg,400,20,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,86,,,
+A0246,Roasted Masala Nuts ,1,1,A0246,247,200,g,110,20,0.2,1,1,1,Namkeen,30,Trade,2106,12,6,6,"Peanuts, Wheat Flour, Edible Oil, Black Salt, Chilli Powder, Garlic, Onion, Citric Acid.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,83,krishna,70,12/10/2022 18:06
+A0244,Masala Papdi ,1,1,A0244,245,200,g,110,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Groundnut Oil, Gram Flour (Besan), Chilli Powder, Iodised Salt, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Masala-Papdi.jpg,,,,,,,,,,82,krishna,69,12/10/2022 18:06
+A0242,Nutri Mix,1,1,A0242,243,200,g,125,20,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Refined Groundnut Oil, Gram Flour, Jawar Flakes, Ragi Flakes, Bajra Flakes, Cashewnut, Corn Flakes, Sugar, Pea Protein Powder, Iodised Salt, Chilli Powder, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Nutri-Mix.jpg,,,,,,,,,,81,krishna,68,12/10/2022 18:06
+A0234,Moong Dal Chakli,1,1,A0234,235,250,g,150,20,0.25,1,1,1,Namkeen,30,Trade,2106,12,6,6,"Moong Dal, Maida, Vegetable Oil, Salt, Chilly Powder, Till",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,80,krishna,67,12/10/2022 18:06
+A0230,Fulwadi ,1,1,A0230,231,200,g,90,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Bengal Gram, Fennel Seeds, Edible Vegetable Oil, Sesame Seeds, Sodium Bicarbonate, Whole Coriander Seeds, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Fulvadi.jpg,,,,,,,,,,79,krishna,66,12/10/2022 18:06
+A0200,Aachari Masala Papad,1,1,A0200,201,100,g,60,20,0.1,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Papad, Refined Groundnut Oil, Red Chilli Powder, Lodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,,,,,,,,,,,78,krishna,65,12/10/2022 18:06
+A0187,Sabudana Sweet Chivda,1,1,A0187,188,200,g,100,20,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Sago, Refined Groundnut Oil, Potato, Groundnuts, Red Chilli Powder, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sabudana-Chivda-(Sweet).jpg,,,,,,,,,,77,krishna,64,12/10/2022 18:06
+A0185,Sabudana Tikhat Chivda,1,1,A0185,186,200,g,100,20,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Sago, Refined Groundnut Oil, Potato, Groundnuts, Red Chilli Powder, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sabudana-Chivda-(Spicy).jpg,,,,,,,,,,76,krishna,63,12/10/2022 18:06
+A0181,Mini  Butter Chakli ,1,1,A0181,182,100,g,85,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Udad Dal, Tapioca, Edible Vegetable Oil, Black Sesame Seeds, Milk Solids & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Mini Butter Chakali.png,,,,,,,,,,75,krishna,62,12/10/2022 18:06
+A0179,Mini  Butter Chakli (Masala),1,1,A0179,180,100,g,85,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Udad Dal, Tapioca, Edible Vegetable Oil, Chilli Powder, Black Sesame Seeds, Milk Solids & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Mini Butter Chakali (Masala).png,,,,,,,,,,74,krishna,61,12/10/2022 18:06
+A0177,Karela Chips,1,1,A0177,178,100,g,75,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Gram Flour, Bitter Gourd (Karela), Edible Vegetable Oil, Spices & Condiments & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Karela Chips.png,,,,,,,,,,73,krishna,60,12/10/2022 18:06
+A0175,Masala Kabuli Chana,1,1,A0175,176,200,g,130,30,0.2,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Kabuli Chana, Edible Vegetable Oil, Chilli Powder, Spices & Condiments & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Masala Kabuli Chana.png,,,,,,,,,,72,krishna,59,12/10/2022 18:06
+A0172,Roasted Multigrain,1,1,A0172,173,100,g,50,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Puffed Barli, Rice Flakes, Jawar Puff, Corn Flakes, Refined Edible Oil & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Roasted Multigrain.png,,,,,,,,,,71,krishna,58,12/10/2022 18:06
+A0165,Onion Moong Jor,1,1,A0165,166,200,g,100,30,0.2,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Moong, Edible Vegetable Oil, Onion Flakes, Onion Powder, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Onion Moong Jor.jpg,,,,,,,,,,70,krishna,57,12/10/2022 18:06
+A0163,Plain Moong Jor,1,1,A0163,164,200,g,100,30,0.2,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Moong, Edible Vegetable Oil & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Plain Moong Jor.jpg,,,,,,,,,,69,krishna,56,12/10/2022 18:06
+A0159,Roasted Protein Ring (Masala),1,1,A0159,160,100,g,55,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Corn Frits, Vegetable Refiend Palmolein Oil & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Roasted Protein Ring (Masala).jpg,,,,,,,,,,68,krishna,55,12/10/2022 18:06
+A0157,Roasted Protein Ring (Jalapeno),1,1,A0157,158,100,g,55,30,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Yellow Split Graem, Oats Flour, Corn Grits, Semolina, Fefined Palmolein Oil, Black Gram Flour, Ragi Flour, Chia Flour, Quinoa Flour, Cheese Flavour, Jalapino Flavour, Bengal Gram, Amaranth Soya Dal, Jowar & Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Roasted Protein Ring (Jelapino).jpg,,,,,,,,,,67,krishna,54,12/10/2022 18:06
+A0155,PotatoSpicy Biscuit,1,1,A0155,156,100,g,70,40,0.1,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Wheat Flour, Palm Oil, Sugar, Invert Syrup, Natural Potato Paste, Leavening Agents, Sodium Bicarbonate (E-500) & Ammonium Bicarbonate (E-503), Iodised Salt, Whey Powder, Tapioca Starch, Potato Flakes, Glycerol Monostearate (E-471), RBD Coconut Oil, Spice Masala Seasoning & Added Artificial Flavour (Potato)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato Spicy Biscuits.jpg,,,,,,,,,,66,krishna,53,12/10/2022 18:06
+A0153,Tandoori Chana,1,1,A0153,154,200,g,150,20,0.2,1,1,1,Namkeen,29,Trade - Modern Sion,2106,12,6,6,"Bengal Gram, Edible Oil, Chilli Powder, Rock Salt, Spices & Condiments, Iodised Salt & Citric Acid",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Tandoori Chana.jpg,,,,,,,,,,65,krishna,52,12/10/2022 18:06
+A0136,Cheese Balls,1,1,A0136,137,50,g,30,40,0.05,1,1,1,Namkeen,28,Fryems,2106,12,6,6,"Corn Grit, Rice Meal, Refined Groundnut Oil, Cheese Seasoning, Iodised Salt, Condiments & Cheese Flavor",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Cheese-Balls.jpg,,,,,,,,,,64,krishna,51,12/10/2022 18:06
+A0134,Harabhara Nibbles,1,1,A0134,135,100,g,60,40,0.1,1,1,1,Namkeen,28,Fryems,2106,12,6,6,"Potato Flakes, Refined Groundnut Oil, Sugar, Iodised Salt, Spices & Condiments, Mint Leaves.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Harabhara-Nibbles.jpg,,,,,,,,,,63,krishna,50,12/10/2022 18:06
+A0132,Chatpata Pasta,1,1,A0132,133,100,g,60,40,0.1,1,1,1,Namkeen,28,Fryems,2106,12,6,6,"Potato Flakes, Refined Groundnut Oil, Cheese, Sugar, Iodiesed Salt, Spices & Condiments, Green Leaves Powder, Tomato Powder, Tamriend Powder",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,,,,,,,,,,,62,krishna,49,12/10/2022 18:06
+A0126,Cheese Tubes,1,1,A0126,127,100,g,60,40,0.1,1,1,1,Namkeen,28,Fryems,2106,12,6,6,"Potato Flakes, Refined Groundnut Oil, Cheese, Sugar, Iodiesed Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Cheese-Tubes.jpg.png,,,,,,,,,,61,krishna,48,12/10/2022 18:06
+A0123,Yellow Banana Wafer,1,1,A0123,124,100,g,70,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Refined Groundnut Oil, Banana, Iodised Salt.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Yellow-Banana-Wafer.jpg,,,,,,,,,,59,krishna,47,12/10/2022 18:06
+,,,,A0123,125,200,g,140,30,0.2,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,60,,,
+A0120,Banana Wafer Masala,1,1,A0120,121,100,g,70,39,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Refined Groundnut Oil, Banana, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Banana-Wafer-Masala.jpg,,,,,,,,,,57,krishna,46,12/10/2022 18:06
+,,,,A0120,122,200,g,140,30,0.2,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,58,,,
+A0117,Banana Wafer Miri,1,1,A0117,118,100,g,70,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt & Chilli Powder",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Banana-Wafers-(Miri)-200g-Front.jpg,,,,,,,,,,55,krishna,45,12/10/2022 18:06
+,,,,A0117,119,200,g,140,30,0.2,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,56,,,
+A0115,Potato Strips Masala,1,1,A0115,116,100,g,60,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt & Chilli Powder",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato-Strips-(Masala).png,,,,,,,,,,54,krishna,44,12/10/2022 18:06
+A0113,Potato Strips Salted,1,1,A0113,114,100,g,60,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato-Strips-(Salted)d.png,,,,,,,,,,53,krishna,43,12/10/2022 18:06
+A0103,Green Chatney Wafer,1,1,A0103,104,100,g,60,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt & Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,potato wafers(green chutney).jpg,,,,,,,,,,52,krishna,42,12/10/2022 18:06
+A0101,Potato Wafer Masala,1,1,A0101,102,100,g,60,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato-Wafer-(Masala).jpg,,,,,,,,,,51,krishna,41,12/10/2022 18:06
+A0099,Potato Wafer Salted,1,1,A0099,100,100,g,60,40,0.1,1,1,1,Namkeen,4,Wafer,2106,12,6,6,"Potato, Refined Groundnut Oil, Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato-Wafer-Salted.jpg,,,,,,,,,,50,krishna,40,12/10/2022 18:06
+A0096,Bakarwadi,1,1,A0096,97,200,g,100,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Wheat, Flour, Refined Groundnut Oil, Gram Flour, Sugar, Coconut, Seasame Seeds, Chilli Powder. Spices & Condiments, Iodized Salt.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Bakarwadi.jpg,,,,,,,,,,48,krishna,39,12/10/2022 18:06
+,,,,A0096,98,400,g,200,20,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,49,,,
+A0094,Khasta Puri,1,1,A0094,95,200,g,100,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Wheat Flour, Refined Groundnut Oil, Gram Flour (Besan), Spices & Condiments, Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Khasta-Puriio.jpg,,,,,,,,,,47,krishna,38,12/10/2022 18:06
+A0092,Methi Mathari,1,1,A0092,93,200,g,100,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Wheat Flour, Refined Groundnut Oil, Gram Flour (Besan), Spices & Condiments, Iodised Salt, Dried Fenugreek (Methi) Leaves",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Methi-Mathrids.jpg,,,,,,,,,,46,krishna,37,12/10/2022 18:06
+A0090,Namkeen Karela,1,1,A0090,91,200,g,100,20,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Wheat Flour, Refined Groundnut Oil, Hydrogeneted Vegetable Fats, Gram Flour (Besan), Corn Flour, Spices & Condiments, Iodised Salt, Baking Powder, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Namkeen-Karelasas.jpg,,,,,,,,,,45,krishna,36,12/10/2022 18:06
+A0087,Shakkarpare,1,1,A0087,88,200,g,95,30,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Refined Wheat Flour, Sugar, Refined Groundnut Oil, Hydrogeneted Vegetable Fats, Corn Flour, Iodised Salt,  Leavening Agent (Ins 500(I))",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,sakkarpale56.jpg,,,,,,,,,,43,krishna,35,12/10/2022 18:06
+,,,,A0087,89,400,g,190,20,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,44,,,
+A0085,Masala Bundi,1,1,A0085,86,200,g,105,30,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Green Gram Flour (Moong Dal Besan), Chilli Powder, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Masala-Boondilop.jpg,,,,,,,,,,42,krishna,34,12/10/2022 18:06
+A0083,Salted Bundi,1,1,A0083,84,200,g,105,30,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Green Gram Flour (Moong Dal Besan), Iodised Salt",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Salted-Boondiwe.jpg,,,,,,,,,,41,krishna,33,12/10/2022 18:06
+A0081,Tasty Peanuts,1,1,A0081,82,200,g,115,30,0.2,1,1,1,Namkeen,24,Misc_Namkeen,2106,12,6,6,"Groundnuts, Gram Flour (Besan), Refined Groundnut Oil, Iodised Salt, Chilli Powder, Turmeric Powder, Spices & Condiments, Asafoetida (Hing), Citric Acid",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Tasty-Peanuts-png.png,,,,,,,,,,40,krishna,32,12/10/2022 18:06
+A0079,Special Masoor,1,1,A0079,80,200,g,95,30,0.2,1,1,1,Namkeen,3,Dal,2106,12,6,6,"Lentils (Masoor), Refined Groundnut Oil, Sugar, Iodised Salt, Spices & Condiments, Citric Acid, Chilli Powder & Turmeric Powder.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Sp-Masoorjhk.jpg,,,,,,,,,,39,krishna,31,12/10/2022 18:06
+A0077,Masala Moong,1,1,A0077,78,200,g,105,30,0.2,1,1,1,Namkeen,3,Dal,2106,12,6,6,"Whole Green Gram (Akhkha Moong), Refined Groundnut Oil, Chilli Powder, Iodised Salt, Citric Acid, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Masala-Moonggh.jpg,,,,,,,,,,38,krishna,30,12/10/2022 18:06
+A0074,Salted Moong,1,1,A0074,75,200,g,105,30,0.2,1,1,1,Namkeen,3,Dal,2106,12,6,6,"Whole Green Gram (Akhkha Moong), Refined Groundnut Oil, Iodised Salt, Turmeric Powder, Spices & Condiments, Citric Acid",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Salted-Moongpoo.jpg,,,,,,,,,,37,krishna,29,12/10/2022 18:06
+A0072,Masala Chana Dal,1,1,A0072,73,200,g,100,30,0.2,1,1,1,Namkeen,3,Dal,2106,12,6,6,"Split Bengal Gram (Chana Dal), Refined Groundnut Oil, Chilli Powder, Iodised Salt, Spices & Condiments, Asafoetida (Hing), Citric Acid",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Masala-Chana-Dali.jpg,,,,,,,,,,36,krishna,28,12/10/2022 18:06
+A0070,Sp. Moong Dal,1,1,A0070,71,200,g,105,30,0.2,1,1,1,Namkeen,3,Dal,2106,12,6,6,"Split Green Gram (Moong Dal), Refined Groundnut Oil, Iodised Salt, Chilli Powder, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Sp_-Moong-Dalty.jpg,,,,,,,,,,35,krishna,27,12/10/2022 18:06
+A0066,Methi Gathiya,1,1,A0066,67,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Potato, Gram Flour (Besan), Refined Groundnut Oil, Iodised Salt, Fenugreek (Methi) Leaves, Spices & Condiments,  Chilli Powder, Leavening Agent (Ins 500(I)), Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Methi-Gathiyat.jpg.png,,,,,,,,,,34,krishna,26,12/10/2022 18:06
+A0064,Tomato Sev,1,1,A0064,65,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Potato, Refined Groundnut Oil, Gram Flour (Besan), Corn Flour, Tomato Powder, Sugar, Iodised Salt, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Tomato-Sevvw.jpg.png,,,,,,,,,,33,krishna,25,12/10/2022 18:06
+A0062,Small Bhavnagari,1,1,A0062,63,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Refined Groundnut Oil, Gram Flour (Besan), Iodised Salt, Leavening Agent (Ins 500(I)), Spices & Condiments, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Small-Bhavnagarifa.jpg,,,,,,,,,,32,krishna,24,12/10/2022 18:06
+A0060,Potato Bhujiya,1,1,A0060,61,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Potato, Refined Groundnut Oil, Refined Wheat Flour, Sago Starch, Sugar, Iodised Salt, Spices & Condiments, Citric Acid",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Potato-Bhujiyaddssss.jpg,,,,,,,,,,31,krishna,23,12/10/2022 18:06
+A0058,Lahsoon Sev,1,1,A0058,59,200,g,115,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Garlic (Lahsoon), Iodised Salt, Chiili Powder, Spices & Condiments, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Lahsoon-Sevddd.png,,,,,,,,,,30,krishna,22,12/10/2022 18:06
+A0056,Laung Sev,1,1,A0056,57,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Iodised Salt, Chilli Powder, Spices & Condiments, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Laung Sevdd7.png,,,,,,,,,,29,krishna,21,12/10/2022 18:06
+A0053,Bikaneri Bhujiya,1,1,A0053,54,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Moth Beans Flour, Refined Groundnut Oil, Gram Flour (Besan), Iodised Salt, Chilli Powder, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Bikaneri-Bhujiyad.jpg,,,,,,,,,,27,krishna,20,12/10/2022 18:06
+,,,,A0053,55,400,g,220,30,0.2,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,28,,,
+A0051,Bhavnagari,1,1,A0051,52,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Refined Groundnut Oil, Gram Flour (Besan), Iodised Salt, Leavening Agent (Ins 500(I)), Spices & Condiments, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Bhavnagari Gathiyadd.png,,,,,,,,,,26,krishna,19,12/10/2022 18:06
+A0049,Masala Gathiya,1,1,A0049,50,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Iodised Salt, Chilli Powder, Spices & Condiments, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Masala-Gathiyad.jpg,,,,,,,,,,25,krishna,18,12/10/2022 18:06
+A0045,Barik Sev,1,1,A0045,46,200,g,110,30,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Green Gram Flour (Moong Dal Besan), Iodised Salt, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,,,Namkeen-153-Barik-Seviu.jpg,,,,,,,,,,24,krishna,17,12/10/2022 18:06
+A0042,Masala Sev,1,1,A0042,43,200,g,110,40,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Gram Flour (Besan), Refined Groundnut Oil, Iodised Salt, Chilli Powder, Spices & Condiments, Leavening Agent (Ins 500(I)), Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight..",1,1,1,1,1,1,,Spicy,,Masala-Sev.png,,,,,,,,,,22,krishna,16,12/10/2022 18:06
+,,,,A0042,44,400,g,220,20,0.2,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,23,,,
+A0040,Papdi,1,1,A0040,41,200,g,110,50,0.2,1,1,1,Namkeen,2,Sev,2106,12,6,6,"Refined Groundnut Oil, Gram Flour (Besan), Iodised Salt, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sp.Papadi.png,,,,,,,,,,21,krishna,15,12/10/2022 18:06
+A0038,Nadiadi Bhusa,1,1,A0038,39,200,g,80,48,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Refined Groundnut Oil, Gram Flour, Whole Green Gram, Split Bengal Gram, Flattened Rice Flakes, Sugar, Iodised Salt, Chilli Powder, Turmeric Powder, Citric Acid, Spices & Condiments",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Nadiyadi-Bhusagdh.jpg,,,,,,,,,,20,krishna,14,12/10/2022 18:06
+A0035,Sp. Bhel,1,1,A0035,36,100,g,55,49,0.1,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Gram Flour, Sugar, Puffed Rice Flakes, Refined Groundnut Oil, Groundnuts, Split Bengal Gram, Spices & Condiments, Iodised Salt, Chilli Powder, Tamarind, Turmeric Powder & Curry Leaves",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sp.Bhel.png,,,,,,,,,,18,krishna,13,12/10/2022 18:06
+,,,,A0035,37,200,g,110,49,0.2,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,19,,,
+A0033,Sp. Dryfruit Mixture,1,1,A0033,34,200,g,360,20,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Cashewnuts, Almonds, Refined Groundnut Oil, Split Green Gram, Cucumber Seeds, Pistachio, Potato, Raisins (Kishmish), Iodised Salt, Spices & Condiments, Chilli Powder, Sugar, Asafoetida (Hing)",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sp-Dryfruit-Mixture.jpg,,,,,,,,,,17,krishna,12,12/10/2022 18:06
+A0031,Khamang Chivda,1,1,A0031,32,200,g,120,50,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Puffed Flattened Rice, Flakes, Refined Groundnut Oil, Split Bengal Gram, Groundnuts, Sugar, Green Chilli, Cashewnuts, Sesame Seeds, Iodized Salt, Onion Coriander Leaves, Curry Leaves, Turmeric Powder, Chilli Powder, Spices & Condiments, Asafoetida.",3,months,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,Spicy,,Khamang-Chivdakkjj.jpg,,,,,,,,,,16,krishna,11,12/10/2022 18:06
+A0029,Diet Namkeen,1,1,A0029,30,200,g,95,15,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Rice Flakes, Refined Groundnut Oil, Lentils, Flour of Vereals, Iodized Salt, Sugar, Spices & Condiments.",1,year,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Diet-Namkeen.jpg,,,,,,,,,,15,krishna,10,12/10/2022 18:06
+A0026,Sp. Moong Mixture,1,1,A0026,27,200,g,140,50,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Whole Green Gram, Refined Groundnut Oil, Gram Flour, Spinach, Watermelon Seeds, Groundnuts, Potato Cashewnuts, Raisins, Almonds,Iodized Salt, Chilli Powder, Spices & Condiments.",3,years,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Moong-Mixture-1.jpg,,,,,,,,,,13,krishna,9,12/10/2022 18:06
+,,,,A0026,28,400,g,280,0,0.4,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,14,,,
+A0024,Agra Dalmoth,1,1,A0024,25,200,g,140,16,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Lentils (Masoor), Refined Groundnut Oil, Gram Flour (Besan), Cashewnuts, Green Gram Flour (Moong Dal Besan), Cucumber Seeds, Iodised Salt, Chilli Powder, Sugar, Spices & Condiments, Leavening Agent (Ins 500(I)), Asafoetida (Hing), Citric Acid",4,years,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Agra-Dalmoth.jpg,,,,,,,,,,12,krishna,8,12/10/2022 18:06
+A0022,Sp. Bhadang,1,1,A0022,23,200,g,115,15,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Refined Groundnut Oil, Puffed Rice Flakes (Murmura), Groundnuts, Sugar, Garlic (Lahsoon), Iodised Salt, Chilli Powder, Turmeric Powder, Spices & Condiments, Curry Leaves, Sesame Seeds (Til) , Asafoetida (Hing)",4,weeks,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sp-Mahalaxmi-Bhadangggg.jpg,,,,,,,,,,11,krishna,7,12/10/2022 18:06
+A0020,Badam Lachha,1,1,A0020,21,200,g,170,32,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Potato, Refined Groundnut Oil, Almonds, Sugar, Cashewnuts, Raisins (Kishmish), Iodised Salt, Spices & Condiments, Poppy Seeds (Khaskhas), Citric Acid",4,hours,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,Fasting,,Badam-Lachhaaaa.jpg,,,,,,,,,,10,krishna,6,12/10/2022 18:06
+A0017,Pancharatna Mix,1,1,A0017,18,200,g,110,0,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Refined Groundnut Oil, Gram Flour (Besan), Lentils (Masoor), Flattened Rice Flakes (Pauva), Split Bengal Gram (Chana Dal),  Groundnuts, Corn Flakes (Makai Pauva), Green Gram Flour (Moong Dal Besan), Sugar, Iodised Salt, Spices & Condiments, Chilli Powder, Turmeric Powder, Leavening Agent (Ins 500(I)), Asafoetida (Hing)",1,week,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Pancharatna-Mix.jpg,,,,,,,,,krishna,8,krishna,5,12/10/2022 18:06
+,,,,A0017,19,400,g,220,20,0.4,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,9,,,
+A0011,Sp. Khatta Mitha,1,1,A0011,12,200,g,110,0,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Flattened Rice Flakes (Pauva), Gram Flour (Besan), Sugar, Refined Groundnut Oil, Split Bengal Gram (Chana Dal), Sago, Green Gram Flour (Moong Dal Besan), Groundnuts, Lentils (Masoor), Iodised Salt, Turmeric Powder,  Citric Acid, Leavening Agent (Ins 500(I)), Chilli Powder, Bishops Seeds, Asafoetida (Hing)",3,weeks,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Sp-Khatta-Mitha.jpg,,,,,,,,,,6,krishna,4,12/10/2022 18:06
+,,,,A0011,13,400,g,220,20,0.4,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,7,,,
+A0009,Potato Chivda,1,1,A0009,10,200,g,120,0,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Potato, Refined Groundnut Oil, Groundnuts, Sugar, Cashewnuts, Iodised Salt, Chilli Powder, Spices & Condiments",1,hour,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,Fasting,,Potato-Chivdaaaa.jpg.png,,,,,,,,,,5,krishna,3,12/10/2022 18:06
+A0007,Kashmiri Dalmoth,1,1,A0007,8,200,g,140,0,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Chivda, Chiwada, Chiwda, Dalmoth, Dalmuth, Kashmir, Farsan, Namkeen, Snacks, Chakhana, Spicy, Healthy, Mumbai, Thane, Maharashtra, India, Food",3,hours,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,1,,,,Kashmiri-Dalmothgl.jpg.png,,,,,,,,,krishna,4,krishna,2,12/10/2022 18:06
+A0004,Sp. Corn Chivda,1,1,A0004,5,200,g,125,0,0.2,1,1,1,Namkeen,1,Chivda,2106,12,6,6,"Corn Flakes (Makai Pauva), Refined Groundnut Oil, Groundnuts, Sugar, Cashewnuts, Raisins (Kishmish), Iodised Salt, Chilli Powder, Turmeric Powder, Sesame Seeds (Til) , Spices & Condiments, Asafoetida (Hing)",3,Numeric,"Room Temperature, Air-Tight, Away from excessive heat & direct sunlight.",1,1,1,1,1,0,"sugar-free,low-sugar",Sweets & Salted,aa,Sp_-Corn-Chivdaaaa.jpg,,,,A0004,[],[],[1],[1],krishna,2,krishna,1,12/10/2022 18:06
+,,,,A0004,6,400,g,250,20,0.4,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,3,,,

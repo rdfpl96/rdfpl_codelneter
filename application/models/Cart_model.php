@@ -1,0 +1,195 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Cart_model extends CI_Model{
+  function __construct(){
+    parent::__construct();
+    //$this->load->database();
+  }
+
+ 
+ public function itemSave($array_data){
+
+    $this->db->trans_begin(); 
+    // product Insert
+    $this->db->insert('tbl_cartmanager', $array_data);
+    $last_id= $this->db->insert_id();
+
+    
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      
+      return $last_id;
+    }
+
+  }
+
+
+public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
+
+    $this->db->trans_begin(); 
+
+    $this->db->where('product_id', $product_id);
+    $this->db->where('user_id', $customer_id); 
+    $this->db->where('variant_id', $item_id);      
+    $this->db->update('tbl_cartmanager', $array_data);
+
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      return true;
+    } 
+  }
+
+  public function saveTolaterItem($array_data){
+    $this->db->trans_begin(); 
+    $this->db->insert('tbl_save_to_later', $array_data);
+    $last_id= $this->db->insert_id();
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      
+      return $last_id;
+    }
+  } 
+
+  public function getCartDetailByCartId($customer_id,$cart_id){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_cartmanager');
+    $this->db->where('user_id',$customer_id);
+    $this->db->where('cart_id',$cart_id);
+    $query=$this->db->get();
+      if($query->num_rows()>0){
+        $array_data=$query->row_array();
+      }
+    
+    return $array_data;
+  }
+
+ public function getCartItem($customer_id,$product_id,$item_id){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_cartmanager');
+    $this->db->where('user_id',$customer_id);
+    $this->db->where('product_id',$product_id);
+    $this->db->where('variant_id',$item_id);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->row_array();
+    }
+    
+    return $array_data;
+  }
+
+  public function getCartList($customer_id){
+    $array_data=array();
+    $this->db->select('P.product_id,P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock,C.qty as cart_qty,C.cart_id,C.variant_id');
+    $this->db->from('tbl_cartmanager AS C');
+    $this->db->where('user_id',$customer_id);
+    $this->db->join('tbl_product AS P', 'P.product_id = C.product_id');
+    $this->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+
+  }
+
+  public function getSaveLaterProducts($customer_id){
+    $array_data=array();
+    //$this->db->select('P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock');
+    $this->db->select('P.product_name,P.feature_img,P.product_id,P.slug');
+    $this->db->from('tbl_save_to_later AS C');
+    $this->db->where('user_id',$customer_id);
+    $this->db->join('tbl_product AS P', 'P.product_id = C.product_id');
+    //$this->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+
+  }
+  
+
+public function getBeforeCheckout(){
+
+    $array_data=array();
+    $this->db->select('P.product_id,P.product_name,P.slug,P.feature_img,PWM.cat_id,PWM.sub_cat_id,PWM.child_cat_id');
+    $this->db->from('tbl_mapping_category_with_product AS PWM');
+    $this->db->join('tbl_product AS P', 'PWM.mapping_product_id = P.product_id');
+    $this->db->where('P.status',1);
+    $this->db->limit(5,0);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+
+  }
+
+  
+
+  public function deleteItemByCartId($customer_id,$cart_id){
+    $this->db->where('user_id', $customer_id);
+     $this->db->where('cart_id', $cart_id);
+    $this->db->delete('tbl_cartmanager');
+    return true;
+  }
+ 
+  public function getTimeSlot(){
+    $this->db->select('*');
+    $this->db->from('tbl_delivery_slot');
+    $this->db->where('status',1);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+
+  }
+
+  public function getCouponList(){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_coupon');
+    $this->db->where('status',1);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+
+  }
+
+  public function getCouponCodeDetail($code){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_coupon');
+    $this->db->where('status',1);
+    $this->db->where('coupon_code',$code);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->row_array();
+    }
+    return $array_data;
+  }
+ 
+ 
+
+}
+?>

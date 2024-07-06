@@ -1,0 +1,10 @@
+<?php
+$data['sidebarMenus']=$this->my_libraries->getSidebarMenus();
+$data['session']=$this->session->userdata('admin');
+$this->load->view('admin/head');
+//$this->load->view('admin/sidebar',$data);
+$this->load->view('admin/sidemenubar',$data);
+$this->load->view('admin/header');
+$this->load->view($content);
+$this->load->view('admin/footer');
+?>
