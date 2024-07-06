@@ -255,7 +255,7 @@ $route['smart-basket'] = 'common/smart_basket';
   $route['api/order-cancel-by-customer']='ApiController/order_cancel_by_customer';
   $route['api/product-rating']='ApiController/product_rating';
   $route['api/get-rating']='ApiController/get_rating';
-  $route['api/review-rating-list']='ApiController/review_rating_list';
+  $route['api/review-rating-list']='ApiController/review_rating_list'; 
 
   //
   $route['api/coupon-list']='ApiController/getCouponList';
