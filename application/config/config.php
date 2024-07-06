@@ -674,7 +674,7 @@ $config['proxy_ips'] = '';
 require('vendor/autoload.php');
 
 // Razorpay Api
-require('razorpay-php/Razorpay.php');
+//require('razorpay-php/Razorpay.php');
 
 //Google login API USING
 include_once APPPATH . "libraries/vendor/autoload.php";
