@@ -12,7 +12,6 @@ class Login extends CI_Controller {
       
 
 
-
    public function index() {
     $email_mobi = $this->input->post('email_mobi');
     $error = 1;
@@ -22,7 +21,8 @@ class Login extends CI_Controller {
         $data['status'] = 0;
         $data['message'] = 'Enter your mobile or email Id.';
     } else if (is_numeric($email_mobi)) {
-        if (!checkMobile($email_mobi) || preg_match('/^(.)\1{9}$/', $email_mobi)) {
+        // Check if the mobile number starts with 6, 7, 8, or 9 and is 10 digits long
+        if (!preg_match('/^[6-9][0-9]{9}$/', $email_mobi)) {
             $error = 0;
             $data['status'] = 0;
             $data['message'] = 'Enter valid mobile number';
@@ -57,7 +57,7 @@ class Login extends CI_Controller {
             if (checkemail($email_mobi)) {
                 $this->emaillibrary->sendOtpMail($email_mobi, $otp);
                 $arrPost['email'] = trim($email_mobi);
-            } else if (preg_match('/^[0-9]{10}+$/', $email_mobi)) {
+            } else if (preg_match('/^[6-9][0-9]{9}$/', $email_mobi)) {
                 $this->emaillibrary->sendOtpOnMobile($email_mobi, $otp);
                 $arrPost['mobile'] = trim($email_mobi);
             }
@@ -75,6 +75,7 @@ class Login extends CI_Controller {
         exit;
     }
 }
+
 
 public function otpVerification() {
     $email_mobi = $this->input->post('email_mobi');
