@@ -713,7 +713,6 @@ public function remove_account_email() {
 
     echo json_encode($response);
 }
-
 public function policy_ajax(){
 
     $session=$this->session->userdata('admin');

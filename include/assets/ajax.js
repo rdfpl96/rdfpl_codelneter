@@ -4839,7 +4839,6 @@ $(document).on('click','.save-home-testimonial',function(){
 
 })
 
-
 $(document).on('click','.save-policy',function(){
   var designation=$('#summernote').val();
   var field_type=$('#field-type').val();
