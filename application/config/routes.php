@@ -224,49 +224,18 @@ $route['smart-basket'] = 'common/smart_basket';
 
 // ==================API========================================
   
-  $route['api/send-otp']='ApiAuth/send_otp_for_login';
-  $route['api/resend-otp']='ApiAuth/resendOtp';
+  $route['api/auth/login-with-mobile']='Api/login/loginWithMobile';
+  $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
+  $route['api/auth/login-with-email']='Api/login/loginWithMobile';
+
+  $route['api/cart']='Api/cart/index';
+  $route['api/cart/add-to-cart']='Api/cart/addToCart';
+
   $route['api/login']='ApiAuth/login';
 
-  $route['api/dashboard']='Api/home/index';
-  $route['api/get-category-list']='Api/product/index';
-  $route['api/productListBySubCatId']='Api/product/productListBySubCatId';
-
-
-  $route['api/customer-details']='ApiController/update_customer_details';
-  $route['api/get-customer-details']='ApiController/get_customer_details';
-  // $route['api/get-category-list']='ApiController/category_list';
-  $route['api/get-product-list']='ApiController/product_list';
-  $route['api/add-wishlist']='ApiController/add_wishlist';
-  $route['api/wishlist']='ApiController/wishlist';
-  $route['api/product-details']='ApiController/product_details';
-  $route['api/search-product']='ApiController/search_product';
-  $route['api/address']='ApiController/address';
-  $route['api/delete-address']='ApiController/delete_address';
-  $route['api/get-shipping-address']='ApiController/get_shipping_address_list';
-  $route['api/state-list']='ApiController/state_list';
-  $route['api/city-list']='ApiController/get_city_list';
-
-  $route['api/add-cart']='ApiController/add_basket_cart';
   
-  $route['api/size-list']='ApiController/size_list';
-  $route['api/remove-cart-item']='ApiController/remove_cart_item';
-  $route['api/cart-list']='ApiController/cart_list';
-  $route['api/banner-list']='ApiController/banner_list';
-  $route['api/place-order']='ApiController/place_order';
-  $route['api/set-default-address']='ApiController/set_default_address';
-  $route['api/get-default-address']='ApiController/get_default_address';
-  $route['api/apply-coupon']='ApiController/apply_coupon';
-  $route['api/add-gst-details']='ApiController/add_gst_details';
-  $route['api/order-list']='ApiController/order_list';
-  $route['api/order-cancel-by-customer']='ApiController/order_cancel_by_customer';
-  $route['api/product-rating']='ApiController/product_rating';
-  $route['api/get-rating']='ApiController/get_rating';
-  $route['api/review-rating-list']='ApiController/review_rating_list'; 
 
-  //
-  $route['api/coupon-list']='ApiController/getCouponList';
-
+// ===================End API===================================
 
 
 //Apoorv Route

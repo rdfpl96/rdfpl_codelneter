@@ -6,6 +6,20 @@ class Product_model extends CI_Model{
     //$this->load->database();
   }
 
+  public function getItemDetailByProductAndItemId($productId,$itemId){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_product_variants');
+    // $this->db->where('status',1);
+    $this->db->where('variants_product_id',$productId);
+    $this->db->where('variant_id',$itemId);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->row_array();
+    }
+    
+    return $array_data;
+  } 
             
  public function getOtherProductById($product_type_id){
     $array_data=array();
@@ -19,7 +33,6 @@ class Product_model extends CI_Model{
 
       $array_data=$query->result_array();
     }
-    
     return $array_data;
   }
 
