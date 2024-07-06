@@ -90,7 +90,7 @@
                       <a class="m-link " href="https://uat.rdfpl.com/admin/team_manager"><i class="icofont-chart-flow"></i> <span>Teams Manager</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="<?php echo base_url('admin/faq')?"><i class="icofont-chart-flow"></i> <span>FAQ</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/faq')?>"><i class="icofont-chart-flow"></i> <span>FAQ</span> </a>
                    </li>
                    <li>
                       <a class="m-link " href="<?php echo base_url('admin/disclaimer')?>"><i class="icofont-chart-flow"></i> <span>Disclaimer</span> </a>
@@ -98,14 +98,14 @@
                    <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/report"><i class="icofont-chart-flow"></i> <span>Reports</span> </a>
                    </li>
-                   <li class="collapsed">
+                   <!--<li class="collapsed">
                       <a class="m-link " data-bs-toggle="collapse" data-bs-target="#menu-Componentsone-32" href="#"><i class="icofont-chart-flow"></i> <span>Werehouse</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                       <ul class="sub-menu collapse" id="menu-Componentsone-32">
                          <li><a class="ms-link" href="https://uat.rdfpl.com/admin/werehouse_details">Werehouse Details </a></li>
                          <li><a class="ms-link" href="https://uat.rdfpl.com/admin/werehouse">Add Werehouse </a></li>
                          <li><a class="ms-link" href="https://uat.rdfpl.com/admin/pincode">Pincode </a></li>
                       </ul>
-                   </li>
+                   </li>-->
                    <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/other-product"><i class="icofont-chart-flow"></i> <span>Other Product</span> </a>
                    </li>
