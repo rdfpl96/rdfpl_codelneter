@@ -65,7 +65,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                               <input type="hidden" class="form-control" name="blog_id" id="blog_id" value="<?php echo $this->uri->segment(3);?>">
                                                <div class="row">
                                                    <div class="col-md-9">
-                                                       <label  class="form-label">Header Name <span style="color: red;">*</span></label>
+                                                       <label  class="form-label">Header Name 11111111111<span style="color: red;">*</span></label>
                                                        <input type="text" class="form-control" id="blog_header" name="blog_header" value="<?php echo ($product_list!=0)? $product_list[0]->blog_header :'';?>">
                                                    </div>
                                                    <div class="col-md-3">
