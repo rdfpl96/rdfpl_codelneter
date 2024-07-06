@@ -260,8 +260,14 @@ $route['smart-basket'] = 'common/smart_basket';
   //
   $route['api/coupon-list']='ApiController/getCouponList';
 
-// ===================End API===================================
 
+
+//Apoorv Route
+
+$route['customer_list']='AdminPanel/Customer/customer_list';
+$route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
+// ===================End API===================================
+  
 
 
 //$route['default_controller'] = 'frontend';
