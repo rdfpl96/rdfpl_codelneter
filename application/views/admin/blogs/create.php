@@ -59,7 +59,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                          
                            <div class="row g-3 mb-3">
                                <div class="col-xl-12 col-lg-12">
-                                   <!-- <div class="card mb-3"> -->
+                                 
                                        <!-- <div class="card-body"> -->
                  
                                               <input type="hidden" class="form-control" name="blog_id" id="blog_id" value="<?php echo $this->uri->segment(3);?>">
