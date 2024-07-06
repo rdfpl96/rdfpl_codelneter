@@ -12,7 +12,6 @@ class Login extends CI_Controller {
       
 
 
-
    public function index() {
     $email_mobi = $this->input->post('email_mobi');
     $error = 1;
@@ -76,6 +75,7 @@ class Login extends CI_Controller {
         exit;
     }
 }
+
 
 public function otpVerification() {
     $email_mobi = $this->input->post('email_mobi');
