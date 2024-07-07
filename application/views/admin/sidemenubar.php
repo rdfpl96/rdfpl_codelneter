@@ -32,8 +32,8 @@
                    </li>
                    
                   <li class="collapsed">
-                      <a class="m-link " data-bs-toggle="collapse" data-bs-target="#menu-Componentsone-32" href="#"><i class="icofont-chart-flow"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                      <ul class="sub-menu collapse" id="menu-Componentsone-32">
+                      <a class="m-link " data-bs-toggle="collapse" data-bs-target="#menu-Componentsone-33" href="#"><i class="icofont-chart-flow"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                      <ul class="sub-menu collapse" id="menu-Componentsone-33">
                         <li><a class="ms-link" href="<?php echo base_url('admin/product');?>">Product</a></li>
                         <li><a class="ms-link" href="<?php echo base_url('admin/category-with-prodct');?>">Category With Product</a></li>
                         <li><a class="ms-link" href="<?php echo base_url('admin/productItem');?>">Product Item</a></li>
