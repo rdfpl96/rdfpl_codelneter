@@ -189,6 +189,21 @@ public function getBeforeCheckout(){
     return $array_data;
   }
  
+public function delete_address($addr_id) {
+    $this->db->where('addr_id', $addr_id);
+    return $this->db->delete('tbl_address');
+}
+
+public function cancelOrder($order_id) {
+    $this->db->where('order_id ', $order_id);
+    $update_data = array('order_status' => 'cancelled');
+
+    if ($this->db->update('tbl_order_manager', $update_data)) {
+        return true;
+    } else {
+        return false;
+    }
+}
  
 
 }

@@ -183,7 +183,7 @@ $route['delivery-option']='cart/deliveryOption';
 $route['delivery-address']='cart/deliveryAddress';
 $route['payment-option']='cart/paymentOption';
 $route['apply-coupon-code']='cart/applyCouponCode';
-
+$route['delete-address'] = 'cart/delete';
 //
 
 //Wish list

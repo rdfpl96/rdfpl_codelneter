@@ -92,10 +92,10 @@
                                                    <div id="defaAddr">
                                                       <a href="javascript:void(0);" class="apply-addr" onclick="selecAddress(<?php echo $record['addr_id'];?>);return false;">
                                                          <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                               <h4><?php echo ucfirst($record['address_type']);?></h4>
-                                                                <span class="material-symbols-outlined text-white">done</span>
-                                                              </div>
+                                                           <div class="d-flex align-items-center">
+                                                               <span class="material-symbols-outlined text-white">done</span>
+                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="deleteAddress(<?php echo $record['addr_id']; ?>); return false;">delete</span>
+                                                            </div>
                                                             
                                                             <p><?php echo $record['address1']?>, <?php echo $record['address2']?>,<?php echo $record['area']?>
                                                             <br>
@@ -541,4 +541,25 @@ function validatePincode(input) {
      
      initAutocomplete();
    });
+</script>
+<script>
+function deleteAddress(addr_id) {
+    if (confirm('Are you sure you want to delete this address?')) {
+        $.ajax({
+            url: '<?php echo base_url('delete-address'); ?>',
+            type: 'POST',
+            data: { addr_id: addr_id },
+            success: function(response) {
+                if(response.success) {
+                    alert('Address deleted successfully');
+                } else {
+                    alert('Address deleted successfully');
+                }
+            },
+            error: function() {
+                alert('Error deleting address');
+            }
+        });
+    }
+}
 </script>

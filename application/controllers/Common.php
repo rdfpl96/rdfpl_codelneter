@@ -527,15 +527,15 @@ public function add_user_details() {
     $old_password = $this->input->post('old_password');
 
     // Check if email address is being changed and if it already exists
-    if ($oldemailAddress != $emailAddress) {
-        $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
-        if ($getExitEmail != 0) {
-            $data['status'] = 0;
-            $data['message'] = "Email ID Already exists. Please choose another email id.";
-            echo json_encode($data);
-            return;
-        }
-    }
+    // if ($oldemailAddress != $emailAddress) {
+    //     $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
+    //     if ($getExitEmail != 0) {
+    //         $data['status'] = 0;
+    //         $data['message'] = "Email ID Already exists. Please choose another email id.";
+    //         echo json_encode($data);
+    //         return;
+    //     }
+    // }
 
     // Check if mobile number is being changed and if it already exists
     if ($oldmobilename != $mobilename) {
