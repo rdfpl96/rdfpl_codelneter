@@ -1,8 +1,8 @@
 // Pramod
-  var base_url="https://site.rdfpl.com/";
+  //var base_url="https://site.rdfpl.com/";
 
 // Pramod
- // var base_url="http://localhost/rdfpl/";
+ var base_url="http://localhost/rdfpl/";
 
 // function showLogin(){
 //     alert('hi');
@@ -196,48 +196,44 @@ function getChildDataBySubCatId(tocat_id,sub_cat_id){
 
 
 
-//
-// Login process
-// 
-function eraseError(){
-   $('#alertMess').html('');
+ function eraseError(){
+  $('#alertMess').html('');
 }  
 function Login(){
 
-    var email_mobi=$('#email_mobi').val();
-        var html='';
-        $.ajax({ 
-        type: "POST",
-        dataType:"JSON",
-        url: base_url+'login',
-        data:({email_mobi:email_mobi}),
-        success: function(result){
-        if(result.status==1){
-            document.getElementById('email_mobi').readOnly = true;
+   var email_mobi=$('#email_mobi').val();
+       var html='';
+       $.ajax({ 
+       type: "POST",
+       dataType:"JSON",
+       url: base_url+'login',
+       data:({email_mobi:email_mobi}),
+       success: function(result){
+       if(result.status==1){
+           document.getElementById('email_mobi').readOnly = true;
+           
+           $('#editfield').html('<div class="fa fa-pencil" onclick="editlogin()"></div>');
             
-            $('#editfield').html('<div class="fa fa-pencil" onclick="editlogin()"></div>');
-             
-            setTimeout(function() {
-            $('.login-otp-input').fadeIn().css('display','block');
-            }, 1000 );
+           setTimeout(function() {
+           $('.login-otp-input').fadeIn().css('display','block');
+           }, 1000 );
 
-            html='<div class="alert-success alert-div">'+'<strong>Success!</strong> '+result.message+'</div>';
-               $('#otpbtn').html(`<button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold oi confinue-login popup_login_btn" onclick="verifyOtp();return false;">Verify Otp</button>`);
-          }else{
-             html='<div class="alert-danger alert-div">'+
-                       '<strong>Oops!</strong> '+result.message+
-                  '</div>';
-                  $('.oi').addClass('confinue-login');
-             }
-              console.log(html);
-              //loading('loaderdiv_login__','none');
-             $('#alertMess').fadeIn().html(html);
-             
-           }
-        })
-          
-} 
-
+           html='<div class="alert-success alert-div">'+'<strong>Success!</strong> '+result.message+'</div>';
+              $('#otpbtn').html(`<button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold oi confinue-login popup_login_btn" onclick="verifyOtp();return false;">Verify Otp</button>`);
+         }else{
+            html='<div class="alert-danger alert-div">'+
+                      '<strong>Oops!</strong> '+result.message+
+                 '</div>';
+                 $('.oi').addClass('confinue-login');
+            }
+             console.log(html);
+             //loading('loaderdiv_login__','none');
+            $('#alertMess').fadeIn().html(html);
+            
+          }
+       })
+         
+}
 //
 // Edit email/mobile filed
 //
@@ -453,6 +449,48 @@ function saveGst(){
        },
      });
    }
+
+
+   function saveGstDetails(){
+    $('.form-text').text();
+    var formData = new FormData($('#gstdetailsform')[0]);
+      $.ajax({
+         type: 'post',
+         url: $('#gstdetailsform').attr('action'),
+         data: formData,
+         dataType: "json",
+         processData: false,
+         contentType: false,
+         beforeSend: function() {
+         },
+         success: function(res) {
+            if(res.error==0){
+             document.getElementById('errmsg').innerHTML=`<div class="alert alert-success">`+res.err_msg.err_msg+`</div>`;   
+             setTimeout(function(){ document.getElementById('errmsg').innerHTML=""}, 3000);
+            }
+            else if(res.error==1){
+                // console.log(res.err_msg);
+                res.err_msg.forEach(element=>{
+                    // console.log(element);
+                    $('#'+element.error_tag).text(element.err_msg);
+                })
+
+            }else{
+                 document.getElementById('errmsg').innerHTML=`<div class="alert alert-danger">`+res.err_msg.err_msg+`</div>`;
+                setTimeout(function(){document.getElementById('errmsg').innerHTML=""}, 3000); 
+            }
+           
+        },
+       complete: function() {
+            //$.unblockUI();
+         // $('#btn1').css('display', 'block');
+         // $('#btn2').css('display', 'none');
+       },
+       error: function(xhr, status, error) {
+         console.log(error);
+       },
+     });
+   }   
    
   $(document).on('click','.account-details',function(){
 
