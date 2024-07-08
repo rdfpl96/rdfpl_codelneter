@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class login extends CI_Controller {
 
    function __construct(){
         parent::__construct();
 
-          $this->load->model('login_model','loginObj');
+          $this->load->model('frontlogin_model','loginObj');
           $this->load->library('my_libraries');
    }
       
