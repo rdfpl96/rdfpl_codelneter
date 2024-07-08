@@ -31,142 +31,65 @@ class Category extends CI_Controller{
              
    	// }
 
-    function index(){
+       function index() {
+        $menuIdAsKey = 2;
+        $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $page_menu_id = $menuIdAsKey;
     
-        $menuIdAsKey=2;
-        $getAccess=$this->my_libraries->userAthorizetion($menuIdAsKey);
-        $page_menu_id=$menuIdAsKey;
-
-
         $adjacents = 2;
-        $records_per_page =25;
+        $records_per_page = 25;
         $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
         $page = ($page == 0 ? 1 : $page);
-        $start = ($page-1) * $records_per_page;
-        //
-        $name=isset($_POST['name']) && $_POST['name']!='' ? $_POST['name'] : '' ;
-        
-        $array_data=$this->category->getList($start, $records_per_page,$name); 
-
-
-
-        $count=$this->category->record_count($name);
-        
-        $next = $page + 1;    
-        $prev = $page - 1;
-
-        $last_page = ceil($count/$records_per_page);
-        $second_last = $last_page - 1;
-
+        $start = ($page - 1) * $records_per_page;
+    
+        $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
+    
+        $array_data = $this->category->getList($start, $records_per_page, $name);
+        $count = $this->category->record_count($name);
+    
         $i = (($page * $records_per_page) - ($records_per_page - 1));
-        $pagination = "";    
-        
-        if($last_page > 1)
-            {
-            $pagination .= "<div class='pagination'>";
-            if($page > 1)
-                $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($prev).");'>&laquo; Previous&nbsp;&nbsp;</a>";
-            else
-            $pagination.= "<spn class='disabled'>&laquo; Previous&nbsp;&nbsp;</spn>";   
-            if($last_page < 7 + ($adjacents * 2))
-                {   
-                for ($counter = 1; $counter <= $last_page; $counter++)
-                    {
-                    if ($counter == $page)
-                        $pagination.= "<spn class='current'>$counter</spn>";
-                    else
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                    }
-                }
-            elseif($last_page > 5 + ($adjacents * 2))
-                {
-                if($page < 1 + ($adjacents * 2))
-                    {
-                    for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
-                        {
-                        if($counter == $page)
-                            $pagination.= "<spn class='current'>$counter</spn>";
-                        else
-                            $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                        }
-                        $pagination.= "...";
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($second_last).");'> $second_last</a>";
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($last_page).");'>$last_page</a>";   
-                   
-                    }
-               elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
-                    {
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                   $pagination.= "...";
-                   for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
-                        {
-                       if($counter == $page)
-                           $pagination.= "<spn class='current'>$counter</spn>";
-                       else
-                           $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                        }
-                   $pagination.= "..";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($second_last).");'>$second_last</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($last_page).");'>$last_page</a>";   
-                    }
-               else
-                    {
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                   $pagination.= "..";
-                   for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
-                   {
-                       if($counter == $page)
-                            $pagination.= "<spn class='current'>$counter</spn>";
-                       else
-                            $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                   }
-                }
-            }
-            if($page < $counter - 1)
-                $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($next).");'>Next &raquo;</a>";
-            else
-                $pagination.= "<spn class='disabled'>Next &raquo;</spn>";
-            $pagination.= "</div>";       
-            }
-
-            
-        $option='';
-            if(is_array($array_data) && count($array_data)>0){
-
-                foreach($array_data as $record){
-                    $status=isset($record['status']) && $record['status']==1 ?'<span style="color:green">Active</span>' :'<span style="color:red">Inactive</span>' ;
-                   
-                  
-                    $option.='<tr> 
-                                <td>'.$i.'</td>
-                                <td>'.$record['category'].'</td>
-                                <td>'.$record['slug'].'</td>
-                                <td>'.$status.'</td>
-                                <td>'.date('d-m-Y',strtotime($record['add_date'])).'</td>
+        $option = '';
+    
+        if (is_array($array_data) && count($array_data) > 0) {
+            foreach ($array_data as $record) {
+                $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+    
+                $option .= '<tr> 
+                                <td>' . $i . '</td>
+                                <td>' . $record['category'] . '</td>
+                                <td>' . $record['slug'] . '</td>
+                                <td>' . $status . '</td>
+                                <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
-                                <td><a href="'.base_url().'admin/category/edit/'.$record['cat_id'].'" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        </tr>'; 
-                    $i++;                                                     
-                } 
+                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                            </tr>';
+                $i++;
             }
-
-            else{
-                $option.='<tr><td colspan="15" style="color:red;text-align:center">No record</d></tr>';
-            }
-            //
-
-            $output=array('array_data'=>$option,'pagination'=>$pagination,'page_menu_id'=>$page_menu_id,'getAccess'=>$getAccess);    
-            if($this->input->post('method') == "changepage"){
-                echo json_encode($output); 
-                exit();
-            }
-            else
-                {
-                 $this->load->view('admin/category/index',$output);
-            }  
+        } else {
+            $option .= '<tr><td colspan="15" style="color:red;text-align:center">No record</td></tr>';
+        }
+    
+        $output = array('array_data' => $option, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
+    
+        if ($this->input->post('method') == "changepage") {
+            echo json_encode($output);
+            exit();
+        } else {
+            $this->load->view('admin/category/index', $output);
+        }
     }
+    
+    
+
+
+
+
+
+
+
+
+
+
 
     // public function create(){
     // 	$menuIdAsKey=2;

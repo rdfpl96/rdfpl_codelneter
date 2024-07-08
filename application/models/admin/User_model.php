@@ -42,6 +42,21 @@ public function get_users($limit, $start) {
  
  
  
+public function get_user_count_banner() {
+  
+  return $this->db->count_all("tbl_banner");
+}
+ 
+public function get_users_banner($limit, $start) {
+  $this->db->limit($limit, $start);
+  $query = $this->db->get("tbl_banner");
+ 
+  if ($query->num_rows() > 0) {
+      return $query->result();
+  }
+  return false;
+}
+ 
  
  
  

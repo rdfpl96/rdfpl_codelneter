@@ -1,10 +1,10 @@
 
 <?php
-$actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
-if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_type']!='A'){
-    echo "No direct page access allowed";
-    exit;
-   }
+// $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
+// if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_type']!='A'){
+//     echo "No direct page access allowed";
+//     exit;
+//    }
 ?>
 
       <form action="" method="post" id="my-form-banner" enctype="multipart/form-data">
@@ -27,7 +27,7 @@ if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_ty
                                     <a href="<?php echo base_url('admin/ads_banner');?>"><button type="button" class="btn btn-primary giod custom_top_btn_css btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
                                 </div>
                                 <div class="col-md-6">
-                                <button type="button" class="btn btn-primary giod custom_top_btn_css btn-set-task w-sm-100 py-2 px-5 text-uppercase save-banner-ads">Save</button>
+                                <button type="submit" class="btn btn-primary giod custom_top_btn_css btn-set-task w-sm-100 py-2 px-5 text-uppercase s">Save</button>
                                 </div>
                             </div>
                             </div>
@@ -55,19 +55,6 @@ if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_ty
                                                 <input type="text" class="form-control" name="text1" id="text1" value="<?php echo ($banner_details!=0) ? $banner_details[0]->text1 :'';?>" required>
                                                 <span id="text1-error" class="text-danger"></span>
                                             </div>
-
-                                            <!-- <div class="col-md-6">
-                                                <label  class="form-label">Header-2</label>
-                                                <input type="text" class="form-control" name="text2" id="text2" value="<?php //echo ($banner_details!=0) ? $banner_details[0]->text2 :'';?>">
-                                            </div> -->
-                                            
-                                            
-                                            <!-- <div class="col-md-6">
-                                                <label  class="form-label">Short Description</label>
-                                                <textarea type="text" class="form-control" name="short_details" id="short_details"><?php //echo ($banner_details!=0) ? $banner_details[0]->description :'';?></textarea> 
-                                              
-                                            </div> -->
-
                                             <div class="col-md-5">
                                                 <label  class="form-label">Link</label><br>
                                                 <input type="text" class="form-control" name="link" onkeyup="validateLink()" id="link" value="<?php echo ($banner_details!=0) ? $banner_details[0]->button_link :'';?>" required>
@@ -86,12 +73,13 @@ if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_ty
                                                </div>
                                             </div>
 
-                                             
+                                         
                                              <div class="col-md-4">
-                                                <label  class="form-label">Ad Banner Image<span style="color:red;">*</span></label>
+                                              <label  class="form-label">Ad Banner Image<span style="color:red;">*</span></label>
 
                                                 <div class="input-group">
-                                                <input type="file" class="form-control" name="desk_image" id="desk_image">
+                                               
+                                                <input type="file"  class="form-control" name="userfile" />
                                                 <input type="hidden" class="form-control" name="desk_imgPath" id="desk_imgPath" value="<?php echo ($banner_details!=0) ? $banner_details[0]->desk_image :'';?>" >
                                                     <?php
                                                      if($banner_details!=0){
@@ -103,25 +91,6 @@ if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_ty
                                                 </div>
                                                 <span style="color:red;font-size: 13px;">Image dimension should be 760 X 760 Px.</span>
                                               </div>
-
-                                              <!-- <div class="col-md-4">
-                                                <label  class="form-label">Mobile Banner Image<span style="color:red;">*</span></label>
-
-                                                <div class="input-group">
-                                                <input type="file" class="form-control" name="mobile_image" id="mobile_image">
-                                                <input type="hidden" class="form-control" name="mobile_imgPath" id="mobile_imgPath" value="<?php //echo ($banner_details!=0) ? $banner_details[0]->mobile_image :'';?>" > -->
-                                                    <?php
-                                                     // if($banner_details!=0){
-                                                      ?>
-                                                      <!-- <img src="<?php //echo base_url().'uploads/banner/'.$banner_details[0]->mobile_image;?>" style="width:37px;height: 37px;"> -->
-                                                      <?php
-                                                     // }
-                                                    ?>
-                                               <!--  </div>
-                                                <span style="color:red;font-size: 13px;">Image dimension should be 590 X 780 Px.</span>
-                                              </div> -->
-
-
                                         </div>
                                     </div>
 
@@ -130,7 +99,7 @@ if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_ty
                             </div>
                         </div>
                        
-                    </div><!-- Row end  --> 
+                    </div>
                     
                 </div>
             </div>    

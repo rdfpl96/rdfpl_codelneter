@@ -51,9 +51,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                  <?php } ?>
 
                                                 <th>Date</th>
-                                                  <?php if((in_array('edit',$actAcx) || in_array('delete',$actAcx) || in_array('setting',$actAcx)) || $session['admin_type']=='A'){ ?>
+                                                
                                                 <th><span style="float: right;">Action</span></th>
-                                                 <?php } ?>
+                                                 
                                             </tr>
                                         </thead>
                                         <tbody class="row_position_banner">
@@ -116,12 +116,12 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                             <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">
 
 
-                                                                 <?php if(in_array('edit',$actAcx) || $session['admin_type']=='A'){ ?>
+                                                    
                                                                 <a href="<?php echo base_url('admin/add_banner/'.$value->banner_id);?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
-                                                            <?php } ?>
-                                                              <?php if(in_array('delete',$actAcx) || $session['admin_type']=='A'){ ?>
+                                                            
+                                                            
                                                                 <button type="button" class="btn btn-outline-secondary deleteRowClass" id="deleteRow<?php echo $value->banner_id;?>" data-id="<?php echo base64_encode($value->banner_id.':::'.implode(',',$deleteActionArr));?>"><i class="icofont-ui-delete text-danger"></i></button>
-                                                                <?php } ?>
+                                                                
                                                             </div>
                                                         </td>
                                                     </tr>

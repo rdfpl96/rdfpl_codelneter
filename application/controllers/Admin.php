@@ -150,25 +150,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
      }
 
 
-// public function user_list(){
-//           $menuIdAsKey=14;
-//          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-//           $data['page_menu_id']=$menuIdAsKey;
-
-//   // $getCatId=$this->uri->segment(3);
-//   //       $data['category_detaials']=0;
-//   //     if($getCatId!=""){
-//   //       $data['category_detaials']=$this->sqlQuery_model->sql_select_where('tbl_category',array('cat_id'=>$getCatId));
-//   //      }
-
-//           $data['user_list']=$this->sqlQuery_model->sql_select_where('tbl_admin',array('admin_type'=>'U'));
-//           $data['ActiveInactive_ActionArr']=array('table'=>'tbl_admin','primary_key'=>'admin_id','update_target_column'=>'status');
-//           $data['deleteActionArr']=array('table'=>'tbl_admin','primary_key'=>'admin_id');
-
-//   $data['content']='admin/containerPage/user_list';
-//   $this->load->view('admin/template',$data);
-
-// }
 
 
  public function user_list()
@@ -228,20 +209,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $this->load->view('admin/template', $data);
   }
 
-// public function add_user(){
-//           $menuIdAsKey=14;
-//          $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-//           $data['page_menu_id']=$menuIdAsKey;
 
-
-//   $getuserId=$this->uri->segment(3);
-//   $data['user_details']=0;
-//   if($getuserId!=""){
-//      $data['user_details']=$this->sqlQuery_model->sql_select_where('tbl_admin',array('admin_id'=>$getuserId));
-//     }
-//   $data['content']='admin/containerPage/add_user';
-//   $this->load->view('admin/template',$data);
-// }
 //new code
 public function add_user()
   {
@@ -3050,9 +3018,45 @@ public function ads_banner(){
   $menuIdAsKey=33;
    $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
    $data['page_menu_id']=$menuIdAsKey;
-   
-     $data['ads_banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'ads'));
+    
+   $config = array();
+   $config["base_url"] = base_url()."admin/ads_banner";
+   $config["total_rows"] = $this->user_model->get_user_count_banner();
+   $config["per_page"] = 10; // Number of records per page
+   $config["uri_segment"] = 3; // Position of the page number in the URL
 
+   // Customizing pagination
+               
+         $config['full_tag_open'] = '<ul class="pagination">';
+         $config['full_tag_close'] = '</ul>';
+          
+         $config['first_link'] = 'First';
+         $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['first_tag_close'] = '</a></li>';
+          
+         $config['last_link'] = 'Last';
+         $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['last_tag_close'] = '</a></li>';
+          
+         $config['next_link'] = 'Next';//'Next Page';
+         $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['next_tag_close'] = '</a></li>';
+
+         $config['prev_link'] = 'Previous';//'Prev Page';
+         $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['prev_tag_close'] = '</a></li>';
+
+         $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+         $config['cur_tag_close'] = '</a></li>';
+
+         $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+         $config['num_tag_close'] = '</li>';
+
+   $this->pagination->initialize($config);
+   $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+   $data['ads_banner_list'] = $this->user_model->get_users_banner($config["per_page"], $page);
+   $data['pagination'] = $this->pagination->create_links();
+     $data['ads_banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'ads'));
      $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
      $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
 
@@ -3061,39 +3065,142 @@ public function ads_banner(){
 }
 
 
-public function add_banner(){
-    $menuIdAsKey=33;
-    $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-    $data['page_menu_id']=$menuIdAsKey;
 
 
-  $getuserId=$this->uri->segment(3);
-  $data['banner_details']=0;
-   if($getuserId!=""){
-     $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'banner'));
-    }
 
 
-  $data['content']='admin/containerPage/add_banner';
-  $this->load->view('admin/template',$data);
+
+
+
+
+
+
+
+// public function add_banner(){
+//     $menuIdAsKey=33;
+//     $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+//     $data['page_menu_id']=$menuIdAsKey;
+
+
+//   $getuserId=$this->uri->segment(3);
+//   $data['banner_details']=0;
+//    if($getuserId!=""){
+//      $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'banner'));
+//     }
+
+
+//   $data['content']='admin/containerPage/add_banner';
+//   $this->load->view('admin/template',$data);
+// }
+
+// public function add_ads_banner(){
+
+//      $menuIdAsKey=31;
+//     $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+//     $data['page_menu_id']=$menuIdAsKey;
+
+
+//   $getuserId=$this->uri->segment(3);
+//   $data['banner_details']=0;
+//    if($getuserId!=""){
+//      $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'ads'));
+//     }
+
+//   $data['content']='admin/containerPage/add_ads_banner';
+//   $this->load->view('admin/template',$data);
+// }
+
+
+
+
+public function add_ads_banner($bannnerId = null) {
+  $menuIdAsKey = 31;
+  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id'] = $menuIdAsKey;
+
+  // Retrieve banner details if editing
+  $getuserId = $this->input->post('editv');
+
+  $data['banner_details'] = 0;
+  if (!empty($bannnerId)) {
+      $data['banner_details'] = $this->sqlQuery_model->sql_select_where('tbl_banner', array('banner_id' => $bannnerId, 'type' => 'ads'));
+  }
+
+  // Handle form submission
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Validate and sanitize inputs (you should implement validation)
+      $text1 = $this->input->post('text1');
+      $text2 = ''; // Example if you have another field
+      $link = $this->input->post('link');
+      $btn_status = $this->input->post('btn-status') ? 1 : 0; // Checkbox value
+
+      if (!empty($_FILES['userfile']['name'])) {
+        // Handle file upload
+        $upload_path = 'uploads/banner';
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE);
+        }
+
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+        $desk_imgPath = '';
+
+        // Attempt file upload
+        if ($this->upload->do_upload('userfile')) {
+            $upload_data = $this->upload->data();
+            $desk_imgPath = $upload_data['file_name'];
+        } else {
+            $data['upload_error'] = $this->upload->display_errors();
+        }
+      }
+      // Prepare data to insert/update
+      $dataToSave = array(
+          'text1' => $text1,
+          'text2' => $text2,
+          'button_link' => $link,
+          'btn_status' => $btn_status,
+          
+          'type' => 'ads'
+      );
+
+      if (!empty($_FILES['userfile']['name'])) {
+        $dataToSave['desk_image'] = $desk_imgPath;
+      }
+      // Insert or update data based on whether $getuserId is set
+      if (!empty($getuserId)) {
+          // Update existing record
+          $this->sqlQuery_model->sql_update('tbl_banner', $dataToSave, array('banner_id' => $getuserId));
+      } else {
+          // Insert new record
+          $this->sqlQuery_model->sql_insert('tbl_banner', $dataToSave);
+      }
+
+      // Redirect after saving
+      redirect(base_url('admin/ads_banner'));
+  }
+
+  // Load view with data
+  $data['content'] = 'admin/containerPage/add_ads_banner';
+  $this->load->view('admin/template', $data);
 }
 
-public function add_ads_banner(){
-
-     $menuIdAsKey=31;
-    $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-    $data['page_menu_id']=$menuIdAsKey;
 
 
-  $getuserId=$this->uri->segment(3);
-  $data['banner_details']=0;
-   if($getuserId!=""){
-     $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'ads'));
-    }
 
-  $data['content']='admin/containerPage/add_ads_banner';
-  $this->load->view('admin/template',$data);
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

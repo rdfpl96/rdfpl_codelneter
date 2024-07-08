@@ -26,7 +26,7 @@ class Login extends CI_Controller
                     if ($usr_result) {
                          $sessiondata = array('name' => $usr_result['name'], 'username' => $usr_result['username'], 'admin_id' => $usr_result['admin_id'], 'admin_type' => $usr_result['admin_type']);
                          $this->session->set_userdata($sessiondata);
-                         redirect("admin/product/create");
+                         redirect("admin/dashboard");
                     } else {
                          $this->session->set_flashdata('msg', '<p style="color:red">Username or password is wrong !</p>');
                          $this->load->view('admin/login');
