@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $this->load->model('common_model');
         $this->load->model('home_model','home');
         $this->load->library('my_libraries');
+        $this->load->library('customlibrary');
     }
 
 public function shipping_address_save() {
@@ -424,7 +425,7 @@ public function my_address(){
          $data['address']=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_address WHERE $where_and_chain ORDER BY `addr_id` DESC $sql_limit");
          // $data["links"] = $this->pagination->create_links();
 
-
+         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();   
 
           if($data['billingAddress']!=0){
 
@@ -481,7 +482,7 @@ public function my_address(){
 
 
          $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id'=>$user[0]->customer_id));
-
+         //print_r($data); 
         $data['content']='frontend/component/my_address';
         $this->load->view('frontend/template',$data);
 
@@ -755,6 +756,107 @@ public function policy_ajax(){
       echo json_encode($data);
       exit;
     }
+}
+
+public function save_gst_details(){
+    $error =0;
+    $error_array=array();
+    if($this->input->is_ajax_request()){
+
+      $form_detail=$_POST;
+      $userCookies=getCookies('customer');
+      //$userCookies['customer_id']
+
+      $nv = array(
+         
+          'customer_id'           => $userCookies['customer_id'],
+          'registration_no'       => isset($form_detail['registration_no'])             && $form_detail['registration_no'] != ''               ? addslashes($form_detail['registration_no'])            :  "",
+          'company_name'          => isset($form_detail['company_name'])                && $form_detail['company_name'] != ''                  ? addslashes($form_detail['company_name'])               :  "",
+          'company_address'       => isset($form_detail['company_address'])             && $form_detail['company_address'] != ''               ? addslashes($form_detail['company_address'])            :  "",
+          'pincode'              => isset($form_detail['pincode'])                     && $form_detail['pincode'] != ''                       ? addslashes($form_detail['pincode'])                    :  "",
+          'fssai_no'              => isset($form_detail['fssai_no'])                    && $form_detail['fssai_no'] != ''                      ? addslashes($form_detail['fssai_no'])                   :  "",
+       );
+
+        
+
+       if($nv['registration_no'] == ''){
+          $error=1;
+          $errorArr['error_tag'] ='er_registration_no';
+          $errorArr['err_msg'] = "Please enter registration no.";
+          $error_array[]=$errorArr;
+       }
+       if($this->common_model->isGstNumberUnigue($nv['registration_no'])){
+          $error=1;
+          $errorArr['error_tag']='er_registration_no';
+          $errorArr['err_msg']= "Gst number already present";
+          $error_array[]=$errorArr;
+       }
+       if($nv['company_name'] == ''){
+          $error=1;
+          $errorArr['error_tag']='er_company_name';
+          $errorArr['err_msg']= "Please enter company name";
+          $error_array[]=$errorArr;
+       }
+       if(!preg_match('/^[\p{L} ]+$/u', $nv['company_name'])){
+          $error=1;
+          $errorArr['error_tag']='er_company_name';
+          $errorArr['err_msg']= "Name must contain letters and spaces only";
+          $error_array[]=$errorArr;
+       }
+       if ($nv['company_address'] == ''){
+          $error=1;
+          $errorArr['error_tag']='er_company_address';
+          $errorArr['err_msg']= "Name must contain letters and spaces only";
+          $error_array[]=$errorArr;
+       }
+       if($nv['pincode']==''){
+           $error=1;
+          $errorArr['error_tag']='er_pincode';
+          $errorArr['err_msg']= "Please enter pincode";
+          $error_array[]=$errorArr;
+       }
+       if($nv['pincode']!= '' && strlen($nv['pincode'])!=6){
+          $error=1;
+          $errorArr['error_tag']='er_pincode';
+          $errorArr['err_msg']="Pincod must have 6 digits";
+          $error_array[]=$errorArr;
+        }
+
+        if($nv['fssai_no'] == ''){
+           $error=1;
+          $errorArr['error_tag']='er_fssai_no';
+          $errorArr['err_msg']= "Please enter fssai no";
+          $error_array[]=$errorArr;
+       }
+
+      if($error==0){
+          
+          if($this->common_model->chkGSTPresent($userCookies['customer_id'])){
+
+              $this->common_model->updateCustomerGst($nv);
+              $error=0;
+              $error_array['error_tag']='';
+              $error_array['err_msg']="GST detail updated";
+
+          }else{
+
+              $this->common_model->saveCustomerGst($nv);
+
+              $error=0;
+              $error_array['error_tag']='';
+              $error_array['err_msg']="GST detail save";
+          }
+           
+      }
+
+      $response= array('error' => $error, 'err_msg' => $error_array);
+  }else{
+      $response= array('error' =>2, 'err_msg' =>"Method not allowed");
+  }
+
+  echo json_encode($response);
+  exit();
+   
 }
     
 }

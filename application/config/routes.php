@@ -219,6 +219,7 @@ $route['add-address']='common/add_address';
 $route['billing-address']='common/billing_address';
 $route['email-addresses'] = 'common/email_addresses';
 $route['smart-basket'] = 'common/smart_basket';
+$route['save-gst-details']='common/save_gst_details';
 // ====================End Fronted ===========================
 
 

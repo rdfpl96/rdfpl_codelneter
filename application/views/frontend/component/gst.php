@@ -13,7 +13,7 @@
                  <span id="er_company_address" class="form-text" style="color: red;"></span>
             </div>
              <div class="form-group col-lg-6">
-                <input class="form-control" name="pincode" id="pincode" type="text" placeholder="Pincode *" maxlength="6"> value="<?php echo isset($gstDetail['pincode']) ? stripslashes($gstDetail['pincode']) : "" ?>">
+                <input class="form-control" name="pincode" id="pincode" type="text" placeholder="Pincode *" maxlength="6" value="<?php echo isset($gstDetail['pincode']) ? stripslashes($gstDetail['pincode']) : "" ?>">
                 <span id="er_pincode" class="form-text" style="color: red;"></span>
             </div>
 

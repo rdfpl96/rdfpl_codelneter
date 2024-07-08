@@ -73,7 +73,54 @@ public function check_existing_email($customer_id, $email) {
         } else {
             return array();
         }
-    }    
+    }
+    
+    public function isGstNumberUnigue($gst_no){
+        $this->db->select('*');
+        $this->db->from('tbl_gst');
+        $this->db->where('registration_no',$gst_no);
+        $query=$this->db->get() ;
+        if($query->num_rows()>0){ 
+         return true;
+        }else{
+          return false;
+        }
+      }   
+      
+    public function chkGSTPresent($customer_id){
+        $this->db->select('*');
+        $this->db->from('tbl_gst');
+        $this->db->where('customer_id',$customer_id);
+        $query=$this->db->get() ;
+        if($query->num_rows()>0){ 
+         return true;
+        }else{
+          return false;
+        }
+    } 
+    
+    public function updateCustomerGst($nv) {
+        $this->db->where('customer_id', $nv['customer_id']);
+        return $this->db->update('tbl_gst', $nv);
+    }
+
+    public function saveCustomerGst($array_data){
+        $this->db->trans_begin(); 
+        // product Insert
+        $this->db->insert('tbl_gst', $array_data);
+        $last_id= $this->db->insert_id();
+    
+        
+        if($this->db->trans_status() === FALSE){
+          $this->db->trans_rollback();
+          return false;
+        }else{
+          $this->db->trans_commit();
+          
+          return $last_id;
+        }
+    
+     }
   
 }
 ?>

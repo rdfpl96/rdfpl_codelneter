@@ -121,6 +121,10 @@ public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
     } 
   }
 
+  public function updateCustomerGst($nv) {
+    $this->db->where('customer_id', $nv['customer_id']);
+    return $this->db->update('tbl_gst', $nv);
+}
 
   
  
