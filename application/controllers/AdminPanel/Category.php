@@ -25,57 +25,85 @@ class Category extends CI_Controller{
   
   	}
 
-    // function index(){
-            
-    //      $this->load->view('admin/category/index');
-             
-   	// }
+  
 
-       function index() {
+       public function index() {
+
+
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
     
         $adjacents = 2;
-        $records_per_page = 25;
-        $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-        $page = ($page == 0 ? 1 : $page);
-        $start = ($page - 1) * $records_per_page;
+        $config = array();
+        $config["base_url"] = base_url()."admin/category";
+        $config["total_rows"] = $this->category->get_user_count_category();
+        $config["per_page"] = 10; // Number of records per page
+        $config["uri_segment"] = 4; // Position of the page number in the URL
     
-        $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
+        // Customizing pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
     
-        $array_data = $this->category->getList($start, $records_per_page, $name);
-        $count = $this->category->record_count($name);
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item"><a href="#" class="page-link">';
+        $config['first_tag_close'] = '</a></li>';
     
-        $i = (($page * $records_per_page) - ($records_per_page - 1));
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item"><a href="#" class="page-link">';
+        $config['last_tag_close'] = '</a></li>';
+    
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="paginate_button page-item"><a href="#" class="page-link">';
+        $config['next_tag_close'] = '</a></li>';
+    
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item"><a href="#" class="page-link">';
+        $config['prev_tag_close'] = '</a></li>';
+    
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+    
+        $config['num_tag_open'] = '<li class="paginate_button page-item"><a href="#" class="page-link">';
+        $config['num_tag_close'] = '</li>';
+    
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $data['ads_banner_list'] = $this->category->get_users_category($config["per_page"], $page);
+        $data['pagination'] = $this->pagination->create_links();
+    
+        $name = $this->input->post('name');
+    
+        $array_data = $this->category->getList($page, $config["per_page"], $name);
+    
+
         $option = '';
-    
         if (is_array($array_data) && count($array_data) > 0) {
-            foreach ($array_data as $record) {
+            foreach ($array_data as $i => $record) {
                 $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-    
                 $option .= '<tr> 
-                                <td>' . $i . '</td>
+                                <td>' . ($i + 1) . '</td>
                                 <td>' . $record['category'] . '</td>
                                 <td>' . $record['slug'] . '</td>
                                 <td>' . $status . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
-                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td><a href="' . base_url() . 'admin/category/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
                             </tr>';
-                $i++;
             }
         } else {
             $option .= '<tr><td colspan="15" style="color:red;text-align:center">No record</td></tr>';
         }
     
-        $output = array('array_data' => $option, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
+        $data['array_data'] = $option;
+        $data['page_menu_id'] = $page_menu_id;
+        $data['getAccess'] = $getAccess;
     
         if ($this->input->post('method') == "changepage") {
-            echo json_encode($output);
+            echo json_encode($data);
             exit();
         } else {
-            $this->load->view('admin/category/index', $output);
+            $this->load->view('admin/category/index', $data);
         }
     }
     
@@ -142,7 +170,12 @@ class Category extends CI_Controller{
         $this->load->view('admin/category/create');
     }
 
-        public function store() {
+
+
+
+
+    public function store()
+    {
         $category_name = $this->input->post('category_name');
         $category_slug = $this->input->post('slug');
 
@@ -163,7 +196,9 @@ public function edit($id) {
         $this->load->view('admin/category/edit', $data);
     } 
 
-public function update($id) {
+
+
+     public function update($id) {
         $data = array(
             'category' => $this->input->post('category_name'),
             'slug' => $this->input->post('slug')
@@ -178,5 +213,14 @@ public function update($id) {
         redirect('admin/category/index');
     }
 
+
+
+
+
+
+
+
 }
+
+
 ?>

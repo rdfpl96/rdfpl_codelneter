@@ -3161,8 +3161,7 @@ public function add_ads_banner($bannnerId = null) {
           'text1' => $text1,
           'text2' => $text2,
           'button_link' => $link,
-          'btn_status' => $btn_status,
-          
+          'btn_status' => $btn_status,          
           'type' => 'ads'
       );
 
