@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Frontlogin_model extends CI_Model{
+class Frontlogin_model extends CI_Model{ 
   function __construct(){
     parent::__construct();
     //$this->load->database();
