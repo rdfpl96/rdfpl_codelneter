@@ -400,16 +400,16 @@ public function my_order() {
 }
 
 public function my_address(){
-     $user=$this->my_libraries->mh_getCookies('customer');
-    if($user!=""){
+    $user=$this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+        $customer_id = $user['customer_id'];
        
-       
-       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'address_type'=>'billingAddress'));
+       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
 
-         $shipAddr=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id));
+         $shipAddr=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id));
          $where['status']=1;
-         $where['customer_id']=$user[0]->customer_id;
+         $where['customer_id']=$customer_id;
          $where_and_chain=queryChain($where);
 
          // $pr_list_count=$shipAddr;
@@ -425,8 +425,7 @@ public function my_address(){
          $data['address']=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_address WHERE $where_and_chain ORDER BY `addr_id` DESC $sql_limit");
          // $data["links"] = $this->pagination->create_links();
 
-         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();   
-
+         
           if($data['billingAddress']!=0){
 
                 foreach($data['billingAddress'] as $value){
@@ -454,7 +453,7 @@ public function my_address(){
           }
 
       
-      $data['shippingAddress_defualt']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'setAddressDefault'=>1));
+      $data['shippingAddress_defualt']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'setAddressDefault'=>1));
 
 
             if($data['shippingAddress_defualt']!=0){
@@ -480,8 +479,8 @@ public function my_address(){
 
 
 
-
-         $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id'=>$user[0]->customer_id));
+        $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();  
+        $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id' => $customer_id));
          //print_r($data); 
         $data['content']='frontend/component/my_address';
         $this->load->view('frontend/template',$data);
@@ -575,12 +574,13 @@ public function add_user_details() {
 }
 
 public function billing_address(){
-     $user=$this->my_libraries->mh_getCookies('customer');
-         if($user!=""){
-      $conutry=101;
-      $data['status']=$this->sqlQuery_model->sql_select_where('states',array('country_id'=>$conutry)); 
+    $user=$this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+    $customer_id = $user['customer_id'];
+    $conutry=101;
+    $data['status']=$this->sqlQuery_model->sql_select_where('states',array('country_id'=>$conutry)); 
       
-       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'address_type'=>'billingAddress'));
+       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
        // echo "<pre>";
        // print_r($data['billingAddress']);
@@ -612,14 +612,147 @@ public function billing_address(){
           }
     
     
-       $data['pageType']='billing-address';
-      $data['content']='frontend/component/billing_address';
-      $this->load->view('frontend/template',$data);
+    $data['pageType']='billing-address';
+    $data['content']='frontend/component/billing_address';
+    $this->load->view('frontend/template',$data);
 
-     }else{
+    }else{
         redirect(base_url(), 'refresh');
-     }
+    }
 }
+
+public function add_billingaddress(){
+
+        
+    $user=$this->my_libraries->mh_getCookies('customer');
+    $customer_id = $user['customer_id'];
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+       $data['status']=0;
+       $data['message']="Please Login your account.";
+       echo json_encode($data);
+       exit;
+     }
+
+     $apart_house=$this->input->post('apart_house');
+     $apart_name=$this->input->post('apart_name');
+     $area=$this->input->post('area');
+     $street_landmark=$this->input->post('street_landmark');
+     $fname=$this->input->post('fname');
+     $lname=$this->input->post('lname');
+     $mobile1=$this->input->post('mobile');
+
+     // $conutry=$this->input->post('conutry');
+     $state=$this->input->post('state');
+     $city=$this->input->post('city');
+     $pincode=$this->input->post('pincode');
+     // $address1=$this->input->post('address1');
+
+     // $address2=$this->input->post('address2');
+     // $landmark=$this->input->post('landmark');
+     // $company=$this->input->post('company');
+     // $fname=$this->input->post('fname');
+     // $lname=$this->input->post('lname');
+     // $mobile1=$this->input->post('mobile1');
+     // $mobile2=$this->input->post('mobile2');
+
+     // $email=$this->input->post('email');
+     $loc_type=$this->input->post('loc_type');
+     $other_loc=$this->input->post('other_loc');
+   
+    $address_id=$this->input->post('addre_id');
+
+     // if($loc_type=="Other"){
+     //   $nickname_n=$input_nick_name;
+     //   $nickname=$nick_name;
+     // }else{
+     //   $nickname=$nick_name;
+     //   $nickname_n="";
+     // }
+
+
+       // $takeWay='';
+       // $actionType=1;
+       // $columsName=$this->my_libraries->deliveryTypeDisplayProduct($pincode,$takeWay,$actionType);
+    
+       //  if($columsName[0]==""){
+       //     $data['status']=0;
+       //     $data['message']=$this->config->item('pincode_not_found');
+       //     echo json_encode($data);
+       //     exit;
+       // }else{
+       //   $session = array('value' =>$pincode,'location'=>$columsName[1]);
+       //   $this->my_libraries->setLocationPinforUser($session,$user);
+       //   $this->session->set_userdata('dlivetype',1);
+       //   $this->session->set_userdata('valueType',$session);
+       // }
+       
+     $conutry=101;
+      $postArr=array(
+                    'country_id'=>$conutry,
+                    'country' =>$this->my_libraries->getCountry_name($conutry),
+                    'state_id' =>$state,
+                    'state' =>$this->my_libraries->getState_name($state),
+                    'city_id' =>$city,
+                    'city' =>$this->my_libraries->getCity_name($city),
+                    'address1' =>$apart_house,
+                    'address2' =>$apart_name,
+                    'area'=>$area,
+                    'pincode' =>$pincode,
+                    'landmark' =>$street_landmark,
+                    // 'company_name' =>$company,
+                    'fname' =>$fname,
+                    'lname' =>$lname,
+                    'mobile1' =>$mobile1,
+                    // 'mobile2' =>$mobile2,
+                    // 'email'  =>$email,
+                    'nick_name'  =>$loc_type,
+                    'others'=>$other_loc
+                    );
+
+
+             if($address_id==""){
+
+                $postArr['customer_id']=array('customer_id' => $customer_id);
+                $postArr['address_type']=$this->input->post('add_type');
+                $postSql=$this->sqlQuery_model->sql_insert('tbl_address',$postArr);
+
+                 $getinsertId=$this->sqlQuery_model->get_last_inset_id('tbl_address');
+                 $row_sql_update=$this->my_libraries->setDefaultAddressOnupdate(array('customer_id' => $customer_id,$getinsertId));
+
+                      if($postSql){
+                          $data['status']=1;
+                          $data['message']="Address added successfully";
+                          echo json_encode($data);
+                          exit;
+                       }else{
+                          $data['status']=0;
+                          $data['message']="Failed to added";
+                          echo json_encode($data);
+                          exit;
+                       }
+               
+             }else{
+
+               
+                  $updateSql=$this->sqlQuery_model->sql_update('tbl_address',$postArr,array('addr_id'=>$address_id));
+
+                   if($updateSql){
+                      $data['status']=1;
+                      $data['message']="Address updated successfully";
+                      echo json_encode($data);
+                      exit;
+                   }else{
+                      $data['status']=0;
+                      $data['message']="Failed to update";
+                      echo json_encode($data);
+                      exit;
+                   }
+             }
+           
+}
+
+
+
 
 public function email_addresses() {
     $user = $this->my_libraries->mh_getCookies('customer');

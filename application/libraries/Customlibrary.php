@@ -28,7 +28,7 @@ class Customlibrary
         $return=array();
         $this->CI->db->select('*');
         $this->CI->db->from('tbl_gst');
-        $this->CI->db->where('status',1);
+        //$this->CI->db->where('status',1);
         $this->CI->db->where('customer_id',$this->customerId);
         $query=$this->CI->db->get() ; 
         if($query->num_rows()>0){

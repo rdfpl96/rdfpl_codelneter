@@ -26,14 +26,14 @@
                 <span id="er_fssai_no" class="form-text" style="color: red;"></span>
             </div>
            
-            <!-- <div class="form-group col-lg-6">
+            <div class="form-group col-lg-6">
                 <input type="text" class="input-disabled" name="gst_contact" id="gst_contact" value="<?php echo ($cusotmer_details!=0) ? $cusotmer_details[0]->mobile :'';?>" placeholder="Contact Number (Optional)" readonly>
                 <span id="er_mobile" class="form-text" style="color: red;"></span>
             </div>
             
             <div class="form-group col-lg-6">
                 <input type="text" class="input-disabled" name="gstemail" id="gstemail" value="<?php echo ($cusotmer_details!=0) ? $cusotmer_details[0]->email :'';?>" placeholder="Email ID (Optional)" readonly>
-                 <span id="er_email" class="form-text" style="color: red;"></span> -->
+                 <span id="er_email" class="form-text" style="color: red;"></span> 
             </div>
             <div class="form-group col-lg-12" id="errmsg"></div>
             <div class="form-group col-lg-6">
