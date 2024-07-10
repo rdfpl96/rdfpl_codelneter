@@ -2047,9 +2047,8 @@ public function food_habitats(){
 
     $pr_list_count = $this->sqlQuery_model->getOrderDetails();
 
-
     $url_link = base_url('admin/product_order'); 
-    $limit_per_page = 10;
+    $limit_per_page = 1;
     $getVariable = $this->input->get('per_page');
     $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0) : 0;
     $total_records = ($pr_list_count != 0) ? count($pr_list_count) : 0;
@@ -2069,229 +2068,107 @@ public function food_habitats(){
 }
 
 
+public function search_order_list()
+{
+    $menuIdAsKey = 3;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
 
+    $keywords = $this->input->post('searchText');
+    $fromDate = $this->input->post('fromDate');
+    $toDate = $this->input->post('toDate');
 
+    // Pass the search parameters to the model method
+    $data['order_list'] = $this->sqlQuery_model->getOrderDetails1($keywords, $fromDate, $toDate);
 
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-public function export_OrderList(){
-    while (ob_get_level()) {
-            ob_end_clean();
-        }
-    $filename = 'OrderList_'.date('Y-m-d_h-i').'.csv';
-    header("Content-Description: File Transfer");
-    header("Content-Disposition: attachment; filename=$filename");
-    header("Content-Type: application/csv; "); 
-
-   $getKeywords=$this->input->post('getKeywords');
-   $fromDate=$this->input->post('fromDate');
-   $toDate=$this->input->post('toDate');
-   $orderStatus=$this->input->post('orderSttus');
-
-
-      $ordStatus='ord_status=1';
-
-      if($fromDate!="" && $toDate!=""){
-        $searchDateRange="AND (order_date >= '".$fromDate."' AND order_date <='".$toDate."')";
-      }else{
-        $searchDateRange='';
-      }
-     
-     
-     if($getKeywords!=""){
-      $likeSearch="AND (order_generated_order_id LIKE '%".$getKeywords."%' OR 
-           order_name LIKE'%".$getKeywords."%' OR 
-           order_state LIKE'%".$getKeywords."%' OR 
-           order_city LIKE'%".$getKeywords."%' OR 
-           order_pincode LIKE'%".$getKeywords."%' OR 
-           order_email='%".$getKeywords."%') ";
-     }else{
-      $likeSearch="";
-     }
-
-
-     if($orderStatus!=""){
-          $arrcoll=array();
-         foreach($orderStatus as $value){
-           array_push($arrcoll, '\''.$value.'\'');
-         }
-
-      $inValue= "AND order_status IN (".implode(',', $arrcoll).")";
-     }else{
-      $inValue='';
-     }
-           
-
-       $querys="SELECT * FROM tbl_order_manager WHERE $ordStatus $likeSearch $searchDateRange $inValue";
-       $order_list=$this->sqlQuery_model->sql_query($querys);
-
-
-       // echo "<pre>";
-       // print_r($order_list);
-       // echo "</pre>";
-       // exit;
+    // echo "<pre>";
+    // print_r($data['order_list']);
+    // die();
 
     
-      $querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE $ordStatus $likeSearch $searchDateRange $inValue";
-      $_order_amount=$this->sqlQuery_model->sql_query($querys_total_amount);
-      $totalAmount =(($_order_amount[0]->total_amount!="") ? $_order_amount[0]->total_amount : '0.00');
-
-    
-          $file = fopen('php://output', 'w');
-   
-          $header = array(
-                  "Order Id",
-                  // "WareIq unique Id",
-                  "Order Status",
-                  "Shipping Charges",
-                  "Total Selling Amount",
-                  "Coupon Amount",
-                  "Total Amount",
-                  "Total Qty",
-                  "Total Qty Weight",
-                  // "Take Away",
-
-                  "Ship Customer Name",
-                  "Ship Customer Mobile",
-                  // "Ship Customer Alt Mobile",
-                  "Ship Email",
-                  // "Ship Country",
-                  "Ship State",
-                  "Ship City",
-                  // "Ship Locality",
-                  "Ship Pincode",
-                  "Ship Address Type",
-                  "Ship Address",
-                  "Ship Alt Address",
-                  "Ship Landmark",
-                  "Ship Area",
-                  // "Ship Company Name",
-
-                  "Bill Customer Name",
-                  "Bill Customer Mobile",
-                  // "Bill Customer Alt Mobile",
-                  "Bill Email",
-                  // "Bill Country",
-                  "Bill State",
-                  "Bill City",
-                  "Bill Pincode",
-                  "Bill Address Type",
-                  "Bill Address",
-                  "Bill Alt Address",
-                  "Bill Landmark",
-                  "Bill Area",
-                  // "Bill Company Name",
-
-                  
-                  "Registration",
-                  "Company Name",
-                  "Company Address",
-                  
-                  "Reason disc",
-                  // "Updated By",
-                  // "Razorpay Payment Id",
-                  // "Razorpay Order Id",
-
-                  // "Customer Remark",
-                  // "Customer Greeting",
-                  "Order Payment",
-                  "Payment Status",
-                  "Order Date"
-                 );
-          fputcsv($file, $header);
-          $l=array();
-
-          foreach ($order_list as $key=>$line){
-
-
-            $l['order_generated_order_id'] = $line->order_generated_order_id;
-            // $l['courier_unique_id'] = $line->courier_unique_id;
-            $l['order_status'] = $line->order_status;
-            $l['order_shipping_charges'] =$line->order_shipping_charges;
-            $l['order_total_purchase_amount'] = $line->order_total_purchase_amount;
-            $l['order_coupon_offer_amt'] = $line->order_coupon_offer_amt;
-            $l['order_total_final_amt'] = $line->order_total_final_amt;
-            $l['total_qty'] = $line->total_qty;
-            $l['total_weight'] = '\''.$line->total_weight;
-            // $l['take_away'] = $line->take_away;
-
-            $l['order_name'] = $line->order_name;
-            $l['order_mobile_no'] = $line->order_mobile_no;
-            // $l['order_alt_mobile_no'] = $line->order_alt_mobile_no;
-            $l['order_email'] = $line->order_email;
-            // $l['order_country'] = $line->order_country;
-            $l['order_state'] = $line->order_state;
-            $l['order_city'] = $line->order_city;
-            // $l['order_locality'] = $line->order_locality;
-            $l['order_pincode'] = $line->order_pincode;
-            $l['order_type_of_address'] = $line->order_type_of_address. ' ' .(($line->order_type_of_address=='Others') ? '-'.$line->order_type_of_address_others_value : '');
-            $l['order_address'] = $line->order_address; 
-            $l['order_alt_address'] = $line->order_alt_address;
-            $l['order_landmark'] = $line->order_landmark;
-            $l['order_area']=$line->order_area;
-            // $l['order_company_name'] = $line->order_company_name;
-
-
-            $l['bill_order_name'] = $line->bill_order_name;
-            $l['bill_order_mobile_no'] = $line->bill_order_mobile_no;
-            // $l['bill_order_alt_mobile_no'] = $line->bill_order_alt_mobile_no;
-            $l['bill_order_email'] = $line->bill_order_email;
-            // $l['bill_order_country'] = $line->bill_order_country;
-            $l['bill_order_state'] = $line->bill_order_state;
-            $l['bill_order_city'] = $line->bill_order_city;
-            $l['bill_order_pincode'] = $line->bill_order_pincode;
-  
-            
-            $l['bill_order_type_of_address'] = $line->bill_order_type_of_address. ' ' .(($line->bill_order_type_of_address=='Others') ? '-'.$line->bill_order_type_of_address_others_value : '');
-            $l['bill_order_address'] = $line->bill_order_address; 
-            $l['bill_order_alt_address'] = $line->bill_order_alt_address;
-            $l['bill_order_landmark'] = $line->bill_order_landmark;
-            $l['bill_order_area']= $line->bill_order_area;
-            // $l['bill_order_company_name'] = $line->bill_order_company_name;
-
-            $l['registration'] = $line->registration;
-            $l['company_name'] = $line->company_name;
-            $l['company_address'] = $line->company_address;
-
-            $l['order_reason_disc'] = $line->order_reason_disc;
-            // $l['order_updated_by'] =  $line->order_updated_by;
-
-            // $l['razorpay_payment_id'] = $line->razorpay_payment_id;
-            // $l['razorpay_order_id'] = $line->razorpay_order_id;
-
-            // $l['order_customer_remark'] = $line->order_customer_remark;
-            // $l['order_customer_greating'] = $line->order_customer_greating;
-            $l['order_payment'] = $line->order_payment;
-            $l['order_payment_status'] = $line->order_payment_status;
-            $l['order_add_date'] = $line->order_add_date;
-
-
-           
-            fputcsv($file,$l);
-           }
-
-
-            $lastLine = array("","","","","Total Amount : ",$totalAmount,"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","");
-
-           fputcsv($file,$lastLine);
-
-          fclose($file);
-          exit; 
-
+    $this->load->view('admin/containerPage/product_order_searchlist',$data);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// public function xyz(){
+//   // alert('xyz');
+//   $orderId=$this->input->post('getKeywords');
+// echo '<pre>';
+// print_r($orderId);
+// exit();
+// }
+
+
+
+
+
+public function export_OrderList() {
+
+  $order_list = $this->sqlQuery_model->getOrderDetails();
+
+  // Debugging line, can be removed after confirming the data
+  // echo '<pre>';
+  // print_r($order_list);
+  // die();
+
+  // Set headers to force download the CSV file
+  header('Content-Type: text/csv');
+  header('Content-Disposition: attachment; filename="order_list.csv"');
+
+  $file = fopen('php://output', 'w');
+
+  $header = array(
+      "ORDER ID",
+      "CUSTOMER NAME",
+      "LOCATION",
+      "ORDER AMOUNT",
+      "STATUS",
+      "PAY STATUS",
+      "ORDER DATE",
+  );
+
+  fputcsv($file, $header);
+
+  foreach ($order_list as $line) {
+      $data = array(
+          $line['order_no'],
+          $line['customer_name'],
+          $line['location'],
+          $line['order_amount'],
+          isset($line['status']) ? $line['status'] : '',  // Ensure status is handled even if not present
+          isset($line['pay_status']) ? $line['pay_status'] : '',  // Ensure pay status is handled even if not present
+          $line['order_date']
+      );
+
+      fputcsv($file, $data);
+  }
+
+  fclose($file);
+  exit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

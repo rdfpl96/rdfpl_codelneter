@@ -1,7 +1,3 @@
-
-
-
-
 <div class="body d-flex py-3">
     <div class="container-xxl">
         <div class="row align-items-center">
@@ -40,12 +36,19 @@
                                             <input type="date" class="form-control w-100 searchDate" id="toDate" name="toDate" value="">
                                         </div>
                                         <div class="col-md-4">
-                                            <button type="submit" class="form-label btn btn-sm btn-secondary btn-upload" style="color:white; margin-top: 10.9%;">
+                                            <button type="submit" class="form-label btn btn-sm btn-secondary" style="color:white; margin-top: 10.9%;">
                                                 <span class="docs-tooltip" data-toggle="tooltip" title="" data-bs-original-title="Import image with Blob URLs">Export</span>
                                             </button>
+
+
                                         </div>
+
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary" >Search</button>
+                                    </button>
+                                </div> -->
                             </div>
                             <br>
                         </form>
@@ -83,7 +86,8 @@
                                                 <td><?php echo $order['customer_name']; ?></td>
                                                 <td><?php echo $order['location']; ?></td>
                                                 <td><?php echo $order['order_amount']; ?></td>
-                                                <td  style="background-color: #689F39;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
+                                                
+                                                <td class="badge" style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
                                                 <td style="background-color: #689F39;"><?php echo !empty($order['pay_status']) ? $order['pay_status'] : 'Pending'; ?></td>
                                                 <td><?php echo $order['order_date']; ?></td>
                                                 <!-- <td><a href="<?php //echo base_url('admin/order_details/' . $order['order_no']); 
@@ -109,3 +113,54 @@
         </div> <!-- Row end -->
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function() {
+    $('#search-orders').keyup(function() {
+
+        // var searchText = $(this).val();
+
+        $.ajax({
+            url: "<?php echo base_url('admin/search_order_list')?>",
+            type: 'POST',
+            data: {
+                searchText:$('#search-orders').val(),
+                fromDate: $('#fromDate').val(),
+                toDate: $('#toDate').val()
+                  },
+            success: function(response) {
+                $('#trRow').html(response);
+            }
+        });
+
+    });
+});
+
+$(document).ready(function() {
+    $('.searchDate').on('change' , function() {
+
+        // var searchText = $(this).val();
+
+        $.ajax({
+            url: "<?php echo base_url('admin/search_order_list')?>",
+            type: 'POST',
+            data: {
+                searchText:$('#search-orders').val(),
+                fromDate: $('#fromDate').val(),
+                toDate: $('#toDate').val()
+                  },
+            success: function(response) {
+                $('#trRow').html(response);
+            }
+        });
+
+    });
+});
+
+
+</script>
+
+
