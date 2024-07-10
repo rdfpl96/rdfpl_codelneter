@@ -377,12 +377,10 @@ public function my_order() {
     $user = $this->my_libraries->mh_getCookies('customer');
     
     if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
-        $customer_id = (int)$user['customer_id']; // Ensure it is an integer
+        $customer_id = (int)$user['customer_id'];
 
         // Load the model
         $this->load->model('Common_model');
-
-        // Fetch the orders for the logged-in customer using the model
         $data['getOrders'] = $this->common_model->getCustomerOrders($customer_id);
         // echo '<pre>';
         // print_r($data);
@@ -622,7 +620,7 @@ public function billing_address(){
 }
 
 public function add_billingaddress(){
-
+//echo "hjahskjd";
         
     $user=$this->my_libraries->mh_getCookies('customer');
     $customer_id = $user['customer_id'];
@@ -708,7 +706,7 @@ public function add_billingaddress(){
                     'nick_name'  =>$loc_type,
                     'others'=>$other_loc
                     );
-
+       // print_r($postArr);            
 
              if($address_id==""){
 
