@@ -72,7 +72,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                
                                                 <div class="col-md-6">
                                                     <label  class="form-label">Product name <span style="color:red;">*</span></label>
-                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo $category->category; ?>" required placeholder="Please product name">
+                                                    <input type="text" class="form-control pname" id="category" name="category" value="<?php echo $category->category; ?>" required placeholder="Please product name">
                                                 </div>
 
 

@@ -6,6 +6,7 @@ class Login_model extends CI_Model{
     //$this->load->database();
   }
 
+  
 
 public function getUserDetailByEmailOrMobile($email_mob){
     $array_res=array();

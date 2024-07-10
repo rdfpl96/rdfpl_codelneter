@@ -14,7 +14,7 @@ class Subcategory extends CI_Controller{
 		  $this->load->model('admin/category_model','category');
           $this->load->model('admin/subcategory_model','subcategory');
 		  $session=$this->session->userdata('admin');
-		  
+          $this->load->library('pagination');
 		  $_SERVER['REQUEST_URI']="admin";
 
 		  if(basename($_SERVER['REQUEST_URI'])!='admin'){
@@ -30,100 +30,66 @@ class Subcategory extends CI_Controller{
             
     //      $this->load->view('admin/category/index');
              
+
    	// }
 
-    public function index() {
+       public function index() {
+
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
-
-        $adjacents = 2;
+        
+        // Configuring pagination
+        $config = array();
+        $config["base_url"] = base_url() . "admin/subcategory";
+        $config["total_rows"] = $this->subcategory->get_user_count_subcategory();
+        $config["per_page"] = 10; // Number of records per page
+        $config["uri_segment"] = 3; // Position of the page number in the URL
+        
+        // Customizing pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['first_tag_close'] = '</a></li>';
+        
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['last_tag_close'] = '</a></li>';
+        
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['next_tag_close'] = '</a></li>';
+        
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+        
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a class="page-link" href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        
+        $config['num_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['num_tag_close'] = '</a></li>';
+        
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data['users_list'] = $this->subcategory->get_users_category($config["per_page"], $page);
+        $data['pagination'] = $this->pagination->create_links();
+        
         $records_per_page = 25;
         $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
         $page = ($page == 0 ? 1 : $page);
-        $start = ($page - 1) * $records_per_page;
-
+        $start = ($page - 1) * $records_per_page;    
         $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
-
         $array_data = $this->subcategory->get_subcategories($start, $records_per_page, $name);
-        $count = $this->subcategory->record_count($name);
-
-        $next = $page + 1;
-        $prev = $page - 1;
-        $last_page = ceil($count / $records_per_page);
-        $second_last = $last_page - 1;
-
-        $i = (($page * $records_per_page) - ($records_per_page - 1));
-        $pagination = "";
-
-        if ($last_page > 1) {
-            $pagination .= "<div class='pagination'>";
-            if ($page > 1) {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($prev) . ");'>&laquo; Previous&nbsp;&nbsp;</a>";
-            } else {
-                $pagination .= "<span class='disabled'>&laquo; Previous&nbsp;&nbsp;</span>";
-            }
-
-            if ($last_page < 7 + ($adjacents * 2)) {
-                for ($counter = 1; $counter <= $last_page; $counter++) {
-                    if ($counter == $page) {
-                        $pagination .= "<span class='current'>$counter</span>";
-                    } else {
-                        $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                    }
-                }
-            } elseif ($last_page > 5 + ($adjacents * 2)) {
-                if ($page < 1 + ($adjacents * 2)) {
-                    for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                    $pagination .= "...";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-                } elseif ($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                    $pagination .= "...";
-                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                    $pagination .= "..";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-                } else {
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                    $pagination .= "..";
-                    for ($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                }
-            }
-            if ($page < $counter - 1) {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($next) . ");'>Next &raquo;</a>";
-            } else {
-                $pagination .= "<span class='disabled'>Next &raquo;</span>";
-            }
-            $pagination .= "</div>";
-        }
-
+        $count = $this->subcategory->record_count($name);   
+        $i = (($page * $records_per_page) - ($records_per_page - 1));      
         $option = '';
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
                 $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-
+        
                 $option .= '<tr> 
                                 <td>' . $i . '</td>
                                 <td>' . $record['category'] . '</td>
@@ -138,8 +104,8 @@ class Subcategory extends CI_Controller{
         } else {
             $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
         }
-
-        $output = array('array_data' => $option, 'pagination' => $pagination, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
+        
+        $output = array('array_data' => $option, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess, 'pagination' => $data['pagination']);
         if ($this->input->post('method') == "changepage") {
             echo json_encode($output);
             exit();
@@ -147,6 +113,11 @@ class Subcategory extends CI_Controller{
             $this->load->view('admin/subcategory/index', $output);
         }
     }
+    
+    
+
+
+
 
 
     public function create() {

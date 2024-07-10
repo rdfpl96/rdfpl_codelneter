@@ -90,6 +90,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody id="datalist"><?php echo isset($array_data) ? $array_data : ""; ?></tbody>
                             </table>
                                   <!-- Pagination -->

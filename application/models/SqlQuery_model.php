@@ -393,6 +393,30 @@ public function delete_user_details($id) {
         return $this->db->delete('tbl_customer');
     }   
 
+
+    public function getOrderDetails() {         
+    
+      $this->db->select('
+      tbl_order.order_no as order_no,
+      tbl_customer.c_fname as customer_name,
+      tbl_address.landmark as location,
+      SUM(tbl_order_item.mrp_price) as order_amount,
+      
+      tbl_order.order_date
+  ');
+  $this->db->from('tbl_order');
+  $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+  $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+  $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+  $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+  $query = $this->db->get();
+  return $query->result_array();
+  
+
+  }
+
+
+
 }
 
 ?>

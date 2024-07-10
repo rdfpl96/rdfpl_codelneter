@@ -14,8 +14,6 @@
     <div class="mob_back_btn">
         <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
     </div>
-
-    <h3 class="fw-bold mb-0">Child Category (<?php echo $this->my_libraries->getCate_name($this->uri->segment(3)).'/'.$this->my_libraries->getSubCate_name($this->uri->segment(4));?>)</h3>
     <?php
 
         $desabledAtrr=(in_array('edit',$actAcx) && $this->uri->segment(4)!="") ?'' :((in_array('add',$actAcx)) ? '': (($session['admin_type']=='A') ?'':'disabled'));

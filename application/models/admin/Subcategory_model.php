@@ -150,6 +150,27 @@ public function update_category($id, $data) {
   //   } 
   // } 
 
+  public function get_user_count_subcategory() {
+  
+    return $this->db->count_all("tbl_sub_category");
+  }
+   
+  public function get_users_category($limit, $start) {
+    $this->db->limit($limit, $start);
+    $query = $this->db->get("tbl_sub_category");
+   
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    }
+    return false;
+  }
+
+
+
+
+
+
+
 
    public function getViewByID($id){
     $array_record=array();      

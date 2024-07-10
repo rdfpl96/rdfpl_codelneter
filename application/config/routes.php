@@ -70,9 +70,11 @@ $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 
 //category
 $route['admin/category']='AdminPanel/category/index';
+$route['admin/category/(:num)']='AdminPanel/category/index/$1';
 $route['admin/category/create'] = 'AdminPanel/category/create';
 $route['admin/category/store'] = 'AdminPanel/category/store';
-$route['admin/category/edit/(:num)']='AdminPanel/category/update/$1';
+$route['admin/category/edit/(:num)']='AdminPanel/category/edit/$1';
+$route['admin/category/update/(:num)']='AdminPanel/category/update/$1';
 
 //subcategory
 $route['admin/subcategory']='AdminPanel/subcategory/index';

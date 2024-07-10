@@ -284,7 +284,7 @@ public function user_setting(){
     $this->load->view('admin/template',$data);
 }
 
-	public function category(){
+	public function category1(){
      $menuIdAsKey=1;
      $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
      $data['page_menu_id']=$menuIdAsKey;
@@ -1988,45 +1988,100 @@ public function food_habitats(){
 
 
 
-   public function product_order(){
+  //  public function product_order(){
+    
+  //         // $customer_id=$this->input->get('custo');
+  //         // $where ="";
+  //         // if($customer_id!="" && is_numeric($customer_id)){
+  //         //  $where = " WHERE order_cust_id=".$customer_id."";
+  //         // }
 
-          $customer_id=$this->input->get('custo');
-          $where ="";
-          if($customer_id!="" && is_numeric($customer_id)){
-           $where = " WHERE order_cust_id=".$customer_id."";
-          }
+  //         $menuIdAsKey=3;
+  //         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  //         $data['page_menu_id']=$menuIdAsKey;
 
-          $menuIdAsKey=3;
-          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-          $data['page_menu_id']=$menuIdAsKey;
+  //        //$querys="SELECT * FROM tbl_order_manager $where";
+  //        $pr_list_count=$this->sqlQuery_model->getOrderDetails();
 
-         $querys="SELECT * FROM tbl_order_manager $where";
-         $pr_list_count=$this->sqlQuery_model->sql_query($querys);
-         $url_link=base_url('admin/product_order'); 
-         $limit_per_page = 10;
-         $getVariable=$this->input->get('per_page');
-         $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
+  //         //   echo   "<pre>";
+  //         // print_r($pr_list_count);
+  //         // echo "</pre>";
+  //         // die();
 
-         $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
-         $config=createPagination($total_records,$url_link,$limit_per_page);
-           $this->pagination->initialize($config);
+       
+  //        $url_link=base_url('admin/product_order'); 
+  //        $limit_per_page = 10;
+  //        $getVariable=$this->input->get('per_page');
+  //        $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
+
+  //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
+  //        $config=createPagination($total_records,$url_link,$limit_per_page);
+  //          $this->pagination->initialize($config);
         
-         $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
-         $querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
-         $data['order_list']=$this->sqlQuery_model->sql_query($querys);
-         $data["links"] = $this->pagination->create_links();
+  //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
+  //        ///$querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
+  //        $data['order_list']=$this->sqlQuery_model->getOrderDetails();
+  //        $data["links"] = $this->pagination->create_links();
 
-         $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
 
-         $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
-         $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
+  //       //  $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
+  //       //  $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
+  //       //  $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
 
-         $querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
-         $data['order_amount']=$this->sqlQuery_model->sql_query($querys_total_amount);
 
-         $data['content']='admin/containerPage/product-orders';
-    		 $this->load->view('admin/template',$data);
-   }
+  //        //$querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
+  //        $data['order_amount']=$this->sqlQuery_model->getOrderDetails();
+
+  //        $data['content']='admin/containerPage/product-orders';
+  //   		 $this->load->view('admin/template',$data);
+
+
+
+  //  }
+
+
+  public function product_order() {
+    $menuIdAsKey = 3;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
+
+    $pr_list_count = $this->sqlQuery_model->getOrderDetails();
+
+
+    $url_link = base_url('admin/product_order'); 
+    $limit_per_page = 10;
+    $getVariable = $this->input->get('per_page');
+    $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0) : 0;
+    $total_records = ($pr_list_count != 0) ? count($pr_list_count) : 0;
+    $config = createPagination($total_records, $url_link, $limit_per_page);
+    $this->pagination->initialize($config);
+
+    $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
+    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($sql_limit);
+
+    // print_r($data['order_list'] );
+    // die();
+    $data["links"] = $this->pagination->create_links();
+    
+    //$data['order_amount'] = $this->sqlQuery_model->getOrderAmount();  // Assuming this method returns the total amount
+    $data['content'] = 'admin/containerPage/product-orders';
+    $this->load->view('admin/template', $data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    
@@ -3957,5 +4012,7 @@ public function addOtherProduct(){
     $this->load->view('admin/template',$data);
 
  }
+
+
 
 }
