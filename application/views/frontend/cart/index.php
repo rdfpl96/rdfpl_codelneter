@@ -1,4 +1,7 @@
-
+<?php
+// print_r($products);
+// exit;
+?>
 <?php $this->load->view('frontend/header'); ?>
    <main class="main">
    <!-- Modal -->
@@ -32,10 +35,12 @@
          <div class="row">
             <div class="col-lg-4">
                <div class="cart_head_left">
-                  <div class="heading_s1"> Subtotal (<span class="total-items"><?php echo count($products);?></span> items) <span> ₹ <span class="final-amount" id="tot_amount"><?php echo $totalPrice;?></span></span></div>
+                  <div class="heading_s1"> Subtotal (<span class="total-items"><?php echo $totalItem;?></span> items) <span> ₹ <span id="subprice1<?php echo $iproduct['product_id']; ?>"><?php echo ($iproduct['cart_qty']*$iproduct['price']);?></span></div>
                   <div class="subheading">Savings: <b>₹ <?php echo $saveTotalAmt;?></b></div>
                </div>
             </div>
+
+            <!-- <h3>₹ <span id="subprice<?php //echo $product['product_id']; ?>"><?php //echo ($product['cart_qty']*$product['price']);?></span></h3> -->
 
             <div class="col-lg-8 d-flex justify-content-center align-items-center">
                <?php if($isdelivered){?>
@@ -56,7 +61,8 @@
                <div class="main_basket_header">
                   <div class="row">
                      <div class="col-md-7">
-                        <h3>Items  (<?php echo count($products);?> items)</h3>
+                        <!-- <h3 class="total-items">Items<?php //echo $totalItem;?></h3> -->
+                        <h3>Items<span class="total-items"><?php echo $totalItem;?></span> </h3>
                      </div>
                      <div class="col-md-3 text-center">
                         <h3>Quantity</h3>
@@ -77,8 +83,7 @@
                         }else{
                            $saveAmt=0;
                         }
-                        
-                     ?>
+                                          ?>
                      <div class="main_basket_product_sec mt-3">
                      <a href="" data-bs-toggle="modal" data-bs-target="#offer_modal">
                      <div class="main_basket_product_sec_offer_header">

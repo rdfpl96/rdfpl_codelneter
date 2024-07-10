@@ -2,7 +2,7 @@
   var base_url="https://site.rdfpl.com/";
 
 // Pramod
-//  var base_url="http://localhost/rdfpl/";
+ //var base_url="http://localhost/rdfpl/";
 
 // function showLogin(){
 //     alert('hi');
@@ -114,27 +114,62 @@ $(document).on('click', '.shipping-address-save', function(e) {
 });
 //
 // Add To WishList
-//
-function addToWishlist(product_id){
+// Previous code
+// function addToWishlist(product_id){
+//     $.ajax({
+//         url:base_url+'add-to-wishlist',
+//         type:'POST',
+//         dataType:'JSON',
+//         data:({'product_id':product_id}),
+//          success:function(res){
+//            if(res.status==1){
+//                 $('#wishitcount').text(res.pcount);
+
+//                 $('#Wishlist'+product_id).addClass('wishlistactive');
+//            }
+//            var x = document.getElementById("snackbar");
+//           x.className = "show";
+//           var message=res.message;
+//           document.getElementById('snackbar').innerText=message;
+//           setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+//         }
+//     });
+// }
+
+function addToWishlist(product_id) {
+    var isInWishlist = $('#Wishlist' + product_id).hasClass('wishlistactive');
+
     $.ajax({
-        url:base_url+'add-to-wishlist',
-        type:'POST',
-        dataType:'JSON',
-        data:({'product_id':product_id}),
-         success:function(res){
-           if(res.status==1){
+        url: base_url + 'add-to-wishlist',
+        type: 'POST',
+        dataType: 'JSON',
+        data: { 'product_id': product_id },
+        success: function(res) {
+            if (res.status == 1) {
                 $('#wishitcount').text(res.pcount);
 
-                $('#Wishlist'+product_id).addClass('wishlistactive');
-           }
-           var x = document.getElementById("snackbar");
-          x.className = "show";
-          var message=res.message;
-          document.getElementById('snackbar').innerText=message;
-          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                if (isInWishlist) {
+                    // If already in wishlist, remove it
+                    $('#Wishlist' + product_id).removeClass('wishlistactive');
+                    isInWishlist = false; // Update state
+                } else {
+                    // If not in wishlist, add it
+                    $('#Wishlist' + product_id).addClass('wishlistactive');
+                    isInWishlist = true; // Update state
+                }
+            }
+
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            var message = res.message;
+            document.getElementById('snackbar').innerText = message;
+            setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
         }
     });
 }
+
+
+
 
 function onHoverTopCat(thisobj,tocat_id){
     console.log(tocat_id);
@@ -330,7 +365,9 @@ function itemtIncreamentFromCart(product_id,type,price,mrp,cart_id){
     }
     
     let subprice=parseInt(qty)*parseInt(price);
+    let subprice1=parseInt(qty)*parseInt(price);
     let savePrice=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
+    $('#subprice1'+product_id).text(subprice1);
     $('#subprice'+product_id).text(subprice);
     $('#savePrice'+product_id).text(savePrice);
 
@@ -641,3 +678,191 @@ function saveToLaterpdp(product_id, variant_id = null) {
         }
     });
 }
+
+$(document).on('click','.billing-address-save',function(){
+     //alert('step1');
+      var addre_id=$(this).data('addr_id ');
+      //console.log(addre_id);  
+      var apart_house=$('#apart_house').val();
+      var apart_name=$('#apart_name').val();
+      var area=$('#area').val();
+      var street_landmark=$('#street_landmark').val();
+
+      var state=$('#state').val();
+      var city=$('#city').val();
+      var pincode=$('#pincode').val();
+
+      var fname=$('#fname').val();
+
+      var lname=$('#lname').val();
+      var mobile=$('#mobile').val();
+
+      var loc_type=$('input[name="type"]:checked').val();
+      var other_loc=$('#other_loc').val();
+
+
+       if(apart_house=="" || apart_house==null){
+           $('#apart_house').css('border','1px solid red');
+           return false;
+        }else{
+           $('#apart_house').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+        if(apart_name=="" || apart_name==null){
+           $('#apart_name').css('border','1px solid red');
+           return false;
+        }else{
+           $('#apart_name').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+        if(area=="" || area==null){
+           $('#area').css('border','1px solid red');
+           return false;
+        }else{
+           $('#area').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+       if(street_landmark=="" || street_landmark==null){
+           $('#street_landmark').css('border','1px solid red');
+           return false;
+        }else{
+           $('#street_landmark').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+       if(state=="" || state==null){
+          $('.select2-selection-state').css({'border':'1px solid red','border-radius':'10px'});
+           return false;
+           }else{
+          $('.select2-selection-state').css('border','1px solid #CCCCCC');
+          var status=1;
+       }
+
+      //   if(city=="" || city==null){
+      //     $('.select2-selection-city').css({'border':'1px solid red','border-radius':'10px'});
+      //      return false;
+      //     }else{
+      //      $('.select2-selection-city').css('border','1px solid #CCCCCC');
+      //      var status=1;
+      //  }
+
+        if(pincode=="" || pincode==null){
+          $('#pincode').css('border','1px solid red');
+         return false;
+        }else{
+           $('#pincode').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+        if(fname=="" || fname==null){
+           $('#fname').css('border','1px solid red');
+           return false;
+        }else{
+           $('#fname').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+        if(lname=="" || lname==null){
+           $('#lname').css('border','1px solid red');
+           return false;
+        }else{
+           $('#lname').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+        var pattern = /^\d{10}$/;
+        if(mobile=="" || mobile==null){
+           $('#mobile').css('border','1px solid red');
+           return false;
+        }else if(!pattern.test(mobile)){
+          alert('Invalid mobile number.');
+          return false;
+        }else{
+           $('#mobile').css('border','1px solid #CCCCCC');
+           var status=1;
+       }
+
+       if(loc_type=="" || loc_type==null){
+           $('#errf').html('<p style="color:red;">Select your location type.</p>');
+           return false;
+       }else{
+           $('#errf').html('');
+           var status=1;
+       }
+
+
+      if(loc_type=="Other"){
+      
+         if(other_loc=="" || other_loc==null){
+              $('#other_loc').css('border','1px solid red');
+               return false;
+            }else{
+               $('#other_loc').css('border','1px solid #CCCCCC');
+               var status=1;
+           }
+
+       }
+
+
+
+     if(status==1){
+        //alert('step2');
+         $('.add-shi-sa').removeClass('billing-address-save');
+         loading('loaderdiv_addrs','block');
+          $.ajax({ 
+                  type: "POST",
+                  dataType:"JSON",
+                  url: base_url+'common/add_billingaddress',
+                  data:({
+                          addre_id:addre_id,
+                          apart_house:apart_house,
+                          apart_name:apart_name,
+                          area:area,
+                          street_landmark:street_landmark,
+                          mobile:mobile,
+                          state:state,
+                          city:city,
+                          pincode:pincode,
+                          fname:fname,
+                          lname:lname,
+                          loc_type:loc_type,
+                          other_loc:other_loc,
+                          add_type:'billingAddress'
+                        }),        
+                      success: function(result){
+                          if(result.status==1){
+                             $('.addred-div').css('display','block');
+                             $('.add-addr-div').css('display','none');
+
+                              var x = document.getElementById("snackbar");
+                              x.className = "show";
+                              var message=result.message;
+                              document.getElementById('snackbar').innerText=message;
+                              setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
+                               setTimeout(function() {
+                                   document.location.href=base_url+'my-address';
+                                 }, 2000 );
+                               
+
+                          }else{
+                              var html ='<div class="alert alert-danger" role="alert">'+result.message+'</div>';
+                                $('.errmess_sle').fadeIn().html(html);
+                                  setTimeout(function() {
+                                    $('.errmess_sle').fadeOut("slow");
+                                  }, 3000 );
+
+                                  $('.add-shi-sa').addClass('billing-address-save');
+                              }
+
+                     loading('loaderdiv_addrs','none');
+                     
+                  }
+            })
+     }
+
+   
+
+})
