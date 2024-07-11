@@ -2,17 +2,51 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class SqlQuery_model extends CI_Model
 {
-   public function sql_select_where($tablename, $where)
-   {
-      $this->db->select('*');
-      $query = $this->db->get_where($tablename, $where);
-      $result = $query->result();
-      if ($result) {
-         return $result;
-      } else {
-         return 0;
-      }
-   }
+  
+  
+   public function sql_select_where($getOrderId)
+{
+    $this->db->select('
+        tbl_order.order_no as order_no,
+        tbl_customer.c_fname as customer_name,
+        tbl_address.landmark as location,
+        SUM(tbl_order_item.mrp_price) as order_amount,
+        tbl_order.order_date,
+        tbl_address.address1,
+        tbl_address.address2,
+        tbl_address.area,
+        tbl_address.pincode,
+        tbl_address.city,
+        tbl_address.state,
+        tbl_address.country
+    ');
+    $this->db->from('tbl_order');
+    $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+    $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+    $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+    $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+    $this->db->where_in('tbl_order.order_no', $getOrderId);
+
+    $query = $this->db->get(); 
+    return $query->result_array();
+}
+
+
+   // public function sql_select_where($tablename, $where)
+   // {
+   //    $this->db->select('*');
+   //    $query = $this->db->get_where($tablename, $where);
+   //    $result = $query->result();
+   //    if ($result) {
+   //       return $result;
+   //    } else {
+   //       return 0;
+   //    }
+   // }
+
+
+
+
 
 
    public function sql_select_where_desc($tablename, $col_name, $where)
@@ -340,7 +374,7 @@ class SqlQuery_model extends CI_Model
    }
 
 
-   public function getOrderDetails()
+   public function getOrderDetails($customer_id)
    {
 
       $this->db->select('
@@ -355,12 +389,15 @@ class SqlQuery_model extends CI_Model
       $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
       $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
       $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+      if (!empty($customer_id)) {
+         $this->db->where_in('tbl_order.customer_id', $customer_id);
+      }
       $query = $this->db->get();
       return $query->result_array();
    }
 
   
-   public function getOrderDetails1($searchTerm = '', $fromDate = '', $toDate = '')
+   public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
    {
        $this->db->select('
            tbl_order.order_no as order_no,
@@ -380,7 +417,7 @@ class SqlQuery_model extends CI_Model
            $this->db->like('tbl_order.order_no', $searchTerm);
            $this->db->or_like('tbl_customer.c_fname', $searchTerm);
            $this->db->or_like('tbl_address.landmark', $searchTerm);
-           $this->db->group_end(); // Closes the grouping
+           $this->db->group_end();
        }
    
        // Adding date filters

@@ -2041,11 +2041,17 @@ public function food_habitats(){
 
 
   public function product_order() {
+
+       $customer_id=$this->input->get('custo');
+
+      // echo $customer_id;
+
+      // die();
     $menuIdAsKey = 3;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
 
-    $pr_list_count = $this->sqlQuery_model->getOrderDetails();
+    $pr_list_count = $this->sqlQuery_model->getOrderDetails($customer_id);
 
     $url_link = base_url('admin/product_order'); 
     $limit_per_page = 1;
@@ -2055,8 +2061,8 @@ public function food_habitats(){
     $config = createPagination($total_records, $url_link, $limit_per_page);
     $this->pagination->initialize($config);
 
-    $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
-    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($sql_limit);
+    // $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
+    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id);
 
     // print_r($data['order_list'] );
     // die();
@@ -2079,7 +2085,7 @@ public function search_order_list()
     $toDate = $this->input->post('toDate');
 
     // Pass the search parameters to the model method
-    $data['order_list'] = $this->sqlQuery_model->getOrderDetails1($keywords, $fromDate, $toDate);
+    $data['order_list'] = $this->sqlQuery_model->getOrderSearchDetails($keywords, $fromDate, $toDate);
 
     // echo "<pre>";
     // print_r($data['order_list']);
@@ -2146,9 +2152,9 @@ public function export_OrderList() {
           $line['customer_name'],
           $line['location'],
           $line['order_amount'],
-          isset($line['status']) ? $line['status'] : '',  // Ensure status is handled even if not present
-          isset($line['pay_status']) ? $line['pay_status'] : '',  // Ensure pay status is handled even if not present
-          $line['order_date']
+          isset($line['status']) ? $line['status'] : '', 
+          isset($line['pay_status']) ? $line['pay_status'] : '',
+          $line['order_date'],
       );
 
       fputcsv($file, $data);
@@ -2170,24 +2176,34 @@ public function export_OrderList() {
 
 
 
+public function order_details() {
+  $menuIdAsKey = 3;
+  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id'] = $menuIdAsKey;
+  $getOrderId = $this->uri->segment(3);
+
+// get custid  from the menu item list and return 
+
+  // echo "<pre>";
+  // print_r($order_details);
+  // die();
+  $data['order_details'] = $this->sqlQuery_model->sql_select_where($getOrderId);
+
+  // echo "<pre>";
+  // print_r( $data['order_details'] );
+  // die();
+
+  //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
+
+  
+  //$data['order_status'] = $this->sqlQuery_model->sql_select_where_desc('tbl_order_status', 'position', array('status' => 1));
+
+  $data['content'] = 'admin/containerPage/order-details';
+  $this->load->view('admin/template', $data);
+}
 
 
 
-   public function order_details(){
-
-          $menuIdAsKey=3;
-          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-          $data['page_menu_id']=$menuIdAsKey;
-
-       $getOrderId=$this->uri->segment(3);
-       $data['order_details']=$this->sqlQuery_model->sql_select_where('tbl_order_manager',array('order_generated_order_id'=>$getOrderId));
-       $data['order_product_details']=$this->sqlQuery_model->sql_select_where('tbl_order_products',array('pro_generated_order_id'=>$getOrderId));
-
-       $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
-
-     $data['content']='admin/containerPage/order-details';
-		 $this->load->view('admin/template',$data);
-   }
 
 
   public function customer_list(){
@@ -2224,6 +2240,9 @@ public function export_OrderList() {
       $data['content']='admin/containerPage/customer-list';
 		 $this->load->view('admin/template',$data);
   }
+
+
+
 
  public function add_customer(){
           $menuIdAsKey=4;

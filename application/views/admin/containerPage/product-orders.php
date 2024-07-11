@@ -75,6 +75,7 @@
                                         <th><span>&nbsp;</span><br>Status</th>
                                         <th><span>&nbsp;</span><br>Pay Status</th>
                                         <th><span>&nbsp;</span><br>Order Date</th>
+                                        <th><span>&nbsp;</span><br>View Order Details</th>
                                         <!-- <th><span>&nbsp;</span><br>Details</th> -->
                                     </tr>
                                 </thead>
@@ -87,13 +88,13 @@
                                                 <td><?php echo $order['location']; ?></td>
                                                 <td><?php echo $order['order_amount']; ?></td>
                                                 
-                                                <td class="badge" style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
-                                                <td style="background-color: #689F39;"><?php echo !empty($order['pay_status']) ? $order['pay_status'] : 'Pending'; ?></td>
+                                                <td  style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
+                                                
+                                                <td style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['pay_status']) ? $order['pay_status'] : 'Pending'; ?></td>
                                                 <td><?php echo $order['order_date']; ?></td>
-                                                <!-- <td><a href="<?php //echo base_url('admin/order_details/' . $order['order_no']); 
-                                                                    ?>" class="btn btn-primary">View Details</a></td> -->
+                                                 <td><a href="<?php echo base_url('admin/order_details/' . $order['order_no']); 
+                                               ?>" class="btn btn-primary">View Details</a></td>
                                             </tr>
-
                                         <?php }
                                     } else { ?>
                                         <tr>
