@@ -32,7 +32,7 @@ class SqlQuery_model extends CI_Model
 }
 
 
-   public function sql_select_where1($tablename, $where)
+   public function sql_select_where($tablename, $where)
    {
       $this->db->select('*');
       $query = $this->db->get_where($tablename, $where);
