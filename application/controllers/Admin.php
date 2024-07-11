@@ -2122,9 +2122,9 @@ public function order_details() {
   // die();
   $data['order_details'] = $this->sqlQuery_model->sql_select_where_orderdetails($getOrderId);
 
-  echo "<pre>";
-  print_r( $data['order_details'] );
-  die();
+  // echo "<pre>";
+  // print_r( $data['order_details'] );
+  // die();
 
   //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
 
