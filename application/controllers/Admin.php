@@ -211,6 +211,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 //new code
+
+
 public function add_user()
   {
     // Form validation rules
@@ -272,7 +274,16 @@ public function add_user()
     }
   }
 
-public function user_setting(){ 
+
+
+
+
+
+
+
+
+
+     public function user_setting(){ 
           $menuIdAsKey=14;
          $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
           $data['page_menu_id']=$menuIdAsKey;
@@ -1989,7 +2000,7 @@ public function food_habitats(){
 
 
   //  public function product_order(){
-    
+
   //         // $customer_id=$this->input->get('custo');
   //         // $where ="";
   //         // if($customer_id!="" && is_numeric($customer_id)){
@@ -2008,7 +2019,7 @@ public function food_habitats(){
   //         // echo "</pre>";
   //         // die();
 
-       
+
   //        $url_link=base_url('admin/product_order'); 
   //        $limit_per_page = 10;
   //        $getVariable=$this->input->get('per_page');
@@ -2017,7 +2028,7 @@ public function food_habitats(){
   //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
   //        $config=createPagination($total_records,$url_link,$limit_per_page);
   //          $this->pagination->initialize($config);
-        
+
   //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
   //        ///$querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
   //        $data['order_list']=$this->sqlQuery_model->getOrderDetails();
@@ -2040,20 +2051,21 @@ public function food_habitats(){
   //  }
 
 
-  public function product_order() {
+  public function product_order()
+  {
 
-       $customer_id=$this->input->get('custo');
+    $customer_id = $this->input->get('custo');
 
-      // echo $customer_id;
+    // echo $customer_id;
+    // die();
 
-      // die();
     $menuIdAsKey = 3;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
 
-    $pr_list_count = $this->sqlQuery_model->getOrderDetails($customer_id);
+    $pr_list_count = $this->sqlQuery_model->sql_select_where_order($customer_id);
 
-    $url_link = base_url('admin/product_order'); 
+    $url_link = base_url('admin/product_order');
     $limit_per_page = 1;
     $getVariable = $this->input->get('per_page');
     $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0) : 0;
@@ -2062,16 +2074,20 @@ public function food_habitats(){
     $this->pagination->initialize($config);
 
     // $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
-    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id);
+    $data['order_list'] = $this->sqlQuery_model->sql_select_where_order($customer_id);
 
     // print_r($data['order_list'] );
     // die();
     $data["links"] = $this->pagination->create_links();
-    
+
     //$data['order_amount'] = $this->sqlQuery_model->getOrderAmount();  // Assuming this method returns the total amount
     $data['content'] = 'admin/containerPage/product-orders';
     $this->load->view('admin/template', $data);
-}
+  }
+
+
+
+
 
 
 public function search_order_list()
