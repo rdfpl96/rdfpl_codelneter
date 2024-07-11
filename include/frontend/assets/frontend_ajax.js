@@ -1,8 +1,8 @@
 // Pramod
-  var base_url="https://site.rdfpl.com/";
+  //var base_url="https://site.rdfpl.com/";
 
 // Pramod
- //var base_url="http://localhost/rdfpl/";
+ var base_url="http://localhost/rdfpl/";
 
 // function showLogin(){
 //     alert('hi');
@@ -345,34 +345,64 @@ function itemtIncreament(product_id,type){
     saveCart(product_id,productItemId,1,type)
 }
 
-function itemtIncreamentFromCart(product_id,type,price,mrp,cart_id){
-    var productItemId=$('#productItemId'+product_id).val();
-    var qty=$('#qty'+product_id).val();
+// function itemtIncreamentFromCart(product_id,type,price,mrp,cart_id){
+//     var productItemId=$('#productItemId'+product_id).val();
+//     var qty=$('#qty'+product_id).val();
     
-    if(type==2){
-      qty=parseInt(qty)+1;
-    }
-    else if(type==1){
+//     if(type==2){
+//       qty=parseInt(qty)+1;
+//     }
+//     else if(type==1){
 
-      if(parseInt(qty) >1){
+//       if(parseInt(qty) >1){
       
-        qty=parseInt(qty)-1;
-      }else{
+//         qty=parseInt(qty)-1;
+//       }else{
      
-       deleteItem(cart_id)
-      }
+//        deleteItem(cart_id)
+//       }
 
+//     }
+    
+//     let subprice=parseInt(qty)*parseInt(price);
+//     let subprice1=parseInt(qty)*parseInt(price);
+//     let savePrice=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
+//     let savePrice1=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
+//     $('#subprice1'+product_id).text(subprice1);
+//     $('#subprice'+product_id).text(subprice);
+//     $('#savePrice'+product_id).text(savePrice);
+//     $('#savePrice1'+product_id).text(savePrice1);
+
+//     $('#qty'+product_id).val(qty);
+//     saveCart(product_id,productItemId,1,type)
+// }
+
+function itemtIncreamentFromCart(product_id, type, price, mrp, cart_id) {
+    var productItemId = $('#productItemId' + product_id).val();
+    var qty = $('#qty' + product_id).val();
+    
+    if (type == 2) {
+        qty = parseInt(qty) + 1;
+    } else if (type == 1) {
+        if (parseInt(qty) > 1) {
+            qty = parseInt(qty) - 1;
+        } else {
+            deleteItem(cart_id);
+            return; // Exit the function if item is deleted
+        }
     }
     
-    let subprice=parseInt(qty)*parseInt(price);
-    let subprice1=parseInt(qty)*parseInt(price);
-    let savePrice=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
-    $('#subprice1'+product_id).text(subprice1);
-    $('#subprice'+product_id).text(subprice);
-    $('#savePrice'+product_id).text(savePrice);
+    let subprice = parseInt(qty) * parseInt(price);
+    let savePrice = parseInt(qty) * parseInt(mrp) - subprice;
+    
+    $('#subprice' + product_id).text(subprice);
+    $('#savePrice' + product_id).text(savePrice);
+    $('#qty' + product_id).val(qty);
+    
+    saveCart(product_id, productItemId, 1, type);
 
-    $('#qty'+product_id).val(qty);
-    saveCart(product_id,productItemId,1,type)
+    // Refresh the page after the operations are done
+    location.reload();
 }
 
 function saveCart(product_id,variant_id,qty,cartType){
@@ -529,125 +559,92 @@ function saveGst(){
      });
    }   
    
-  $(document).on('click','.account-details',function(){
-
-    var firstname=$('#firstname').val();
-    var lastname=$('#lastname').val();
-    var mobilename=$('#mobilename').val();
-    var emailAddress=$('#emailAddress').val();
-    var password=$('#password').val();
-    var old_password=$('#old_password').val();
-    var city=$('#city').val();
-    var state=$('#state').val();
-    var country=$('#country').val();
-    var oldmobilename=$('#oldmobilename').val();
-    var oldemailAddress=$('#oldemailAddress').val();
+$(document).on('click', '.account-details', function() {
+    var firstname = $('#firstname').val();
+    var lastname = $('#lastname').val();
+    var mobilename = $('#mobilename').val();
+    var emailAddress = $('#emailAddress').val();
+    var password = $('#password').val();
+    var old_password = $('#old_password').val();
+    var city = $('#city').val();
+    var state = $('#state').val();
+    var country = $('#country').val();
+    var oldmobilename = $('#oldmobilename').val();
+    var oldemailAddress = $('#oldemailAddress').val();
 
     var regexEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     var pattern = /^\d{10}$/;
 
-   
-      if(firstname=="" || firstname==null){
-          $('#firstname').css('border','1px solid red');
-         return false;
-        }else{
-           $('#firstname').css('border','1px solid #CCCCCC');
-           var status=1;
-       }
+    if (firstname === "" || firstname === null) {
+        $('#firstname').css('border', '1px solid red');
+        return false;
+    } else {
+        $('#firstname').css('border', '1px solid #CCCCCC');
+    }
 
+    if (lastname === "" || lastname === null) {
+        $('#lastname').css('border', '1px solid red');
+        return false;
+    } else {
+        $('#lastname').css('border', '1px solid #CCCCCC');
+    }
 
-       if(lastname=="" || lastname==null){
-          $('#lastname').css('border','1px solid red');
-         return false;
-        }else{
-           $('#lastname').css('border','1px solid #CCCCCC');
-           var status=1;
-       }
+    if (mobilename === "" || mobilename === null) {
+        $('#mobilename').css('border', '1px solid red');
+        return false;
+    } else if (!pattern.test(mobilename)) {
+        $('#mobilename').css('border', '1px solid red');
+        return false;
+    } else {
+        $('#mobilename').css('border', '1px solid #CCCCCC');
+    }
 
+    if (emailAddress === "" || emailAddress === null) {
+        $('#emailAddress').css('border', '1px solid red');
+        return false;
+    } else if (!emailAddress.match(regexEmail)) {
+        $('#emailAddress').css('border', '1px solid red');
+        return false;
+    } else {
+        $('#emailAddress').css('border', '1px solid #CCCCCC');
+    }
 
-        if(mobilename=="" || mobilename==null){
-          $('#mobilename').css('border','1px solid red');
-         return false;
-        }else if(!pattern.test(mobilename)){
-          $('#mobilename').css('border','1px solid red');
-            return false;
-        }else{
-           $('#mobilename').css('border','1px solid #CCCCCC');
-           var status=1;
+    loading('loaderdiv', 'block');
+    $('.sav-cha').removeClass('account-details');
+
+    $.ajax({
+        type: "POST",
+        dataType: "JSON",
+        url: base_url + 'common/add_user_details',
+        data: {
+            firstname: firstname,
+            lastname: lastname,
+            mobilename: mobilename,
+            emailAddress: emailAddress,
+            oldmobilename: oldmobilename,
+            oldemailAddress: oldemailAddress,
+            password: password,
+            old_password: old_password,
+            city: city,
+            state: state,
+            country: country
+        },
+        success: function(result) {
+            if (result.status == 1) {
+                alert(result.message);
+            } else {
+                alert(result.message);
+            }
+
+            $('.sav-cha').addClass('account-details');
+            loading('loaderdiv', 'none');
+        },
+        error: function(xhr, status, error) {
+            console.log("AJAX call error", xhr, status, error);
+            loading('loaderdiv', 'none');
         }
-
-         if(emailAddress=="" || emailAddress==null){
-          $('#emailAddress').css('border','1px solid red');
-         return false;
-        }else if(!emailAddress.match(regexEmail)){
-          $('#emailAddress').css('border','1px solid red');
-            return false;
-        }else{
-           $('#emailAddress').css('border','1px solid #CCCCCC');
-           var status=1;
-        }
-
-
-      
-        if(status==1){
-
-             loading('loaderdiv','block');
-           $('.sav-cha').removeClass('account-details');
-
-
-            $.ajax({ 
-                type: "POST",
-                dataType:"JSON",
-                url: base_url+'common/add_user_details',
-                data:({
-                    firstname:firstname,
-                    lastname:lastname,
-                    mobilename:mobilename,
-                    emailAddress:emailAddress,
-                    oldmobilename:oldmobilename,
-                    oldemailAddress:oldemailAddress,
-                    password:password,
-                    old_password:old_password,
-                    city:city,
-                    state:state,
-                    country:country
-                }),
-
-
-
-              success: function(result){
-               
-               if(result.status==1){
-
-                  var x = document.getElementById("snackbar");
-                  x.className = "show";
-                  var message=result.message;
-                  document.getElementById('snackbar').innerText=message;
-                  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-
-                  }else{
-                        
-                        
-                         var x = document.getElementById("snackbar");
-                          x.className = "show";
-                          var message=result.message;
-                          document.getElementById('snackbar').innerText=message;
-                          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-                         $('#snackbar').addClass('errrol');
-                      }
-
-                  $('.sav-cha').addClass('account-details');
-
-                   loading('loaderdiv','none');
-                  
-
-
-              }
-         });
-   }
-
-
-})  
+    });
+});
 
 function saveToLaterpdp(product_id, variant_id = null) {
     $.ajax({
