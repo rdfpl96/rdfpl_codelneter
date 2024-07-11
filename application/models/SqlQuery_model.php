@@ -4,7 +4,7 @@ class SqlQuery_model extends CI_Model
 {
   
   
-   public function sql_select_where_order($getOrderId)
+   public function sql_select_where_orderdetails($getOrderId)
 {
     $this->db->select('
         tbl_order.order_no as order_no,
@@ -32,7 +32,7 @@ class SqlQuery_model extends CI_Model
 }
 
 
-   public function sql_select_where($tablename, $where)
+   public function sql_select_where1($tablename, $where)
    {
       $this->db->select('*');
       $query = $this->db->get_where($tablename, $where);
@@ -392,7 +392,7 @@ class SqlQuery_model extends CI_Model
          if (!empty($customer_id)) {
             $this->db->where_in('tbl_order.customer_id', $customer_id);
          }
-         $this->db->order_by('tbl_order.order_date', 'DESC');
+          $this->db->order_by('tbl_order.order_date', 'DESC');
          $query = $this->db->get();
          return $query->result_array();
       }

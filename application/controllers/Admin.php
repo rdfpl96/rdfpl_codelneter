@@ -211,8 +211,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 //new code
-
-
 public function add_user()
   {
     // Form validation rules
@@ -276,11 +274,7 @@ public function add_user()
 
 
 
-
-
-
-
-
+  
 
 
      public function user_setting(){ 
@@ -2063,7 +2057,7 @@ public function food_habitats(){
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
 
-    $pr_list_count = $this->sqlQuery_model->sql_select_where_order($customer_id);
+    $pr_list_count = $this->sqlQuery_model->getOrderDetails($customer_id);
 
     $url_link = base_url('admin/product_order');
     $limit_per_page = 1;
@@ -2074,7 +2068,7 @@ public function food_habitats(){
     $this->pagination->initialize($config);
 
     // $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
-    $data['order_list'] = $this->sqlQuery_model->sql_select_where_order($customer_id);
+    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id);
 
     // print_r($data['order_list'] );
     // die();
@@ -2115,21 +2109,31 @@ public function search_order_list()
 
 
 
+public function order_details() {
+  $menuIdAsKey = 3;
+  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id'] = $menuIdAsKey;
+  $getOrderId = $this->uri->segment(3);
 
+// get custid  from the menu item list and return 
 
+  // echo "<pre>";
+  // print_r($order_details);
+  // die();
+  $data['order_details'] = $this->sqlQuery_model->sql_select_where_orderdetails($getOrderId);
 
+  echo "<pre>";
+  print_r( $data['order_details'] );
+  die();
 
+  //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
 
+  
+  //$data['order_status'] = $this->sqlQuery_model->sql_select_where_desc('tbl_order_status', 'position', array('status' => 1));
 
-
-
-// public function xyz(){
-//   // alert('xyz');
-//   $orderId=$this->input->post('getKeywords');
-// echo '<pre>';
-// print_r($orderId);
-// exit();
-// }
+  $data['content'] = 'admin/containerPage/order-details';
+  $this->load->view('admin/template', $data);
+}
 
 
 
@@ -2192,31 +2196,7 @@ public function export_OrderList() {
 
 
 
-public function order_details() {
-  $menuIdAsKey = 3;
-  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
-  $data['page_menu_id'] = $menuIdAsKey;
-  $getOrderId = $this->uri->segment(3);
 
-// get custid  from the menu item list and return 
-
-  // echo "<pre>";
-  // print_r($order_details);
-  // die();
-  $data['order_details'] = $this->sqlQuery_model->sql_select_where($getOrderId);
-
-  // echo "<pre>";
-  // print_r( $data['order_details'] );
-  // die();
-
-  //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
-
-  
-  //$data['order_status'] = $this->sqlQuery_model->sql_select_where_desc('tbl_order_status', 'position', array('status' => 1));
-
-  $data['content'] = 'admin/containerPage/order-details';
-  $this->load->view('admin/template', $data);
-}
 
 
 
