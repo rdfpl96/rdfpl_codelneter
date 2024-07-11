@@ -2141,7 +2141,7 @@ public function order_details() {
 
 public function export_OrderList() {
 
-  $order_list = $this->sqlQuery_model->getOrderDetails();
+  $order_list = $this->sqlQuery_model->getOrderDetails($customer_id);
 
   // Debugging line, can be removed after confirming the data
   // echo '<pre>';
