@@ -57,7 +57,7 @@
                       <a class="m-link " href="<?php echo base_url('admin/customer_list');?>"><i class="icofont-chart-flow"></i> <span>Customers</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="<?php echo base_url('admin/contact_manager');?>"><i class="icofont-chart-flow"></i> <span>Basic Details</span> </a>
+                      <a class="m-link " href="<?php echo base_url('admin/basic_details/edit');?>"><i class="icofont-chart-flow"></i> <span>Basic Details</span> </a>
                    </li>
                    <!-- <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/hsn_code"><i class="icofont-chart-flow"></i> <span>HSN Code List</span> </a>
