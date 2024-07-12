@@ -2973,6 +2973,30 @@ public function banner(){
   $this->load->view('admin/template',$data);
 }
 
+
+public function banner_edit_add(){
+
+ $this->load->view('admin\containerPage\banner');
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public function ads_banner(){
 
   $menuIdAsKey=33;
@@ -3036,6 +3060,11 @@ public function ads_banner(){
 
 
 
+
+
+
+
+
 // public function add_banner(){
 //     $menuIdAsKey=33;
 //     $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
@@ -3069,6 +3098,20 @@ public function ads_banner(){
 //   $data['content']='admin/containerPage/add_ads_banner';
 //   $this->load->view('admin/template',$data);
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3149,7 +3192,17 @@ public function add_ads_banner($bannnerId = null) {
 
 
 
+public function deleteRowtable(){
+  $menuIdAsKey=34;
+  $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id']=$menuIdAsKey;
 
+  $value = $this->input->post('value');
+  $Responce=$this->sqlQuery_model->sql_delete('tbl_banner',array('banner_id'=>$value));
+  
+  echo $Responce;
+  exit();
+}
 
 
 

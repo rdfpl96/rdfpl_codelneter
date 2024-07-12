@@ -74,23 +74,23 @@
                                             </div>
 
                                          
-                                             <div class="col-md-4">
-                                              <label  class="form-label">Ad Banner Image<span style="color:red;">*</span></label>
+                                       <div class="col-md-4">
+                                            <label class="form-label">Ad Banner Image<span style="color:red;">*</span></label>
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" name="userfile" id="userfile" <?php echo ($banner_details == 0) ? 'required' : ''; ?>>
+                                                <input type="hidden" class="form-control" name="desk_imgPath" id="desk_imgPath" value="<?php echo ($banner_details != 0) ? $banner_details[0]->desk_image : ''; ?>">
 
-                                                <div class="input-group">
-                                               
-                                                <input type="file"  class="form-control" name="userfile" />
-                                                <input type="hidden" class="form-control" name="desk_imgPath" id="desk_imgPath" value="<?php echo ($banner_details!=0) ? $banner_details[0]->desk_image :'';?>" >
-                                                    <?php
-                                                     if($banner_details!=0){
-                                                      ?>
-                                                      <img src="<?php echo base_url().'uploads/banner/'.$banner_details[0]->desk_image;?>" style="width:37px;height: 37px;">
-                                                      <?php
-                                                     }
+                                                <?php
+                                                if ($banner_details != 0) {
                                                     ?>
-                                                </div>
-                                                <span style="color:red;font-size: 13px;">Image dimension should be 760 X 760 Px.</span>
-                                              </div>
+                                                    <img src="<?php echo base_url() . 'uploads/banner/' . $banner_details[0]->desk_image; ?>" style="width:37px;height: 37px;">
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                            <span style="color:red;font-size: 13px;">Image dimension should be 760 X 760 Px.</span>
+                                        </div>
+
                                         </div>
                                     </div>
 

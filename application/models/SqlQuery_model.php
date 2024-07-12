@@ -243,6 +243,8 @@ class SqlQuery_model extends CI_Model
       }
    }
 
+   
+
    public function sql_query_delete($sqry)
    {
       $query = $this->db->query($sqry);
