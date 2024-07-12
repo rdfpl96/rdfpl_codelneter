@@ -2,11 +2,11 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class SqlQuery_model extends CI_Model
 {
-  
-  
+
+
    public function sql_select_where_orderdetails($getOrderId)
-{
-    $this->db->select('
+   {
+      $this->db->select('
         tbl_order.order_no as order_no,
         tbl_customer.c_fname as customer_name,
         tbl_address.landmark as location,
@@ -20,16 +20,16 @@ class SqlQuery_model extends CI_Model
         tbl_address.state,
         tbl_address.country
     ');
-    $this->db->from('tbl_order');
-    $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-    $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-    $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-    $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-    $this->db->where_in('tbl_order.order_no', $getOrderId);
+      $this->db->from('tbl_order');
+      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+      $this->db->where_in('tbl_order.order_no', $getOrderId);
 
-    $query = $this->db->get(); 
-    return $query->result_array();
-}
+      $query = $this->db->get();
+      return $query->result_array();
+   }
 
 
    public function sql_select_where($tablename, $where)
@@ -374,73 +374,108 @@ class SqlQuery_model extends CI_Model
    }
 
 
-      public function getOrderDetails($customer_id)
-      {
+   public function getOrderDetails($customer_id)
+   {
 
-         $this->db->select('
+      $this->db->select('
          tbl_order.order_no as order_no,
          tbl_customer.c_fname as customer_name,
          tbl_address.landmark as location,
          SUM(tbl_order_item.mrp_price) as order_amount,
          tbl_order.order_date
    ');
-         $this->db->from('tbl_order');
-         $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-         $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-         $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-         $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-         if (!empty($customer_id)) {
-            $this->db->where_in('tbl_order.customer_id', $customer_id);
-         }
-          $this->db->order_by('tbl_order.order_date', 'DESC');
-         $query = $this->db->get();
-         return $query->result_array();
+      $this->db->from('tbl_order');
+      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+      if (!empty($customer_id)) {
+         $this->db->where_in('tbl_order.customer_id', $customer_id);
       }
+      $this->db->order_by('tbl_order.order_date', 'DESC');
+      $query = $this->db->get();
+      return $query->result_array();
+   }
 
 
-      
 
 
+   public function getOrderDetailsByDate($fromDate, $toDate) {
+      // Ensure date inputs are correctly formatted and safe
+      $fromDate = $this->db->escape($fromDate . ' 00:00:00');
+      $toDate = $this->db->escape($toDate . ' 23:59:59');
   
-      public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
-      {
-          $this->db->select('
+      // Select statement to get the desired order details
+      $this->db->select('
+          tbl_order.order_no as order_no,
+          tbl_customer.c_fname as customer_name,
+          tbl_address.landmark as location,
+          SUM(tbl_order_item.mrp_price) as order_amount,
+          tbl_order.order_date
+      ');
+  
+      // From and joins
+      $this->db->from('tbl_order');
+      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+  
+      // // Where condition for date range
+      // $this->db->where('tbl_order.order_date >=', $fromDate);
+      // $this->db->where('tbl_order.order_date <=', $toDate);
+  
+      // Group and order by
+      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+      $this->db->order_by('tbl_order.order_date', 'DESC');
+  
+      // Execute the query
+      $query = $this->db->get();
+  
+      // Return the result as an array
+      return $query->result_array();
+  }
+  
+
+
+
+
+
+
+
+
+   public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
+   {
+      $this->db->select('
               tbl_order.order_no as order_no,
               tbl_customer.c_fname as customer_name,
               tbl_address.landmark as location,
               SUM(tbl_order_item.mrp_price) as order_amount,
               tbl_order.order_date
           ');
-          $this->db->from('tbl_order');
-          $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-          $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-          $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-      
-          // Adding WHERE condition with LIKE for search functionality
-          if (!empty($searchTerm)) {
-              $this->db->group_start(); // Opens a grouping for the OR conditions
-              $this->db->like('tbl_order.order_no', $searchTerm);
-              $this->db->or_like('tbl_customer.c_fname', $searchTerm);
-              $this->db->or_like('tbl_address.landmark', $searchTerm);
-              $this->db->group_end();
-          }
-      
-         
-          if (!empty($fromDate)) {
-              $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
-          }
-          if (!empty($toDate)) {
-              $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
-          }
-      
-          $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-          $query = $this->db->get();
-          return $query->result_array();
+      $this->db->from('tbl_order');
+      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+
+      // Adding WHERE condition with LIKE for search functionality
+      if (!empty($searchTerm)) {
+         $this->db->group_start(); // Opens a grouping for the OR conditions
+         $this->db->like('tbl_order.order_no', $searchTerm);
+         $this->db->or_like('tbl_customer.c_fname', $searchTerm);
+         $this->db->or_like('tbl_address.landmark', $searchTerm);
+         $this->db->group_end();
       }
-      
-   
-   
 
 
+      if (!empty($fromDate)) {
+         $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
+      }
+      if (!empty($toDate)) {
+         $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
+      }
 
+      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+      $query = $this->db->get();
+      return $query->result_array();
+   }
 }

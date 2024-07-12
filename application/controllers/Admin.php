@@ -2093,14 +2093,12 @@ public function search_order_list()
     $keywords = $this->input->post('searchText');
     $fromDate = $this->input->post('fromDate');
     $toDate = $this->input->post('toDate');
-
     // Pass the search parameters to the model method
     $data['order_list'] = $this->sqlQuery_model->getOrderSearchDetails($keywords, $fromDate, $toDate);
 
     // echo "<pre>";
     // print_r($data['order_list']);
     // die();
-
     
     $this->load->view('admin/containerPage/product_order_searchlist',$data);
 }
@@ -2138,13 +2136,15 @@ public function order_details() {
 
 
 
-
 public function export_OrderList() {
+  // Get date parameters from input (assuming you're using GET method)
+  $fromDate = $this->input->get('fromDate');
+  $toDate = $this->input->get('toDate');
 
-  $order_list = $this->sqlQuery_model->getOrderDetails($customer_id);
+  
+  $order_list = $this->sqlQuery_model->getOrderDetailsByDate($fromDate, $toDate);
 
-  // Debugging line, can be removed after confirming the data
-  // echo '<pre>';
+  // Uncomment the following line for debugging
   // print_r($order_list);
   // die();
 
@@ -2152,8 +2152,10 @@ public function export_OrderList() {
   header('Content-Type: text/csv');
   header('Content-Disposition: attachment; filename="order_list.csv"');
 
+  // Open output stream for CSV
   $file = fopen('php://output', 'w');
 
+  // CSV header
   $header = array(
       "ORDER ID",
       "CUSTOMER NAME",
@@ -2166,6 +2168,7 @@ public function export_OrderList() {
 
   fputcsv($file, $header);
 
+  // Write order details to CSV
   foreach ($order_list as $line) {
       $data = array(
           $line['order_no'],
@@ -2180,9 +2183,19 @@ public function export_OrderList() {
       fputcsv($file, $data);
   }
 
+  // Close the file handle
   fclose($file);
   exit;
 }
+
+
+
+
+
+
+
+
+
 
 
 
