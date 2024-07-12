@@ -425,7 +425,7 @@ class SqlQuery_model extends CI_Model
               $this->db->group_end();
           }
       
-          // Adding date filters
+         
           if (!empty($fromDate)) {
               $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
           }
