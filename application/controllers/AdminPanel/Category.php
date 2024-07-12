@@ -29,6 +29,7 @@ class Category extends CI_Controller
 
     public function index($page = '')
     {
+        $searchText = $this->input->post('searchText'); // Search Keywords
 
         $page = empty($page) ? 0 : intval($page);
         $menuIdAsKey = 2;
@@ -75,7 +76,7 @@ class Category extends CI_Controller
 
         $name = $this->input->post('name');
 
-        $array_data = $this->category->getList($page, $config["per_page"], $name);
+        $array_data = $this->category->getList($page, $config["per_page"], $name,$searchText);
 
 
         $option = '';
@@ -111,7 +112,56 @@ class Category extends CI_Controller
 
 
 
+    // public function SearchCategory() {
+                    
+    //     $searchText = $this->input->post('searchText');
+    //     // print_r($searchTerm);
+    //     // die();
+    //     // Call the category_search method from the model
+    //     $data['categories'] = $this->category->category_search($searchText);
 
+    //     // print_r($data['categories']);
+    //     // die();
+    
+    //     $data['content'] = 'admin/containerPage/index';
+    //     $this->load->view('admin/template', $data);
+    // }
+
+
+
+    
+
+    public function SearchCategory() {
+                    
+        $searchText = $this->input->post('searchText');
+        // print_r($searchTerm);
+        // die();
+        // Call the category_search method from the model
+        // $data['categories'] = $this->category->category_search($searchText);
+        $Cat_Html = $this->category->category_search($searchText);
+
+        $html.='';
+        foreach ($Cat_Html as $val) {
+            $html.='<tr>
+                <td>'.$val['cat_id'].'</td>
+                <td>'.$val['category'].'</td>
+                <td>'.$val['slug'].'</td>
+                <td>'.$val['status'].'</td>
+                <td>'.$val['add_date'].'</td>
+                <td>'.$val['action'].'</td>
+                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+            </tr>';
+        }
+
+
+        // $data['categories']
+
+        print_r($html);
+        die();
+    
+        $data['content'] = 'admin/containerPage/index';
+        $this->load->view('admin/template', $data);
+    }
 
 
 
@@ -217,7 +267,19 @@ class Category extends CI_Controller
         }
         redirect('admin/category');
     }
+
+
+
+    
+
+
+
+    
 }
+
+
+
+
 
 
 ?>

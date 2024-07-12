@@ -41,7 +41,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <div class="filter-search">
                                     <form action="#" id="search-form" method="post" enctype="multipart/form-data">
                                         <label class="form-label">Search category</label>
-                                        <input type="text" placeholder="" class="form-control" name="name" onkeyup="Search();">
+                                        <input type="text" placeholder="Search" class="form-control" name="searchTerm" id="search-category">
+
                                     </form>
                                 </div>
                             </div>
@@ -105,6 +106,29 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function() {
+    $('#search-category').keyup(function() {
+        // alert('Please wait');
+        $.ajax({
+            url: "<?php echo base_url('AdminPanel/Category/SearchCategory')?>",
+            type: 'POST',
+            data: {searchText:$('#search-category').val(),},
+            success: function(response) {
+                console.log(response);
+                $('#datalist').html(response);
+            }
+        });
+
+    });
+});
+
+
+</script>
 
 <style type="text/css">
     .modal {

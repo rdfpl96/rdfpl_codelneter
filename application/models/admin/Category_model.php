@@ -65,7 +65,7 @@ class Category_model extends CI_Model{
   } 
 
             
-  public function getList($start,$records_per_page,$name){
+  public function getList($start,$records_per_page,$name,$searchText=''){
     $array_record=array();     
     $this->db->select('P.*');
     $this->db->from('tbl_category AS P');
@@ -73,6 +73,13 @@ class Category_model extends CI_Model{
        $this->db->like('P.category',$name);
     }
    
+    // Check if the search term is not empty
+    if (!empty($searchText)) {
+      $this->db->like('P.category', $searchText);
+    }
+
+
+    
     $this->db->limit($records_per_page,$start);
     $this->db->order_by("add_date", "desc");
     $query=$this->db->get() ; 
@@ -182,6 +189,32 @@ public function update_category($id, $data) {
     }
     return $array_record;   
   }
+
+
+
+
+public function category_search($searchText = '') {
+  // print_r($searchText);
+  // die();
+  $this->db->select('T1.*');
+  $this->db->from('tbl_category AS T1');
+
+  // Check if the search term is not empty
+  if (!empty($searchText)) {
+    $this->db->like('T1.category', $searchText);
+  }
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
+
+
+
+
+
+
+
+
 
   
 }
