@@ -398,43 +398,46 @@ class SqlQuery_model extends CI_Model
       }
 
 
+      
+
 
   
-   public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
-   {
-       $this->db->select('
-           tbl_order.order_no as order_no,
-           tbl_customer.c_fname as customer_name,
-           tbl_address.landmark as location,
-           SUM(tbl_order_item.mrp_price) as order_amount,
-           tbl_order.order_date
-       ');
-       $this->db->from('tbl_order');
-       $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-       $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-       $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-   
-       // Adding WHERE condition with LIKE for search functionality
-       if (!empty($searchTerm)) {
-           $this->db->group_start(); // Opens a grouping for the OR conditions
-           $this->db->like('tbl_order.order_no', $searchTerm);
-           $this->db->or_like('tbl_customer.c_fname', $searchTerm);
-           $this->db->or_like('tbl_address.landmark', $searchTerm);
-           $this->db->group_end();
-       }
-   
-       // Adding date filters
-       if (!empty($fromDate)) {
-           $this->db->where('tbl_order.order_date >=', $fromDate);
-       }
-       if (!empty($toDate)) {
-           $this->db->where('tbl_order.order_date <=', $toDate);
-       }
-   
-       $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-       $query = $this->db->get();
-       return $query->result_array();
-   }
+      public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
+      {
+          $this->db->select('
+              tbl_order.order_no as order_no,
+              tbl_customer.c_fname as customer_name,
+              tbl_address.landmark as location,
+              SUM(tbl_order_item.mrp_price) as order_amount,
+              tbl_order.order_date
+          ');
+          $this->db->from('tbl_order');
+          $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+          $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+          $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+      
+          // Adding WHERE condition with LIKE for search functionality
+          if (!empty($searchTerm)) {
+              $this->db->group_start(); // Opens a grouping for the OR conditions
+              $this->db->like('tbl_order.order_no', $searchTerm);
+              $this->db->or_like('tbl_customer.c_fname', $searchTerm);
+              $this->db->or_like('tbl_address.landmark', $searchTerm);
+              $this->db->group_end();
+          }
+      
+          // Adding date filters
+          if (!empty($fromDate)) {
+              $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
+          }
+          if (!empty($toDate)) {
+              $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
+          }
+      
+          $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+          $query = $this->db->get();
+          return $query->result_array();
+      }
+      
    
    
 

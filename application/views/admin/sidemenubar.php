@@ -88,7 +88,7 @@
                       <a class="m-link " href="<?php echo base_url('admin/refund-and-cancelation-policy')?>"><i class="icofont-chart-flow"></i> <span>Refund &amp; Cancelation Policy</span> </a>
                    </li>
                    <li>
-                      <a class="m-link " href="https://uat.rdfpl.com/admin/newsletter"><i class="icofont-chart-flow"></i> <span>Newsletter</span> </a>
+                      <a class="m-link " href="https://site.rdfpl.com/admin/newsletter"><i class="icofont-chart-flow"></i> <span>Newsletter</span> </a>
                    </li>
                    <!-- <li>
                       <a class="m-link " href="https://uat.rdfpl.com/admin/team_manager"><i class="icofont-chart-flow"></i> <span>Teams Manager</span> </a>
