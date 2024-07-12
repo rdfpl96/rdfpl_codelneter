@@ -328,10 +328,14 @@ public function addNewAddress() {
 
 public function my_account() {
     $user = $this->my_libraries->mh_getCookies('customer');
-    if (!empty($user) && isset($user['customer_id'])) {
-        $customer_id = $user['customer_id'];
+    // print_r($data);
+    // exit();
+
+    $customer_id = $user['customer_id'];
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
         $data['customer_details'] = $this->sqlQuery_model->sql_select_where('tbl_customer', array('customer_id' => $customer_id));
-        //print_r($data);
+        // print_r($data);
+        // exit();
         $data['content'] = 'frontend/component/my_account';
         $this->load->view('frontend/template', $data);
     } else {
@@ -525,15 +529,15 @@ public function add_user_details() {
     $old_password = $this->input->post('old_password');
 
     // Check if email address is being changed and if it already exists
-    // if ($oldemailAddress != $emailAddress) {
-    //     $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
-    //     if ($getExitEmail != 0) {
-    //         $data['status'] = 0;
-    //         $data['message'] = "Email ID Already exists. Please choose another email id.";
-    //         echo json_encode($data);
-    //         return;
-    //     }
-    // }
+    if ($oldemailAddress != $emailAddress) {
+        $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
+        if ($getExitEmail != 0) {
+            $data['status'] = 0;
+            $data['message'] = "Email ID Already exists. Please choose another email id.";
+            echo json_encode($data);
+            return;
+        }
+    }
 
     // Check if mobile number is being changed and if it already exists
     if ($oldmobilename != $mobilename) {
@@ -845,49 +849,135 @@ public function remove_account_email() {
 
     echo json_encode($response);
 }
-public function policy_ajax(){
 
-    $session=$this->session->userdata('admin');
-    $designation=trim($this->input->post('designation'));
-    $editv=trim($this->input->post('editv'));
-    $field_type=trim($this->input->post('field_type'));
+// public function policy_ajax(){
+
+//     $session=$this->session->userdata('admin');
+//     $designation=trim($this->input->post('designation'));
+//     $editv=trim($this->input->post('editv'));
+//     $field_type=trim($this->input->post('field_type'));
 
 
-    if($field_type=='terms-condition'){
-      $postArr['terms_and_conditions_policy']=$designation;
-    }else if($field_type=='refund-cancelation'){
-      $postArr['refund_and_cancelation_policy']=$designation;
-    }else if($field_type=='Privacy-policy'){
-      $postArr['privacy_policy']=$designation;
-    }else if($field_type=='shipping-policy'){
-      $postArr['shipping_policy']=$designation;
-    }else if($field_type=='faq'){
-      $postArr['faq']=$designation;
-    }else if($field_type=='disclaimer'){
-      $postArr['disclaimer']=$designation;
+//     if($field_type=='terms-condition'){
+//       $postArr['terms_and_conditions_policy']=$designation;
+//     }else if($field_type=='refund-cancelation'){
+//       $postArr['refund_and_cancelation_policy']=$designation;
+//     }else if($field_type=='Privacy-policy'){
+//       $postArr['privacy_policy']=$designation;
+//     }else if($field_type=='shipping-policy'){
+//       $postArr['shipping_policy']=$designation;
+//     }else if($field_type=='faq'){
+//       $postArr['faq']=$designation;
+//     }else if($field_type=='disclaimer'){
+//       $postArr['disclaimer']=$designation;
+//     }
+
+
+//    $postArr['updated_by']=$session['admin_name'];
+
+//     if($editv==""){
+//           $sqlQuery=$this->sqlQuery_model->sql_insert('tbl_policy',$postArr);
+//           $data['message']='Successfully added.';
+//     }else{
+//           $sqlQuery=$this->sqlQuery_model->sql_update('tbl_policy',$postArr,array('policy_id'=>$editv));
+//           $data['message']='Successfully updated.';
+//     }
+//     if($sqlQuery){
+//           $data['status']=1;
+//           echo json_encode($data);
+//           exit;
+//     }else{    
+//       $data['status']=0;
+//       $data['message']='Failed to updated.';
+//       echo json_encode($data);
+//       exit;
+//     }
+// }
+
+public function policy_save() {
+    $session = $this->session->userdata('admin');
+    $designation = trim($this->input->post('designation'));
+    $editv = trim($this->input->post('edits_id')); // Make sure the input name matches
+    $field_type = trim($this->input->post('field_type'));
+    $postArr = array();
+
+    if (empty($designation)) {
+        $this->session->set_flashdata('message', 'Field is required.');
+        $this->redirect_based_on_field_type($field_type);
+        return;
     }
 
-
-   $postArr['updated_by']=$session['admin_name'];
-
-    if($editv==""){
-          $sqlQuery=$this->sqlQuery_model->sql_insert('tbl_policy',$postArr);
-          $data['message']='Successfully added.';
-    }else{
-          $sqlQuery=$this->sqlQuery_model->sql_update('tbl_policy',$postArr,array('policy_id'=>$editv));
-          $data['message']='Successfully updated.';
+    switch ($field_type) {
+        case 'admin/terms_conditions':
+            $postArr['terms_and_conditions_policy'] = $designation;
+            break;
+        case 'admin/refund-and-cancelation-policy':
+            $postArr['refund_and_cancelation_policy'] = $designation;
+            break;
+        case 'admin/privacy-policy':
+            $postArr['privacy_policy'] = $designation;
+            break;
+        case 'admin/shipping-policy':
+            $postArr['shipping_policy'] = $designation;
+            break;
+        case 'admin/faq':
+            $postArr['faq'] = $designation;
+            break;
+        case 'admin/disclaimer':
+            $postArr['disclaimer'] = $designation;
+            break;
+        default:
+            $this->session->set_flashdata('message', 'Invalid policy type.');
+            $this->redirect_based_on_field_type($field_type);
+            return;
     }
-    if($sqlQuery){
-          $data['status']=1;
-          echo json_encode($data);
-          exit;
-    }else{    
-      $data['status']=0;
-      $data['message']='Failed to updated.';
-      echo json_encode($data);
-      exit;
+
+    $postArr['updated_by'] = $session['admin_name'];
+
+    if (empty($editv)) {
+        $sqlQuery = $this->sqlQuery_model->sql_insert('tbl_policy', $postArr);
+        $message = 'Successfully added.';
+    } else {
+        $sqlQuery = $this->sqlQuery_model->sql_update('tbl_policy', $postArr, array('policy_id' => $editv));
+        $message = 'Successfully updated.';
+    }
+
+    if ($sqlQuery) {
+        $this->session->set_flashdata('message', $message);
+    } else {
+        $this->session->set_flashdata('message', 'Failed to update.');
+    }
+
+    $this->redirect_based_on_field_type($field_type);
+}
+
+private function redirect_based_on_field_type($field_type) {
+    switch ($field_type) {
+        case 'admin/terms_conditions':
+            redirect('admin/terms_conditions');
+            break;
+        case 'admin/refund-and-cancelation-policy':
+            redirect('admin/refund-and-cancelation-policy');
+            break;
+        case 'admin/privacy-policy':
+            redirect('admin/privacy-policy');
+            break;
+        case 'admin/shipping-policy':
+            redirect('admin/shipping-policy');
+            break;
+        case 'admin/faq':
+            redirect('admin/faq');
+            break;
+        case 'admin/disclaimer':
+            redirect('admin/disclaimer');
+            break;
+        // default:
+        //     redirect('admin/terms_conditions'); // Redirect to a generic policy page
+        //     break;
     }
 }
+
+
 
 public function save_gst_details(){
     $error =0;

@@ -129,6 +129,7 @@ $route['admin/blogs/edit/(:num)'] = 'AdminPanel/blogs/edit/$1';
 $route['admin/blogs/update/(:num)'] = 'AdminPanel/blogs/update/$1';
 
 //terms and conditions
+$route['common/policy_save'] = 'common/policy_save';
 $route['admin/terms_conditions']='AdminPanel/terms_and_conditions/index';
 //shipping policy
 $route['admin/shipping-policy'] = 'AdminPanel/shipping_policy/index';
