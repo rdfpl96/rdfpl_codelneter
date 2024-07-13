@@ -232,12 +232,19 @@ $route['save-gst-details']='common/save_gst_details';
   $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
   $route['api/auth/login-with-email']='Api/login/loginWithMobile';
 
+  //Cart
   $route['api/cart']='Api/cart/index';
   $route['api/cart/add-to-cart']='Api/cart/addToCart';
+  $route['api/cart/delete/(:num)']='Api/cart/delteCartItem/$1';
+  $route['api/cart/save-to-later']='Api/cart/saveLater';
+  $route['api/cart/delete-from-saveforlater/(:num)']='Api/cart/delteSavedItem/$1';
+  $route['api/cart/move-to-cart']='Api/cart/moveToCart';
 
-  $route['api/login']='ApiAuth/login';
+  //Wishlist
+  $route['api/wishlist']='Api/wishlist/index';
+  $route['api/wishlist/add-to-wishlist']='Api/wishlist/addToWishList';
+  $route['api/wishlist/delete/(:num)']='Api/wishlist/delteWishItem/$1';
 
-  
 
 // ===================End API===================================
 

@@ -113,6 +113,9 @@ class Cart extends CI_Controller {
 
                     $itemCount=$this->customlibrary->total_items($userCookies['customer_id']);
 
+                    $totalresponse=$this->cartObj->getTotalAmountWithSaving($userCookies['customer_id']);
+
+
                   }else{
 
                         $cartItems= $this->cart->contents();
@@ -168,6 +171,8 @@ class Cart extends CI_Controller {
                   // echo $this->cart->total_items();
 
                   $data['status']=1;
+                  $data['saveTotalAmt']=isset($totalresponse['saveTotalAmt']) ? $totalresponse['saveTotalAmt'] : 0;
+                  $data['totalPrice']=isset($totalresponse['totalPrice']) ? $totalresponse['totalPrice'] : 0;
                   $data['total_items']=$itemCount;
                   
                 }else{

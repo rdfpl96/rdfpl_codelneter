@@ -29,7 +29,7 @@ class Wishlist_model extends CI_Model{
     $array_record=false;      
     $this->db->select('*');
     $this->db->from('tbl_wishlist');
-    $this->db->where('cust_id',$id);
+    $this->db->where('cust_id',$customer_id);
     $this->db->where('product_id',$product_id);
     $query=$this->db->get() ; 
     if($query->num_rows()>0){ 
@@ -52,6 +52,13 @@ class Wishlist_model extends CI_Model{
     
     return $array_data;
 
+  }
+
+  public function deleteItemByWushlistId($customer_id,$wish_id){
+    $this->db->where('cust_id', $customer_id);
+     $this->db->where('wishlist_id', $wish_id);
+    $this->db->delete('tbl_wishlist');
+    return true;
   }
 
 
