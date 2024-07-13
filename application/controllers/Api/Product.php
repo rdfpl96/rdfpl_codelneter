@@ -1,6 +1,6 @@
 <?php
- require APPPATH . 'libraries/RestController.php';
- use chriskacerguis\RestServer\RestController;
+defined('BASEPATH') OR exit('No direct script access allowed');
+require(APPPATH.'/libraries/REST_Controller.php');
  
 class Product extends RestController{   
   protected $heade_user_id;
@@ -12,10 +12,16 @@ class Product extends RestController{
     $this->load->library('my_libraries');
     $this->load->model('api/product_model','product');
     $this->load->model('common_model','common');
-   // //
-   //  $headerDetail=$this->input->request_headers();
-   // //  
-   //  $this->heade_user_id=isset($headerDetail['Userid']) ? $headerDetail['Userid'] : 0 ;
+    
+    $validation=$this->authorization_token->validateToken();
+    
+        if($validation['status']!=0){
+
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        
+        echo json_encode($res);
+        exit();
+        }    
     
   }  
   public function index_get(){
