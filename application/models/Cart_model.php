@@ -73,6 +73,20 @@ public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
     return $array_data;
   }
 
+  public function getSaveDetailBySaveId($customer_id,$save_id){
+    $array_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_save_to_later');
+    $this->db->where('user_id',$customer_id);
+    $this->db->where('id',$save_id);
+    $query=$this->db->get();
+      if($query->num_rows()>0){
+        $array_data=$query->row_array();
+      }
+    
+    return $array_data;
+  }
+
  public function getCartItem($customer_id,$product_id,$item_id){
     $array_data=array();
     $this->db->select('*');
@@ -104,14 +118,39 @@ public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
 
   }
 
+  public function getTotalAmountWithSaving($customer_id){
+    $array_data=array('totalPrice'=>0,'saveTotalAmt'=>0);
+    $this->db->select('P.product_id,P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock,C.qty as cart_qty,C.cart_id,C.variant_id');
+    $this->db->from('tbl_cartmanager AS C');
+    $this->db->where('user_id',$customer_id);
+    $this->db->join('tbl_product AS P', 'P.product_id = C.product_id');
+    $this->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+      foreach ($array_data as $iproduct) {  
+        
+        if($iproduct['before_off_price'] > $iproduct['price']){
+          $saveTotalAmt=$saveTotalAmt+(($iproduct['cart_qty']*$iproduct['before_off_price'])-($iproduct['cart_qty']*$iproduct['price']));
+        }
+          $totalPrice=$totalPrice+($iproduct['cart_qty']*$iproduct['price']);
+        }
+
+        $array_data=array('totalPrice'=>$totalPrice,'saveTotalAmt'=>$saveTotalAmt);
+    }
+    
+    return $array_data;
+
+  }
+
   public function getSaveLaterProducts($customer_id){
     $array_data=array();
-    //$this->db->select('P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock');
-    $this->db->select('P.product_name,P.feature_img,P.product_id,P.slug');
+    $this->db->select('C.*,P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price');
+    //$this->db->select('P.product_name,P.feature_img,P.product_id,P.slug');
     $this->db->from('tbl_save_to_later AS C');
     $this->db->where('user_id',$customer_id);
     $this->db->join('tbl_product AS P', 'P.product_id = C.product_id');
-    //$this->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
+    $this->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
     $query=$this->db->get();
     if($query->num_rows()>0){
       $array_data=$query->result_array();
@@ -148,6 +187,16 @@ public function getBeforeCheckout(){
     $this->db->delete('tbl_cartmanager');
     return true;
   }
+
+  public function deleteItemBySaveId($customer_id,$save_id){
+    $this->db->where('user_id', $customer_id);
+     $this->db->where('id', $save_id);
+    $this->db->delete('tbl_save_to_later');
+    return true;
+  }
+
+
+  
  
   public function getTimeSlot(){
     $this->db->select('*');
