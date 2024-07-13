@@ -41,9 +41,7 @@ class Category extends CI_Controller
         $config["total_rows"] = $this->category->get_user_count_category();
         $config["per_page"] = 10; // Number of records per page
         $config["uri_segment"] = 3; // Position of the page number in the URL
-
         // Customizing pagination
-
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
 

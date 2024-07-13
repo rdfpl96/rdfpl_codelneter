@@ -43,48 +43,46 @@ class Subcategory extends CI_Controller{
         $config = array();
         $config["base_url"] = base_url() . "admin/subcategory";
         $config["total_rows"] = $this->subcategory->get_user_count_subcategory();
-        $config["per_page"] = 10; // Number of records per page
-        $config["uri_segment"] = 3; // Position of the page number in the URL
-        
+        $config["per_page"] = 2; // Number of records per page
+        $config["uri_segment"] = 1; // Position of the page number in the URL
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
-        
+
         $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
         $config['first_tag_close'] = '</a></li>';
-        
+
         $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
         $config['last_tag_close'] = '</a></li>';
-        
-        $config['next_link'] = 'Next';
-        $config['next_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+
+        $config['next_link'] = 'Next'; //'Next Page';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
         $config['next_tag_close'] = '</a></li>';
-        
-        $config['prev_link'] = 'Previous';
-        $config['prev_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
+
+        $config['prev_link'] = 'Previous'; //'Prev Page';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
         $config['prev_tag_close'] = '</a></li>';
-        
-        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a class="page-link" href="#">';
+
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
         $config['cur_tag_close'] = '</a></li>';
-        
-        $config['num_tag_open'] = '<li class="paginate_button page-item"><a class="page-link" href="#">';
-        $config['num_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
         
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data['users_list'] = $this->subcategory->get_users_category($config["per_page"], $page);
         $data['pagination'] = $this->pagination->create_links();
-        
-        $records_per_page = 25;
-        $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-        $page = ($page == 0 ? 1 : $page);
-        $start = ($page - 1) * $records_per_page;    
+    
         $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
         $array_data = $this->subcategory->get_subcategories($start, $records_per_page, $name);
-        $count = $this->subcategory->record_count($name);   
-        $i = (($page * $records_per_page) - ($records_per_page - 1));      
+      
+        // print_r($array_data);
+        // die();
+
+
         $option = '';
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
@@ -140,7 +138,7 @@ class Subcategory extends CI_Controller{
         } else {
             $this->session->set_flashdata('error_message', 'Failed to insert data!');
         }
-        redirect('admin/subcategory/index');
+        redirect('admin/subcategory');
     }
 
 
