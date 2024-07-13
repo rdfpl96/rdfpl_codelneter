@@ -24,7 +24,17 @@ function getCookies($name=""){
     }
     return  $getArr;
  }
-
+  
+  function validateMobile($mnum) {
+    if (preg_match('/^[0-9]{10}+$/', $mnum)) 
+      {   return true;    
+      }else{   return false;   }
+  }
+  function validateEmail($email) // checking of valid email id
+  {
+  if (filter_var($email, FILTER_VALIDATE_EMAIL))  {   return true;    } 
+  else                                            {   return false;   }
+  }
 
  function getCookiesRowId($products,$pid,$itemId){
 
