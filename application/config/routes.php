@@ -232,6 +232,9 @@ $route['save-gst-details']='common/save_gst_details';
   $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
   $route['api/auth/login-with-email']='Api/login/loginWithMobile';
 
+  //Home
+  $route['api/home']='Api/home/index';
+
   //Cart
   $route['api/cart']='Api/cart/index';
   $route['api/cart/add-to-cart']='Api/cart/addToCart';

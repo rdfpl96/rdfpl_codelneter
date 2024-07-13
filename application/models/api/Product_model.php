@@ -6,6 +6,20 @@ class Product_model extends CI_Model{
     //$this->load->database();
   }
 
+  public function getTopCategory(){
+    $array_data=array();
+    $this->db->select('C.category as name,C.cat_id,CONCAT("'.base_url("uploads/").'",C.cat_image) as imagepath');
+    $this->db->from('tbl_category AS C');
+    $this->db->where('C.status',1);
+    $this->db->order_by('C.position','DESC');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+        $array_data=$query->result_array();
+    }
+    return $array_data;
+
+  }
+
   public function getItemDetailByProductAndItemId($productId,$itemId){
     $array_data=array();
     $this->db->select('*');
@@ -20,18 +34,19 @@ class Product_model extends CI_Model{
     
     return $array_data;
   } 
+
+
             
  public function getOtherProductById($product_type_id){
-    $array_data=array();
-    $this->db->select('P.product_id,P.product_name,P.cat_id,P.');
-    $this->db->from('tbl_product AS P');
+   $array_data=array();
+    $this->db->select('P.product_id,P.product_name,P.slug,P.feature_img, CONCAT("'.base_url("uploads/").'",P.feature_img) as imagepath');
+    $this->db->from('tbl_other_product AS OP');
     $this->db->where('P.status',1);
     $this->db->where('OP.product_type_id',$product_type_id);
-    $this->db->join('tbl_other_product AS OP', 'OP.product_id = P.product_id');
+    $this->db->join('tbl_product AS P', 'P.product_id = OP.product_id');
     $query=$this->db->get();
     if($query->num_rows()>0){
-
-      $array_data=$query->result_array();
+        $array_data=$query->result_array();
     }
     return $array_data;
   }
