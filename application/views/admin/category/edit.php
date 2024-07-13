@@ -53,7 +53,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                 <h3 class="fw-bold mb-0">Update Product</h3>
 
-                                <!-- <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
+                                <!--<h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
                                 
                                 <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                             </div>

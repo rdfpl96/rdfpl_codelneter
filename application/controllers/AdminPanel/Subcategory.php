@@ -39,7 +39,7 @@ class Subcategory extends CI_Controller{
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
         
-        // Configuring pagination
+        
         $config = array();
         $config["base_url"] = base_url() . "admin/subcategory";
         $config["total_rows"] = $this->subcategory->get_user_count_subcategory();

@@ -24,7 +24,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 </div>
             </div>
         </div> <!-- Row end -->
-
         <!-- filters -->
         <div class="row g-3 mb-3">
             <div class="col-xl-12 col-lg-12">

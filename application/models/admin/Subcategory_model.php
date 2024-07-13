@@ -102,7 +102,7 @@ class Subcategory_model extends CI_Model{
         }
         $this->db->limit($limit, $start);
         $query = $this->db->get();
-        return $query->result_array(); // Ensuring the result is returned as an array
+        return $query->result_array(); // Ensuring the result is returned as an arra
     }
 
     public function insert_subcategory($data) {
@@ -147,7 +147,7 @@ public function update_category($id, $data) {
   //   }else{
   //     $this->db->trans_commit();
   //     return true;
-  //   } 
+  //    
   // } 
 
   public function get_user_count_subcategory() {

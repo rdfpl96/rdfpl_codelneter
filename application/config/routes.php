@@ -78,6 +78,7 @@ $route['admin/category/update/(:num)']='AdminPanel/category/update/$1';
 
 //subcategory
 $route['admin/subcategory']='AdminPanel/subcategory/index';
+$route['admin/subcategory/(:num)']='AdminPanel/subcategory/index/$1';
 $route['admin/subcategory/create'] = 'AdminPanel/subcategory/create';
 $route['admin/subcategory/store'] = 'AdminPanel/subcategory/store';
 $route['admin/subcategory/edit/(:num)'] = 'AdminPanel/subcategory/edit/$1';
