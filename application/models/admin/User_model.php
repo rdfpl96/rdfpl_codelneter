@@ -58,14 +58,7 @@ public function get_users_banner($limit, $start) {
 }
 
 
- 
- 
- 
- 
- 
- 
- 
- 
+
   public function chkUniqueCategoryName($name,$id=""){
    
     $this->db->select('*');

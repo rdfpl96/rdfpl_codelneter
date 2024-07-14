@@ -155,8 +155,8 @@ class Category extends CI_Controller
 
         // $data['categories']
 
-        print_r($html);
-        die();
+        // print_r($html);
+        // die();
     
         $data['content'] = 'admin/containerPage/index';
         $this->load->view('admin/template', $data);
@@ -248,6 +248,10 @@ class Category extends CI_Controller
         // Load the edit view
         $this->load->view('admin/category/edit', $data);
     }
+
+
+    
+
 
 
 

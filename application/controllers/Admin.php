@@ -314,7 +314,7 @@ public function add_user()
 		  $this->load->view('admin/template',$data);
 	}
 
-	public function sub_category(){
+	/*public function sub_category(){
         $menuIdAsKey=1;
         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
         $data['page_menu_id']=$menuIdAsKey;
@@ -338,7 +338,7 @@ public function add_user()
         $data['in_stock_active_inactive']=array('table'=>'tbl_sub_category','primary_key'=>'sub_cat_id','update_target_column'=>'in_stock_status');
       $data['content']='admin/containerPage/sub-category';
 		  $this->load->view('admin/template',$data);
-	}
+	}*/
 
 	public function add_product(){
 
@@ -2138,9 +2138,8 @@ public function order_details() {
 
 public function export_OrderList() {
   // Get date parameters from input (assuming you're using GET method)
-  $fromDate = $this->input->get('fromDate');
-  $toDate = $this->input->get('toDate');
-
+  $fromDate = $this->input->post('fromDate');
+  $toDate = $this->input->post('toDate');
   
   $order_list = $this->sqlQuery_model->getOrderDetailsByDate($fromDate, $toDate);
 

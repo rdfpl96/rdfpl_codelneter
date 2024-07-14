@@ -33,8 +33,10 @@ class Subcategory extends CI_Controller{
 
    	// }
 
-       public function index() {
-
+       public function index($page='') {
+        $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
+        $page = empty($page) ? 0 : intval($page);
+        
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
@@ -42,9 +44,9 @@ class Subcategory extends CI_Controller{
         
         $config = array();
         $config["base_url"] = base_url() . "admin/subcategory";
-        $config["total_rows"] = $this->subcategory->get_user_count_subcategory();
-        $config["per_page"] = 2; // Number of records per page
-        $config["uri_segment"] = 1; // Position of the page number in the URL
+        $config["total_rows"] = $this->subcategory->get_user_count_subcategory($name);
+        $config["per_page"] = 10; // Number of records per page
+        $config["uri_segment"] = 3; // Position of the page number in the URL
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
@@ -72,30 +74,35 @@ class Subcategory extends CI_Controller{
         $config['num_tag_close'] = '</li>';
         
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['users_list'] = $this->subcategory->get_users_category($config["per_page"], $page);
+        //$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        //$data['users_list'] = $this->subcategory->get_users_category($config["per_page"], $page);
         $data['pagination'] = $this->pagination->create_links();
     
-        $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
-        $array_data = $this->subcategory->get_subcategories($start, $records_per_page, $name);
+        
+        $array_data = $this->subcategory->get_subcategories($page, $config["per_page"], $name);
       
         // print_r($array_data);
         // die();
 
 
         $option = '';
+        $i =1;
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
                 $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
         
                 $option .= '<tr> 
-                                <td>' . $i . '</td>
+                                <td>' . ($i+$page) . '</td>
                                 <td>' . $record['category'] . '</td>
+                                <td>' . $record['subCat_name'] . '</td>
                                 <td>' . $record['subcategory_slug'] . '</td>
                                 <td>' . $status . '</td>
-                                <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
+                                <td>' . date('d-m-Y', strtotime($record['update_date'])) . '</td>
                                 <td></td>
-                                <td><a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td>
+                                    <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
+                                    <a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-danger btn-xs deletesubbtn" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                                </td>
                         </tr>';
                 $i++;
             }
@@ -113,6 +120,62 @@ class Subcategory extends CI_Controller{
     }
     
     
+    public function deleteSubcategory() {
+
+        die('You must');
+        $menuIdAsKey = 34;
+        $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $data['page_menu_id'] = $menuIdAsKey;
+      
+       
+        $sub_cat_id = $this->input->post('sub_cat_id');
+       
+        $response = $this->sqlQuery_model->sql_delete('tbl_sub_category', array('sub_cat_id' => $sub_cat_id));
+    
+        print_r($response);
+        die();
+        // Return response (true or false) to AJAX request
+        echo json_encode($response);
+    }
+    
+
+
+    public function search_subcat_list()
+    {
+        $menuIdAsKey = 3;
+        $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $data['page_menu_id'] = $menuIdAsKey;
+    
+        $keywords = $this->input->post('searchText');
+
+        // print_r($keywords);
+        // die();
+        // Pass the search parameters to the model method
+        $Cat_Html  = $this->subcategory->SearchCategory($keywords);
+    
+
+        
+        // $html.='';
+        // foreach ($Cat_Html as $val) {
+        //     $html.='<tr>
+        //         <td>'.$val['cat_id'].'</td>
+        //         <td>'.$val['subCat_name'].'</td>
+        //         <td>'.$val['slug'].'</td>
+        //         <td>'.$val['status'].'</td>
+        //         <td>'.$val['add_date'].'</td>
+        //         <td>'.$val['action'].'</td>
+        //         <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+        //     </tr>';
+        // }
+
+
+        
+        
+        
+        
+        $this->load->view('admin/subcategory/index',$data);
+    }
+
 
 
 

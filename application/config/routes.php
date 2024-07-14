@@ -83,6 +83,7 @@ $route['admin/subcategory/create'] = 'AdminPanel/subcategory/create';
 $route['admin/subcategory/store'] = 'AdminPanel/subcategory/store';
 $route['admin/subcategory/edit/(:num)'] = 'AdminPanel/subcategory/edit/$1';
 $route['admin/subcategory/update/(:num)'] = 'AdminPanel/subcategory/update/$1';
+$route['AdminPanel/subcategory/index'] = 'AdminPanel/subcategory/deleteSubcategory';
 
 //child category
 $route['admin/childcategory']='AdminPanel/childcategory/index';

@@ -96,14 +96,34 @@ class Subcategory_model extends CI_Model{
   public function get_subcategories($start, $limit, $name) {
         $this->db->select('tbl_sub_category.*, tbl_category.category');
         $this->db->from('tbl_sub_category');
-        $this->db->join('tbl_category', 'tbl_sub_category.sub_cat_id = tbl_category.cat_id');
+        $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
         if ($name) {
             $this->db->like('tbl_sub_category.subCat_name', $name);
         }
         $this->db->limit($limit, $start);
         $query = $this->db->get();
+        //die($this->db->last_query());
         return $query->result_array(); // Ensuring the result is returned as an arra
     }
+
+
+    public function SearchCategory($category){
+
+
+       $this->db->select('tbl_sub_category.*, tbl_category.category');
+        $this->db->from('tbl_sub_category');
+        $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
+        $this->db->like('tbl_sub_category.subCat_name', $category);
+        $this->db->or_like('tbl_category.category', $category);
+        $query = $this->db->get();
+        return $query->result_array(); // Ensuring the result is returned as an array
+    }
+
+
+
+
+
+
 
     public function insert_subcategory($data) {
         return $this->db->insert('tbl_sub_category', $data);
@@ -150,10 +170,10 @@ public function update_category($id, $data) {
   //    
   // } 
 
-  public function get_user_count_subcategory() {
+  /*public function get_user_count_subcategory() {
   
     return $this->db->count_all("tbl_sub_category");
-  }
+  }*/
    
   public function get_users_category($limit, $start) {
     $this->db->limit($limit, $start);
@@ -165,7 +185,17 @@ public function update_category($id, $data) {
     return false;
   }
 
-
+  public function get_user_count_subcategory($name='') {
+    $this->db->select('tbl_sub_category.*, tbl_category.category');
+    $this->db->from('tbl_sub_category');
+    $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
+    if ($name) {
+        $this->db->like('tbl_sub_category.subCat_name', $name);
+    }
+    //$this->db->limit($limit, $start);
+    $query = $this->db->get();
+    return count($query->result_array()); // Ensuring the result is returned as an arra
+}
 
 
 
@@ -184,6 +214,11 @@ public function update_category($id, $data) {
     return $array_record;   
   }
 
-  
+  public function delete_subcategory($sub_cat_id) {
+    $this->db->where('sub_cat_id', $sub_cat_id);
+    return $this->db->delete('subcategories');
+}
+
+
 }
 ?>

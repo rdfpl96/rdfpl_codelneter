@@ -34,7 +34,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <div class="filter-search">
                                     <form action="#" id="search-form" method="post" enctype="multipart/form-data">
                                         <label class="form-label">Search Subcategory</label>
-                                        <input type="text" placeholder="" class="form-control" name="name" onkeyup="Search();">
+                                        <input type="text" placeholder="" class="form-control" name="search-cat" id="search-cat">
                                     </form>
                                 </div>
                             </div>
@@ -66,7 +66,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <thead>
                                     <tr>
                                         <th>S.N.</th>
-                                        <th>Subcategory Name</th>
+                                        <!-- <th>category</th> -->
+                                        <th>Subcategory</th>
                                         <th>Slug</th>
                                         <th>Status</th>
                                         <th>Date</th>
@@ -110,4 +111,58 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
             timer: 1500
         });
     }
+
+    function deleteRowtablesub(subCategoryId) {
+    if(confirm('Are you sure you want to delete this subcategory?')) {
+        $.ajax({
+            url: "<?php echo base_url('AdminPanel/subcategory/index/deleteSubcategory'); ?>",
+            type: "POST",
+            data: { sub_cat_id: subCategoryId },
+            dataType: "json",
+            success: function(response) {
+                if(response == 'true') {  
+                    alert('Subcategory deleted successfully');
+                    location.reload();
+                } else {
+                    alert('Failed to delete subcategory');
+                }
+            },
+            error: function() {
+                alert('Error deleting subcategory');
+            }
+        });
+    }
+}
+
+
+
+
+
+    ///$(document).ready(function() {
+
+    $('#search-cat').keyup(function() {
+
+        // alert("hiiiiii");
+
+        
+
+        //var searchText = $(this).val();
+        
+
+        $.ajax({
+            url: "<?php echo base_url('AdminPanel/Subcategory/search_subcat_list')?>",
+            type: 'POST',
+            data: {
+                searchText:$('#search-cat').val(),
+                
+                  },
+            success: function(response) {
+                $('#trRow').html(response);
+            }
+        });
+
+    });
+//}
+
+
 </script>

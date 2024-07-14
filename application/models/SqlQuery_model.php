@@ -432,10 +432,6 @@ class SqlQuery_model extends CI_Model
 
 
    public function getOrderDetailsByDate($fromDate, $toDate) {
-      // Ensure date inputs are correctly formatted and safe
-      $fromDate = $this->db->escape($fromDate . ' 00:00:00');
-      $toDate = $this->db->escape($toDate . ' 23:59:59');
-  
       // Select statement to get the desired order details
       $this->db->select('
           tbl_order.order_no as order_no,
@@ -452,13 +448,17 @@ class SqlQuery_model extends CI_Model
       $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
   
       // // Where condition for date range
-      // $this->db->where('tbl_order.order_date >=', $fromDate);
-      // $this->db->where('tbl_order.order_date <=', $toDate);
-  
+      if(isset($fromDate) && !empty($fromDate)){
+         $this->db->where('tbl_order.order_date >=', $fromDate. ' 00:00:00');
+      }
+      if(isset($toDate) && !empty($toDate)){
+         $this->db->where('tbl_order.order_date <=', $toDate. ' 23:59:59');
+      }
+        
       // Group and order by
       $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
       $this->db->order_by('tbl_order.order_date', 'DESC');
-  
+
       // Execute the query
       $query = $this->db->get();
   
