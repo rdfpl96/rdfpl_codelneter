@@ -63,6 +63,35 @@ class SqlQuery_model extends CI_Model
       }
    }
 
+   public function get_user_count_banner_list() {
+  
+      return $this->db->count_all("tbl_banner");
+    }
+     
+    public function get_users_banner_list($limit, $start) {
+      $this->db->limit($limit, $start);
+      $query = $this->db->get("tbl_banner");
+     
+     
+
+      // print_r($result);
+      // die();
+
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }
+      return false;
+    }
+
+
+
+
+
+
+
+
+
+
 
    public function sql_select_where_asc($tablename, $col_name, $where)
    {

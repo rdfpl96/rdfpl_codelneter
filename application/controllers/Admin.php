@@ -2958,19 +2958,69 @@ public function add_testinonial(){
 
 public function banner(){
 
-   $menuIdAsKey=31;
-   $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-   $data['page_menu_id']=$menuIdAsKey;
-   
-     $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
+  $menuIdAsKey=31;
+  $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id']=$menuIdAsKey;
+ 
+
+  $config["base_url"] = base_url()."admin/banner";
+  $config["total_rows"] = $this->sqlQuery_model->get_user_count_banner_list();
+  // 
+  $config["per_page"] = 10; // Number of records per page
+  $config["uri_segment"] = 3; // Position of the page number in the URL
+
+  // Customizing pagination
+              
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+         
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['first_tag_close'] = '</a></li>';
+         
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['last_tag_close'] = '</a></li>';
+         
+        $config['next_link'] = 'Next';//'Next Page';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['next_tag_close'] = '</a></li>';
+
+        $config['prev_link'] = 'Previous';//'Prev Page';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
+
+  $this->pagination->initialize($config);
+  $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+  $data['banner_list'] = $this->sqlQuery_model->get_users_banner_list($config["per_page"], $page);
+
+//     echo "<pre>";
+//     print_r("usrlist=>",$data['user_list']);
+// echo "</pre>";
+//     die();
+
+  $data['pagination'] = $this->pagination->create_links();
 
 
-     $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
-     $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
 
 
-   $data['content']='admin/containerPage/banner';
-  $this->load->view('admin/template',$data);
+
+
+    $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
+
+
+    $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
+    $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
+
+
+  $data['content']='admin/containerPage/banner';
+ $this->load->view('admin/template',$data);
 }
 
 

@@ -119,6 +119,9 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                     ?>
                                 </tbody>
                             </table>
+                            <div class="pagination-links">
+                                <?php echo $pagination; ?>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -89,6 +89,7 @@ class Category extends CI_Controller
                                 <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
                                 <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"></i>Delete</a></td>
                             </tr>';
             }
         } else {
