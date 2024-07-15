@@ -1,8 +1,8 @@
 // Pramod
-  //var base_url="https://site.rdfpl.com/";
+  var base_url="https://site.rdfpl.com/";
 
 // Pramod
- var base_url="http://localhost/rdfpl/";
+ //var base_url="http://localhost/rdfpl/";
 
 // function showLogin(){
 //     alert('hi');
@@ -136,6 +136,44 @@ $(document).on('click', '.shipping-address-save', function(e) {
 //     });
 // }
 
+// function addToWishlist(product_id) {
+//     var isInWishlist = $('#Wishlist' + product_id).hasClass('wishlistactive');
+
+//     $.ajax({
+//         url: base_url + 'add-to-wishlist',
+//         type: 'POST',
+//         dataType: 'JSON',
+//         data: { 'product_id': product_id },
+//         success: function(res) {
+//             if (res.status == 1) {
+//                 $('#wishitcount').text(res.pcount);
+
+//                 if (isInWishlist) {
+//                     $('#Wishlist' + product_id).removeClass('wishlistactive');
+//                     isInWishlist = false; 
+//                 } else {
+//                     $('#Wishlist' + product_id).addClass('wishlistactive');
+//                     isInWishlist = true; 
+//                 }
+//             } else {
+//                 // Handle error messages
+//                 alert(res.message);
+//             }
+
+//             // Show message in snackbar
+//             var x = document.getElementById("snackbar");
+//             x.className = "show";
+//             var message = res.message;
+//             document.getElementById('snackbar').innerText = message;
+//             setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(xhr.responseText);
+//             alert('An error occurred. Please try again later.');
+//         }
+//     });
+// }
+
 function addToWishlist(product_id) {
     var isInWishlist = $('#Wishlist' + product_id).hasClass('wishlistactive');
 
@@ -143,20 +181,18 @@ function addToWishlist(product_id) {
         url: base_url + 'add-to-wishlist',
         type: 'POST',
         dataType: 'JSON',
-        data: { 'product_id': product_id },
+        data: { 'product_id': product_id, 'action': isInWishlist ? 'remove' : 'add' },
         success: function(res) {
             if (res.status == 1) {
                 $('#wishitcount').text(res.pcount);
 
                 if (isInWishlist) {
-                    // If already in wishlist, remove it
                     $('#Wishlist' + product_id).removeClass('wishlistactive');
-                    isInWishlist = false; // Update state
                 } else {
-                    // If not in wishlist, add it
                     $('#Wishlist' + product_id).addClass('wishlistactive');
-                    isInWishlist = true; // Update state
                 }
+            } else {
+                alert(res.message);
             }
 
             var x = document.getElementById("snackbar");
@@ -164,11 +200,13 @@ function addToWishlist(product_id) {
             var message = res.message;
             document.getElementById('snackbar').innerText = message;
             setTimeout(function() { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert('An error occurred. Please try again later.');
         }
     });
 }
-
-
 
 
 function onHoverTopCat(thisobj,tocat_id){

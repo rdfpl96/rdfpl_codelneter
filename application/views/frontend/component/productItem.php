@@ -1,5 +1,8 @@
 
 <?php
+// echo '<pre>';
+// print_r($products111);
+// exit();
 
 
    if(isset($productItems) && is_array($productItems) && count($productItems)>0){ 
@@ -140,21 +143,26 @@
 
 
          <div class="btn_group">
+            <!--previous wishlist code-->
+            <!-- <div class="save_for_later_btn">
+                <?php //if($isProductWishlist) { ?>   
+                <a href="javascript:void(0);" title="Wishlist" class="wish-div" onclick="addToWishlist(<?php //echo $record['product_id']; ?>);return false;">
+                    <span class="material-symbols-outlined idss4 hovercdd wishlistactive">bookmark</span>
+                </a>
+                <?php //} else { ?>
+                <a href="javascript:void(0);" title="Wishlist" class="wish-div" onclick="addToWishlist(<?php //echo $record['product_id']; ?>);return false;">
+                    <span class="material-symbols-outlined idss4 hovercdd" id="Wishlist<?php //echo $record['product_id']; ?>">bookmark</span>
+                </a>
+                <?php //} ?>
+            </div>  -->
 
             <div class="save_for_later_btn">
-               
-               <?php if($isProductWishlist) { ?>   
-               <a href="javascript:void(0);" title="Wishlist" class="wish-div">
-                  <span class="material-symbols-outlined idss4 hovercdd wishlistactive">bookmark</span>
+               <a href="javascript:void(0);" title="Wishlist" class="wish-div" onclick="addToWishlist(<?php echo $record['product_id']; ?>);return false;">
+                  <span class="material-symbols-outlined idss4 hovercdd <?php echo $isProductWishlist ? 'wishlistactive' : ''; ?>" id="Wishlist<?php echo $record['product_id']; ?>">bookmark</span>
                </a>
-
-            <?php } else { ?>
-               <a href="javascript:void(0);" title="Wishlist" class="wish-div" onclick="addToWishlist(<?php echo $record['product_id'];?>);return false;">
-                  <span class="material-symbols-outlined idss4 hovercdd" id="Wishlist<?php echo $record['product_id'];?>" >bookmark</span>
-               </a>
-            <?php } ?>
-              
             </div>
+
+
 
             <div class="updd4tab-slide" style="text-align:center;" id="addToCartDiv<?php echo $record['product_id']; ?>">
                <input type="hidden" class="quantity-input" id="productItemId<?php echo $record['product_id']; ?>" value="<?php echo isset($firstItem['variant_id']) ? $firstItem['variant_id'] : 0 ?>" >
