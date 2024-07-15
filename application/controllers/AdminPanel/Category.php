@@ -88,8 +88,9 @@ class Category extends CI_Controller
                                 <td>' . $status . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
-                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"></i>Delete</a></td>
+                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
+                                  <a href="javascript:deleteRowtablecat('.$record['cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                                  </td>
                             </tr>';
             }
         } else {
@@ -107,6 +108,39 @@ class Category extends CI_Controller
             $this->load->view('admin/category/index', $data);
         }
     }
+
+
+
+    public function deleteCategory() {
+        $menuIdAsKey = 34;
+        $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $data['page_menu_id'] = $menuIdAsKey;
+
+        $cat_id = $this->input->post('cat_id');
+
+        
+        $response = $this->sqlQuery_model->sql_delete('tbl_category', array('cat_id' => $cat_id));
+
+
+        // print_r($response);
+        // die();
+
+        if($response=='1'){
+            $Flag= 'True';
+        }else{
+            $Flag= 'False';
+        }
+
+        echo json_encode($Flag);
+        exit();
+    }
+    
+
+
+
+
+
+
 
 
 

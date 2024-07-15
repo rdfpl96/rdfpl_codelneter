@@ -106,7 +106,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                                         <a href="<?php echo base_url('admin/add_banner/' . $value->banner_id); ?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
 
 
-                                                        <button type="button" class="btn btn-outline-secondary deleteRowClass" id="deleteRow<?php echo $value->banner_id; ?>" data-id="<?php echo base64_encode($value->banner_id . ':::' . implode(',', $deleteActionArr)); ?>"><i class="icofont-ui-delete text-danger"></i></button>
+                                                       
+                                                        <button type="button" class="btn btn-outline-secondary deleteRowBtn" id="deleteRow" data-id="<?php echo $value->banner_id;?>"> <i class="icofont-ui-delete text-danger"></i></button>
 
                                                     </div>
                                                 </td>
@@ -129,3 +130,65 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         </div>
     </div>
 </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    var base_url = "<?php echo base_url(); ?>";
+
+
+
+
+    $('.deleteRowBtn').click(function() {
+    var value = $(this).data('id');
+
+    if (confirm('Are you sure? Do you want to delete?')) {
+        $.ajax({
+            url: base_url + 'admin/banner_Delete',
+            type: 'POST',
+            dataType: 'JSON',
+            data: { value: value },
+            success: function(data) {
+                if (data== 1) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.reload(); // Reload page on success
+                    });
+                 }
+
+                else {
+                    Swal.fire({
+                       icon: 'error',
+                        title: 'Error',
+                         text: data.message
+                     });
+                }
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                   icon: 'error',
+                   title: 'AJAX Error',
+                   text: 'An error occurred: ' + textStatus
+            });
+            },
+            complete: function() {
+                //  Optional: Hide loader if you have one
+                 $('#loader').css('display', 'none');
+            }
+        });
+    }
+});
+
+
+
+
+
+</script>

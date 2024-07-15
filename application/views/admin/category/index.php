@@ -128,6 +128,78 @@ $(document).ready(function() {
 });
 
 
+
+
+
+function deleteRowtablecat(cat_id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "<?php echo base_url('AdminPanel/Category/deleteCategory'); ?>",
+                type: "POST",
+                data: {cat_id: cat_id },
+                dataType: "json",
+                success: function(response) {
+                    //console.log('deleteRowtablesub=> ', response);
+                    if (response == 'True') {
+                        Swal.fire(
+                            'Deleted!',
+                            'category has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } 
+                    else {
+                        Swal.fire(
+                            'Failed!',
+                            'Failed to delete subcategory.',
+                            'error'
+                        );
+                    }
+                },
+                error: function() {
+                    Swal.fire(
+                        'Error!',
+                        'Error deleting subcategory.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <style type="text/css">

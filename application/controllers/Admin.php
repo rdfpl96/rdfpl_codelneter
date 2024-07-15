@@ -2955,7 +2955,7 @@ public function add_testinonial(){
 //   $this->load->view('admin/template',$data);
 // }
 
-public function banner(){
+public function banner1(){
 
   $menuIdAsKey=31;
   $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
@@ -2965,8 +2965,16 @@ public function banner(){
   $config["base_url"] = base_url()."admin/banner";
   $config["total_rows"] = $this->sqlQuery_model->get_user_count_banner_list();
   // 
+
+
+  // print_r($config['total_rows']);
+
+  // die();
+
   $config["per_page"] = 10; // Number of records per page
   $config["uri_segment"] = 3; // Position of the page number in the URL
+
+
 
   // Customizing pagination
               
@@ -3014,6 +3022,27 @@ public function banner(){
     $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
 
 
+    // $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
+    // $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
+
+
+  $data['content']='admin/containerPage/banner';
+ $this->load->view('admin/template',$data);
+}
+
+
+public function banner(){
+
+  $menuIdAsKey=31;
+  $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id']=$menuIdAsKey;
+
+
+  
+  
+    $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
+
+
     $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
     $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
 
@@ -3021,6 +3050,48 @@ public function banner(){
   $data['content']='admin/containerPage/banner';
  $this->load->view('admin/template',$data);
 }
+
+
+
+
+
+
+public function banner_Delete(){
+
+//    $menuIdAsKey=31;
+//    $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+//    $data['page_menu_id']=$menuIdAsKey;
+   
+//    $getBannerId=$this->uri->segment(3);
+
+// $getuserId=$this->uri->segment(3);
+//    print_r($getBannerId);
+//    die('');
+//    $this->sqlQuery_model->sql_delete('tbl_banner',array('banner_id'=>$getBannerId));
+   
+//    redirect('admin/banner');
+
+
+   $menuIdAsKey=34;
+   $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+   $data['page_menu_id']=$menuIdAsKey;
+ 
+   $value = $this->input->post('value');
+   $Responce=$this->sqlQuery_model->sql_delete('tbl_banner',array('banner_id'=>$value));
+   
+   echo $Responce;
+   exit();
+
+
+
+}
+
+
+
+
+
+
+
 
 
 public function banner_edit_add(){

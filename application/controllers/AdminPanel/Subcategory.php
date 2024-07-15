@@ -101,7 +101,7 @@ class Subcategory extends CI_Controller{
                                 <td></td>
                                 <td>
                                     <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
-                                    <a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-danger btn-xs deletesubbtn" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                                    <a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i> Delete</a>
                                 </td>
                         </tr>';
                 $i++;
