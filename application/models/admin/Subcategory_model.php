@@ -108,17 +108,16 @@ class Subcategory_model extends CI_Model{
 
 
     public function SearchCategory($category){
-
-
-       $this->db->select('tbl_sub_category.*, tbl_category.category');
-        $this->db->from('tbl_sub_category');
-        $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
-        $this->db->like('tbl_sub_category.subCat_name', $category);
-        $this->db->or_like('tbl_category.category', $category);
-        $query = $this->db->get();
-        return $query->result_array(); // Ensuring the result is returned as an array
-    }
-
+      $this->db->select('tbl_sub_category.*, tbl_category.category');
+      $this->db->from('tbl_sub_category');
+      $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
+      $this->db->like('tbl_sub_category.subCat_name', $category);
+      $this->db->or_like('tbl_category.category', $category);
+      $query = $this->db->get();
+      $result_array = $query->result_array(); 
+      return  $result_array;
+  }
+  
 
 
 

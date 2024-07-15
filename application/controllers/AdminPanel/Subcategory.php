@@ -121,60 +121,76 @@ class Subcategory extends CI_Controller{
     
     
     public function deleteSubcategory() {
-
-        die('You must');
         $menuIdAsKey = 34;
         $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $data['page_menu_id'] = $menuIdAsKey;
-      
-       
+
         $sub_cat_id = $this->input->post('sub_cat_id');
-       
         $response = $this->sqlQuery_model->sql_delete('tbl_sub_category', array('sub_cat_id' => $sub_cat_id));
-    
-        print_r($response);
-        die();
-        // Return response (true or false) to AJAX request
-        echo json_encode($response);
+
+        if($response=='1'){
+            $Flag= 'True';
+        }else{
+            $Flag= 'False';
+        }
+
+        echo json_encode($Flag);
+        exit();
     }
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     public function search_subcat_list()
-    {
-        $menuIdAsKey = 3;
-        $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
-        $data['page_menu_id'] = $menuIdAsKey;
-    
-        $keywords = $this->input->post('searchText');
+{
 
-        // print_r($keywords);
-        // die();
-        // Pass the search parameters to the model method
-        $Cat_Html  = $this->subcategory->SearchCategory($keywords);
-    
-
-        
-        // $html.='';
-        // foreach ($Cat_Html as $val) {
-        //     $html.='<tr>
-        //         <td>'.$val['cat_id'].'</td>
-        //         <td>'.$val['subCat_name'].'</td>
-        //         <td>'.$val['slug'].'</td>
-        //         <td>'.$val['status'].'</td>
-        //         <td>'.$val['add_date'].'</td>
-        //         <td>'.$val['action'].'</td>
-        //         <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-        //     </tr>';
-        // }
+    $keywords = $this->input->post('searchText');
+       
+    $Cat_Html = $this->subcategory->SearchCategory($keywords);
 
 
-        
-        
-        
-        
-        $this->load->view('admin/subcategory/index',$data);
+    // echo '<pre>';
+    // print_r($Cat_Html);
+    // die();
+
+    $html.='';  
+    foreach ($Cat_Html as $val) {
+        $html.='<tr>
+         <td>'.$val['sub_cat_id'].'</td>
+           <td>'.$val['category'].'</td>
+            <td>'.$val['subCat_name'].'</td>
+            <td>'.$val['status'].'</td>
+            <td>'.$val['update_date'].'</td>
+            <td>'.$val['action'].'</td>
+            <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+            <td><a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-danger btn-xs deletesubbtn" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i> Delete</a></td>
+        </tr>';
     }
+
+
+    // $data['categories']
+
+    print_r($html);
+    die();
+
+
+
+
+
+}
+
 
 
 

@@ -133,12 +133,9 @@ class Category extends CI_Controller
     public function SearchCategory() {
                     
         $searchText = $this->input->post('searchText');
-        // print_r($searchTerm);
-        // die();
-        // Call the category_search method from the model
-        // $data['categories'] = $this->category->category_search($searchText);
+       
         $Cat_Html = $this->category->category_search($searchText);
-
+      
         $html.='';
         foreach ($Cat_Html as $val) {
             $html.='<tr>
@@ -155,11 +152,11 @@ class Category extends CI_Controller
 
         // $data['categories']
 
-        // print_r($html);
-        // die();
+        print_r($html);
+        die();
     
-        $data['content'] = 'admin/containerPage/index';
-        $this->load->view('admin/template', $data);
+        // $data['content'] = 'admin/containerPage/index';
+        // $this->load->view('admin/template', $data);
     }
 
 

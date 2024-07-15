@@ -66,9 +66,9 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <thead>
                                     <tr>
                                         <th>S.N.</th>
-                                        <!-- <th>category</th> -->
+                                         <th>category</th> 
                                         <th>Subcategory</th>
-                                        <th>Slug</th>
+                                        <!-- <th>Slug</th> -->
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th>Image</th>
@@ -113,25 +113,49 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     }
 
     function deleteRowtablesub(subCategoryId) {
-    if(confirm('Are you sure you want to delete this subcategory?')) {
-        $.ajax({
-            url: "<?php echo base_url('AdminPanel/subcategory/index/deleteSubcategory'); ?>",
-            type: "POST",
-            data: { sub_cat_id: subCategoryId },
-            dataType: "json",
-            success: function(response) {
-                if(response == 'true') {  
-                    alert('Subcategory deleted successfully');
-                    location.reload();
-                } else {
-                    alert('Failed to delete subcategory');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "<?php echo base_url('AdminPanel/Subcategory/deleteSubcategory'); ?>",
+                type: "POST",
+                data: { sub_cat_id: subCategoryId },
+                dataType: "json",
+                success: function(response) {
+                    console.log('deleteRowtablesub=> ', response);
+                    if (response == 'True') {
+                        Swal.fire(
+                            'Deleted!',
+                            'Subcategory has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Failed!',
+                            'Failed to delete subcategory.',
+                            'error'
+                        );
+                    }
+                },
+                error: function() {
+                    Swal.fire(
+                        'Error!',
+                        'Error deleting subcategory.',
+                        'error'
+                    );
                 }
-            },
-            error: function() {
-                alert('Error deleting subcategory');
-            }
-        });
-    }
+            });
+        }
+    });
 }
 
 
@@ -139,16 +163,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 
     ///$(document).ready(function() {
-
+        
     $('#search-cat').keyup(function() {
-
-        // alert("hiiiiii");
-
-        
-
-        //var searchText = $(this).val();
-        
-
         $.ajax({
             url: "<?php echo base_url('AdminPanel/Subcategory/search_subcat_list')?>",
             type: 'POST',
@@ -157,7 +173,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 
                   },
             success: function(response) {
-                $('#trRow').html(response);
+                $('#datalist').html(response);
             }
         });
 

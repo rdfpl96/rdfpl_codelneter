@@ -119,7 +119,7 @@ $(document).ready(function() {
             type: 'POST',
             data: {searchText:$('#search-category').val(),},
             success: function(response) {
-                console.log(response);
+                //console.log(response);
                 $('#datalist').html(response);
             }
         });

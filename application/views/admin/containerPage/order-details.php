@@ -86,10 +86,11 @@
                               <div class="mob_back_btn">
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
+                               
                                 <h4 class="fw-bold mb-0 custom-order-details">Order Details: #<?php echo $value['order_no'];?>
 
                                        <span class="badge custom-order-css" <?php echo $style;?>><?php echo $order_payment;?></span> 
-                                        
+                                       <a href="<?php echo base_url('admin/product_order'); ?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase"   style="margin-left: 300px;">Back</button></a>
 
                                         <!-- <span class="badge custom-order-css" style="background-color:#339933;color:white;border:white;">Payment Id : <?php echo $payment_id;?></span>  -->
 
@@ -139,6 +140,7 @@
                     </div> <!-- Row end  -->
                     <div class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4">
                         <div class="col">
+                            
                             <div class="alert-success alert mb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-success text-light"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></div>
