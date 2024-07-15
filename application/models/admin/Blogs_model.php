@@ -105,9 +105,33 @@ class Blogs_model extends CI_Model{
         return $query->result_array(); // Ensuring the result is returned as an array
     }
 
-    public function insert_subcategory($data) {
-        return $this->db->insert('tbl_sub_category', $data);
+
+
+
+
+    public function getBlogSearchDetails($search) {
+
+      $this->db->select('tbl_blog.*, tbl_category.category');
+      $this->db->from('tbl_blog');
+      $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
+      $this->db->like('tbl_blog.blog_header', $search);
+      $this->db->or_like('tbl_category.category', $search);
+      $query = $this->db->get();
+      return $query->result_array(); 
+    
     }
+    
+
+
+
+
+    
+    public function insert_blog($blog_data) {
+        return $this->db->insert('tbl_blog', $blog_data);
+    }
+
+
+
 
 public function get_category_by_id($id) {
         $query = $this->db->get_where('tbl_category', array('cat_id' => $id));
