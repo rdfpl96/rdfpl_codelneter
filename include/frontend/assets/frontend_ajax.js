@@ -22,6 +22,7 @@ function searchProduct(){
                     console.log(res.data);
                    $('.search-product-list').html(res.data);
                 }
+         
             });
     }
 } 
