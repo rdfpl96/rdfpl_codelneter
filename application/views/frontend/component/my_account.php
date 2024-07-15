@@ -146,9 +146,9 @@ $this->load->view('frontend/header',$data);
     </div>
 </main>
 
-<?php
-$this->load->view('frontend/footer',$data);
-?>
+<!-- <?php
+//$this->load->view('frontend/footer',$data);
+?> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- HTML part -->
 <?php $this->load->view('frontend/footer',$data); ?>
