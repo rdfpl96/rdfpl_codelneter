@@ -46,7 +46,11 @@ class Product_model extends CI_Model{
     $this->db->join('tbl_product AS P', 'P.product_id = OP.product_id');
     $query=$this->db->get();
     if($query->num_rows()>0){
-        $array_data=$query->result_array();
+        foreach($query->result_array() as $record){
+          $record['items']=$this->customlibrary->getProductItemByproductId($record['product_id']);
+          $array_data[]=$record;
+        }
+       
     }
     return $array_data;
   }
