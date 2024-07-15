@@ -146,11 +146,6 @@ $this->load->view('frontend/header',$data);
     </div>
 </main>
 
-<!-- <?php
-//$this->load->view('frontend/footer',$data);
-?> -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- HTML part -->
 <?php $this->load->view('frontend/footer',$data); ?>
 <div id="snackbar"></div>
 <div class="loaderdiv"></div>
@@ -232,7 +227,6 @@ $(document).ready(function() {
         }
 
         if (status === 1) {
-            // Show loader
             loading('loaderdiv', 'block');
             $('.sav-cha').removeClass('account-details');
 
@@ -249,28 +243,27 @@ $(document).ready(function() {
                     oldemailAddress: oldemailAddress
                 },
                 success: function(result) {
-                    var x = document.getElementById("snackbar");
+                    //var x = document.getElementById("snackbar");
                     x.className = "show";
                     var message = result.message;
-                    document.getElementById('snackbar').innerText = message;
-                    setTimeout(function() {
-                        x.className = x.className.replace("show", "");
-                    }, 3000);
+                    //previous code
+                    // document.getElementById('snackbar').innerText = message;
+                    // setTimeout(function() {
+                    //     x.className = x.className.replace("show", "");
+                    // }, 3000);
 
-                    if (result.status === 1) {
-                        $('#snackbar').removeClass('errrol');
-                    } else {
-                        $('#snackbar').addClass('errrol');
-                    }
+                    // if (result.status === 1) {
+                    //     $('#snackbar').removeClass('errrol');
+                    // } else {
+                    //     $('#snackbar').addClass('errrol');
+                    // }
 
                     $('.sav-cha').addClass('account-details');
-                    // Hide loader
                     loading('loaderdiv', 'none');
                 },
                 error: function(xhr, status, error) {
                     console.log("AJAX call error", xhr, status, error);
                     $('.sav-cha').addClass('account-details');
-                    // Hide loader
                     loading('loaderdiv', 'none');
                 }
             });
