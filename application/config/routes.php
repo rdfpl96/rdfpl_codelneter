@@ -232,7 +232,7 @@ $route['save-gst-details']='common/save_gst_details';
   
   $route['api/auth/login-with-mobile']='Api/login/loginWithMobile';
   $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
-  $route['api/auth/login-with-email']='Api/login/loginWithMobile';
+  $route['api/auth/login-with-email']='Api/login/loginWithEmail';
   $route['api/auth/otp-verity-by-email']='Api/login/verifyOtpByEmail';
 
   //Home
