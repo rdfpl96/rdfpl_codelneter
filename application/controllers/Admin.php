@@ -150,25 +150,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
      }
 
 
-// public function user_list(){
-//           $menuIdAsKey=14;
-//          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-//           $data['page_menu_id']=$menuIdAsKey;
-
-//   // $getCatId=$this->uri->segment(3);
-//   //       $data['category_detaials']=0;
-//   //     if($getCatId!=""){
-//   //       $data['category_detaials']=$this->sqlQuery_model->sql_select_where('tbl_category',array('cat_id'=>$getCatId));
-//   //      }
-
-//           $data['user_list']=$this->sqlQuery_model->sql_select_where('tbl_admin',array('admin_type'=>'U'));
-//           $data['ActiveInactive_ActionArr']=array('table'=>'tbl_admin','primary_key'=>'admin_id','update_target_column'=>'status');
-//           $data['deleteActionArr']=array('table'=>'tbl_admin','primary_key'=>'admin_id');
-
-//   $data['content']='admin/containerPage/user_list';
-//   $this->load->view('admin/template',$data);
-
-// }
 
 
  public function user_list()
@@ -228,20 +209,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $this->load->view('admin/template', $data);
   }
 
-// public function add_user(){
-//           $menuIdAsKey=14;
-//          $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-//           $data['page_menu_id']=$menuIdAsKey;
 
-
-//   $getuserId=$this->uri->segment(3);
-//   $data['user_details']=0;
-//   if($getuserId!=""){
-//      $data['user_details']=$this->sqlQuery_model->sql_select_where('tbl_admin',array('admin_id'=>$getuserId));
-//     }
-//   $data['content']='admin/containerPage/add_user';
-//   $this->load->view('admin/template',$data);
-// }
 //new code
 public function add_user()
   {
@@ -304,7 +272,12 @@ public function add_user()
     }
   }
 
-public function user_setting(){ 
+
+
+  
+
+
+     public function user_setting(){ 
           $menuIdAsKey=14;
          $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
           $data['page_menu_id']=$menuIdAsKey;
@@ -316,7 +289,7 @@ public function user_setting(){
     $this->load->view('admin/template',$data);
 }
 
-	public function category(){
+	public function category1(){
      $menuIdAsKey=1;
      $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
      $data['page_menu_id']=$menuIdAsKey;
@@ -341,7 +314,7 @@ public function user_setting(){
 		  $this->load->view('admin/template',$data);
 	}
 
-	public function sub_category(){
+	/*public function sub_category(){
         $menuIdAsKey=1;
         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
         $data['page_menu_id']=$menuIdAsKey;
@@ -365,7 +338,7 @@ public function user_setting(){
         $data['in_stock_active_inactive']=array('table'=>'tbl_sub_category','primary_key'=>'sub_cat_id','update_target_column'=>'in_stock_status');
       $data['content']='admin/containerPage/sub-category';
 		  $this->load->view('admin/template',$data);
-	}
+	}*/
 
 	public function add_product(){
 
@@ -2020,274 +1993,225 @@ public function food_habitats(){
 
 
 
-   public function product_order(){
+  //  public function product_order(){
 
-          $customer_id=$this->input->get('custo');
-          $where ="";
-          if($customer_id!="" && is_numeric($customer_id)){
-           $where = " WHERE order_cust_id=".$customer_id."";
-          }
+  //         // $customer_id=$this->input->get('custo');
+  //         // $where ="";
+  //         // if($customer_id!="" && is_numeric($customer_id)){
+  //         //  $where = " WHERE order_cust_id=".$customer_id."";
+  //         // }
 
-          $menuIdAsKey=3;
-          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-          $data['page_menu_id']=$menuIdAsKey;
+  //         $menuIdAsKey=3;
+  //         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  //         $data['page_menu_id']=$menuIdAsKey;
 
-         $querys="SELECT * FROM tbl_order_manager $where";
-         $pr_list_count=$this->sqlQuery_model->sql_query($querys);
-         $url_link=base_url('admin/product_order'); 
-         $limit_per_page = 10;
-         $getVariable=$this->input->get('per_page');
-         $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
+  //        //$querys="SELECT * FROM tbl_order_manager $where";
+  //        $pr_list_count=$this->sqlQuery_model->getOrderDetails();
 
-         $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
-         $config=createPagination($total_records,$url_link,$limit_per_page);
-           $this->pagination->initialize($config);
-        
-         $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
-         $querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
-         $data['order_list']=$this->sqlQuery_model->sql_query($querys);
-         $data["links"] = $this->pagination->create_links();
-
-         $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
-
-         $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
-         $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
-
-         $querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
-         $data['order_amount']=$this->sqlQuery_model->sql_query($querys_total_amount);
-
-         $data['content']='admin/containerPage/product-orders';
-    		 $this->load->view('admin/template',$data);
-   }
+  //         //   echo   "<pre>";
+  //         // print_r($pr_list_count);
+  //         // echo "</pre>";
+  //         // die();
 
 
-   
+  //        $url_link=base_url('admin/product_order'); 
+  //        $limit_per_page = 10;
+  //        $getVariable=$this->input->get('per_page');
+  //        $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
+
+  //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
+  //        $config=createPagination($total_records,$url_link,$limit_per_page);
+  //          $this->pagination->initialize($config);
+
+  //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
+  //        ///$querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
+  //        $data['order_list']=$this->sqlQuery_model->getOrderDetails();
+  //        $data["links"] = $this->pagination->create_links();
 
 
-public function export_OrderList(){
-    while (ob_get_level()) {
-            ob_end_clean();
-        }
-    $filename = 'OrderList_'.date('Y-m-d_h-i').'.csv';
-    header("Content-Description: File Transfer");
-    header("Content-Disposition: attachment; filename=$filename");
-    header("Content-Type: application/csv; "); 
-
-   $getKeywords=$this->input->post('getKeywords');
-   $fromDate=$this->input->post('fromDate');
-   $toDate=$this->input->post('toDate');
-   $orderStatus=$this->input->post('orderSttus');
+  //       //  $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
+  //       //  $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
+  //       //  $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
 
 
-      $ordStatus='ord_status=1';
+  //        //$querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
+  //        $data['order_amount']=$this->sqlQuery_model->getOrderDetails();
 
-      if($fromDate!="" && $toDate!=""){
-        $searchDateRange="AND (order_date >= '".$fromDate."' AND order_date <='".$toDate."')";
-      }else{
-        $searchDateRange='';
-      }
-     
-     
-     if($getKeywords!=""){
-      $likeSearch="AND (order_generated_order_id LIKE '%".$getKeywords."%' OR 
-           order_name LIKE'%".$getKeywords."%' OR 
-           order_state LIKE'%".$getKeywords."%' OR 
-           order_city LIKE'%".$getKeywords."%' OR 
-           order_pincode LIKE'%".$getKeywords."%' OR 
-           order_email='%".$getKeywords."%') ";
-     }else{
-      $likeSearch="";
-     }
+  //        $data['content']='admin/containerPage/product-orders';
+  //   		 $this->load->view('admin/template',$data);
 
 
-     if($orderStatus!=""){
-          $arrcoll=array();
-         foreach($orderStatus as $value){
-           array_push($arrcoll, '\''.$value.'\'');
-         }
 
-      $inValue= "AND order_status IN (".implode(',', $arrcoll).")";
-     }else{
-      $inValue='';
-     }
-           
-
-       $querys="SELECT * FROM tbl_order_manager WHERE $ordStatus $likeSearch $searchDateRange $inValue";
-       $order_list=$this->sqlQuery_model->sql_query($querys);
+  //  }
 
 
-       // echo "<pre>";
-       // print_r($order_list);
-       // echo "</pre>";
-       // exit;
+  public function product_order()
+  {
 
+    $customer_id = $this->input->get('custo');
+
+    // echo $customer_id;
+    // die();
+
+    $menuIdAsKey = 3;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
+
+    $pr_list_count = $this->sqlQuery_model->getOrderDetails($customer_id);
+
+    $url_link = base_url('admin/product_order');
+    $limit_per_page = 1;
+    $getVariable = $this->input->get('per_page');
+    $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0) : 0;
+    $total_records = ($pr_list_count != 0) ? count($pr_list_count) : 0;
+    $config = createPagination($total_records, $url_link, $limit_per_page);
+    $this->pagination->initialize($config);
+
+    // $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
+    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id);
+
+    // print_r($data['order_list'] );
+    // die();
+    $data["links"] = $this->pagination->create_links();
+
+    //$data['order_amount'] = $this->sqlQuery_model->getOrderAmount();  // Assuming this method returns the total amount
+    $data['content'] = 'admin/containerPage/product-orders';
+    $this->load->view('admin/template', $data);
+  }
+
+
+
+
+
+
+public function search_order_list()
+{
+    $menuIdAsKey = 3;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
+
+    $keywords = $this->input->post('searchText');
+    $fromDate = $this->input->post('fromDate');
+    $toDate = $this->input->post('toDate');
+    // Pass the search parameters to the model method
+    $data['order_list'] = $this->sqlQuery_model->getOrderSearchDetails($keywords, $fromDate, $toDate);
+
+    // echo "<pre>";
+    // print_r($data['order_list']);
+    // die();
     
-      $querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE $ordStatus $likeSearch $searchDateRange $inValue";
-      $_order_amount=$this->sqlQuery_model->sql_query($querys_total_amount);
-      $totalAmount =(($_order_amount[0]->total_amount!="") ? $_order_amount[0]->total_amount : '0.00');
-
-    
-          $file = fopen('php://output', 'w');
-   
-          $header = array(
-                  "Order Id",
-                  // "WareIq unique Id",
-                  "Order Status",
-                  "Shipping Charges",
-                  "Total Selling Amount",
-                  "Coupon Amount",
-                  "Total Amount",
-                  "Total Qty",
-                  "Total Qty Weight",
-                  // "Take Away",
-
-                  "Ship Customer Name",
-                  "Ship Customer Mobile",
-                  // "Ship Customer Alt Mobile",
-                  "Ship Email",
-                  // "Ship Country",
-                  "Ship State",
-                  "Ship City",
-                  // "Ship Locality",
-                  "Ship Pincode",
-                  "Ship Address Type",
-                  "Ship Address",
-                  "Ship Alt Address",
-                  "Ship Landmark",
-                  "Ship Area",
-                  // "Ship Company Name",
-
-                  "Bill Customer Name",
-                  "Bill Customer Mobile",
-                  // "Bill Customer Alt Mobile",
-                  "Bill Email",
-                  // "Bill Country",
-                  "Bill State",
-                  "Bill City",
-                  "Bill Pincode",
-                  "Bill Address Type",
-                  "Bill Address",
-                  "Bill Alt Address",
-                  "Bill Landmark",
-                  "Bill Area",
-                  // "Bill Company Name",
-
-                  
-                  "Registration",
-                  "Company Name",
-                  "Company Address",
-                  
-                  "Reason disc",
-                  // "Updated By",
-                  // "Razorpay Payment Id",
-                  // "Razorpay Order Id",
-
-                  // "Customer Remark",
-                  // "Customer Greeting",
-                  "Order Payment",
-                  "Payment Status",
-                  "Order Date"
-                 );
-          fputcsv($file, $header);
-          $l=array();
-
-          foreach ($order_list as $key=>$line){
-
-
-            $l['order_generated_order_id'] = $line->order_generated_order_id;
-            // $l['courier_unique_id'] = $line->courier_unique_id;
-            $l['order_status'] = $line->order_status;
-            $l['order_shipping_charges'] =$line->order_shipping_charges;
-            $l['order_total_purchase_amount'] = $line->order_total_purchase_amount;
-            $l['order_coupon_offer_amt'] = $line->order_coupon_offer_amt;
-            $l['order_total_final_amt'] = $line->order_total_final_amt;
-            $l['total_qty'] = $line->total_qty;
-            $l['total_weight'] = '\''.$line->total_weight;
-            // $l['take_away'] = $line->take_away;
-
-            $l['order_name'] = $line->order_name;
-            $l['order_mobile_no'] = $line->order_mobile_no;
-            // $l['order_alt_mobile_no'] = $line->order_alt_mobile_no;
-            $l['order_email'] = $line->order_email;
-            // $l['order_country'] = $line->order_country;
-            $l['order_state'] = $line->order_state;
-            $l['order_city'] = $line->order_city;
-            // $l['order_locality'] = $line->order_locality;
-            $l['order_pincode'] = $line->order_pincode;
-            $l['order_type_of_address'] = $line->order_type_of_address. ' ' .(($line->order_type_of_address=='Others') ? '-'.$line->order_type_of_address_others_value : '');
-            $l['order_address'] = $line->order_address; 
-            $l['order_alt_address'] = $line->order_alt_address;
-            $l['order_landmark'] = $line->order_landmark;
-            $l['order_area']=$line->order_area;
-            // $l['order_company_name'] = $line->order_company_name;
-
-
-            $l['bill_order_name'] = $line->bill_order_name;
-            $l['bill_order_mobile_no'] = $line->bill_order_mobile_no;
-            // $l['bill_order_alt_mobile_no'] = $line->bill_order_alt_mobile_no;
-            $l['bill_order_email'] = $line->bill_order_email;
-            // $l['bill_order_country'] = $line->bill_order_country;
-            $l['bill_order_state'] = $line->bill_order_state;
-            $l['bill_order_city'] = $line->bill_order_city;
-            $l['bill_order_pincode'] = $line->bill_order_pincode;
-  
-            
-            $l['bill_order_type_of_address'] = $line->bill_order_type_of_address. ' ' .(($line->bill_order_type_of_address=='Others') ? '-'.$line->bill_order_type_of_address_others_value : '');
-            $l['bill_order_address'] = $line->bill_order_address; 
-            $l['bill_order_alt_address'] = $line->bill_order_alt_address;
-            $l['bill_order_landmark'] = $line->bill_order_landmark;
-            $l['bill_order_area']= $line->bill_order_area;
-            // $l['bill_order_company_name'] = $line->bill_order_company_name;
-
-            $l['registration'] = $line->registration;
-            $l['company_name'] = $line->company_name;
-            $l['company_address'] = $line->company_address;
-
-            $l['order_reason_disc'] = $line->order_reason_disc;
-            // $l['order_updated_by'] =  $line->order_updated_by;
-
-            // $l['razorpay_payment_id'] = $line->razorpay_payment_id;
-            // $l['razorpay_order_id'] = $line->razorpay_order_id;
-
-            // $l['order_customer_remark'] = $line->order_customer_remark;
-            // $l['order_customer_greating'] = $line->order_customer_greating;
-            $l['order_payment'] = $line->order_payment;
-            $l['order_payment_status'] = $line->order_payment_status;
-            $l['order_add_date'] = $line->order_add_date;
-
-
-           
-            fputcsv($file,$l);
-           }
-
-
-            $lastLine = array("","","","","Total Amount : ",$totalAmount,"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","");
-
-           fputcsv($file,$lastLine);
-
-          fclose($file);
-          exit; 
-
+    $this->load->view('admin/containerPage/product_order_searchlist',$data);
 }
 
 
 
 
-   public function order_details(){
 
-          $menuIdAsKey=3;
-          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-          $data['page_menu_id']=$menuIdAsKey;
+public function order_details() {
+  $menuIdAsKey = 3;
+  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id'] = $menuIdAsKey;
+  $getOrderId = $this->uri->segment(3);
 
-       $getOrderId=$this->uri->segment(3);
-       $data['order_details']=$this->sqlQuery_model->sql_select_where('tbl_order_manager',array('order_generated_order_id'=>$getOrderId));
-       $data['order_product_details']=$this->sqlQuery_model->sql_select_where('tbl_order_products',array('pro_generated_order_id'=>$getOrderId));
+// get custid  from the menu item list and return 
 
-       $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
+  // echo "<pre>";
+  // print_r($order_details);
+  // die();
+  $data['order_details'] = $this->sqlQuery_model->sql_select_where_orderdetails($getOrderId);
 
-     $data['content']='admin/containerPage/order-details';
-		 $this->load->view('admin/template',$data);
-   }
+  // echo "<pre>";
+  // print_r( $data['order_details'] );
+  // die();
+
+  //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
+
+  
+  //$data['order_status'] = $this->sqlQuery_model->sql_select_where_desc('tbl_order_status', 'position', array('status' => 1));
+
+  $data['content'] = 'admin/containerPage/order-details';
+  $this->load->view('admin/template', $data);
+}
+
+
+
+
+public function export_OrderList() {
+  // Get date parameters from input (assuming you're using GET method)
+  $fromDate = $this->input->post('fromDate');
+  $toDate = $this->input->post('toDate');
+  
+  $order_list = $this->sqlQuery_model->getOrderDetailsByDate($fromDate, $toDate);
+
+  // Uncomment the following line for debugging
+  // print_r($order_list);
+  // die();
+
+  // Set headers to force download the CSV file
+  header('Content-Type: text/csv');
+  header('Content-Disposition: attachment; filename="order_list.csv"');
+
+  // Open output stream for CSV
+  $file = fopen('php://output', 'w');
+
+  // CSV header
+  $header = array(
+      "ORDER ID",
+      "CUSTOMER NAME",
+      "LOCATION",
+      "ORDER AMOUNT",
+      "STATUS",
+      "PAY STATUS",
+      "ORDER DATE",
+  );
+
+  fputcsv($file, $header);
+
+  // Write order details to CSV
+  foreach ($order_list as $line) {
+      $data = array(
+          $line['order_no'],
+          $line['customer_name'],
+          $line['location'],
+          $line['order_amount'],
+          isset($line['status']) ? $line['status'] : '', 
+          isset($line['pay_status']) ? $line['pay_status'] : '',
+          $line['order_date'],
+      );
+
+      fputcsv($file, $data);
+  }
+
+  // Close the file handle
+  fclose($file);
+  exit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   public function customer_list(){
@@ -2324,6 +2248,9 @@ public function export_OrderList(){
       $data['content']='admin/containerPage/customer-list';
 		 $this->load->view('admin/template',$data);
   }
+
+
+
 
  public function add_customer(){
           $menuIdAsKey=4;
@@ -3030,29 +2957,139 @@ public function add_testinonial(){
 
 public function banner(){
 
-   $menuIdAsKey=31;
-   $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-   $data['page_menu_id']=$menuIdAsKey;
-   
-     $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
+  $menuIdAsKey=31;
+  $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id']=$menuIdAsKey;
+ 
+
+  $config["base_url"] = base_url()."admin/banner";
+  $config["total_rows"] = $this->sqlQuery_model->get_user_count_banner_list();
+  // 
+  $config["per_page"] = 10; // Number of records per page
+  $config["uri_segment"] = 3; // Position of the page number in the URL
+
+  // Customizing pagination
+              
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+         
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['first_tag_close'] = '</a></li>';
+         
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['last_tag_close'] = '</a></li>';
+         
+        $config['next_link'] = 'Next';//'Next Page';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['next_tag_close'] = '</a></li>';
+
+        $config['prev_link'] = 'Previous';//'Prev Page';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
+
+  $this->pagination->initialize($config);
+  $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+  $data['banner_list'] = $this->sqlQuery_model->get_users_banner_list($config["per_page"], $page);
+
+//     echo "<pre>";
+//     print_r("usrlist=>",$data['user_list']);
+// echo "</pre>";
+//     die();
+
+  $data['pagination'] = $this->pagination->create_links();
 
 
-     $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
-     $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
 
 
-   $data['content']='admin/containerPage/banner';
-  $this->load->view('admin/template',$data);
+
+
+    $data['banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'banner'));
+
+
+    $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
+    $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
+
+
+  $data['content']='admin/containerPage/banner';
+ $this->load->view('admin/template',$data);
 }
+
+
+public function banner_edit_add(){
+
+ $this->load->view('admin\containerPage\banner');
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public function ads_banner(){
 
   $menuIdAsKey=33;
    $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
    $data['page_menu_id']=$menuIdAsKey;
-   
-     $data['ads_banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'ads'));
+    
+   $config = array();
+   $config["base_url"] = base_url()."admin/ads_banner";
+   $config["total_rows"] = $this->user_model->get_user_count_banner();
+   $config["per_page"] = 10; // Number of records per page
+   $config["uri_segment"] = 3; // Position of the page number in the URL
 
+   // Customizing pagination
+               
+         $config['full_tag_open'] = '<ul class="pagination">';
+         $config['full_tag_close'] = '</ul>';
+          
+         $config['first_link'] = 'First';
+         $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['first_tag_close'] = '</a></li>';
+          
+         $config['last_link'] = 'Last';
+         $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['last_tag_close'] = '</a></li>';
+          
+         $config['next_link'] = 'Next';//'Next Page';
+         $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['next_tag_close'] = '</a></li>';
+
+         $config['prev_link'] = 'Previous';//'Prev Page';
+         $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+         $config['prev_tag_close'] = '</a></li>';
+
+         $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+         $config['cur_tag_close'] = '</a></li>';
+
+         $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+         $config['num_tag_close'] = '</li>';
+
+   $this->pagination->initialize($config);
+   $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+   $data['ads_banner_list'] = $this->user_model->get_users_banner($config["per_page"], $page);
+   $data['pagination'] = $this->pagination->create_links();
+     $data['ads_banner_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_banner','position',array('type'=>'ads'));
      $data['ActiveInactive_ActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id','update_target_column'=>'status');
      $data['deleteActionArr']=array('table'=>'tbl_banner','primary_key'=>'banner_id');
 
@@ -3061,39 +3098,170 @@ public function ads_banner(){
 }
 
 
-public function add_banner(){
-    $menuIdAsKey=33;
-    $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-    $data['page_menu_id']=$menuIdAsKey;
 
 
-  $getuserId=$this->uri->segment(3);
-  $data['banner_details']=0;
-   if($getuserId!=""){
-     $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'banner'));
-    }
 
 
-  $data['content']='admin/containerPage/add_banner';
-  $this->load->view('admin/template',$data);
+
+
+
+
+
+
+
+
+
+
+
+
+// public function add_banner(){
+//     $menuIdAsKey=33;
+//     $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+//     $data['page_menu_id']=$menuIdAsKey;
+
+
+//   $getuserId=$this->uri->segment(3);
+//   $data['banner_details']=0;
+//    if($getuserId!=""){
+//      $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'banner'));
+//     }
+
+
+//   $data['content']='admin/containerPage/add_banner';
+//   $this->load->view('admin/template',$data);
+// }
+
+// public function add_ads_banner(){
+
+//      $menuIdAsKey=31;
+//     $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+//     $data['page_menu_id']=$menuIdAsKey;
+
+
+//   $getuserId=$this->uri->segment(3);
+//   $data['banner_details']=0;
+//    if($getuserId!=""){
+//      $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'ads'));
+//     }
+
+//   $data['content']='admin/containerPage/add_ads_banner';
+//   $this->load->view('admin/template',$data);
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function add_ads_banner($bannnerId = null) {
+  $menuIdAsKey = 31;
+  $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id'] = $menuIdAsKey;
+
+  // Retrieve banner details if editing
+  $getuserId = $this->input->post('editv');
+
+  $data['banner_details'] = 0;
+  if (!empty($bannnerId)) {
+      $data['banner_details'] = $this->sqlQuery_model->sql_select_where('tbl_banner', array('banner_id' => $bannnerId, 'type' => 'ads'));
+  }
+
+  // Handle form submission
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Validate and sanitize inputs (you should implement validation)
+      $text1 = $this->input->post('text1');
+      $text2 = ''; // Example if you have another field
+      $link = $this->input->post('link');
+      $btn_status = $this->input->post('btn-status') ? 1 : 0; // Checkbox value
+
+      if (!empty($_FILES['userfile']['name'])) {
+        // Handle file upload
+        $upload_path = 'uploads/banner';
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE);
+        }
+
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_size'] = 2048;
+
+        $this->load->library('upload', $config);
+        $desk_imgPath = '';
+
+        // Attempt file upload
+        if ($this->upload->do_upload('userfile')) {
+            $upload_data = $this->upload->data();
+            $desk_imgPath = $upload_data['file_name'];
+        } else {
+            $data['upload_error'] = $this->upload->display_errors();
+        }
+      }
+      // Prepare data to insert/update
+      $dataToSave = array(
+          'text1' => $text1,
+          'text2' => $text2,
+          'button_link' => $link,
+          'btn_status' => $btn_status,          
+          'type' => 'ads'
+      );
+
+      if (!empty($_FILES['userfile']['name'])) {
+        $dataToSave['desk_image'] = $desk_imgPath;
+      }
+      // Insert or update data based on whether $getuserId is set
+      if (!empty($getuserId)) {
+          // Update existing record
+          $this->sqlQuery_model->sql_update('tbl_banner', $dataToSave, array('banner_id' => $getuserId));
+      } else {
+          // Insert new record
+          $this->sqlQuery_model->sql_insert('tbl_banner', $dataToSave);
+      }
+
+      // Redirect after saving
+      redirect(base_url('admin/ads_banner'));
+  }
+
+  // Load view with data
+  $data['content'] = 'admin/containerPage/add_ads_banner';
+  $this->load->view('admin/template', $data);
 }
 
-public function add_ads_banner(){
-
-     $menuIdAsKey=31;
-    $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
-    $data['page_menu_id']=$menuIdAsKey;
 
 
-  $getuserId=$this->uri->segment(3);
-  $data['banner_details']=0;
-   if($getuserId!=""){
-     $data['banner_details']=$this->sqlQuery_model->sql_select_where('tbl_banner',array('banner_id'=>$getuserId,'type'=>'ads'));
-    }
 
-  $data['content']='admin/containerPage/add_ads_banner';
-  $this->load->view('admin/template',$data);
+public function deleteRowtable(){
+  $menuIdAsKey=34;
+  $data['getAccess']= $this->my_libraries->userAthorizetion($menuIdAsKey);
+  $data['page_menu_id']=$menuIdAsKey;
+
+  $value = $this->input->post('value');
+  $Responce=$this->sqlQuery_model->sql_delete('tbl_banner',array('banner_id'=>$value));
+  
+  echo $Responce;
+  exit();
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3851,5 +4019,7 @@ public function addOtherProduct(){
     $this->load->view('admin/template',$data);
 
  }
+
+
 
 }

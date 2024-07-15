@@ -51,9 +51,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
 
-                                <h3 class="fw-bold mb-0">Update Product</h3>
+                                <h3 class="fw-bold mb-0">Update Category</h3>
 
-                                <!-- <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
+                                <!--<h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
                                 
                                 <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                             </div>
@@ -71,13 +71,13 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                         <div class="row g-3 align-items-center mb-3">
                                                
                                                 <div class="col-md-6">
-                                                    <label  class="form-label">Product name <span style="color:red;">*</span></label>
-                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo $category->category; ?>" required placeholder="Please product name">
+                                                    <label  class="form-label">Category name <span style="color:red;">*</span></label>
+                                                    <input type="text" class="form-control pname" id="category" name="category" value="<?php echo $category->category; ?>" required placeholder="Please product name">
                                                 </div>
 
 
                                                  <div class="col-md-6">
-                                                    <label  class="form-label">Product Slug <span style="color:red;">*</span></label>
+                                                    <label  class="form-label">Category Slug <span style="color:red;">*</span></label>
                                                     <input type="text" class="form-control url" id="slug" name="slug" value="<?php echo $category->slug; ?>" required placeholder="Please enter slug">
                                                 </div>
                                         </div>
@@ -90,10 +90,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                           </div>
                         
                           </div>
-                        <div class="ship_ad_btn_css">
+                        <!-- <div class="ship_ad_btn_css">
                             <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                             <div class="loaderdiv"></div>
-                        </div>
+                        </div> -->
                        </form>
                   </div>
             </div>

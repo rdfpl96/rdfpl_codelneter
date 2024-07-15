@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $this->load->model('common_model');
         $this->load->model('home_model','home');
         $this->load->library('my_libraries');
+        $this->load->library('customlibrary');
     }
 
 public function shipping_address_save() {
@@ -327,10 +328,14 @@ public function addNewAddress() {
 
 public function my_account() {
     $user = $this->my_libraries->mh_getCookies('customer');
-    if (!empty($user) && isset($user['customer_id'])) {
-        $customer_id = $user['customer_id'];
+    // print_r($data);
+    // exit();
+
+    $customer_id = $user['customer_id'];
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
         $data['customer_details'] = $this->sqlQuery_model->sql_select_where('tbl_customer', array('customer_id' => $customer_id));
-        //print_r($data);
+        // print_r($data);
+        // exit();
         $data['content'] = 'frontend/component/my_account';
         $this->load->view('frontend/template', $data);
     } else {
@@ -376,12 +381,10 @@ public function my_order() {
     $user = $this->my_libraries->mh_getCookies('customer');
     
     if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
-        $customer_id = (int)$user['customer_id']; // Ensure it is an integer
+        $customer_id = (int)$user['customer_id'];
 
         // Load the model
         $this->load->model('Common_model');
-
-        // Fetch the orders for the logged-in customer using the model
         $data['getOrders'] = $this->common_model->getCustomerOrders($customer_id);
         // echo '<pre>';
         // print_r($data);
@@ -399,16 +402,16 @@ public function my_order() {
 }
 
 public function my_address(){
-     $user=$this->my_libraries->mh_getCookies('customer');
-    if($user!=""){
+    $user=$this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+        $customer_id = $user['customer_id'];
        
-       
-       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'address_type'=>'billingAddress'));
+       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
 
-         $shipAddr=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id));
+         $shipAddr=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id));
          $where['status']=1;
-         $where['customer_id']=$user[0]->customer_id;
+         $where['customer_id']=$customer_id;
          $where_and_chain=queryChain($where);
 
          // $pr_list_count=$shipAddr;
@@ -424,8 +427,7 @@ public function my_address(){
          $data['address']=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_address WHERE $where_and_chain ORDER BY `addr_id` DESC $sql_limit");
          // $data["links"] = $this->pagination->create_links();
 
-
-
+         
           if($data['billingAddress']!=0){
 
                 foreach($data['billingAddress'] as $value){
@@ -453,7 +455,7 @@ public function my_address(){
           }
 
       
-      $data['shippingAddress_defualt']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'setAddressDefault'=>1));
+      $data['shippingAddress_defualt']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'setAddressDefault'=>1));
 
 
             if($data['shippingAddress_defualt']!=0){
@@ -479,9 +481,9 @@ public function my_address(){
 
 
 
-
-         $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id'=>$user[0]->customer_id));
-
+        $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();  
+        $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id' => $customer_id));
+         //print_r($data); 
         $data['content']='frontend/component/my_address';
         $this->load->view('frontend/template',$data);
 
@@ -527,26 +529,26 @@ public function add_user_details() {
     $old_password = $this->input->post('old_password');
 
     // Check if email address is being changed and if it already exists
-    if ($oldemailAddress != $emailAddress) {
-        $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
-        if ($getExitEmail != 0) {
-            $data['status'] = 0;
-            $data['message'] = "Email ID Already exists. Please choose another email id.";
-            echo json_encode($data);
-            return;
-        }
-    }
+    // if ($oldemailAddress != $emailAddress) {
+    //     $getExitEmail = $this->sqlQuery_model->sql_select_where('tbl_customer', array('email' => $emailAddress));
+    //     if ($getExitEmail != 0) {
+    //         $data['status'] = 0;
+    //         $data['message'] = "Email ID Already exists. Please choose another email id.";
+    //         echo json_encode($data);
+    //         return;
+    //     }
+    // }
 
     // Check if mobile number is being changed and if it already exists
-    if ($oldmobilename != $mobilename) {
-        $getExitMobile = $this->sqlQuery_model->sql_select_where('tbl_customer', array('mobile' => $mobilename));
-        if ($getExitMobile != 0) {
-            $data['status'] = 0;
-            $data['message'] = "Mobile Number Already exists. Please choose another mobile number.";
-            echo json_encode($data);
-            return;
-        }
-    }
+    // if ($oldmobilename != $mobilename) {
+    //     $getExitMobile = $this->sqlQuery_model->sql_select_where('tbl_customer', array('mobile' => $mobilename));
+    //     if ($getExitMobile != 0) {
+    //         $data['status'] = 0;
+    //         $data['message'] = "Mobile Number Already exists. Please choose another mobile number.";
+    //         echo json_encode($data);
+    //         return;
+    //     }
+    // }
 
     $postArr = array(
         'c_fname' => $firstname,
@@ -574,12 +576,13 @@ public function add_user_details() {
 }
 
 public function billing_address(){
-     $user=$this->my_libraries->mh_getCookies('customer');
-         if($user!=""){
-      $conutry=101;
-      $data['status']=$this->sqlQuery_model->sql_select_where('states',array('country_id'=>$conutry)); 
+    $user=$this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+    $customer_id = $user['customer_id'];
+    $conutry=101;
+    $data['status']=$this->sqlQuery_model->sql_select_where('states',array('country_id'=>$conutry)); 
       
-       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id'=>$user[0]->customer_id,'address_type'=>'billingAddress'));
+       $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
        // echo "<pre>";
        // print_r($data['billingAddress']);
@@ -611,14 +614,147 @@ public function billing_address(){
           }
     
     
-       $data['pageType']='billing-address';
-      $data['content']='frontend/component/billing_address';
-      $this->load->view('frontend/template',$data);
+    $data['pageType']='billing-address';
+    $data['content']='frontend/component/billing_address';
+    $this->load->view('frontend/template',$data);
 
-     }else{
+    }else{
         redirect(base_url(), 'refresh');
-     }
+    }
 }
+
+public function add_billingaddress(){
+//echo "hjahskjd";
+        
+    $user=$this->my_libraries->mh_getCookies('customer');
+    $customer_id = $user['customer_id'];
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
+       $data['status']=0;
+       $data['message']="Please Login your account.";
+       echo json_encode($data);
+       exit;
+     }
+
+     $apart_house=$this->input->post('apart_house');
+     $apart_name=$this->input->post('apart_name');
+     $area=$this->input->post('area');
+     $street_landmark=$this->input->post('street_landmark');
+     $fname=$this->input->post('fname');
+     $lname=$this->input->post('lname');
+     $mobile1=$this->input->post('mobile');
+
+     // $conutry=$this->input->post('conutry');
+     $state=$this->input->post('state');
+     $city=$this->input->post('city');
+     $pincode=$this->input->post('pincode');
+     // $address1=$this->input->post('address1');
+
+     // $address2=$this->input->post('address2');
+     // $landmark=$this->input->post('landmark');
+     // $company=$this->input->post('company');
+     // $fname=$this->input->post('fname');
+     // $lname=$this->input->post('lname');
+     // $mobile1=$this->input->post('mobile1');
+     // $mobile2=$this->input->post('mobile2');
+
+     // $email=$this->input->post('email');
+     $loc_type=$this->input->post('loc_type');
+     $other_loc=$this->input->post('other_loc');
+   
+    $address_id=$this->input->post('addre_id');
+
+     // if($loc_type=="Other"){
+     //   $nickname_n=$input_nick_name;
+     //   $nickname=$nick_name;
+     // }else{
+     //   $nickname=$nick_name;
+     //   $nickname_n="";
+     // }
+
+
+       // $takeWay='';
+       // $actionType=1;
+       // $columsName=$this->my_libraries->deliveryTypeDisplayProduct($pincode,$takeWay,$actionType);
+    
+       //  if($columsName[0]==""){
+       //     $data['status']=0;
+       //     $data['message']=$this->config->item('pincode_not_found');
+       //     echo json_encode($data);
+       //     exit;
+       // }else{
+       //   $session = array('value' =>$pincode,'location'=>$columsName[1]);
+       //   $this->my_libraries->setLocationPinforUser($session,$user);
+       //   $this->session->set_userdata('dlivetype',1);
+       //   $this->session->set_userdata('valueType',$session);
+       // }
+       
+     $conutry=101;
+      $postArr=array(
+                    'country_id'=>$conutry,
+                    'country' =>$this->my_libraries->getCountry_name($conutry),
+                    'state_id' =>$state,
+                    'state' =>$this->my_libraries->getState_name($state),
+                    'city_id' =>$city,
+                    'city' =>$this->my_libraries->getCity_name($city),
+                    'address1' =>$apart_house,
+                    'address2' =>$apart_name,
+                    'area'=>$area,
+                    'pincode' =>$pincode,
+                    'landmark' =>$street_landmark,
+                    // 'company_name' =>$company,
+                    'fname' =>$fname,
+                    'lname' =>$lname,
+                    'mobile1' =>$mobile1,
+                    // 'mobile2' =>$mobile2,
+                    // 'email'  =>$email,
+                    'nick_name'  =>$loc_type,
+                    'others'=>$other_loc
+                    );
+       // print_r($postArr);            
+
+             if($address_id==""){
+
+                $postArr['customer_id']=array('customer_id' => $customer_id);
+                $postArr['address_type']=$this->input->post('add_type');
+                $postSql=$this->sqlQuery_model->sql_insert('tbl_address',$postArr);
+
+                 $getinsertId=$this->sqlQuery_model->get_last_inset_id('tbl_address');
+                 $row_sql_update=$this->my_libraries->setDefaultAddressOnupdate(array('customer_id' => $customer_id,$getinsertId));
+
+                      if($postSql){
+                          $data['status']=1;
+                          $data['message']="Address added successfully";
+                          echo json_encode($data);
+                          exit;
+                       }else{
+                          $data['status']=0;
+                          $data['message']="Failed to added";
+                          echo json_encode($data);
+                          exit;
+                       }
+               
+             }else{
+
+               
+                  $updateSql=$this->sqlQuery_model->sql_update('tbl_address',$postArr,array('addr_id'=>$address_id));
+
+                   if($updateSql){
+                      $data['status']=1;
+                      $data['message']="Address updated successfully";
+                      echo json_encode($data);
+                      exit;
+                   }else{
+                      $data['status']=0;
+                      $data['message']="Failed to update";
+                      echo json_encode($data);
+                      exit;
+                   }
+             }
+           
+}
+
+
+
 
 public function email_addresses() {
     $user = $this->my_libraries->mh_getCookies('customer');
@@ -713,48 +849,235 @@ public function remove_account_email() {
 
     echo json_encode($response);
 }
-public function policy_ajax(){
 
-    $session=$this->session->userdata('admin');
-    $designation=trim($this->input->post('designation'));
-    $editv=trim($this->input->post('editv'));
-    $field_type=trim($this->input->post('field_type'));
+// public function policy_ajax(){
+
+//     $session=$this->session->userdata('admin');
+//     $designation=trim($this->input->post('designation'));
+//     $editv=trim($this->input->post('editv'));
+//     $field_type=trim($this->input->post('field_type'));
 
 
-    if($field_type=='terms-condition'){
-      $postArr['terms_and_conditions_policy']=$designation;
-    }else if($field_type=='refund-cancelation'){
-      $postArr['refund_and_cancelation_policy']=$designation;
-    }else if($field_type=='Privacy-policy'){
-      $postArr['privacy_policy']=$designation;
-    }else if($field_type=='shipping-policy'){
-      $postArr['shipping_policy']=$designation;
-    }else if($field_type=='faq'){
-      $postArr['faq']=$designation;
-    }else if($field_type=='disclaimer'){
-      $postArr['disclaimer']=$designation;
+//     if($field_type=='terms-condition'){
+//       $postArr['terms_and_conditions_policy']=$designation;
+//     }else if($field_type=='refund-cancelation'){
+//       $postArr['refund_and_cancelation_policy']=$designation;
+//     }else if($field_type=='Privacy-policy'){
+//       $postArr['privacy_policy']=$designation;
+//     }else if($field_type=='shipping-policy'){
+//       $postArr['shipping_policy']=$designation;
+//     }else if($field_type=='faq'){
+//       $postArr['faq']=$designation;
+//     }else if($field_type=='disclaimer'){
+//       $postArr['disclaimer']=$designation;
+//     }
+
+
+//    $postArr['updated_by']=$session['admin_name'];
+
+//     if($editv==""){
+//           $sqlQuery=$this->sqlQuery_model->sql_insert('tbl_policy',$postArr);
+//           $data['message']='Successfully added.';
+//     }else{
+//           $sqlQuery=$this->sqlQuery_model->sql_update('tbl_policy',$postArr,array('policy_id'=>$editv));
+//           $data['message']='Successfully updated.';
+//     }
+//     if($sqlQuery){
+//           $data['status']=1;
+//           echo json_encode($data);
+//           exit;
+//     }else{    
+//       $data['status']=0;
+//       $data['message']='Failed to updated.';
+//       echo json_encode($data);
+//       exit;
+//     }
+// }
+
+public function policy_save() {
+    $session = $this->session->userdata('admin');
+    $designation = trim($this->input->post('designation'));
+    $editv = trim($this->input->post('edits_id')); // Make sure the input name matches
+    $field_type = trim($this->input->post('field_type'));
+    $postArr = array();
+
+    if (empty($designation)) {
+        $this->session->set_flashdata('message', 'Field is required.');
+        $this->redirect_based_on_field_type($field_type);
+        return;
     }
 
-
-   $postArr['updated_by']=$session['admin_name'];
-
-    if($editv==""){
-          $sqlQuery=$this->sqlQuery_model->sql_insert('tbl_policy',$postArr);
-          $data['message']='Successfully added.';
-    }else{
-          $sqlQuery=$this->sqlQuery_model->sql_update('tbl_policy',$postArr,array('policy_id'=>$editv));
-          $data['message']='Successfully updated.';
+    switch ($field_type) {
+        case 'admin/terms_conditions':
+            $postArr['terms_and_conditions_policy'] = $designation;
+            break;
+        case 'admin/refund-and-cancelation-policy':
+            $postArr['refund_and_cancelation_policy'] = $designation;
+            break;
+        case 'admin/privacy-policy':
+            $postArr['privacy_policy'] = $designation;
+            break;
+        case 'admin/shipping-policy':
+            $postArr['shipping_policy'] = $designation;
+            break;
+        case 'admin/faq':
+            $postArr['faq'] = $designation;
+            break;
+        case 'admin/disclaimer':
+            $postArr['disclaimer'] = $designation;
+            break;
+        default:
+            $this->session->set_flashdata('message', 'Invalid policy type.');
+            $this->redirect_based_on_field_type($field_type);
+            return;
     }
-    if($sqlQuery){
-          $data['status']=1;
-          echo json_encode($data);
-          exit;
-    }else{    
-      $data['status']=0;
-      $data['message']='Failed to updated.';
-      echo json_encode($data);
-      exit;
+
+    $postArr['updated_by'] = $session['admin_name'];
+
+    if (empty($editv)) {
+        $sqlQuery = $this->sqlQuery_model->sql_insert('tbl_policy', $postArr);
+        $message = 'Successfully added.';
+    } else {
+        $sqlQuery = $this->sqlQuery_model->sql_update('tbl_policy', $postArr, array('policy_id' => $editv));
+        $message = 'Successfully updated.';
     }
+
+    if ($sqlQuery) {
+        $this->session->set_flashdata('message', $message);
+    } else {
+        $this->session->set_flashdata('message', 'Failed to update.');
+    }
+
+    $this->redirect_based_on_field_type($field_type);
+}
+
+private function redirect_based_on_field_type($field_type) {
+    switch ($field_type) {
+        case 'admin/terms_conditions':
+            redirect('admin/terms_conditions');
+            break;
+        case 'admin/refund-and-cancelation-policy':
+            redirect('admin/refund-and-cancelation-policy');
+            break;
+        case 'admin/privacy-policy':
+            redirect('admin/privacy-policy');
+            break;
+        case 'admin/shipping-policy':
+            redirect('admin/shipping-policy');
+            break;
+        case 'admin/faq':
+            redirect('admin/faq');
+            break;
+        case 'admin/disclaimer':
+            redirect('admin/disclaimer');
+            break;
+        // default:
+        //     redirect('admin/terms_conditions'); // Redirect to a generic policy page
+        //     break;
+    }
+}
+
+
+
+public function save_gst_details(){
+    $error =0;
+    $error_array=array();
+    if($this->input->is_ajax_request()){
+
+      $form_detail=$_POST;
+      $userCookies=getCookies('customer');
+      //$userCookies['customer_id']
+
+      $nv = array(
+         
+          'customer_id'           => $userCookies['customer_id'],
+          'registration_no'       => isset($form_detail['registration_no'])             && $form_detail['registration_no'] != ''               ? addslashes($form_detail['registration_no'])            :  "",
+          'company_name'          => isset($form_detail['company_name'])                && $form_detail['company_name'] != ''                  ? addslashes($form_detail['company_name'])               :  "",
+          'company_address'       => isset($form_detail['company_address'])             && $form_detail['company_address'] != ''               ? addslashes($form_detail['company_address'])            :  "",
+          'pincode'              => isset($form_detail['pincode'])                     && $form_detail['pincode'] != ''                       ? addslashes($form_detail['pincode'])                    :  "",
+          'fssai_no'              => isset($form_detail['fssai_no'])                    && $form_detail['fssai_no'] != ''                      ? addslashes($form_detail['fssai_no'])                   :  "",
+       );
+
+        
+
+       if($nv['registration_no'] == ''){
+          $error=1;
+          $errorArr['error_tag'] ='er_registration_no';
+          $errorArr['err_msg'] = "Please enter registration no.";
+          $error_array[]=$errorArr;
+       }
+       if($this->common_model->isGstNumberUnigue($nv['registration_no'])){
+          $error=1;
+          $errorArr['error_tag']='er_registration_no';
+          $errorArr['err_msg']= "Gst number already present";
+          $error_array[]=$errorArr;
+       }
+       if($nv['company_name'] == ''){
+          $error=1;
+          $errorArr['error_tag']='er_company_name';
+          $errorArr['err_msg']= "Please enter company name";
+          $error_array[]=$errorArr;
+       }
+       if(!preg_match('/^[\p{L} ]+$/u', $nv['company_name'])){
+          $error=1;
+          $errorArr['error_tag']='er_company_name';
+          $errorArr['err_msg']= "Name must contain letters and spaces only";
+          $error_array[]=$errorArr;
+       }
+       if ($nv['company_address'] == ''){
+          $error=1;
+          $errorArr['error_tag']='er_company_address';
+          $errorArr['err_msg']= "Name must contain letters and spaces only";
+          $error_array[]=$errorArr;
+       }
+       if($nv['pincode']==''){
+           $error=1;
+          $errorArr['error_tag']='er_pincode';
+          $errorArr['err_msg']= "Please enter pincode";
+          $error_array[]=$errorArr;
+       }
+       if($nv['pincode']!= '' && strlen($nv['pincode'])!=6){
+          $error=1;
+          $errorArr['error_tag']='er_pincode';
+          $errorArr['err_msg']="Pincod must have 6 digits";
+          $error_array[]=$errorArr;
+        }
+
+        if($nv['fssai_no'] == ''){
+           $error=1;
+          $errorArr['error_tag']='er_fssai_no';
+          $errorArr['err_msg']= "Please enter fssai no";
+          $error_array[]=$errorArr;
+       }
+
+      if($error==0){
+          
+          if($this->common_model->chkGSTPresent($userCookies['customer_id'])){
+
+              $this->common_model->updateCustomerGst($nv);
+              $error=0;
+              $error_array['error_tag']='';
+              $error_array['err_msg']="GST detail updated";
+
+          }else{
+
+              $this->common_model->saveCustomerGst($nv);
+
+              $error=0;
+              $error_array['error_tag']='';
+              $error_array['err_msg']="GST detail save";
+          }
+           
+      }
+
+      $response= array('error' => $error, 'err_msg' => $error_array);
+  }else{
+      $response= array('error' =>2, 'err_msg' =>"Method not allowed");
+  }
+
+  echo json_encode($response);
+  exit();
+   
 }
     
 }

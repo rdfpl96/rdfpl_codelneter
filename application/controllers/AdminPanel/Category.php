@@ -1,172 +1,170 @@
 
 <?php
- defined('BASEPATH') OR exit('No direct script access allowe');
+defined('BASEPATH') or exit('No direct script access allowe');
 
-class Category extends CI_Controller{   
-  
-    public function __construct() {
-    	
-	    parent::__construct();
-		
-		 date_default_timezone_set('Asia/Kolkata');
+class Category extends CI_Controller
+{
 
-		  $this->load->library('my_libraries');
-		  $this->load->model('admin/category_model','category');
-		  $session=$this->session->userdata('admin');
-		  
-		  $_SERVER['REQUEST_URI']="admin";
+    public function __construct()
+    {
 
-		  if(basename($_SERVER['REQUEST_URI'])!='admin'){
-		       if(!isset($session) && $session['is_login']!=1){
-		          // redirect(base_url('login'));
-		           redirect(base_url('admin'));
-		       }
-		  }
-  
-  	}
+        parent::__construct();
 
-    // function index(){
-            
-    //      $this->load->view('admin/category/index');
-             
-   	// }
+        date_default_timezone_set('Asia/Kolkata');
 
-    function index(){
-    
-        $menuIdAsKey=2;
-        $getAccess=$this->my_libraries->userAthorizetion($menuIdAsKey);
-        $page_menu_id=$menuIdAsKey;
-
-
-        $adjacents = 2;
-        $records_per_page =25;
-        $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-        $page = ($page == 0 ? 1 : $page);
-        $start = ($page-1) * $records_per_page;
-        //
-        $name=isset($_POST['name']) && $_POST['name']!='' ? $_POST['name'] : '' ;
-        
-        $array_data=$this->category->getList($start, $records_per_page,$name); 
-
-
-
-        $count=$this->category->record_count($name);
-        
-        $next = $page + 1;    
-        $prev = $page - 1;
-
-        $last_page = ceil($count/$records_per_page);
-        $second_last = $last_page - 1;
-
-        $i = (($page * $records_per_page) - ($records_per_page - 1));
-        $pagination = "";    
-        
-        if($last_page > 1)
-            {
-            $pagination .= "<div class='pagination'>";
-            if($page > 1)
-                $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($prev).");'>&laquo; Previous&nbsp;&nbsp;</a>";
-            else
-            $pagination.= "<spn class='disabled'>&laquo; Previous&nbsp;&nbsp;</spn>";   
-            if($last_page < 7 + ($adjacents * 2))
-                {   
-                for ($counter = 1; $counter <= $last_page; $counter++)
-                    {
-                    if ($counter == $page)
-                        $pagination.= "<spn class='current'>$counter</spn>";
-                    else
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                    }
-                }
-            elseif($last_page > 5 + ($adjacents * 2))
-                {
-                if($page < 1 + ($adjacents * 2))
-                    {
-                    for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
-                        {
-                        if($counter == $page)
-                            $pagination.= "<spn class='current'>$counter</spn>";
-                        else
-                            $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                        }
-                        $pagination.= "...";
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($second_last).");'> $second_last</a>";
-                        $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($last_page).");'>$last_page</a>";   
-                   
-                    }
-               elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
-                    {
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                   $pagination.= "...";
-                   for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
-                        {
-                       if($counter == $page)
-                           $pagination.= "<spn class='current'>$counter</spn>";
-                       else
-                           $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                        }
-                   $pagination.= "..";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($second_last).");'>$second_last</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($last_page).");'>$last_page</a>";   
-                    }
-               else
-                    {
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                   $pagination.= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                   $pagination.= "..";
-                   for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
-                   {
-                       if($counter == $page)
-                            $pagination.= "<spn class='current'>$counter</spn>";
-                       else
-                            $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($counter).");'>$counter</a>";     
-                   }
-                }
+        $this->load->library('my_libraries');
+        $this->load->model('admin/category_model', 'category');
+        $session = $this->session->userdata('admin');
+        $this->load->library('pagination');
+        $_SERVER['REQUEST_URI'] = "admin";
+        if (basename($_SERVER['REQUEST_URI']) != 'admin') {
+            if (!isset($session) && $session['is_login'] != 1) {
+                // redirect(base_url('login'));
+                redirect(base_url('admin'));
             }
-            if($page < $counter - 1)
-                $pagination.= "<a href='javascript:void(0);' onClick='change_page(".($next).");'>Next &raquo;</a>";
-            else
-                $pagination.= "<spn class='disabled'>Next &raquo;</spn>";
-            $pagination.= "</div>";       
-            }
-
-            
-        $option='';
-            if(is_array($array_data) && count($array_data)>0){
-
-                foreach($array_data as $record){
-                    $status=isset($record['status']) && $record['status']==1 ?'<span style="color:green">Active</span>' :'<span style="color:red">Inactive</span>' ;
-                   
-                  
-                    $option.='<tr> 
-                                <td>'.$i.'</td>
-                                <td>'.$record['category'].'</td>
-                                <td>'.$record['slug'].'</td>
-                                <td>'.$status.'</td>
-                                <td>'.date('d-m-Y',strtotime($record['add_date'])).'</td>
-                                <td></td>
-                                <td><a href="'.base_url().'admin/category/edit/'.$record['cat_id'].'" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        </tr>'; 
-                    $i++;                                                     
-                } 
-            }
-
-            else{
-                $option.='<tr><td colspan="15" style="color:red;text-align:center">No record</d></tr>';
-            }
-            //
-
-            $output=array('array_data'=>$option,'pagination'=>$pagination,'page_menu_id'=>$page_menu_id,'getAccess'=>$getAccess);    
-            if($this->input->post('method') == "changepage"){
-                echo json_encode($output); 
-                exit();
-            }
-            else
-                {
-                 $this->load->view('admin/category/index',$output);
-            }  
+        }
     }
+
+
+
+    public function index($page = '')
+    {
+        $searchText = $this->input->post('searchText'); // Search Keywords
+
+        $page = empty($page) ? 0 : intval($page);
+        $menuIdAsKey = 2;
+        $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $page_menu_id = $menuIdAsKey;
+        $adjacents = 2;
+        $config = array();
+        $config["base_url"] = base_url() . "admin/category";
+        $config["total_rows"] = $this->category->get_user_count_category();
+        $config["per_page"] = 10; // Number of records per page
+        $config["uri_segment"] = 3; // Position of the page number in the URL
+        // Customizing pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['first_tag_close'] = '</a></li>';
+
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['last_tag_close'] = '</a></li>';
+
+        $config['next_link'] = 'Next'; //'Next Page';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['next_tag_close'] = '</a></li>';
+
+        $config['prev_link'] = 'Previous'; //'Prev Page';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
+
+        $this->pagination->initialize($config);
+        //$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $data['category_list'] = $this->category->get_users_category($config["per_page"], $page);
+        $data['pagination'] = $this->pagination->create_links();
+
+        $name = $this->input->post('name');
+
+        $array_data = $this->category->getList($page, $config["per_page"], $name,$searchText);
+
+
+        $option = '';
+        if (is_array($array_data) && count($array_data) > 0) {
+            foreach ($array_data as $i => $record) {
+                $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+                $option .= '<tr> 
+                                <td>' . ($i + 1 + $page) . '</td>
+                                <td>' . $record['category'] . '</td>
+                                <td>' . $record['slug'] . '</td>
+                                <td>' . $status . '</td>
+                                <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
+                                <td></td>
+                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"></i>Delete</a></td>
+                            </tr>';
+            }
+        } else {
+            $option .= '<tr><td colspan="15" style="color:red;text-align:center">No record</td></tr>';
+        }
+
+        $data['array_data'] = $option;
+        $data['page_menu_id'] = $page_menu_id;
+        $data['getAccess'] = $getAccess;
+
+        if ($this->input->post('method') == "changepage") {
+            echo json_encode($data);
+            exit();
+        } else {
+            $this->load->view('admin/category/index', $data);
+        }
+    }
+
+
+
+
+    // public function SearchCategory() {
+                    
+    //     $searchText = $this->input->post('searchText');
+    //     // print_r($searchTerm);
+    //     // die();
+    //     // Call the category_search method from the model
+    //     $data['categories'] = $this->category->category_search($searchText);
+
+    //     // print_r($data['categories']);
+    //     // die();
+    
+    //     $data['content'] = 'admin/containerPage/index';
+    //     $this->load->view('admin/template', $data);
+    // }
+
+
+
+    
+
+    public function SearchCategory() {
+                    
+        $searchText = $this->input->post('searchText');
+       
+        $Cat_Html = $this->category->category_search($searchText);
+      
+        $html.='';
+        foreach ($Cat_Html as $val) {
+            $html.='<tr>
+                <td>'.$val['cat_id'].'</td>
+                <td>'.$val['category'].'</td>
+                <td>'.$val['slug'].'</td>
+                <td>'.$val['status'].'</td>
+                <td>'.$val['add_date'].'</td>
+                <td>'.$val['action'].'</td>
+                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+            </tr>';
+        }
+
+
+        // $data['categories']
+
+        print_r($html);
+        die();
+    
+        // $data['content'] = 'admin/containerPage/index';
+        // $this->load->view('admin/template', $data);
+    }
+
+
+
+
+
+
+
 
     // public function create(){
     // 	$menuIdAsKey=2;
@@ -174,7 +172,7 @@ class Category extends CI_Controller{
     //     $data['page_menu_id']=$menuIdAsKey;
 
     //     if($this->input->is_ajax_request()) {
-            
+
     //         $otherInfo=array();
 
     //         $session=$this->session->userdata('admin');
@@ -196,9 +194,9 @@ class Category extends CI_Controller{
     //         $array_data=array(
     //             'category_name'=>$categoryName,
     //             'slug'=>$categorySlug
-    
+
     //         );
-            
+
     //         if($this->category->add($array_data)){
     //             $error=0;
     //             $err_msg="Data insert succesfully";
@@ -210,16 +208,22 @@ class Category extends CI_Controller{
     //       $this->load->view('admin/category/create',$data);  
     //     }
     // }
-   
-   // public function create() {
-   //      $this->load->view('admin/category/create');
-   //  }
 
-    public function create() {
+    // public function create() {
+    //      $this->load->view('admin/category/create');
+    //  }
+
+    public function create()
+    {
         $this->load->view('admin/category/create');
     }
 
-        public function store() {
+
+
+
+
+    public function store()
+    {
         $category_name = $this->input->post('category_name');
         $category_slug = $this->input->post('slug');
 
@@ -233,16 +237,25 @@ class Category extends CI_Controller{
     }
 
 
-public function edit($id) {
+    public function edit($id)
+    {
+
         // Get category details by ID
         $data['category'] = $this->category->get_category_by_id($id);
         // Load the edit view
         $this->load->view('admin/category/edit', $data);
-    } 
+    }
 
-public function update($id) {
+
+    
+
+
+
+
+    public function update($id)
+    {
         $data = array(
-            'category' => $this->input->post('category_name'),
+            'category' => $this->input->post('category'),
             'slug' => $this->input->post('slug')
         );
 
@@ -252,8 +265,21 @@ public function update($id) {
         } else {
             $this->session->set_flashdata('error_message', 'Failed to update data!');
         }
-        redirect('admin/category/index');
+        redirect('admin/category');
     }
 
+
+
+    
+
+
+
+    
 }
+
+
+
+
+
+
 ?>

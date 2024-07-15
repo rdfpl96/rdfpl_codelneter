@@ -65,7 +65,7 @@ class Category_model extends CI_Model{
   } 
 
             
-  public function getList($start,$records_per_page,$name){
+  public function getList($start,$records_per_page,$name,$searchText=''){
     $array_record=array();     
     $this->db->select('P.*');
     $this->db->from('tbl_category AS P');
@@ -73,6 +73,13 @@ class Category_model extends CI_Model{
        $this->db->like('P.category',$name);
     }
    
+    // Check if the search term is not empty
+    if (!empty($searchText)) {
+      $this->db->like('P.category', $searchText);
+    }
+
+
+    
     $this->db->limit($records_per_page,$start);
     $this->db->order_by("add_date", "desc");
     $query=$this->db->get() ; 
@@ -83,11 +90,31 @@ class Category_model extends CI_Model{
     }
     return $array_record;    
   }
+
+
+
   public function get_categories() {
         $query = $this->db->get('tbl_category'); // Fetch all records from tbl_category
         return $query->result(); // Return the result as an array of objects
     }
 
+
+
+    public function get_user_count_category() {
+  
+      return $this->db->count_all("tbl_category");
+    }
+     
+    public function get_users_category($limit, $start) {
+      $this->db->limit($limit, $start);
+      $query = $this->db->get("tbl_category");
+     
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }
+      return false;
+    }
+     
   // public function add($array_data){
   //   // print_r($array_data);
   //   // exit;
@@ -128,7 +155,7 @@ public function get_category_by_id($id) {
 public function update_category($id, $data) {
         $this->db->where('cat_id', $id);
         if ($this->db->update('tbl_category', $data)) {
-            return true; // Return true if data is updated successfully
+            return true; 
         } else {
             return false; // Return false if data update fails
         }
@@ -162,6 +189,32 @@ public function update_category($id, $data) {
     }
     return $array_record;   
   }
+
+
+
+
+public function category_search($searchText = '') {
+  // print_r($searchText);
+  // die();
+  $this->db->select('T1.*');
+  $this->db->from('tbl_category AS T1');
+
+  // Check if the search term is not empty
+  if (!empty($searchText)) {
+    $this->db->like('T1.category', $searchText);
+  }
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
+
+
+
+
+
+
+
+
 
   
 }

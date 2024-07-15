@@ -1,4 +1,4 @@
-var base_url=$('.base_url').val();
+// var base_url=$('.base_url').val();
 
 // $(function() {
 
@@ -802,8 +802,7 @@ $('.deleteRowClass').click(function(){
                     alertShow=data.message;
                     alert='alert-danger';
                } 
-
-                var html='<div class="alert '+alert+' alert-dismissible fade show" role="alert">'+
+              var html='<div class="alert '+alert+' alert-dismissible fade show" role="alert">'+
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                            '</button>'+
@@ -817,7 +816,6 @@ $('.deleteRowClass').click(function(){
                                   $('.message').html(html).fadeIn();         
                                 $('#loader').css('display','none');
             }
-
 
         });
 
@@ -4477,260 +4475,260 @@ $(document).on('click','.save-kyf',function(){
 
 
 
-$(document).on('click','.save-choose',function(){
+// $(document).on('click','.save-choose',function(){
   
-    var formData = new FormData($('#my-form-choose')[0]);  
+//     var formData = new FormData($('#my-form-choose')[0]);  
 
 
-      var heading=$('#heading').val();
-      var historyDetails=$('#historyDetails').val();
-      var imagePath=$('#imagePath').val();
-      var get_id=$('#get_id').val();
+//       var heading=$('#heading').val();
+//       var historyDetails=$('#historyDetails').val();
+//       var imagePath=$('#imagePath').val();
+//       var get_id=$('#get_id').val();
 
       
       
-      // if(heading=="" || heading==null){
-      //   $('#heading').css('border','1px solid red');
-      //   return false;
-      // }else{
-      //   $('#heading').css('border','1px solid #CCCCCC');
-      //    status=1;
-      // }
+//       // if(heading=="" || heading==null){
+//       //   $('#heading').css('border','1px solid red');
+//       //   return false;
+//       // }else{
+//       //   $('#heading').css('border','1px solid #CCCCCC');
+//       //    status=1;
+//       // }
 
-      if(historyDetails=="" || historyDetails==null){
-        $('#historyDetails').css('border','1px solid red');
-        return false;
-      }else{
-        $('#historyDetails').css('border','1px solid #CCCCCC');
-         status=1;
-      }
+//       if(historyDetails=="" || historyDetails==null){
+//         $('#historyDetails').css('border','1px solid red');
+//         return false;
+//       }else{
+//         $('#historyDetails').css('border','1px solid #CCCCCC');
+//          status=1;
+//       }
 
 
       
 
      
-if(status==1){
+// if(status==1){
 
-            formData.append('heading', heading);
-            formData.append('historyDetails', historyDetails);
-            formData.append('imagePath', imagePath);
-            formData.append('get_id', get_id);
+//             formData.append('heading', heading);
+//             formData.append('historyDetails', historyDetails);
+//             formData.append('imagePath', imagePath);
+//             formData.append('get_id', get_id);
             
-             loading('loaderdiv','block');
-            $('.codeee').removeClass('save-choose');
+//              loading('loaderdiv','block');
+//             $('.codeee').removeClass('save-choose');
 
 
 
             
-          $.ajax({
-                  url: base_url+'Ajax_function/why_choose_us',
-                  data: formData,
-                  processData: false,
-                  contentType: false,
-                  type: 'POST',
-                  dataType:'JSON',
-                  success: function(data){
+//           $.ajax({
+//                   url: base_url+'Ajax_function/why_choose_us',
+//                   data: formData,
+//                   processData: false,
+//                   contentType: false,
+//                   type: 'POST',
+//                   dataType:'JSON',
+//                   success: function(data){
 
-                    if(data.status==1){
+//                     if(data.status==1){
 
-                       Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
-                              document.location.href=base_url+'admin/why_choose_us';
-                          });
+//                        Swal.fire({
+//                         position: 'top-end',
+//                         // icon: 'success',
+//                         title: data.message,
+//                         showConfirmButton: false,
+//                         color:'white',
+//                         background: '#689F39',
+//                         timer: 3000
+//                            }).then((result) => {
+//                               document.location.href=base_url+'admin/why_choose_us';
+//                           });
                        
-                    }else{
-                             Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: data.message,
-                              showConfirmButton: false,
-                              timer: 3000
-                                 }).then((result) => {
-                              $('.codeee').addClass('save-choose');
-                               });
+//                     }else{
+//                              Swal.fire({
+//                               position: 'center',
+//                               icon: 'error',
+//                               title: data.message,
+//                               showConfirmButton: false,
+//                               timer: 3000
+//                                  }).then((result) => {
+//                               $('.codeee').addClass('save-choose');
+//                                });
 
-                    }
+//                     }
 
-                     loading('loaderdiv','none');
+//                      loading('loaderdiv','none');
                     
                    
 
-                   }
+//                    }
 
-              });
-        }
-})
-
-
+//               });
+//         }
+// })
 
 
-$(document).on('click','.save-banner',function(){
+
+
+// $(document).on('click','.save-banner',function(){
 
     
-    var text1=$('#text1').val();
-    // var text2=$('#text2').val();
-    var short_details=$('#short_details').val();
-    var link=$('#link').val();
-    var desk_imgPath=$('#desk_imgPath').val();
-    // var mobile_imgPath=$('#mobile_imgPath').val();
-    var editv=$('#editv').val();
+//     var text1=$('#text1').val();
+//     // var text2=$('#text2').val();
+//     var short_details=$('#short_details').val();
+//     var link=$('#link').val();
+//     var desk_imgPath=$('#desk_imgPath').val();
+//     // var mobile_imgPath=$('#mobile_imgPath').val();
+//     var editv=$('#editv').val();
 
-     if($('#btn-status').is(':checked')){
-       var btn_status=1;
-     }else{
-      btn_status=0;
-     }
+//      if($('#btn-status').is(':checked')){
+//        var btn_status=1;
+//      }else{
+//       btn_status=0;
+//      }
   
 
       
-        var formData = new FormData($('#my-form-banner')[0]);  
+//         var formData = new FormData($('#my-form-banner')[0]);  
 
-            formData.append('text1',text1);
-            // formData.append('text2',text2);
-            formData.append('short_details',short_details);
-            formData.append('link',link);
-            formData.append('desk_imgPath',desk_imgPath);
-            // formData.append('mobile_imgPath',mobile_imgPath);
-            formData.append('editv',editv);
-            formData.append('btn_status',btn_status);
+//             formData.append('text1',text1);
+//             // formData.append('text2',text2);
+//             formData.append('short_details',short_details);
+//             formData.append('link',link);
+//             formData.append('desk_imgPath',desk_imgPath);
+//             // formData.append('mobile_imgPath',mobile_imgPath);
+//             formData.append('editv',editv);
+//             formData.append('btn_status',btn_status);
             
 
-             loading('loaderdiv','block');
-             $('.giod').removeClass('save-banner');
+//              loading('loaderdiv','block');
+//              $('.giod').removeClass('save-banner');
 
  
-          $.ajax({
-                  url: base_url+'Ajax_function/add_banner',
-                  data: formData,
-                  processData: false,
-                  contentType: false,
-                  type: 'POST',
-                  dataType:'JSON',
-                  success: function(data){
+//           $.ajax({
+//                   url: base_url+'Ajax_function/add_banner',
+//                   data: formData,
+//                   processData: false,
+//                   contentType: false,
+//                   type: 'POST',
+//                   dataType:'JSON',
+//                   success: function(data){
 
-                    if(data.status==1){
+//                     if(data.status==1){
 
-                       Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
-                              document.location.href=base_url+'admin/banner';
-                          });
+//                        Swal.fire({
+//                         position: 'top-end',
+//                         // icon: 'success',
+//                         title: data.message,
+//                         showConfirmButton: false,
+//                         color:'white',
+//                         background: '#689F39',
+//                         timer: 3000
+//                            }).then((result) => {
+//                               document.location.href=base_url+'admin/banner';
+//                           });
                        
-                    }else{
-                       Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: data.message,
-                              showConfirmButton: false,
-                              timer: 3000
-                                 }).then((result) => {
-                                $('.giod').addClass('save-banner');
-                              });
+//                     }else{
+//                        Swal.fire({
+//                               position: 'center',
+//                               icon: 'error',
+//                               title: data.message,
+//                               showConfirmButton: false,
+//                               timer: 3000
+//                                  }).then((result) => {
+//                                 $('.giod').addClass('save-banner');
+//                               });
 
-                    }
+//                     }
                    
 
-                   loading('loaderdiv','none');
+//                    loading('loaderdiv','none');
                    
 
-                   }
+//                    }
 
-              });
+//               });
 
-})
+// })
 
 
-$(document).on('click','.save-banner-ads',function(){
+// $(document).on('click','.save-banner-ads',function(){
 
     
-    var text1=$('#text1').val();
-    // var text2=$('#text2').val();
-    // var short_details=$('#short_details').val();
-    var link=$('#link').val();
-    var desk_imgPath=$('#desk_imgPath').val();
-    // var mobile_imgPath=$('#mobile_imgPath').val();
-    var editv=$('#editv').val();
+//     var text1=$('#text1').val();
+//     // var text2=$('#text2').val();
+//     // var short_details=$('#short_details').val();
+//     var link=$('#link').val();
+//     var desk_imgPath=$('#desk_imgPath').val();
+//     // var mobile_imgPath=$('#mobile_imgPath').val();
+//     var editv=$('#editv').val();
 
-     if($('#btn-status').is(':checked')){
-       var btn_status=1;
-     }else{
-      btn_status=0;
-     }
+//      if($('#btn-status').is(':checked')){
+//        var btn_status=1;
+//      }else{
+//       btn_status=0;
+//      }
   
 
       
-        var formData = new FormData($('#my-form-banner')[0]);  
+        // var formData = new FormData($('#my-form-banner')[0]);  
 
-            formData.append('text1',text1);
-            // formData.append('text2',text2);
-            // formData.append('short_details',short_details);
-            formData.append('link',link);
-            formData.append('desk_imgPath',desk_imgPath);
-            // formData.append('mobile_imgPath',mobile_imgPath);
-            formData.append('editv',editv);
-            formData.append('btn_status',btn_status);
+        //     formData.append('text1',text1);
+        //     // formData.append('text2',text2);
+        //     // formData.append('short_details',short_details);
+        //     formData.append('link',link);
+        //     formData.append('desk_imgPath',desk_imgPath);
+        //     // formData.append('mobile_imgPath',mobile_imgPath);
+        //     formData.append('editv',editv);
+        //     formData.append('btn_status',btn_status);
             
 
-             loading('loaderdiv','block');
-             $('.giod').removeClass('save-banner-ads');
+        //      loading('loaderdiv','block');
+        //      $('.giod').removeClass('save-banner-ads');
 
  
-          $.ajax({
-                  url: base_url+'Ajax_function/add_banner_ads',
-                  data: formData,
-                  processData: false,
-                  contentType: false,
-                  type: 'POST',
-                  dataType:'JSON',
-                  success: function(data){
+          // $.ajax({
+          //         url: base_url+'Ajax_function/add_banner_ads',
+          //         data: formData,
+          //         processData: false,
+          //         contentType: false,
+          //         type: 'POST',
+          //         dataType:'JSON',
+          //         success: function(data){
 
-                    if(data.status==1){
+          //           if(data.status==1){
 
-                       Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
-                              document.location.href=base_url+'admin/ads_banner';
-                          });
+          //              Swal.fire({
+          //               position: 'top-end',
+          //               // icon: 'success',
+          //               title: data.message,
+          //               showConfirmButton: false,
+          //               color:'white',
+          //               background: '#689F39',
+          //               timer: 3000
+          //                  }).then((result) => {
+          //                     document.location.href=base_url+'admin/ads_banner';
+          //                 });
                        
-                    }else{
-                       Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: data.message,
-                              showConfirmButton: false,
-                              timer: 3000
-                                 }).then((result) => {
-                                $('.giod').addClass('save-banner-ads');
-                              });
+          //           }else{
+          //              Swal.fire({
+          //                     position: 'center',
+          //                     icon: 'error',
+          //                     title: data.message,
+          //                     showConfirmButton: false,
+          //                     timer: 3000
+          //                        }).then((result) => {
+          //                       $('.giod').addClass('save-banner-ads');
+          //                     });
 
-                    }
+          //           }
                    
 
-                   loading('loaderdiv','none');
+          //          loading('loaderdiv','none');
                    
 
-                   }
+          //          }
 
-              });
+          //     });
 
 })
 

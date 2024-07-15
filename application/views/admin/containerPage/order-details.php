@@ -5,38 +5,44 @@
            if($order_details!=0){
 
             foreach($order_details as $value){
- // print_r($getMinVa);
- //                   print_r($value->shiprocket_shipment_id);
- //                   echo "</pre>";
 
-                         $getArr=array(
-                                       'address1' =>$value->order_address,
-                                       'country' =>$value->order_country,
-                                       'apartment'=>$value->order_alt_address,
-                                       'landmark'=>$value->order_landmark,
-                                       'area'=>$value->order_area,
-                                       'city'   =>$value->order_city,
-                                       'state'  =>$value->order_state,
-                                       'pincode' =>$value->order_pincode) ;
 
-                         $importValue=implode(', ', array_filter($getArr));
+
+                // echo "<pre>";
+                // print_r($value);
+                // die();
+                    // print_r($getMinVa);
+                    //                   print_r($value->shiprocket_shipment_id);
+                    //                   echo "</pre>";
+
+                        //  $getArr=array(
+                        //                'address1' =>$value->order_address,
+                        //                'country' =>$value->order_country,
+                        //                'apartment'=>$value->order_alt_address,
+                        //                'landmark'=>$value->order_landmark,
+                        //                'area'=>$value->order_area,
+                        //                'city'   =>$value->order_city,
+                        //                'state'  =>$value->order_state,
+                        //                'pincode' =>$value->order_pincode) ;
+
+                        //  $importValue=implode(', ', array_filter($getArr));
                          
-                         $getShipAddr=(($value->order_type_of_address !="") ? (($value->order_type_of_address=='Others') ? $value->order_type_of_address_others_value : $value->order_type_of_address).' - ' :'').$importValue;
+                        //  $getShipAddr=(($value->order_type_of_address !="") ? (($value->order_type_of_address=='Others') ? $value->order_type_of_address_others_value : $value->order_type_of_address).' - ' :'').$importValue;
                      
 
-                           $getArr_bill=array(
-                                       'address1' =>$value->bill_order_address,
-                                       'country' =>$value->bill_order_country,
-                                       'apartment'=>$value->bill_order_alt_address,
-                                       'landmark'=>$value->bill_order_landmark,
-                                       'area'=>$value->bill_order_area,
-                                       'city'   =>$value->bill_order_city,
-                                       'state'  =>$value->bill_order_state,
-                                       'pincode' =>$value->bill_order_pincode) ;
-                                $importValue_bill=implode(', ', array_filter($getArr_bill));
+                        //    $getArr_bill=array(
+                        //                'address1' =>$value->bill_order_address,
+                        //                'country' =>$value->bill_order_country,
+                        //                'apartment'=>$value->bill_order_alt_address,
+                        //                'landmark'=>$value->bill_order_landmark,
+                        //                'area'=>$value->bill_order_area,
+                        //                'city'   =>$value->bill_order_city,
+                        //                'state'  =>$value->bill_order_state,
+                        //                'pincode' =>$value->bill_order_pincode) ;
+                        //         $importValue_bill=implode(', ', array_filter($getArr_bill));
 
                        
-                                $getShipAddr_bill=(($value->bill_order_type_of_address !="") ? (($value->bill_order_type_of_address=='Others') ? $value->bill_order_type_of_address_others_value : $value->bill_order_type_of_address).' - ' :'').$importValue_bill;
+                        //         $getShipAddr_bill=(($value->bill_order_type_of_address !="") ? (($value->bill_order_type_of_address=='Others') ? $value->bill_order_type_of_address_others_value : $value->bill_order_type_of_address).' - ' :'').$importValue_bill;
               
                     
 
@@ -52,27 +58,26 @@
                        // $pickuppoint=pickupPointDetails();
                       
 
-                        $order_payment=$value->order_payment;
-                         if($value->order_payment=='Success payment'){
-                            $style='style="background-color:#33cc33;color:white;border:white;"';
-                         }else if($value->order_payment=='Pending payment'){
-                           $style='style="background-color:#F49832;color:white;border:white;"';
-                         }else{
-                           $style='style="background-color:#ff3300;color:white;border:white;"';
-                         }
+                    //     $order_payment=$value->order_payment;
+                    //      if($value->order_payment=='Success payment'){
+                    //         $style='style="background-color:#33cc33;color:white;border:white;"';
+                    //      }else if($value->order_payment=='Pending payment'){
+                    //        $style='style="background-color:#F49832;color:white;border:white;"';
+                    //      }else{
+                    //        $style='style="background-color:#ff3300;color:white;border:white;"';
+                    //      }
 
                        
-                      if($value->payment_mode=='Instamojo'){
-                          $payment_id=$value->instamojo_payment_id;
-                      }else if($value->payment_mode=='Razorpay'){
-                         $payment_id=$value->razorpay_payment_id;
-                      }
-
+                    //   if($value->payment_mode=='Instamojo'){
+                    //       $payment_id=$value->instamojo_payment_id;
+                    //   }else if($value->payment_mode=='Razorpay'){
+                    //      $payment_id=$value->razorpay_payment_id;
+                    //   }
                 ?>
 
 
 
-            <div class="body d-flex py-3">  
+               <div class="body d-flex py-3">  
                 <div class="container-xxl"> 
                     <input type="hidden" name="order_id" id="order-id" value="<?php echo $value->order_id;?>">
                     <div class="row align-items-center"> 
@@ -81,10 +86,11 @@
                               <div class="mob_back_btn">
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
-                                <h4 class="fw-bold mb-0 custom-order-details">Order Details: #<?php echo $value->order_generated_order_id;?> 
+                               
+                                <h4 class="fw-bold mb-0 custom-order-details">Order Details: #<?php echo $value['order_no'];?>
 
                                        <span class="badge custom-order-css" <?php echo $style;?>><?php echo $order_payment;?></span> 
-                                        
+                                       <a href="<?php echo base_url('admin/product_order'); ?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase"   style="margin-left: 300px;">Back</button></a>
 
                                         <!-- <span class="badge custom-order-css" style="background-color:#339933;color:white;border:white;">Payment Id : <?php echo $payment_id;?></span>  -->
 
@@ -134,6 +140,7 @@
                     </div> <!-- Row end  -->
                     <div class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4">
                         <div class="col">
+                            
                             <div class="alert-success alert mb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-success text-light"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i></div>
@@ -149,14 +156,14 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="fa fa-user fa-lg" aria-hidden="true"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Name</div>
-                                        <span class="small"><?php echo $value->order_name;?></span>
+                                        <div class="h6 mb-0">Name</div><?php echo $value['customer_name'];?>
+                                        <span class="small"><?php echo $value?></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="alert-warning alert mb-0">
+                            <!-- <div class="alert-warning alert mb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-warning text-light"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
@@ -164,10 +171,10 @@
                                         <span class="small"><?php echo $value->order_email;?></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col">
-                            <div class="alert-info alert mb-0">
+                            <!-- <div class="alert-info alert mb-0">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-info text-light"><i class="fa fa-phone-square fa-lg" aria-hidden="true"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
@@ -175,7 +182,7 @@
                                         <span class="small"><?php echo $value->order_mobile_no;?></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div> <!-- Row end  -->
                     <div class="row g-3 mb-3 row-cols-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3 row-deck"> 
@@ -189,26 +196,34 @@
                                     <div class="row g-3">
                                      
                                         <div class="col-12">
-                                            <label class="form-label">Address:</label><br>
-                                            <span><?php echo ($value->order_address!="") ? $getShipAddr :'<span style="color:red;">Not Mension</span>';?>.</span>
+                                                <label class="form-label">Address1:</label><br>
+                                                <span>
+                                                    <?php echo (!empty($value['address1'])) ? htmlspecialchars($value['address1']) : '<span style="color:red;">Not Mentioned</span>'; ?>
+                                                </span>
                                         </div>
 
-                                       <!--  <div class="col-12">
-                                            <label class="form-label">Address2:</label><br>
-                                            <span><?php //echo ($value->order_alt_address!="") ? $value->order_alt_address :'<span style="color:red;">Not Mension</span>';?></span>
-                                        </div>
- -->
+
+                                     
+
+
                                          <div class="col-12">
-                                            <label class="form-label col-6 col-sm-6">Phone:</label><br>
+                                                <label class="form-label">Address2:</label><br>
+                                                <span>
+                                                    <?php echo (!empty($value['address2'])) ? htmlspecialchars($value['address1']) : '<span style="color:red;">Not Mentioned</span>'; ?>
+                                                </span>
+                                        </div>
+
+                                         <div class="col-12">
+                                            <label class="form-label col-6 col-sm-6">Area:</label><br>
                                             <span>
                                                 <?php
-                                                 if($value->order_mobile_no!=""){
-                                                    echo $value->order_mobile_no;
+                                                 if($value['area']!=""){
+                                                    echo $value['area'];
                                                   }
 
                                                   // echo ($value->order_alt_mobile_no!="") ? ' / '.$value->order_alt_mobile_no :'';
 
-                                                  if($value->order_mobile_no==""){
+                                                  if($value['area']==""){
                                                     echo '<span style="color:red;">Not Mension</span>';
                                                   }
  

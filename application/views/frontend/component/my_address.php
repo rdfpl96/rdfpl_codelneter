@@ -1,4 +1,6 @@
+
 <?php
+//print_r($cusotmer_details);
 $this->load->view('frontend/header',$data);
 ?>
 <main class="main pages">

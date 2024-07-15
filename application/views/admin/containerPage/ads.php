@@ -21,9 +21,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
 </div>
 <h3 class="fw-bold mb-0">Ads Banner List</h3>
- <?php if(in_array('add',$actAcx) || $session['admin_type']=='A'){ ?>
     <a href="<?php echo base_url('admin/add_ads_banner');?>"><button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Ads Banner</button></a>
-<?php } ?>
 </div>
 </div>
 </div> <!-- Row end  -->
@@ -50,20 +48,19 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                  <?php } ?>
 
                 <th>Date</th>
-                  <?php if((in_array('edit',$actAcx) || in_array('delete',$actAcx) || in_array('setting',$actAcx)) || $session['admin_type']=='A'){ ?>
+                
                 <th><span style="">Action</span></th>
-                 <?php } ?>
+                 
             </tr>
         </thead>
         <tbody class="row_position_banner">
-            <?php  
-            if($ads_banner_list!=0){
-                $index=0;
-                ;
-                foreach(array_reverse($ads_banner_list) as $value){
-                    
-                   $index++;
-                    ?>
+            
+                    <?php  
+                                if($ads_banner_list) {
+                                    $index = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+                                    foreach($ads_banner_list as $value) {
+                                        $index++;
+                                ?>
 
                      <tr id="<?php echo $value->banner_id;?>">
                         <td style="text-align:right"><strong><?php echo $index;?></strong></td>
@@ -83,23 +80,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                             ?>
                             <img src="<?php echo $imgFile;?>" style="width:40px; height:40px;border:1px solid grey; ">
-                        </td>
-
-                        <!-- <td> -->
-                            <?php
-                            //   $mobilefilePath=(($value->mobile_image!="") ? './uploads/banner/'.$value->mobile_image :'');
-                            // if(file_exists($mobilefilePath)){
-                            //    $mobileimgFile=base_url().'uploads/banner/'.$value->mobile_image;
-                            // }else{
-                            //   $mobileimgFile=base_url().'include/assets/default_product_image.png';
-                            // }
-
-                            ?>
-                            <!-- <img src="<?php //echo $mobileimgFile;?>" style="width:40px; height:40px;border:1px solid grey; "> -->
-                        <!-- </td> -->
-
-                        
-                        <td style="text-align:center;"><?php echo $value->updated_by;?></td>
+                        </td>                       
+                       <td style="text-align:center;"><?php echo $value->updated_by;?></td>
                          <?php if(in_array('status',$actAcx) || $session['admin_type']=='A'){ ?>
                         <td>
                              <label class="switch">
@@ -108,19 +90,14 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                             </label>
                         </td>
                     <?php } ?>
-                         <td style="text-align:right;"><?php echo date('d-m-Y',strtotime($value->add_date));?></td>
-                        
-                        
+                         <td style="text-align:right;"><?php echo date('d-m-Y',strtotime($value->add_date));?></td>    
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">
 
+                                <a href="<?php echo base_url('admin/add_ads_banner/'.$value->banner_id);?>" class="btn btn-outline-secondary "><i class="icofont-edit text-success"></i></a>
+                            
 
-                                 <?php if(in_array('edit',$actAcx) || $session['admin_type']=='A'){ ?>
-                                <a href="<?php echo base_url('admin/add_ads_banner/'.$value->banner_id);?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
-                            <?php } ?>
-                              <?php if(in_array('delete',$actAcx) || $session['admin_type']=='A'){ ?>
-                                <button type="button" class="btn btn-outline-secondary deleteRowClass" id="deleteRow<?php echo $value->banner_id;?>" data-id="<?php echo base64_encode($value->banner_id.':::'.implode(',',$deleteActionArr));?>"><i class="icofont-ui-delete text-danger"></i></button>
-                                <?php } ?>
+                            <button type="button" class="btn btn-outline-secondary deleteRowBtn" id="deleteRow" data-id="<?php echo $value->banner_id;?>"> <i class="icofont-ui-delete text-danger"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -131,7 +108,12 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
             ?>
         </tbody>
+       
     </table>
+     <!-- Pagination -->
+     <div class="pagination-links">
+                            <?php echo $pagination; ?>
+                        </div>
   </div>
 </div>
 </div>
@@ -139,3 +121,59 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 </div>
 </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    var base_url = "<?php echo base_url(); ?>";
+
+
+
+
+    $('.deleteRowBtn').click(function() {
+    var value = $(this).data('id');
+
+    if (confirm('Are you sure? Do you want to delete?')) {
+        $.ajax({
+            url: base_url + 'admin/deleteRowtable',
+            type: 'POST',
+            dataType: 'JSON',
+            data: { value: value },
+            success: function(data) {
+                if (data== 1) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.reload(); // Reload page on success
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'AJAX Error',
+                    text: 'An error occurred: ' + textStatus
+                });
+            },
+            complete: function() {
+                // Optional: Hide loader if you have one
+                // $('#loader').css('display', 'none');
+            }
+        });
+    }
+});
+
+
+
+
+
+</script>

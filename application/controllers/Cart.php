@@ -431,7 +431,24 @@ public function orderSummeryForCart(){
         return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave,'totalPayAmout'=>$totalPayAmout,'shipingcharge'=>$shipingCharg,'couponDisc'=>$couponDisc);
     }
 
-
+    public function delete() {
+        $addr_id = $this->input->post('addr_id');
+        if ($addr_id && $this->cartObj->delete_address($addr_id)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    }
+    
+    public function cancel_order() {
+        $order_id = $this->input->post('order_id');
+    
+        if ($this->cartObj->cancelOrder($order_id)) {
+            echo 'Order cancelled successfully';
+        } else {
+            echo 'Failed to cancel order';
+        }
+    }
 
 
 

@@ -2,7 +2,16 @@
   $currentData=date('Y-m-d');
   $tomorrow=date('d-m-Y',strtotime($currentData. '+ 1 days'));
 ?>
-
+<style>
+    .btn-orange {
+        background-color: #f17523;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+</style>
 <?php $this->load->view('frontend/header'); ?>
 <main class="main">
     <div class="page-header mb-50">
@@ -27,8 +36,11 @@
                                       <div class="top_add_nav">
                                         <p><?php echo $this->customlibrary->getCustomerCurrentAddress($customer_id);?></p>
                                         <br>
+                                        <!-- <span class="cust_btn active-btn" style="margin-right: 23px;">
+                                              <a href="<?php //echo base_url('delivery-address');?>" class="change-addrs">Change</a>
+                                        </span> -->
                                         <span class="cust_btn active-btn" style="margin-right: 23px;">
-                                              <a href="<?php echo base_url('delivery-address');?>" class="change-addrs">Change</a>
+                                            <a href="<?php echo base_url('delivery-address');?>" class="change-addrs btn-orange">Change</a>
                                         </span>
                                         </div>
                                     </div>
@@ -139,6 +151,8 @@
                                                 <div class="ptp text-right mt-30">
                                                     
                                                     <button class="btn" onclick="proceedToPayment();">Proceed to payment</button>
+                                                    <button class="btn btn-cancel" data-order-id="12345" onclick="cancelOrder(this);">Cancel</button>
+
                                                 </div>
 
                                             </div>
@@ -336,4 +350,26 @@
        
       
     }
+    function cancelOrder(button) {
+        // Retrieve the order ID from the data attribute
+        var orderId = button.getAttribute('data-order-id');
+
+        // Confirm cancellation
+        if (confirm('Are you sure you want to cancel the order?')) {
+            // Perform AJAX call to cancel the order
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "<?php echo base_url('cart/cancel_order'); ?>", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Handle response
+                    alert(xhr.responseText);
+                    if (xhr.responseText.includes('Order cancelled successfully')) {
+                        window.location.href = "<?php echo base_url('cart'); ?>"; // Redirect to cart page or any other page
+                    }
+                }
+            };
+            xhr.send("order_id=" + orderId);
+        }
+}    
 </script>

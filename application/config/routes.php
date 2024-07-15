@@ -70,16 +70,20 @@ $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 
 //category
 $route['admin/category']='AdminPanel/category/index';
+$route['admin/category/(:num)']='AdminPanel/category/index/$1';
 $route['admin/category/create'] = 'AdminPanel/category/create';
 $route['admin/category/store'] = 'AdminPanel/category/store';
-$route['admin/category/edit/(:num)']='AdminPanel/category/update/$1';
+$route['admin/category/edit/(:num)']='AdminPanel/category/edit/$1';
+$route['admin/category/update/(:num)']='AdminPanel/category/update/$1';
 
 //subcategory
 $route['admin/subcategory']='AdminPanel/subcategory/index';
+$route['admin/subcategory/(:num)']='AdminPanel/subcategory/index/$1';
 $route['admin/subcategory/create'] = 'AdminPanel/subcategory/create';
 $route['admin/subcategory/store'] = 'AdminPanel/subcategory/store';
 $route['admin/subcategory/edit/(:num)'] = 'AdminPanel/subcategory/edit/$1';
 $route['admin/subcategory/update/(:num)'] = 'AdminPanel/subcategory/update/$1';
+$route['AdminPanel/subcategory/index'] = 'AdminPanel/subcategory/deleteSubcategory';
 
 //child category
 $route['admin/childcategory']='AdminPanel/childcategory/index';
@@ -127,6 +131,7 @@ $route['admin/blogs/edit/(:num)'] = 'AdminPanel/blogs/edit/$1';
 $route['admin/blogs/update/(:num)'] = 'AdminPanel/blogs/update/$1';
 
 //terms and conditions
+$route['common/policy_save'] = 'common/policy_save';
 $route['admin/terms_conditions']='AdminPanel/terms_and_conditions/index';
 //shipping policy
 $route['admin/shipping-policy'] = 'AdminPanel/shipping_policy/index';
@@ -183,7 +188,7 @@ $route['delivery-option']='cart/deliveryOption';
 $route['delivery-address']='cart/deliveryAddress';
 $route['payment-option']='cart/paymentOption';
 $route['apply-coupon-code']='cart/applyCouponCode';
-
+$route['delete-address'] = 'cart/delete';
 //
 
 //Wish list
@@ -219,6 +224,7 @@ $route['add-address']='common/add_address';
 $route['billing-address']='common/billing_address';
 $route['email-addresses'] = 'common/email_addresses';
 $route['smart-basket'] = 'common/smart_basket';
+$route['save-gst-details']='common/save_gst_details';
 // ====================End Fronted ===========================
 
 
@@ -227,6 +233,7 @@ $route['smart-basket'] = 'common/smart_basket';
   $route['api/auth/login-with-mobile']='Api/login/loginWithMobile';
   $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
   $route['api/auth/login-with-email']='Api/login/loginWithMobile';
+  $route['api/auth//auth/otp-verity-by-email']='Api/login/verifyOtpByEmail';
 
   //Home
   $route['api/home']='Api/home/index';
