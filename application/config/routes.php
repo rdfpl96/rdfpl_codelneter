@@ -254,7 +254,7 @@ $route['save-gst-details']='common/save_gst_details';
 
 
 // ===================End API===================================
-
+$route['api/product/list']='Api/product/index';
 
 //Apoorv Route
 

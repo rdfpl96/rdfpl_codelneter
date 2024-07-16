@@ -2,18 +2,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require(APPPATH.'/libraries/REST_Controller.php');
  
-class Product extends RestController{   
-  protected $heade_user_id;
-
-  public function __construct() {
+class Product extends REST_Controller{ 
+  
+    public function __construct() {
     parent::__construct();
 
 
-    $this->load->library('my_libraries');
+ 
     $this->load->model('api/product_model','product');
     $this->load->model('common_model','common');
     
-    $validation=$this->authorization_token->validateToken();
+      $validation=$this->authorization_token->validateToken();
     
         if($validation['status']!=0){
 
@@ -24,62 +23,22 @@ class Product extends RestController{
         }    
     
   }  
-  public function index_get(){
+  public function index_post(){
 
-      $getList=$this->my_libraries->getAllCategoryWithChile();
+      $records_per_page =25;
+      $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
+      $page = ($page == 0 ? 1 : $page);
+      $start = ($page-1) * $records_per_page;
+
+      $product=$this->product->getAllProduct($start, $records_per_page);
      
-      $this->response([
-                'status' => RestController::HTTP_OK,
-                'message' => 'Success.',
-                'response'=>$getList
-              ], RestController::HTTP_OK);
+      $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
+        
+        echo json_encode($res);
+        exit();
   }
 
-  public function productListBySubCatId_post(){
-    
-    $per_page=$this->input->get('per_page');
-    $limit_per_page=$this->input->get('limit_per_page');
-
-    $post = json_decode($this->input->raw_input_stream, true);
-
-    $sub_cat_id = trim($post['sub_cat_id']);
-
-    if (!preg_match('/^[0-9]*$/', $per_page)) {
-        $this->response([
-            'status' => RestController::HTTP_BAD_REQUEST,
-            'message' => 'Per Page should be integer'
-        ], RestController::HTTP_BAD_REQUEST);
-    } 
-    else if(!preg_match('/^[0-9]*$/', $limit_per_page)) {
-       $this->response([
-            'status' => RestController::HTTP_BAD_REQUEST,
-            'message' => 'Limit per page should be integer'
-        ], RestController::HTTP_BAD_REQUEST);
-    }
-
-    else if($sub_cat_id=='') {
-        $this->response([
-            'status' => RestController::HTTP_BAD_REQUEST,
-            'message' => 'Pass sub cat id'
-        ], RestController::HTTP_BAD_REQUEST);
-    }
-    else if(!preg_match('/^[0-9]*$/', $sub_cat_id)) {
-       $this->response([
-            'status' => RestController::HTTP_BAD_REQUEST,
-            'message' => 'Sub category id should be integer'
-        ], RestController::HTTP_BAD_REQUEST);
-    }else{
-
-      $products=$this->product->getProdcutListBySubcategory($per_page,$limit_per_page,$sub_cat_id);
-      
-      $this->response([
-        'status' => RestController::HTTP_OK,
-        'message' => 'Success',
-        'response'=>$products
-      ], RestController::HTTP_OK);
-    }
-
-  }
+ 
 
 }
 
