@@ -122,12 +122,15 @@ class Blogs_model extends CI_Model{
     $this->db->from('tbl_blog');
     $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
     if ($name) {
-      $this->db->like('tbl_blog.blog_cat_name', $name);
+        $this->db->like('tbl_blog.blog_cat_name', $name);
     }
+    $this->db->order_by('tbl_blog.blog_id', 'DESC'); // Adding order by clause
     $this->db->limit($limit, $start);
     $query = $this->db->get();
     return $query->result_array(); // Ensuring the result is returned as an array
-  } 
+}
+
+
 
 
 
@@ -136,7 +139,7 @@ class Blogs_model extends CI_Model{
 
 
     public function blog_get_categories() {
-      $this->db->select('category'); // Select only the 'category' column
+      $this->db->select('tbl_category.*'); // Select only the 'category' column
       $query = $this->db->get('tbl_category'); // Fetch all records from tbl_category
       return $query->result(); // Return the result as an array of objects
   }

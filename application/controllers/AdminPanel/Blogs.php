@@ -34,7 +34,7 @@ class Blogs extends CI_Controller{
              
    	// }
 
-       public function index() {
+    public function index() {
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
@@ -80,6 +80,11 @@ class Blogs extends CI_Controller{
         $name = $this->input->post('name') ? $this->input->post('name') : '';
         $start = $page;
         $array_data = $this->blogs->get_blogs($start, $config["per_page"], $name);
+
+
+
+        // print_r($array_data);
+        // die();
 
         $count = $this->blogs->record_count($name);
     

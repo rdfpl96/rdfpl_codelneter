@@ -83,7 +83,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
             <?php
             // echo '<pre>';
-            // print_r($blog);
+            // print_r($categories);
             ?>
 
             <div class="row g-3 mb-3">
@@ -104,8 +104,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                     foreach ($categories as $value) {
                                         // echo '<pre>';
                                         // print_r($value);
-                                        $cate_id = (!empty($blog)) ? $blog['blog_cat_name'] : '';
-                                        $selected = ($value->category == $cate_id) ? 'selected' : '';
+                                        $cate_id = (!empty($blog)) ? $blog['blog_category'] : '';
+                                        $selected = ($value->cat_id == $cate_id) ? 'selected' : '';
                                 ?>
                                         <option value="<?php echo $value->category; ?>" <?php echo $selected ?>><?php echo $value->category; ?></option>
                                 <?php

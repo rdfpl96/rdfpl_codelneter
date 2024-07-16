@@ -87,7 +87,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         // $cate_id = ($product_list != 0) ? $product_list[0]->blog_category : '';
                                         // $selected = ($value->cat_id == $cate_id) ? 'selected' : '';
                                 ?>
-                                        <option value="<?php echo $value->category; ?>"><?php echo $value->category; ?></option>
+                                        <option value="<?php echo $value->cat_id; ?>"><?php echo $value->category; ?></option>
                                 <?php
                                     }
                                 }
