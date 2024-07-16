@@ -66,7 +66,7 @@
                       <a class="m-link " href="<?php echo base_url('admin/blogs');?>"><i class="icofont-chart-flow"></i> <span>Blog List</span> </a>
                    </li>
                    <li>
-                   
+                   <!-- application\views\admin\containerPage\blogs.php -->
 
                       <a class="m-link " href="<?php echo base_url('admin/terms_conditions');?>"><i class="icofont-chart-flow"></i> <span>Terms and Condition</span> </a>
                    </li>

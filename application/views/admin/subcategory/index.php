@@ -39,16 +39,16 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 </div>
                             </div>
                             <?php
-                            if ($users_list) {
-                                $index = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-                                foreach ($users_list as $value) {
-                                    $index++;
-                            ?>
-                                    <!-- Additional functionality can be added here -->
-                            <?php
-                                }
-                            }
-                            ?>
+                            // if ($users_list) {
+                            //     $index = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+                            //     foreach ($users_list as $value) {
+                            //         $index++;
+                            // ?>
+                            //         <!-- Additional functionality can be added here -->
+                            // <?php
+                            //     }
+                            // }
+                            // ?>
                         </div>
                         <br>
                     </div>
@@ -129,7 +129,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 data: { sub_cat_id: subCategoryId },
                 dataType: "json",
                 success: function(response) {
-                    console.log('deleteRowtablesub=> ', response);
+                    //console.log('deleteRowtablesub=> ', response);
                     if (response == 'True') {
                         Swal.fire(
                             'Deleted!',

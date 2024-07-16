@@ -152,7 +152,7 @@ public function get_category_by_id($id) {
         return $query->row();
     }
 
-public function update_category($id, $data) {
+ public function update_category($id, $data) {
         $this->db->where('cat_id', $id);
         if ($this->db->update('tbl_category', $data)) {
             return true; 

@@ -14,6 +14,8 @@ class Blogs extends CI_Controller{
 		  $this->load->model('admin/category_model','category');
           $this->load->model('admin/blogs_model','blogs');
 		  $session=$this->session->userdata('admin');
+          $this->load->library('pagination');
+
 		  
 		  $_SERVER['REQUEST_URI']="admin";
 
@@ -32,124 +34,87 @@ class Blogs extends CI_Controller{
              
    	// }
 
-    public function index() {
+       public function index() {
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
-
-        $adjacents = 2;
-        $records_per_page = 25;
-        $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-        $page = ($page == 0 ? 1 : $page);
-        $start = ($page - 1) * $records_per_page;
-
-        $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
-
-        $array_data = $this->blogs->get_blogs($start, $records_per_page, $name);
-        $count = $this->blogs->record_count($name);
-
-        $next = $page + 1;
-        $prev = $page - 1;
-        $last_page = ceil($count / $records_per_page);
-        $second_last = $last_page - 1;
-
-        $i = (($page * $records_per_page) - ($records_per_page - 1));
-        $pagination = "";
-
-        if ($last_page > 1) {
-            $pagination .= "<div class='pagination'>";
-            if ($page > 1) {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($prev) . ");'>&laquo; Previous&nbsp;&nbsp;</a>";
-            } else {
-                $pagination .= "<span class='disabled'>&laquo; Previous&nbsp;&nbsp;</span>";
-            }
-
-            if ($last_page < 7 + ($adjacents * 2)) {
-                for ($counter = 1; $counter <= $last_page; $counter++) {
-                    if ($counter == $page) {
-                        $pagination .= "<span class='current'>$counter</span>";
-                    } else {
-                        $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                    }
-                }
-            } elseif ($last_page > 5 + ($adjacents * 2)) {
-                if ($page < 1 + ($adjacents * 2)) {
-                    for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                    $pagination .= "...";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-                } elseif ($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                    $pagination .= "...";
-                    for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                    $pagination .= "..";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-                } else {
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                    $pagination .= "..";
-                    for ($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++) {
-                        if ($counter == $page) {
-                            $pagination .= "<span class='current'>$counter</span>";
-                        } else {
-                            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                        }
-                    }
-                }
-            }
-            if ($page < $counter - 1) {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($next) . ");'>Next &raquo;</a>";
-            } else {
-                $pagination .= "<span class='disabled'>Next &raquo;</span>";
-            }
-            $pagination .= "</div>";
-        }
-
-
-
-        // echo "</pre>";
-        // print_r($array_data);
+    
+        // Pagination configuration
+        $config = array();
+        $config["base_url"] = base_url() . "admin/blogs";
+        $config["total_rows"] = $this->blogs->get_blog_count_category();
+        $config["per_page"] = 10;
+        $config["uri_segment"] = 3;
+    
+        // echo "<pre>";
+        // print_r($config);
         // die();
+        // Customizing pagination
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['first_tag_close'] = '</a></li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['last_tag_close'] = '</a></li>';
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['next_tag_close'] = '</a></li>';
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
+    
+        $this->pagination->initialize($config);
+    
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
+        $data['blog_list'] = $this->blogs->get_users_blogs($config["per_page"], $page);
+
+        $data['pagination'] = $this->pagination->create_links();
+    
+        $name = $this->input->post('name') ? $this->input->post('name') : '';
+        $start = $page;
+        $array_data = $this->blogs->get_blogs($start, $config["per_page"], $name);
+
+        $count = $this->blogs->record_count($name);
+    
+        // echo '<pre>';
+        // print_r($array_data);
+        // print_r($start);
+        // print_r($config["per_page"]);
+        // die();
+        $i = ($page) ? $page : 1;
+    
         $option = '';
-
+    
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
                 $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-
+    
                 $option .= '<tr> 
                                 <td>' . $i . '</td>
                                 <td>' . $record['blog_header'] . '</td>
                                 <td>' . $record['category'] . '</td>
-                                <td>' . $record['blog_image']. '</td>
-                                <td>' . $record['updated_by']. '</td>
+                                <td>' . $record['blog_image'] . '</td>
+                                <td>' . $record['updated_by'] . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['blog_add_date'])) . '</td>
                                 <td>' . $status . '</td>
-                                
-                                <td></td>
-                                <td><a href="' . base_url() . 'admin/blogs/edit/' . $record['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        </tr>';
+                                <td><a href="' . base_url() . 'admin/blogs/edit/' . $record['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td><a href="javascript:deleteRowtablesub(' . $record['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                            </tr>';
                 $i++;
             }
         } else {
-            $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+            $option .= '<tr><td colspan="9" style="color:red;text-align:center">No record</td></tr>';
         }
-
-        $output = array('array_data' => $option, 'pagination' => $pagination, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
+    
+        $output = array('array_data' => $option, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess,'pagination' => $data['pagination']);
+    
         if ($this->input->post('method') == "changepage") {
             echo json_encode($output);
             exit();
@@ -157,6 +122,11 @@ class Blogs extends CI_Controller{
             $this->load->view('admin/blogs/index', $output);
         }
     }
+    
+
+
+
+
 
 
 
@@ -341,8 +311,17 @@ class Blogs extends CI_Controller{
 
     public function create()
 {
-    $data['categories'] = $this->category->get_categories();
-    $data['product_list'] = 0;
+    $data['categories'] = $this->blogs->blog_get_categories();
+
+
+//     echo "<pre>";
+
+//     print_r($data['categories'] );
+
+// die();
+
+
+    // $data['product_list'] = 0;
 
     // $upload_path = realpath(APPPATH . '../uploads/blogs_image/');
     // if (!is_dir($upload_path)) {
@@ -412,22 +391,62 @@ class Blogs extends CI_Controller{
     }
 
 
-public function edit($id) {
-        $data['subcategory'] = $this->subcategory->get_subcategory($id);
+  public function edit($id) {
+        $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
-        $this->load->view('admin/subcategory/edit', $data);
+
+        // print_r($data['blog'] );
+        // die();
+        $this->load->view('admin/blogs/edit', $data);
     }
 
-    public function update($id) {
-        $data = array(
-            'cat_id' => $this->input->post('cat_id'),
-            'subCat_name' => $this->input->post('subcategory_name'),
-            'slug' => $this->input->post('slug'),
+
+
+
+
+    public function update() {
+        $blog_data = array(
+            'blog_header' => $this->input->post('blog_header'),
+            'blog_category' => $this->input->post('blog_category'),
+            'blog_description' => $this->input->post('blog_description'),
+            // 'blog_image' => $upload_data['blog_image'] // Uncomment if needed
         );
-        $this->subcategory->update_subcategory($id, $data);
-        $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
-        redirect('admin/subcategory');
+        $id = $this->input->post('blog_id');
+        if ($this->blogs->update_blogs($id, $blog_data)) {
+          
+            echo json_encode(['status' => 'success', 'message' => 'Blog updated successfully']);
+        } else {
+          
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update the blog']);
+        }
     }
+    
+
+    public function deleteblog() {
+
+        $blog_id = $this->input->post('blog_id');
+
+        // print_r($blog_id);
+        // die();
+
+        $response =$this->blogs->deleteblog($blog_id);
+
+        if($response=='1'){
+
+            $Flag= 'True';
+        }else{
+            $Flag= 'False';
+        }
+
+        echo json_encode($Flag);
+        exit();
+        redirect('admin/blogs');
+    }
+    
+
+
+
+
 
 
 }

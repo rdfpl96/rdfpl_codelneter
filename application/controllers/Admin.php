@@ -2168,19 +2168,37 @@ public function export_OrderList() {
   fputcsv($file, $header);
 
   // Write order details to CSV
-  foreach ($order_list as $line) {
-      $data = array(
-          $line['order_no'],
-          $line['customer_name'],
-          $line['location'],
-          $line['order_amount'],
-          isset($line['status']) ? $line['status'] : '', 
-          isset($line['pay_status']) ? $line['pay_status'] : '',
-          $line['order_date'],
-      );
+  // foreach ($order_list as $line) {
+  //     $data = array(
+  //         $line['order_no'],
+  //         $line['customer_name'],
+  //         $line['location'],
+  //         $line['order_amount'],
+  //         // isset($line['status']) ? $line['status'] : '', 
+  //         isset($line['Pending']) ? $line['Pending'] : '', 
+  //         // isset($line['pay_status']) ? $line['pay_status'] : '',
+  //         isset($line['Pending']) ? $line['Pending'] : '',
+  //         $line['order_date'],
+  //     );
 
-      fputcsv($file, $data);
-  }
+  //     fputcsv($file, $data);
+  // }
+
+
+  foreach ($order_list as $line) {
+    $data = array(
+        $line['order_no'],
+        $line['customer_name'],
+        $line['location'],
+        $line['order_amount'],
+        'Pending', // Hardcoded status
+        'Pending', // Hardcoded pay_status
+        $line['order_date'],
+    );
+
+    fputcsv($file, $data);
+}
+
 
   // Close the file handle
   fclose($file);
@@ -2370,35 +2388,47 @@ public function export_OrderList() {
   }
 
 
-  public function blogs(){
-          $menuIdAsKey=6;
-          $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-          $data['page_menu_id']=$menuIdAsKey;
+  // public function blogs(){
+  //         $menuIdAsKey=6;
+  //         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
+  //         $data['page_menu_id']=$menuIdAsKey;
 
-        $querys="SELECT * FROM tbl_blog";
-         $pr_list_count=$this->sqlQuery_model->sql_query($querys);
-         $url_link=base_url('admin/blogs'); 
-         $limit_per_page = 10;
-         $getVariable=$this->input->get('per_page');
-         $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
+  //       $querys="SELECT * FROM tbl_blog";
+  //        $pr_list_count=$this->sqlQuery_model->sql_query($querys);
+  //        $url_link=base_url('admin/blogs'); 
+  //        $limit_per_page = 10;
+  //        $getVariable=$this->input->get('per_page');
+  //        $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
 
-         $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
-         $config=createPagination($total_records,$url_link,$limit_per_page);
-           $this->pagination->initialize($config);
+  //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
+  //        $config=createPagination($total_records,$url_link,$limit_per_page);
+  //          $this->pagination->initialize($config);
         
-         $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
-         $querys="SELECT * FROM tbl_blog ORDER BY blog_id DESC $sql_limit";
-         $data['blogs_list']=$this->sqlQuery_model->sql_query($querys);
-         $data["links"] = $this->pagination->create_links();
+  //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
+  //        $querys="SELECT * FROM tbl_blog ORDER BY blog_id DESC $sql_limit";
+  //        $data['blogs_list']=$this->sqlQuery_model->sql_query($querys);
+  //        $data["links"] = $this->pagination->create_links();
 
-          $data['ActiveInactive_ActionArr']=array('table'=>'tbl_blog','primary_key'=>'blog_id','update_target_column'=>'blog_status');
-          $data['deleteActionArr']=array('table'=>'tbl_blog','primary_key'=>'blog_id');
+  //         $data['ActiveInactive_ActionArr']=array('table'=>'tbl_blog','primary_key'=>'blog_id','update_target_column'=>'blog_status');
+  //         $data['deleteActionArr']=array('table'=>'tbl_blog','primary_key'=>'blog_id');
 
      
 
-      $data['content']='admin/containerPage/blogs';
-      $this->load->view('admin/template',$data);
-  }
+  //     $data['content']='admin/containerPage/blogs';
+  //     $this->load->view('admin/template',$data);
+  // }
+
+
+
+
+
+
+
+
+
+
+  
+
 
 
 public function add_blogs(){

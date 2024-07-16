@@ -39,6 +39,30 @@ class Blogs_model extends CI_Model{
       
   }
 
+
+
+
+  public function get_blog_count_category() {
+  
+    return $this->db->count_all("tbl_blog");
+  }
+
+
+
+  public function get_users_blogs($limit, $start) {
+    $this->db->limit($limit, $start);
+    $query = $this->db->get("tbl_blog");
+   
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    }
+    return false;
+  }
+   
+
+
+
+
   public function chkUniqueCategoryURL($slug,$id=""){
       $this->db->select('*');
       $this->db->from('tbl_category');
@@ -94,17 +118,30 @@ class Blogs_model extends CI_Model{
   // }
 
   public function get_blogs($start, $limit, $name) {
-        $this->db->select('tbl_blog.*, tbl_category.category');
-        $this->db->from('tbl_blog');
-        $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
-        if ($name) {
-            $this->db->like('tbl_blog.blog_cat_name', $name);
-        }
-        $this->db->limit($limit, $start);
-        $query = $this->db->get();
-        return $query->result_array(); // Ensuring the result is returned as an array
+    $this->db->select('tbl_blog.*, tbl_category.category');
+    $this->db->from('tbl_blog');
+    $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
+    if ($name) {
+      $this->db->like('tbl_blog.blog_cat_name', $name);
     }
+    $this->db->limit($limit, $start);
+    $query = $this->db->get();
+    return $query->result_array(); // Ensuring the result is returned as an array
+  } 
 
+
+
+
+
+
+
+    public function blog_get_categories() {
+      $this->db->select('category'); // Select only the 'category' column
+      $query = $this->db->get('tbl_category'); // Fetch all records from tbl_category
+      return $query->result(); // Return the result as an array of objects
+  }
+  
+    
 
 
 
@@ -138,9 +175,9 @@ public function get_category_by_id($id) {
         return $query->row();
     }
 
-public function get_subcategory($id) {
-        $this->db->where('sub_cat_id', $id);
-        $query = $this->db->get('tbl_sub_category');
+public function edit($id) {
+        $this->db->where('blog_id', $id);
+        $query = $this->db->get('tbl_blog');
         return $query->row_array();
     }   
 
@@ -149,14 +186,39 @@ public function update_subcategory($id, $data) {
         $this->db->update('tbl_sub_category', $data);
     }     
 
-public function update_category($id, $data) {
-        $this->db->where('cat_id', $id);
-        if ($this->db->update('tbl_category', $data)) {
-            return true; // Return true if data is updated successfully
-        } else {
-            return false; // Return false if data update fails
-        }
+
+
+
+   
+
+public function update_blogs($id, $data) {
+    $this->db->where('blog_id', $id);
+    if ($this->db->update('tbl_blog', $data)) {
+        return true;
+    } else {
+        return false; 
     }
+}
+
+
+
+
+public function deleteblog($id ) {
+
+  $this->db->where('blog_id', $id);
+  $this->db->delete('tbl_blog', array('blog_id' => $id));
+
+  if ($this->db->affected_rows() > 0) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+
+
+
 
   // public function Edit($id,$array_data){
 

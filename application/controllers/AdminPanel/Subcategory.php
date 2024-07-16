@@ -34,6 +34,7 @@ class Subcategory extends CI_Controller{
    	// }
 
        public function index($page='') {
+
         $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
         $page = empty($page) ? 0 : intval($page);
         
@@ -72,18 +73,20 @@ class Subcategory extends CI_Controller{
 
         $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
         $config['num_tag_close'] = '</li>';
-        
+
         $this->pagination->initialize($config);
-        //$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        //$data['users_list'] = $this->subcategory->get_users_category($config["per_page"], $page);
         $data['pagination'] = $this->pagination->create_links();
     
+
+
+
+
+
         
         $array_data = $this->subcategory->get_subcategories($page, $config["per_page"], $name);
       
         // print_r($array_data);
         // die();
-
 
         $option = '';
         $i =1;
@@ -94,8 +97,7 @@ class Subcategory extends CI_Controller{
                 $option .= '<tr> 
                                 <td>' . ($i+$page) . '</td>
                                 <td>' . $record['category'] . '</td>
-                                <td>' . $record['subCat_name'] . '</td>
-                                <td>' . $record['subcategory_slug'] . '</td>
+                                <td>' . $record['subCat_name'] . '</td>  
                                 <td>' . $status . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['update_date'])) . '</td>
                                 <td></td>

@@ -194,7 +194,15 @@
                                 </div>
                                 <div class="card-body col6_mob_css">
                                     <div class="row g-3">
-                                     
+
+
+                                    <div class="col-12">
+                                                <label class="form-label">Name</label><br>
+                                                <span>
+                                                    <?php echo (!empty($value['customer_name'])) ? htmlspecialchars($value['customer_name']) : '<span style="color:red;">Not Mentioned</span>'; ?>
+                                                </span>
+                                        </div>
+                                        
                                         <div class="col-12">
                                                 <label class="form-label">Address1:</label><br>
                                                 <span>

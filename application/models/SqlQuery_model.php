@@ -67,6 +67,7 @@ class SqlQuery_model extends CI_Model
   
       return $this->db->count_all("tbl_banner");
     }
+    
      
     public function get_users_banner_list($limit, $start) {
       $this->db->limit($limit, $start);
@@ -213,6 +214,10 @@ class SqlQuery_model extends CI_Model
          return 0;
       }
    }
+
+
+
+   
 
 
 

@@ -71,6 +71,7 @@ class Category extends CI_Controller
         //$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $data['category_list'] = $this->category->get_users_category($config["per_page"], $page);
         $data['pagination'] = $this->pagination->create_links();
+        
 
         $name = $this->input->post('name');
 

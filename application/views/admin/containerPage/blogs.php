@@ -33,9 +33,9 @@
                               <div class="mob_back_btn">
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
-                                <h3 class="fw-bold mb-0">Blogs List</h3>
+                                <h3 class="fw-bold mb-0">Blogs L111ist</h3>
                                <?php if(in_array('add',$actAcx) || $session['admin_type']=='A'){ ?>
-                                    <a href="<?php echo base_url('admin/add_blogs');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100">Add Blogs</a>
+                                    <a href="<?php echo base_url('admin/add-blogs');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100">Add Blogs</a>
                               <?php } ?>
                                 
                             </div>
@@ -110,9 +110,9 @@
                                                               <?php if(in_array('edit',$actAcx) || $session['admin_type']=='A'){ ?>
                                                                 <a href="<?php echo base_url('admin/add_blogs/'.$value->blog_id);?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
                                                                  <?php } ?>
-                                                              <?php if(in_array('delete',$actAcx) || $session['admin_type']=='A'){ ?>
+                                                              <?php //if(in_array('delete',$actAcx) || $session['admin_type']=='A'){ ?>
                                                                 <button type="button" class="btn btn-outline-secondary deleteRowClass" id="deleteRow<?php echo $value->blog_id;?>" data-id="<?php echo base64_encode($value->blog_id.':::'.implode(',',$deleteActionArr));?>"><i class="icofont-ui-delete text-danger"></i></button>
-                                                                <?php } ?>
+                                                                <?php //} ?>
                                                             </div>
                                                         </td>
                                                     </tr>

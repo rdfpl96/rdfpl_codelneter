@@ -125,6 +125,7 @@ $route['admin/basic_details/update/(:num)'] = 'AdminPanel/basic_details/update/$
 
 //blogs
 $route['admin/blogs']='AdminPanel/blogs/index';
+$route['admin/blogs/(:num)']='AdminPanel/blogs/index/$1';
 $route['admin/blogs/create'] = 'AdminPanel/blogs/create';
 $route['admin/blogs/store'] = 'AdminPanel/blogs/store';
 $route['admin/blogs/edit/(:num)'] = 'AdminPanel/blogs/edit/$1';
