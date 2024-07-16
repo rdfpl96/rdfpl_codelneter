@@ -116,22 +116,21 @@
                                 </div>
                             </div>
 
-                            <div class="header-action-icon-2 header_cart_style">
-                                <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { ?>
-                                    <!-- For logged-in users, make the cart icon clickable -->
-                                    
-                                    <a class="mini-cart-icon" href="<?php echo base_url('cart');?>">
-                                        <img alt="Cart" src="<?php echo base_url();?>include/frontend/assets/imgs/theme/icons/icon-cart.svg" />
-                                        <span class="pro-count blue total-items"><?php echo $this->customlibrary->total_items($customerId);?></span>
-                                    </a>
-                                <?php } else { ?>
-                                    
-                                    <a class="mini-cart-icon" data-bs-toggle="modal" data-bs-target="#login-modal-user">
-                                        <img alt="Cart" src="<?php echo base_url();?>include/frontend/assets/imgs/theme/icons/icon-cart.svg" />
-                                        <span class="pro-count blue total-items"><?php echo $this->cart->total_items();?></span>
-                                    </a>
-                                <?php } ?>
-                           </div>
+                           <div class="header-action-icon-2 header_cart_style">
+                            <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { ?>
+                                <!-- For logged-in users, make the cart icon clickable -->
+                                <a class="mini-cart-icon" href="<?php echo base_url('cart');?>">
+                                    <img alt="Cart" src="<?php echo base_url();?>include/frontend/assets/imgs/theme/icons/icon-cart.svg" />
+                                    <span class="pro-count blue total-items"><?php echo $this->customlibrary->total_items($customerId) ?: 0;?></span>
+                                </a>
+                            <?php } else { ?>
+                                <!-- For guest users, open the login modal -->
+                                <a class="mini-cart-icon" data-bs-toggle="modal" data-bs-target="#login-modal-user">
+                                    <img alt="Cart" src="<?php echo base_url();?>include/frontend/assets/imgs/theme/icons/icon-cart.svg" />
+                                    <span class="pro-count blue total-items"><?php echo $this->cart->total_items() ?: 0;?></span>
+                                </a>
+                            <?php } ?>
+                        </div>
                            
                            <div class="header-action-icon-2 login_sign_up_btn">
                               <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { ?>
@@ -143,7 +142,7 @@
                                            </div>
                                            <ul class="dropdown-menu">
                                                 <li><a href="<?php echo base_url('account');?>">My Account</a></li>
-                                                <li><a class="d-flex justify-content-between" href="<?php echo base_url('cart');?>">My Basket <span class="pro-count blue total-items"><?php echo $this->customlibrary->total_items($customerId);?></span></a></li>
+                                                <li><a class="d-flex justify-content-between" href="<?php echo base_url('cart');?>">My Basket <span class="pro-count blue total-items"><?php echo $this->customlibrary->total_items($customerId) ?: 0;?></span></a></li>
                                                 <li><a href="<?php echo base_url('my-order');?>">My Orders</a></li>
                                                 <li><a href="">My Smart Basket</a></li>
                                                 <!-- <li><a href="">My Wallet <span></span></a></a></li> -->
