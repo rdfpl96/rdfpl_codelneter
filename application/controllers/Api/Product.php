@@ -30,7 +30,11 @@ class Product extends REST_Controller{
       $page = ($page == 0 ? 1 : $page);
       $start = ($page-1) * $records_per_page;
 
-      $product=$this->product->getAllProduct($start, $records_per_page);
+      $top_cat_id = isset($_POST['top_cat_id']) ? $_POST['top_cat_id'] : "";
+      $sub_id = isset($_POST['sub_id']) ? $_POST['sub_id'] : "";
+      $child_cat_id = isset($_POST['child_cat_id']) ? $_POST['child_cat_id'] : 1;
+
+      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id);
      
       $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
         
