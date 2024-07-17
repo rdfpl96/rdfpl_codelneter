@@ -65,7 +65,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             <select name="cat_id" class="form-control" required>
                                                 <option value="">Please select a category</option>
                                                 <?php foreach ($categories as $category): ?>
-                                                    <option value="<?php echo $category->cat_id; ?>" <?php echo ($subcategory['sub_cat_id'] == $category->cat_id) ? 'selected' : ''; ?>><?php echo $category->category; ?></option>
+                                                    <option value="<?php echo $category->cat_id; ?>" <?php echo ($subcategory['cat_id'] == $category->cat_id) ? 'selected' : ''; ?>><?php echo $category->category; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>

@@ -85,7 +85,9 @@ class Subcategory extends CI_Controller{
         
         $array_data = $this->subcategory->get_subcategories($page, $config["per_page"], $name);
       
+        // echo '<pre>';
         // print_r($array_data);
+        // echo '</pre>';
         // die();
 
         $option = '';
@@ -226,6 +228,20 @@ class Subcategory extends CI_Controller{
 public function edit($id) {
         $data['subcategory'] = $this->subcategory->get_subcategory($id);
         $data['categories'] = $this->category->get_categories();
+
+        // echo "<pre>"; 
+        // print_r($data['subcategory']);
+        // echo "</pre>";
+        // die();
+        
+        // echo "<pre>"; 
+        // print_r( $data['subcategory'] );
+        // echo "</pre>--------------------------------------------------------------------------";
+
+        // echo "<pre>"; 
+        // print_r( $data['categories'] );
+        // echo "</pre>";
+        // die();
         $this->load->view('admin/subcategory/edit', $data);
     }
 
