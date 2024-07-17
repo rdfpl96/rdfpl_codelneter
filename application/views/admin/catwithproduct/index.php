@@ -101,7 +101,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-    alert("hi");
+    
 });    
  function change_page(page){
     var formData = new FormData($('#search-form')[0]);
@@ -142,7 +142,8 @@ function getSubCategory(){
         processData: false,
         contentType: false,
         success:function(res){
-                console.log(res);
+                console.log(res.subcategories);
+            $('#sub_cat_id').html(res.subcategories);    
             }
         });  
 
@@ -160,7 +161,7 @@ function getChildCategory(){
         processData: false,
         contentType: false,
         success:function(res){
-             console.log(res);
+              $('#child_cat_id').html(res.chilcategories);    
             }
         });  
 }
