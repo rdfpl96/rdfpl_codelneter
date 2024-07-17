@@ -48,7 +48,7 @@ class Categorywithproduct_model extends CI_Model{
    public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id){
       $array_data=array();
       $this->db->select(
-      'PWM.product_name',
+      'PWM.mapping_id',
       'P.product_name,
       P.product_id,
       P.feature_img,
