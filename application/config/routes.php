@@ -70,6 +70,8 @@ $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 
 $route['admin/categorywithproduct']='AdminPanel/categorywithproduct/index';
 $route['admin/categorywithproduct/save']='AdminPanel/categorywithproduct/save';
+$route['admin/categorywithproduct/delete/(:num)']='AdminPanel/categorywithproduct/deletRecord/$1';
+
 $route['subCategory/(:num)']='common/getSubCategoryInOption/$1';
 
 $route['childcategoryn/(:num)/(:num)']='common/getChildCategoryInOption/$1/$2';

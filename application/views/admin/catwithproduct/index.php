@@ -33,7 +33,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 <div class="card mb-3">
 
     <div class="card-body">
-        <form action="#" id="search-form" method="post"  enctype="multipart/form-data" onsubmit="mapingWithProduct();">
+        <form  id="search-form" method="post"  enctype="multipart/form-data" onsubmit="mapingWithProduct();return false;">
             <div class="row">
                 <div class="col-md-3">
                     <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="Search();getSubCategory()">
@@ -132,7 +132,20 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 
 function deletRecord(id){
-       // alert("hi");
+      
+    var formData = new FormData($('#search-form')[0]);
+    $.ajax({
+        url:"<?php echo base_url(); ?>admin/categorywithproduct/delete/"+id,
+        type: "POST",
+        data:formData,
+        dataType:"json",
+        processData: false,
+        contentType: false,
+        success:function(res){
+                var page;    
+                change_page(page);
+            }
+        });  
 }
 
 function mapingWithProduct(){
