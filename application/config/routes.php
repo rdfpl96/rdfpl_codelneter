@@ -70,9 +70,9 @@ $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 
 $route['admin/categorywithproduct']='AdminPanel/categorywithproduct/index';
 
-$route['childcategoryn/(:num)']='common/getSubCategoryInOption';
+$route['subCategory/(:num)']='common/getSubCategoryInOption';
 
-$route['subCategory/(:num)/(:num)']='common/getChildCategoryInOption';
+$route['childcategoryn/(:num)/(:num)']='common/getChildCategoryInOption';
 
 // print_r($route);
 // exit();

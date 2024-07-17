@@ -36,7 +36,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
         <form action="#" id="search-form" method="post"  enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-3">
-                    <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="getSubCategory()">
+                    <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="Search();getSubCategory()">
                             <?php echo isset($topcat) ? $topcat : '';?>
                     </select>
                 </div>
@@ -131,7 +131,7 @@ function deletRecord(id){
 }
 
 function getSubCategory(){
-    alert("j");
+   
     let top_cat_id=$('#top_cat_id').val();
     var formData = new FormData($('#search-form')[0]);
     $.ajax({
