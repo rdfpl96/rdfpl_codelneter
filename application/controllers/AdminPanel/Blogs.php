@@ -108,7 +108,7 @@ class Blogs extends CI_Controller{
                                 <td>' . $record['blog_header'] . '</td>
                                 <td>' . $record['category'] . '</td>
                                 <td>' . $record['blog_image'] . '</td>
-                                <td>' . $record['blog_image'] . '</td>  
+                               
                                 <td>' . $record['updated_by'] . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['blog_add_date'])) . '</td>
                                 <td> 
@@ -411,7 +411,7 @@ class Blogs extends CI_Controller{
             'blog_header' => $this->input->post('blog_header'),
             'blog_category' => $this->input->post('blog_category'),
             'blog_description' => $this->input->post('blog_description'),
-            // 'blog_image' => $upload_data['blog_image'] // Uncomment if needed
+            'blog_image' => $upload_data['blog_image'] // Uncomment if needed
         );
         $id = $this->input->post('blog_id');
         if ($this->blogs->update_blogs($id, $blog_data)) {
@@ -423,6 +423,7 @@ class Blogs extends CI_Controller{
         }
     }
     
+
 
     public function deleteblog() {
 
