@@ -162,4 +162,45 @@ function deleteRowtablesub(blog_id) {
         }
     });
 }
+
+
+
+
+function UpdateBlogStatus(id){
+    var status = $('#Status' + id).val();
+
+    $.ajax({
+        url: "<?php echo base_url('AdminPanel/Blogs/updateBlogStatus'); ?>",
+        type: "POST",
+        data: { blog_id: id, status: status },
+        dataType: "json",
+        success: function(response) {
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'Blog status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Failed to update blog status.',
+                    'error'
+                );
+            }
+        },
+        error: function() {
+            Swal.fire(
+                'Error!',
+                'Error updating blog status.',
+                'error'
+            );
+        }
+    });
+}
+
+
 </script>

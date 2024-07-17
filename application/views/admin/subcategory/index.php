@@ -38,17 +38,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                     </form>
                                 </div>
                             </div>
-                            <?php
-                            // if ($users_list) {
-                            //     $index = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-                            //     foreach ($users_list as $value) {
-                            //         $index++;
-                            // ?>
-                            //         <!-- Additional functionality can be added here -->
-                            // <?php
-                            //     }
-                            // }
-                            // ?>
+                           
                         </div>
                         <br>
                     </div>

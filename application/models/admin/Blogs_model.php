@@ -240,6 +240,29 @@ public function deleteblog($id ) {
   // } 
 
 
+  public function updateBlogStatus() {
+    $blog_id = $this->input->post('blog_id');
+    $current_status = $this->input->post('status');
+  
+    $new_status = ($current_status == 1) ? 0 : 1;
+  
+    $data = array(
+        'blog_status' => $new_status
+    );
+  
+    $this->db->where('blog_id', $blog_id);
+    if ($this->db->update('tbl_blog', $data)) {
+        return true;
+    } else {
+        return false; 
+    }
+  }
+  
+  
+
+
+
+
    public function getViewByID($id){
     $array_record=array();      
     $this->db->select('*');

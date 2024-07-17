@@ -132,24 +132,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <input type="file" class="form-control" id="blog_image" name="blog_image">
 
 
-
-                                <?php
-                                if ($product_list != 0) {
-                                ?>
-                                    <input type="hidden" name="image_path" id="image_path" value="<?php echo ($product_list != 0) ? $product_list[0]->blog_image : ''; ?>">
-                                    <?php
-                                    $filePath = (($product_list[0]->blog_image != "") ? './uploads/blogs_image/' . $product_list[0]->blog_image : '');
-                                    if (file_exists($filePath)) {
-                                        $imgFile = base_url() . 'uploads/blogs_image/' . $product_list[0]->blog_image;
-                                    } else {
-                                        $imgFile = base_url() . 'include/assets/default_product_image.png';
-                                    }
-
-                                    ?>
-                                    <img src="<?php echo $imgFile; ?>" style="width:40px; height:40px;border:1px solid grey; ">
-
-                                <?php } ?>
-
                                 <span style="color:red;font-size: 13px;">Image dimension should be 2000 X 950 Px.</span>
                             </div>
                         </div>
@@ -177,16 +159,18 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     
 $(document).ready(function() {
     $('.saved-blog').on('click', function() {
-        var dataToSend = {
-            blog_header: $('#blog_header').val(),
-            blog_category: $('#blog_category').val(),
-            blog_description: CKEDITOR.instances.blog_description.getData()
-        };
+        var formData = new FormData();
+        formData.append('blog_header', $('#blog_header').val());
+        formData.append('blog_category', $('#blog_category').val());
+        formData.append('blog_image', $('#blog_image')[0].files[0]);
+        formData.append('blog_description', CKEDITOR.instances.blog_description.getData());
 
         $.ajax({
             url: "<?php echo base_url('AdminPanel/Blogs/create'); ?>",
             type: 'POST',
-            data: dataToSend,
+            data: formData,
+            processData: false, // prevent jQuery from converting the data into a query string
+            contentType: false,
             success: function(response) {
                 var responseData = JSON.parse(response);
                 if (responseData.status === 'success') {
@@ -216,6 +200,9 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
 
 
 

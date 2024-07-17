@@ -99,16 +99,26 @@ class Blogs extends CI_Controller{
     
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
-                $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+             
     
+               
+                $checked = ($record['blog_status'] == 1) ? 'checked' : '';
                 $option .= '<tr> 
                                 <td>' . $i . '</td>
                                 <td>' . $record['blog_header'] . '</td>
                                 <td>' . $record['category'] . '</td>
                                 <td>' . $record['blog_image'] . '</td>
+                                <td>' . $record['blog_image'] . '</td>  
                                 <td>' . $record['updated_by'] . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['blog_add_date'])) . '</td>
-                                <td>' . $status . '</td>
+                                <td> 
+                                <a href="javascript:void(0)"> 
+                                <label class="switch">
+                                   <input type="checkbox" id="Status'.$record['blog_id'].'" name="Status[]" value="'.$record['blog_status'].'" onclick="UpdateBlogStatus('.$record['blog_id'].')" '.$checked.'>
+                                <span class="slider round"></span>
+                                </label> 
+                                </a>
+                                </td>
                                 <td><a href="' . base_url() . 'admin/blogs/edit/' . $record['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
                                 <td><a href="javascript:deleteRowtablesub(' . $record['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
                             </tr>';
@@ -169,17 +179,6 @@ class Blogs extends CI_Controller{
     //         $this->load->view('admin/template', $data);
     //       } 
 
-
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
-
-    //         $blog_data = array(
-    //             'blog_header' => $this->input->post('blog_header'),
-    //             'blog_category' => $this->input->post('blog_category'),
-    //             'blog_description' => $this->input->post('blog_description'),
-    //             'admin_image' => $upload_data['blog_image']
-    //         );
 
 
 
@@ -319,31 +318,23 @@ class Blogs extends CI_Controller{
     $data['categories'] = $this->blogs->blog_get_categories();
 
 
-//     echo "<pre>";
 
-//     print_r($data['categories'] );
+    $upload_path = realpath(APPPATH . '../uploads/blogs_image/');
+    if (!is_dir($upload_path)) {
+        mkdir($upload_path, 0777, TRUE);
+    }
 
-// die();
-
-
-    // $data['product_list'] = 0;
-
-    // $upload_path = realpath(APPPATH . '../uploads/blogs_image/');
-    // if (!is_dir($upload_path)) {
-    //     mkdir($upload_path, 0777, TRUE);
-    // }
-
-    // $config['upload_path'] = $upload_path;
-    // $config['allowed_types'] = 'gif|jpg|jpeg|png';
-    // $config['max_size'] = 2048;
-    // $this->load->library('upload', $config);
+    $config['upload_path'] = $upload_path;
+    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+    $config['max_size'] = 2048;
+    $this->load->library('upload', $config);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // if (!$this->upload->do_upload('image')) {
-        //     $error = $this->upload->display_errors();
-        //     echo json_encode(['status' => 'error', 'message' => $error]);
-        //     return;
-        // }
+        if (!$this->upload->do_upload('image')) {
+            $error = $this->upload->display_errors();
+            echo json_encode(['status' => 'error', 'message' => $error]);
+            return;
+        }
 
         // $upload_data = $this->upload->data();
 
@@ -351,7 +342,7 @@ class Blogs extends CI_Controller{
             'blog_header' => $this->input->post('blog_header'),
             'blog_category' => $this->input->post('blog_category'),
             'blog_description' => $this->input->post('blog_description'),
-            //'blog_image' => $upload_data['blog_image']
+            'blog_image' => $upload_data['file_name']
         );
 
         if ($this->blogs->insert_blog($blog_data)) {
@@ -364,6 +355,12 @@ class Blogs extends CI_Controller{
         $this->load->view('admin/blogs/create', $data);
     }
 }
+
+
+
+
+
+
 
     
 
@@ -448,6 +445,18 @@ class Blogs extends CI_Controller{
         redirect('admin/blogs');
     }
     
+    public function updateBlogStatus(){
+        $status = $this->input->post('status');
+        $blog_id = $this->input->post('blog_id');
+        $updateStatus = $this->blogs->updateBlogStatus($blog_id, $status);
+        if ($updateStatus) {
+            echo json_encode('True');
+        } else {
+            
+            $this->load->view('admin/blogs/create', $data);
+            echo json_encode('False');
+        }
+    }
 
 
 
