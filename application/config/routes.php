@@ -68,7 +68,11 @@ $route['admin/product/save']='AdminPanel/product/save';
 $route['admin/product/edit/(:num)']='AdminPanel/product/edit/$1';
 $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 
-$route['admin/category-with-prodct']='AdminPanel/categoryWithProduct/index';
+$route['admin/categorywithproduct']='AdminPanel/categorywithproduct/index';
+
+$route['childcategoryn/(:num)']='common/getSubCategoryInOption';
+
+$route['subCategory/(:num)/(:num)']='common/getChildCategoryInOption';
 
 // print_r($route);
 // exit();

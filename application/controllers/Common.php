@@ -1079,6 +1079,24 @@ public function save_gst_details(){
   exit();
    
 }
+
+public function getSubCategoryInOption($top_cat_id=""){
+
+    $subcategory=$this->customlibrary->getSubCatInOption($top_cat_id);
+
+    echo json_encode(array('subcategories'=>$subcategory));
+    exit();
+    
+  }
+
+  public function getChildCategoryInOption($top_cat_id="",$sub_cat_id=""){
+
+    $subcategory=$this->customlibrary->getChilCategoryInOption($top_cat_id,$sub_cat_id);
+
+    echo json_encode(array('chilcategories'=>$subcategory));
+    exit();
+    
+  }
     
 }
 

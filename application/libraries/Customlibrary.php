@@ -288,7 +288,7 @@ class Customlibrary
       $this->CI->db->where('cat_id',$top_cat_id);
       $this->CI->db->where('status',1);
      
-      $return='<option value="">Select Top Category</option>';
+      $return='<option value="">Select Sub Category</option>';
       $query=$this->CI->db->get() ; 
       if($query->num_rows()>0){
         foreach($query->result_array() as $record){
@@ -301,6 +301,29 @@ class Customlibrary
       }
       return $return;
    }
+
+
+   public function getChilCategoryInOption($top_cat_id,$sub_cat_id,$id=''){
+      $this->CI->db->select('*');
+      $this->CI->db->from('tbl_child_category AS SC');
+      $this->CI->db->where('cat_id',$top_cat_id);
+      $this->CI->db->where('sub_cat_id',$sub_cat_id);
+      $this->CI->db->where('status',1);
+     
+      $return='<option value="">Select Child Category</option>';
+      $query=$this->CI->db->get() ; 
+      if($query->num_rows()>0){
+        foreach($query->result_array() as $record){
+          if($record['child_cat_id']==$id){
+            $return.='<option value="'.$record['child_cat_id'].'" selected>'.$record['childCat_name'].'</oprion>';
+          }else{
+            $return.='<option value="'.$record['child_cat_id'].'">'.$record['childCat_name'].'</oprion>';
+          }
+        } 
+      }
+      return $return;
+   }
+
 
     public function getStateOptionInOption($state_id=''){
       $this->CI->db->select('*');

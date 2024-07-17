@@ -36,17 +36,17 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
         <form action="#" id="search-form" method="post"  enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-3">
-                    <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="Search();">
+                    <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="getSubCategory()">
                             <?php echo isset($topcat) ? $topcat : '';?>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control" id="sub_cat_id" name="sub_cat_id" required onchange="Search();">
+                    <select class="form-control" id="sub_cat_id" name="sub_cat_id" required onchange="Search();getChildCategory()">
                             <option value="">Select Sub Category</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control" id="child_cat_id" name="child_cat_id" required onchange="Search();">
+                    <select class="form-control" id="child_cat_id" name="child_cat_id" required onchange="Search()">
                            <option value="">Select child Category</option>
                     </select>
                 </div>
@@ -98,13 +98,17 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   }
 </style>
 <?php $this->load->view('admin/footer'); ?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
+    $(document).ready(function(){
+    alert("hi");
+});    
  function change_page(page){
     var formData = new FormData($('#search-form')[0]);
     formData.append('page', page);
     formData.append('method','changepage');
     $.ajax({
-        url:"<?php echo base_url(); ?>admin/category-with-prodct",
+        url:"<?php echo base_url(); ?>admin/categorywithproduct",
         type: "POST",
         data:formData,
         dataType:"json",
@@ -120,4 +124,44 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
     var page;    
     change_page(page);
 } 
+
+
+function deletRecord(id){
+       // alert("hi");
+}
+
+function getSubCategory(){
+    alert("j");
+    let top_cat_id=$('#top_cat_id').val();
+    var formData = new FormData($('#search-form')[0]);
+    $.ajax({
+        url:"<?php echo base_url(); ?>subCategory/"+top_cat_id,
+        type: "POST",
+        data:formData,
+        dataType:"json",
+        processData: false,
+        contentType: false,
+        success:function(res){
+                console.log(res);
+            }
+        });  
+
+}
+
+function getChildCategory(){
+    var formData = new FormData($('#search-form')[0]);
+    let top_cat_id=$('#top_cat_id').val();
+    let sub_cat_id=$('#sub_cat_id').val();
+    $.ajax({
+        url:"<?php echo base_url(); ?>childcategoryn/"+top_cat_id+'/'+sub_cat_id,
+        type: "POST",
+        data:formData,
+        dataType:"json",
+        processData: false,
+        contentType: false,
+        success:function(res){
+             console.log(res);
+            }
+        });  
+}
 </script>

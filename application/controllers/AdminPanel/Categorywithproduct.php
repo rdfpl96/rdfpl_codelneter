@@ -2,7 +2,7 @@
 <?php
  defined('BASEPATH') OR exit('No direct script access allowe');
 
-class CategoryWithProduct extends CI_Controller{   
+class Categorywithproduct extends CI_Controller{   
   
     public function __construct() {
     	
@@ -10,19 +10,19 @@ class CategoryWithProduct extends CI_Controller{
 		
 		 date_default_timezone_set('Asia/Kolkata');
 
-         exit();
-		  
-		  //$this->load->model('admin/categorywithproduct_model','product');
+        
+		  $this->load->library('my_libraries');  
+		  $this->load->model('admin/categorywithproduct_model','product');
 		  $session=$this->session->userdata('admin');
 		  
-		  // $_SERVER['REQUEST_URI']="admin";
+		  $_SERVER['REQUEST_URI']="admin";
 
-		  // if(basename($_SERVER['REQUEST_URI'])!='admin'){
-		  //      if(!isset($session) && $session['is_login']!=1){
-		  //         // redirect(base_url('login'));
-		  //          redirect(base_url('admin'));
-		  //      }
-		  // }
+		  if(basename($_SERVER['REQUEST_URI'])!='admin'){
+		       if(!isset($session) && $session['is_login']!=1){
+		          // redirect(base_url('login'));
+		           redirect(base_url('admin'));
+		       }
+		  }
   
   	}
 
@@ -43,7 +43,7 @@ class CategoryWithProduct extends CI_Controller{
         
         $top_cat_id = isset($_POST['top_cat_id']) ? $_POST['top_cat_id'] : "";
         $sub_id = isset($_POST['sub_id']) ? $_POST['sub_id'] : "";
-        $child_cat_id = isset($_POST['child_cat_id']) ? $_POST['child_cat_id'] : 1;
+        $child_cat_id = isset($_POST['child_cat_id']) ? $_POST['child_cat_id'] : "";
 
         $array_data=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id, $child_cat_id); 
         //
@@ -143,9 +143,9 @@ class CategoryWithProduct extends CI_Controller{
                                 <td>'.$record['top_cat_name'].'</td>
                                 <td>'.$record['sub_cat_name'].'</td>
                                 <td>'.$record['child_cat_name'].'</td>
-	                            // <td>'.date('d-m-Y',strtotime($record['add_date'])).'</td>
+	                            <td>'.date('d-m-Y',strtotime($record['add_date'])).'</td>
 	                            <td></td>
-	                            <td><a href="'.base_url().'admin/product/edit/'.$record['mapping_id'].'" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+	                            <td><a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit" onClick="deletRecord('.$record['mapping_id'].');"><i class="fa fa-trash"></i></a></td>
                         </tr>'; 
                     $i++;                                                     
                 } 
@@ -154,7 +154,8 @@ class CategoryWithProduct extends CI_Controller{
             else{
                 $option.='<tr><td colspan="15" style="color:red;text-align:center">No record</d></tr>';
             }
-            //
+        
+            
             $output=array('array_data'=>$option,'pagination'=>$pagination,'page_menu_id'=>$page_menu_id,'getAccess'=>$getAccess,'topcat'=>$topcat);    
             if($this->input->post('method') == "changepage"){
                 echo json_encode($output); 
@@ -165,77 +166,42 @@ class CategoryWithProduct extends CI_Controller{
             }  
    	}
 
-    public function create(){
-    	$menuIdAsKey=2;
-        $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-        $data['page_menu_id']=$menuIdAsKey;
-
-        $data['topCategory']=$this->customlibrary->getTopCatInOption();
-		
-		$this->load->view('admin/product/create',$data);
-        
-	}
-
+   
 	public function save(){
 
         if($this->input->is_ajax_request()) {
         	
-        	$otherInfo=array();
+        	$session=$this->session->userdata('admin');
 
-  			$session=$this->session->userdata('admin');
+  			 
+   			$mapping_product_id=isset($_POST['mapping_product_id']) ? addslashes($_POST['mapping_product_id']) : 0 ;
+   			$cat_id=isset($_POST['cat_id']) ? addslashes($_POST['cat_id']) : 0;
+            $sub_cat_id=isset($_POST['sub_cat_id']) ? addslashes($_POST['sub_cat_id']) : 0 ;
+            $child_cat_id=isset($_POST['child_cat_id']) ? addslashes($_POST['child_cat_id']) : 0 ;
 
-  			$productName=isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "" ;
-  			$productSlug=isset($_POST['slug']) ? addslashes($_POST['slug']) : "" ;
-   			$hsn_code=isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "" ;
+   		
 
-   			$igst=isset($_POST['igst']) ? addslashes($_POST['igst']) : 0 ;
-   			$cgst=isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
-            $sgst=isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0 ;
-
-   			$headingArray=isset($_POST['heading']) && count($_POST['heading'])>0 ? $_POST['heading'] : array() ;
-   			$descriptionArray=isset($_POST['description']) && count($_POST['description'])>0 ? $_POST['description'] : array() ;
-
-   			if($this->product->chkUniqueProductName($productName)){
+   			if($this->product->chkUniqueMapping($mapping_product_id,$cat_id,$sub_cat_id,$child_cat_id)){
    				$error=1;
-				$err_msg="Product already exist";
-   			}
-   			else if($this->product->chkUniqueProductURL($productSlug)){
-   				$error=1;
-				$err_msg="Product slug already exist";
-   			}
-   			else{
-   				if(count($headingArray)>0){
-   				
-   				for($i=0; $i < count($headingArray); $i++) { 
-   					$otherInfo[]=array(
-   						'heading'=>isset($headingArray[$i]) ? $headingArray[$i] : "" ,
-   						'description'=>isset($descriptionArray[$i]) ? $descriptionArray[$i] : "" ,
-   					);
-   				}
+				$err_msg="Alreaddy maped";
+   			}else{
+
+                $array_data=array(
+                    'mapping_product_id'=>$mapping_product_id,
+                    'cat_id'=>$cat_id,
+                    'sub_cat_id'=>$sub_cat_id,
+                    'child_cat_id'=>$child_cat_id,
+                );
+       			if($this->product->add($array_data)){
+                    $error=0;
+                    $err_msg="Data insert succesfully";
+                }else{
+                    $error=0;
+                    $err_msg="There are some problem try again";
+                }
 			}
 
-			$array_data=array(
-				'product_name'=>$productName,
-				'slug'=>$productSlug,
-				'hsn_code'=>$hsn_code,
-				'cgst'=>$cgst,
-				'igst'=>$igst,
-				'sgst'=>$sgst,
-				'other_info'=>serialize($otherInfo),
-				'updated_by'=>$session['admin_name']
-			);
-
-			if($this->product->add($array_data)){
-				$error=0;
-				$err_msg="Data insert succesfully";
-			}else{
-				$error=0;
-				$err_msg="There are some problem try again";
-			}
-   			}
-
-   			
-   		}else{
+		}else{
 			$error=1;
 			$err_msg="No direct script access allowed";
 			
@@ -247,81 +213,31 @@ class CategoryWithProduct extends CI_Controller{
         
 	}
 
-public function edit($id){
-	$detail=$this->product->getViewByID($id);
 
-	$form_data['tdata']=$detail;
-	$this->load->view('admin/product/edit',$form_data);  
-} 
 
-public function update($id){
+public function deletRecord($id){
 
-	 if($this->input->is_ajax_request()) {
-        	
-        	$otherInfo=array();
+     if($this->input->is_ajax_request()) {
+        if($this->product->deleteMapingRecord($id)){
 
-  			$session=$this->session->userdata('admin');
+            $error=0;
+            $err_msg="Delete Record";
 
-  			$productName=isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "" ;
-  			$productSlug=isset($_POST['slug']) ? addslashes($_POST['slug']) : "" ;
-   			$hsn_code=isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "" ;
-
-   			$igst=isset($_POST['igst']) ? addslashes($_POST['igst']) : 0 ;
-   			$cgst=isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
-            $sgst=isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0 ;
-
-   			$headingArray=isset($_POST['heading']) && count($_POST['heading'])>0 ? $_POST['heading'] : array() ;
-   			$descriptionArray=isset($_POST['description']) && count($_POST['description'])>0 ? $_POST['description'] : array() ;
-
-   			if($this->product->chkUniqueProductName($productName,$id)){
-   				$error=1;
-				$err_msg="Product already exist";
-   			}
-   			else if($this->product->chkUniqueProductURL($productSlug,$id)){
-   				$error=1;
-				$err_msg="Product slug already exist";
-   			}
-   			else{
-   				if(count($headingArray)>0){
-   				
-   				for($i=0; $i < count($headingArray); $i++) { 
-   					$otherInfo[]=array(
-   						'heading'=>isset($headingArray[$i]) ? $headingArray[$i] : "" ,
-   						'description'=>isset($descriptionArray[$i]) ? $descriptionArray[$i] : "" ,
-   					);
-   				}
-			}
-
-			$array_data=array(
-				'product_name'=>$productName,
-				'slug'=>$productSlug,
-				'hsn_code'=>$hsn_code,
-				'cgst'=>$cgst,
-				'igst'=>$igst,
-				'sgst'=>$sgst,
-				'other_info'=>serialize($otherInfo),
-				'updated_by'=>$session['admin_name']
-			);
-
-			if($this->product->Edit($id,$array_data)){
-				$error=0;
-				$err_msg="Data insert succesfully";
-			}else{
-				$error=0;
-				$err_msg="There are some problem try again";
-			}
-   			}
-
-   			
-   		}else{
-			$error=1;
-			$err_msg="No direct script access allowed";
-			
-		}
-		
-		$response= array('error' => $error, 'err_msg' => $err_msg);
-	    echo json_encode($response);
-	    exit();      
+        }else{
+            $error=1;
+            $err_msg="No direct script access allowed";
+        }    
+        
+            
+    }else{
+        $error=1;
+        $err_msg="No direct script access allowed";
+        
+    }
+        
+        $response= array('error' => $error, 'err_msg' => $err_msg);
+        echo json_encode($response);
+        exit();      
 }
 
 }

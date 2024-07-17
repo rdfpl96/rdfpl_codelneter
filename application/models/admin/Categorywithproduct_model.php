@@ -1,19 +1,22 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product_model extends CI_Model{
+class Categorywithproduct_model extends CI_Model{
   function __construct(){
     parent::__construct();
     //$this->load->database();
   }
 
    
-  public function chkUniqueProductName($name,$id=""){
+  public function chkUniqueMapping($mapping_product_id,$cat_id,$sub_cat_id,$child_cat_id,$mapping_id=""){
     
     $this->db->select('*');
-    $this->db->from('tbl_product');
-    $this->db->where('product_name',$name);
-    if($id!=""){
-      $this->db->where('product_id !=',$id); 
+    $this->db->from('tbl_mapping_category_with_product');
+    $this->db->where('mapping_product_id',$mapping_product_id);
+    $this->db->where('cat_id',$cat_id);
+    $this->db->where('sub_cat_id',$sub_cat_id);
+    $this->db->where('child_cat_id',$child_cat_id);
+    if($mapping_id!=""){
+      $this->db->where('mapping_id !=',$mapping_id); 
     }
     $query=$this->db->get() ; 
 
@@ -33,10 +36,10 @@ class Product_model extends CI_Model{
         $this->db->where('PWM.cat_id',$top_cat_id);
       }
       if($sub_id!=""){
-        $this->db->where('SC.sub_cat_id',$sub_id);
+        $this->db->where('PWM.sub_cat_id',$sub_id);
       }
       if($child_cat_id!=""){
-        $this->db->where('CC.child_cat_id',$child_cat_id);
+        $this->db->where('PWM.child_cat_id',$child_cat_id);
       }
     return $this->db->from("tbl_mapping_category_with_product AS PWM")->count_all_results();    
   } 
@@ -88,7 +91,7 @@ class Product_model extends CI_Model{
 
     $this->db->trans_begin(); 
     // product Insert
-    $this->db->insert('tbl_product', $array_data);
+    $this->db->insert('tbl_mapping_category_with_product', $array_data);
     $last_id= $this->db->insert_id();
 
     
@@ -130,6 +133,13 @@ class Product_model extends CI_Model{
       $array_record=$query->row_array();
     }
     return $array_record;   
+  }
+
+
+  public function deleteMapingRecord($id){
+    $this->db->where('mapping_id', $id);
+    $this->db->delete('tbl_mapping_category_with_product');
+    return true;
   }
 
   
