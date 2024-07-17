@@ -33,7 +33,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 <div class="card mb-3">
 
     <div class="card-body">
-        <form action="#" id="search-form" method="post"  enctype="multipart/form-data">
+        <form action="#" id="search-form" method="post"  enctype="multipart/form-data" onsubmit="mapingWithProduct();">
             <div class="row">
                 <div class="col-md-3">
                     <select class="form-control" id="top_cat_id" name="top_cat_id" required onchange="Search();getSubCategory()">
@@ -49,6 +49,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                     <select class="form-control" id="child_cat_id" name="child_cat_id" required onchange="Search()">
                            <option value="">Select child Category</option>
                     </select>
+                </div>
+                <div class="col-md-3">
+                   <button type="submit" name="btn_submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
         </form>
@@ -103,6 +106,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
     $(document).ready(function(){
     
 });    
+
+    
  function change_page(page){
     var formData = new FormData($('#search-form')[0]);
     formData.append('page', page);
@@ -128,6 +133,24 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 function deletRecord(id){
        // alert("hi");
+}
+
+function mapingWithProduct(){
+    var formData = new FormData($('#search-form')[0]);
+    formData.append('page', page);
+    formData.append('method','changepage');
+    $.ajax({
+        url:"<?php echo base_url(); ?>admin/categorywithproduct/save",
+        type: "POST",
+        data:formData,
+        dataType:"json",
+        processData: false,
+        contentType: false,
+        success:function(data){
+             var page;    
+                change_page(page);
+            }
+        });  
 }
 
 function getSubCategory(){
