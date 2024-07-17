@@ -2246,6 +2246,7 @@ input[type="password"] {
 /*aj css*/
 
 /*=======17-04-24=========*/
+.modal{z-index: 999999999999999 !important;}
 .order_details_id {background: #efefef;}
 .d_invoice_btn a{border: 1px solid #383838;display: flex;padding: 10px;font-size: 18px;font-weight: 600;color: #383838;justify-content: space-between;align-items: center;}
 .success_page_right{background-color: #fff;}

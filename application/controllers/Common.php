@@ -390,8 +390,6 @@ public function my_order() {
         // print_r($data);
         // exit;
         $data['order_count'] = ($data['getOrders'] != 0) ? count($data['getOrders']) : 0;
-
-        // Load the view with the order data
         $data['content'] = 'frontend/component/my-order';
         $this->load->view('frontend/template', $data);
 
