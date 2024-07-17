@@ -161,11 +161,17 @@ class Cart extends REST_Controller{
 
         if($customer_id!="" && $cart_id!="" ){
             
-            $itemDetail=$this->productObj->getItemDetailByProductAndItemId($product_id,$variant_id);
-
-            if($this->cartObj->deleteItemByCartId($customer_id,$cart_id)){}
-            $this->response(array('error' =>0,'msg'=>'Removed Item from cart.'));
-
+            $itemDetail = $this->cartObj->getCartDetailByCartId($customer_id, $cart_id);
+            if($itemDetail){
+                 if($this->cartObj->deleteItemByCartId($customer_id,$cart_id)){
+              $this->response(array('error' =>0,'msg'=>'Removed Item from cart.'));  
+              }else{
+                 $this->response(array('error' =>1,'msg'=>'Not delted item')); 
+              }
+          }else{
+             $this->response(array('error' =>1,'msg'=>'Product not present')); 
+          }
+           
         }else{
 
             $this->response(array('error' =>1,'msg'=>'Some parameter missing'));
