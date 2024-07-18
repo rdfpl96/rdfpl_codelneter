@@ -45,68 +45,19 @@ class CustomerAddress extends REST_Controller{
         $qty=isset($post['qty']) ? $post['qty'] : 0 ; 
         $actionType=isset($post['action_type']) ? $post['action_type'] : "" ;
 
-        if($customer_id!="" && $product_id!="" && $variant_id!="" && $qty!=0 && $actionType!=""){
-            
-            $itemDetail=$this->productObj->getItemDetailByProductAndItemId($product_id,$variant_id);
-
-            if(count($itemDetail)>0){
-                
-                if($itemDetail['stock'] > 0){
-
-                    if($itemDetail['stock'] > $qty){
-                        
-                        $cartItem=$this->cartObj->getCartItem($customer_id,$product_id,$variant_id);
-
-                        if(count($cartItem)>0){
-
-                            if($actionType==2){    // 2 =>update 1=> remove
-                                $qty=$cartItem['qty']+$qty;
-                            }else{
-                               $qty=$cartItem['qty']-$qty; 
-                            }
-
-                            if($qty==0){
-                                $this->cartObj->deleteItemByCartId($customer_id,$cartItem['cart_id']);
-                            }else{
-                              $this->cartObj->updateItemQty($customer_id,$product_id,$variant_id,array('qty'=>$qty));
-                            }
-                            
-                            $message=$this->config->item('update_cart_success');
-
-                        }else{
-
-                          $cartProduct = array(
-                          'user_id'       =>$customer_id,
-                          'product_id'    =>$product_id,
-                          'variant_id'    => $variant_id,
-                           'qty'          => $qty,
-                          );
-                          $this->cartObj->itemSave($cartProduct);
-
-                          $message=$this->config->item('added_cart_success');
-                        }
-
-                        $itemCount=$this->customlibrary->total_items($customer_id);
-
-                        $this->response(array('error' =>0,'msg'=>$message,'total_items'=>$itemCount));
-
-                    }else{
-
-                        $this->response(array('error' =>1,'msg'=>'Item insufficient'));
-                    }
-
-                }else{
-                    $this->response(array('error' =>1,'msg'=>$this->config->item('out_of_stock')));
-                }
-
-            }else{
-                $this->response(array('error' =>1,'msg'=>'Item not exist'));
-            }
-
-        }else{
-
-            $this->response(array('error' =>1,'msg'=>'Some parameter missing'));
-        } 
+        'customer_id' => $customer_id,
+        'fname' => $this->input->post('fname'),
+        'lname' => $this->input->post('lname'),
+        'mobile' => $this->input->post('mobile'),
+        'address1' => $this->input->post('apart_house'),
+        'address2' => $this->input->post('apart_name'),
+        'area' => $this->input->post('area'),
+        'landmark' => $this->input->post('street_landmark'),
+        'state' => $this->input->post('state'),
+        'city' => $this->input->post('city'),
+        'pincode' => $this->input->post('pincode'),
+        'address_type' => $this->input->post('loc_type'),
+        'others' => $this->input->post('other_loc')
     }
 
 }
