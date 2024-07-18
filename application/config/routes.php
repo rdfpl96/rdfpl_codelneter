@@ -267,7 +267,7 @@ $route['save-gst-details']='common/save_gst_details';
 $route['api/product/list']='Api/product/index';
 
 //Apoorv Route
-
+$route['banner_edit_action/edit/(:num)']='Admin/banner_edit_action/$1';
 $route['customer_list']='AdminPanel/Customer/customer_list';
 $route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
 // ===================End API===================================

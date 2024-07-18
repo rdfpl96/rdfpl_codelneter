@@ -22,7 +22,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                     </div>
                     <h3 class="fw-bold mb-0">Banner List</h3>
                     <?php //if (in_array('add', $actAcx) || $session['admin_type'] == 'A') { ?>
-                        <a href="<?php echo base_url('admin/banner_edit_add'); ?>"><button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Banner</button></a>
+                        <a href="<?php echo base_url('admin/banner_edit_action'); ?>"><button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Banner</button></a>
                         <!-- <h3 class="fw-bold mb-0"><?php //echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> Ads Banner</h3> -->
                     <?php //} ?>
                 </div>
@@ -58,13 +58,12 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                     <?php
                                     if ($banner_list != 0) {
                                         $index = 0;;
-                                        foreach (array_reverse($banner_list) as $value) {
-
+                                        foreach (array_reverse($banner_list) as $key => $value) {
                                             $index++;
                                     ?>
 
                                             <tr id="<?php echo $value->banner_id; ?>">
-                                                <td style="text-align:right"><strong><?php echo $index; ?></strong></td>
+                                                <td style="text-align:right"><strong><?php echo ($key+$page); ?></strong></td>
 
                                                 <td style="text-align:left"><?php echo $value->text1; ?></td>
                                                 <!-- <td><?php //echo $value->text2;
@@ -103,7 +102,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 
 
-                                                        <a href="<?php echo base_url('admin/add_banner/' . $value->banner_id); ?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <a href="<?php echo base_url('admin/edit_banner/' . $value->banner_id); ?>" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
 
 
                                                        

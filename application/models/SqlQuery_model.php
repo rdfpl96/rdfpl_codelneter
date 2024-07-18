@@ -514,4 +514,14 @@ class SqlQuery_model extends CI_Model
       $query = $this->db->get();
       return $query->result_array();
    }
+
+
+
+
+
+
+
+
+
+
 }
