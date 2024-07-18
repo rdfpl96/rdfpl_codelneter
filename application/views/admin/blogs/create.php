@@ -164,12 +164,11 @@ $(document).ready(function() {
         formData.append('blog_category', $('#blog_category').val());
         formData.append('blog_image', $('#blog_image')[0].files[0]);
         formData.append('blog_description', CKEDITOR.instances.blog_description.getData());
-
         $.ajax({
             url: "<?php echo base_url('AdminPanel/Blogs/create'); ?>",
             type: 'POST',
             data: formData,
-            processData: false, // prevent jQuery from converting the data into a query string
+            processData: false, 
             contentType: false,
             success: function(response) {
                 var responseData = JSON.parse(response);
@@ -181,22 +180,23 @@ $(document).ready(function() {
                     }).then(() => {
                         window.location.href = "<?php echo base_url('admin/blogs'); ?>";
                     });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: responseData.message
-                    });
                 }
+                //  else {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Error',
+                //         text: responseData.message
+                //     });
+                // }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Failed to send data. Please try again.'
-                });
-                console.error('Error sending data:', textStatus, errorThrown);
-            }
+            // error: function(jqXHR, textStatus, errorThrown) {
+            //     Swal.fire({
+            //         icon: 'error',
+            //         title: 'Error',
+            //         text: 'Failed to send data. Please try again.'
+            //     });
+            //     console.error('Error sending data:', textStatus, errorThrown);
+            // }
         });
     });
 });
