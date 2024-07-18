@@ -7,6 +7,8 @@ class Login extends CI_Controller
           parent::__construct();
           //load the login model
           $this->load->model('admin/adminlogin_model', 'adminlogin');
+          $this->load->library('session');
+
      }
 
      public function index()
@@ -38,4 +40,11 @@ class Login extends CI_Controller
                //get the posted values
           }
      }
+
+
+       public function logout() {
+        $this->session->unset_userdata('logged_in');
+        $this->session->sess_destroy(); 
+        redirect('admin/login');
+    }
 }

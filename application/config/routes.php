@@ -62,6 +62,7 @@ $route['admin/other-product/add']='AdminPanel/addOtherProduct';
 
 $route['admin']='AdminPanel/home/index';
 $route['admin/login']='AdminPanel/login/index';
+$route['admin/logout'] = 'AdminPanel/login/logout';
 $route['admin/product']='AdminPanel/product/index';
 $route['admin/product/create']='AdminPanel/product/create';
 $route['admin/product/save']='AdminPanel/product/save';
