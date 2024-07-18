@@ -148,7 +148,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <label for="Tags" class="form-label">Image<span style="color: red;">*</span> </label>
                                 <input type="file" class="form-control" id="blog_image" name="blog_image">
 
-                                <input type="hidden" name="image_path" id="image_path" value="<?php echo (!empty($blog['blog_image']) ? $blog['blog_image'] : '') ?>
+                                <input type="hidden" name="image_path" id="image_path" value="<?php echo (!empty($blog['blog_image']) ? $blog['blog_image'] : '') ?>">
                                     <?php
                                     $filePath = (($product_list[0]->blog_image != "") ? './uploads/blogs_image/' . $product_list[0]->blog_image : '');
                                     if (file_exists($filePath)) {
