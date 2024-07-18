@@ -133,7 +133,7 @@ $route['admin/basic_details/update/(:num)'] = 'AdminPanel/basic_details/update/$
 // $route['packing-slip']='admin/packing_slip';
 
 
-//blogs
+///blogs 
 $route['admin/blogs']='AdminPanel/blogs/index';
 $route['admin/blogs/(:num)']='AdminPanel/blogs/index/$1';
 $route['admin/blogs/create'] = 'AdminPanel/blogs/create';

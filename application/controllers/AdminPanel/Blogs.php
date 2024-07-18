@@ -405,8 +405,7 @@ public function create()
         $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
 
-        // print_r($data['blog'] );
-        // die();
+ 
         $this->load->view('admin/blogs/edit', $data);
     }
 

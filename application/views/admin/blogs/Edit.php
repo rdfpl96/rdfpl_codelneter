@@ -11,8 +11,9 @@ $this->load->view('admin/headheader');
 
 $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array();
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <?php if ($this->session->flashdata('success_message')) : ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
     <script>
         Swal.fire({
             icon: 'success',
@@ -22,7 +23,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         });
     </script>
 <?php elseif ($this->session->flashdata('error_message')) : ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  
     <script>
         Swal.fire({
             icon: 'error',
