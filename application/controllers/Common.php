@@ -399,6 +399,40 @@ public function my_order() {
     }
 }
 
+public function getOrderDetails() {
+
+    $order_no = $this->input->get('order_no');
+    $order_details = $this->common_model->getOrderDetailsFun($order_no);
+        $html.='<table style="width:100%">
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Product Qty</th>
+            <th>Price</th>
+          </tr>';
+
+        if(!empty($order_details)){
+          foreach ($order_details as $key => $value) {
+             $imgFile1 = base_url() . 'uploads/' . $value['feature_img'];
+              $html.='<tr>
+                <td><img src="' . $imgFile1 . '" alt="Product Image" style="width:100px; height:auto;"></td>
+                <td>'.$value['product_name'].'</td>
+                <td>'.$value['qty'].'</td>
+                <td>'.$value['price'].'</td>
+              </tr>';
+          }
+        }else{
+            $html.='<tr>
+                <td colspan="4">No data</td>
+            </tr>';
+        }
+        $html.='</table>';
+
+    echo json_encode($html);
+    exit();
+}
+
+
 public function my_address(){
     $user=$this->my_libraries->mh_getCookies('customer');
     if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){
@@ -621,9 +655,7 @@ public function billing_address(){
     }
 }
 
-public function add_billingaddress(){
-//echo "hjahskjd";
-        
+public function add_billingaddress(){        
     $user=$this->my_libraries->mh_getCookies('customer');
     $customer_id = $user['customer_id'];
     if ($user && isset($user['customer_id']) && !empty($user['customer_id'])){

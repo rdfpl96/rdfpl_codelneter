@@ -120,7 +120,7 @@ $this->load->view('frontend/header', $data);
                                             </div>
                                         </div>
                                         <div class="col-md-2 viw_btn_col">
-                                            <a href="#" class="view-item-btn" data-order-no="<?php echo $order->order_no; ?>" data-bs-toggle="modal" data-bs-target="#viewItemsModal">
+                                            <a href="#" class="view-item-btn" data-order-no="<?php echo $order->order_no; ?>" data-bs-toggle="modal" data-bs-target="#viewItemsModal" onclick="getOrderProduct('<?php echo $order->order_no;?>')">
                                                 <div class="btn btn_dark float-right">View <?php echo $itemCount;?> Item<?php echo ($itemCount > 1) ? 's' : ''; ?></div>
                                             </a>
                                         </div>
@@ -193,17 +193,14 @@ $this->load->view('frontend/header', $data);
 </main>
 
 <!-- Modal for View Items -->
-<div class="modal fade" id="viewItemsModal" tabindex="-1" aria-labelledby="viewItemsModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewItemsModal" tabindex="-1" aria-labelledby="viewItemsModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="col-md-2 viw_btn_col">
-                                                            <a href="#" class="view-item-btn" data-index="<?php echo $index;?>" data-order-no="<?php echo $order->order_no; ?>" onclick="abc('<?php echo $order->order_no; ?>')" data-bs-toggle="modal" data-bs-target="#viewItemsModal">
-                                                                <div class="btn btn_dark float-right">View <?php echo $itemCount;?> Item<?php echo ($itemCount > 1) ? 's' : ''; ?></div>
-                                                            </a>
-                                                        </div>
-
-            <div class="modal-body">
-                <!-- Product details will be dynamically loaded here -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewItemsModalLabel">View Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="">
                 <div id="viewItemsContent"></div>
             </div>
         </div>
@@ -211,69 +208,26 @@ $this->load->view('frontend/header', $data);
 </div>
 
 <?php $this->load->view('frontend/footer'); ?>
- 
+<input type="" name="">
 <?php
 echo '<pre>';
-print_r($getOrders);
+print_r(json_encode($getOrders));
+
 ?>
-<script>
-    abc();
-    function abc(orderNo){
-        alert('jsd');
-        // const viewItemButtons = document.querySelectorAll('.view-item-btn');
-
-                console.log('1');
-        // const viewItemsContent = document.getElementById('viewItemsContent');
-
-        // viewItemButtons.forEach(button => {
-                console.log('2');
-            // button.addEventListener('click', function (event) {
-                console.log('3');
-                // event.preventDefault();
-                // const orderNo = button.getAttribute('data-order-no');
-
-                console.log('orderNo=>', orderNo);
-
-                // Fetch or generate product details HTML
-                let productDetailsHtml = '';
-                <?php foreach ($getOrders as $o): ?>
-                    <?php if ($o->order_no === $orderNo): ?>
-                console.log('4');
-
-                console.log('5');
-                        productDetailsHtml += `<p><strong style="color: black;">Product: <?php echo $o->order_no; ?></strong></p>`;
-                        productDetailsHtml += `<p style="color: black;">Order Number: <?php echo $o->order_no; ?></p>`;
-                    <?php endif; ?>
-                <?php endforeach; ?>
-
-                console.log('productDetailsHtml=>', productDetailsHtml);
-                $('#viewItemsContent').html(productDetailsHtml);
-                // viewItemsContent.innerHTML = productDetailsHtml;
-            // });
-        // });
-    }
-
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const viewItemButtons = document.querySelectorAll('.view-item-btn');
-    //     const viewItemsContent = document.getElementById('viewItemsContent');
-
-    //     viewItemButtons.forEach(button => {
-    //         button.addEventListener('click', function (event) {
-    //             event.preventDefault();
-    //             const orderNo = button.getAttribute('data-order-no');
-
-    //             // Fetch or generate product details HTML
-    //             let productDetailsHtml = '';
-    //             <?php foreach ($getOrders as $o): ?>
-    //                 <?php if ($o->order_no === $orderNo): ?>
-    //                     productDetailsHtml += `<p><strong>Product: <?php echo $o->product_name; ?></strong></p>`;
-    //                     productDetailsHtml += `<p>Order Number: <?php echo $o->order_no; ?></p>`;
-    //                 <?php endif; ?>
-    //             <?php endforeach; ?>
-
-    //             console.log('productDetailsHtml=>', productDetailsHtml);
-    //             viewItemsContent.innerHTML = productDetailsHtml;
-    //         });
-    //     });
-    // });
+<script type="text/javascript">
+function getOrderProduct(orderNo) {
+    //alert(orderNo);
+    $.ajax({
+        //alert('step2');
+        url: '<?php echo base_url('common/getOrderDetails'); ?>',
+        type: 'GET',
+        data: { order_no: orderNo },
+        success: function(response) {
+            console.log('aa=>', response);
+            var html = JSON.parse(response);
+            console.log('html=>', html);
+            $('#viewItemsContent').html(html);
+        }
+    });
+}
 </script>
