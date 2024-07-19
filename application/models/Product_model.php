@@ -25,7 +25,7 @@ class Product_model extends CI_Model{
 
   public function getOtherProductById($product_type_id){
     $array_data=array();
-    $this->db->select('P.product_id,P.product_name,P.cat_id,P.');
+    $this->db->select('P.product_id,P.product_name,P.cat_id');
     $this->db->from('tbl_product AS P');
     $this->db->where('P.status',1);
     $this->db->where('OP.product_type_id',$product_type_id);

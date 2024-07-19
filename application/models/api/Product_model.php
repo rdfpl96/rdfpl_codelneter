@@ -87,6 +87,7 @@ class Product_model extends CI_Model{
     $array_data=array();
     $this->db->select(
     'P.product_name,
+    OP.product_type_id,
     P.product_id,
     P.feature_img,
     CONCAT("'.base_url("uploads/").'",P.feature_img) as imagepath,
@@ -105,7 +106,7 @@ class Product_model extends CI_Model{
     $this->db->where('CC.status',1);
     $this->db->where('OP.product_type_id',$product_type_id);
     $this->db->join('tbl_product AS P', 'P.product_id = OP.product_id');
-    $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = OP.product_id');
+    $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
     $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
     $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
     $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
