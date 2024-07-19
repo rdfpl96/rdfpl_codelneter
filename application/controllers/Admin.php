@@ -3988,7 +3988,7 @@ class Admin extends CI_Controller
     $data["links"] = $this->pagination->create_links();
 
 
-    $data['content'] = 'admin/containerPage/other_product/index';
+    $data['content'] = 'admin/other_product/index';
     $this->load->view('admin/template', $data);
   }
 
@@ -4045,5 +4045,5 @@ class Admin extends CI_Controller
 
 
 
-  
+
 }
