@@ -57,9 +57,8 @@ $route['default_controller'] = 'home';
 $route['period_type']='admin/period_type';
 
 
-$route['admin/other-product']='AdminPanel/otherProduct';
-$route['admin/other-product/add']='AdminPanel/addOtherProduct';
-
+$route['admin/other-product']='Admin/otherProduct';
+$route['admin/other-product/add']='Admin/addOtherProduct';
 $route['admin']='AdminPanel/home/index';
 $route['admin/login']='AdminPanel/login/index';
 $route['admin/logout'] = 'AdminPanel/login/logout';

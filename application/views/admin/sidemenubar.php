@@ -111,7 +111,7 @@
                       </ul>
                    </li>-->
                    <li>
-                      <a class="m-link " href="https://site.rdfpl.com/admin/other-product"><i class="icofont-chart-flow"></i> <span>Other Product</span> </a>
+                       <a class="m-link " href="<?php echo base_url('admin/other-product')?>"><i class="icofont-chart-flow"></i> <span>Other Product</span> </a>
                    </li>
                 </ul>
               

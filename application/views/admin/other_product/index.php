@@ -17,11 +17,11 @@
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
                                 <h3 class="fw-bold mb-0">Manage Other Product</h3>
-                                <?php if(in_array('add',$actAcx) || $session['admin_type']=='A'){ ?>
+                                <?php //if(in_array('add',$actAcx) || $session['admin_type']=='A'){ ?>
                                 <div class="">
-                                    <a href="<?php echo base_url('admin/other-product/add');?>" class="btn btn-primary btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i>Add Coupons</a>
+                                    <a href="<?php echo base_url('admin/other-product/add');?>" class="btn btn-primary btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i>Add </a>
                                 </div>
-                            <?php } ?>
+                            <?php //} ?>
 
                             </div>
                         </div>

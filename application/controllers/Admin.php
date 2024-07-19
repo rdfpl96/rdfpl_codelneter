@@ -3993,17 +3993,57 @@ class Admin extends CI_Controller
   }
 
   public function addOtherProduct()
-  {
+{
+    // Check user authorization
     $menuIdAsKey = 44;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
 
-    $querys = "SELECT product_id, product_name FROM tbl_product Where status=1 ";
-
+    // Load product list for the form
+    $querys = "SELECT product_id, product_name FROM tbl_product WHERE status=1";
     $data['productList'] = $this->sqlQuery_model->sql_query($querys);
 
+    // Check if the form is submitted
+    if ($this->input->server('REQUEST_METHOD') === 'POST') {
+        // Get form data
+        $product_type_id = $this->input->post('product_type_id');
+        $product_ids = $this->input->post('product_id');
+        
+        // Validate the inputs
+        if (empty($product_type_id) || empty($product_ids)) {
+            $this->session->set_flashdata('error', 'All fields are required.');
+            redirect('admin/other-product');
+            return;
+        }
 
-    $data['content'] = 'admin/containerPage/other_product/add';
+        // Insert each product ID into the database
+        foreach ($product_ids as $product_id) {
+            $insert_data = [
+                'product_type_id' => $product_type_id,
+                'product_id' => $product_id,
+                'add_date' => date('Y-m-d H:i:s'),
+                'updated_by' => $this->session->userdata('admin_id')
+            ];
+
+            // Insert the data
+            $this->db->insert('tbl_other_product', $insert_data);
+        }
+
+        // Set success message and redirect
+        $this->session->set_flashdata('success', 'Products added successfully.');
+        redirect('admin/other-product');
+        return;
+    }
+
+    // Load the view if not a form submission
+    $data['content'] = 'admin/other_product/add';
     $this->load->view('admin/template', $data);
-  }
+}
+
+
+
+
+
+
+  
 }
