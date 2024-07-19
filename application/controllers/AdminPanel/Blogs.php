@@ -226,51 +226,6 @@ class Blogs extends CI_Controller{
             $this->load->view('admin/blogs/index', $output);
         }
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-    
-    
-
 
     public function searchBlog() {
         // Get the search keywords from the POST request
@@ -298,13 +253,6 @@ class Blogs extends CI_Controller{
         $this->load->view('admin/blogs/index', $data);
     }
     
-
-
-
-
-
-
-
 
 public function create()
 {
@@ -355,26 +303,6 @@ public function create()
     }
 }
 
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function store() {
         $data = array(
             'cat_id' => $this->input->post('cat_id'),
@@ -395,7 +323,7 @@ public function create()
         $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
 
-        $this->load->view('admin/Blogs/edit', $data);
+        $this->load->view('admin/blogs/edit', $data);
     }
 
     public function update() {
