@@ -18,6 +18,7 @@ public function getSliderbanner(){
     $this->db->select('mobile_image,text1');
     $this->db->from('tbl_banner');
     $this->db->where('status',1);
+    $this->db->where('type',"banner");
     // $this->db->order_by('order_no','ASC');   
     $query=$this->db->get() ; 
     if($query->num_rows()>0){ 
