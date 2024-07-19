@@ -31,10 +31,15 @@
                                 <div class="mob_back_btn">
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
+                               
                                 <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> User</h3>
  
+                               
+                                <button onclick="window.location.href='<?= base_url('admin/user_list') ?>'" class="btn btn-primary" style="margin-left: 600px;">Back</button>
                                 <button type="submit" class="btn btn-primary">Save</button>
+                                
                             </div>
+                            
                         </div>
                     </div> <!-- Row end  -->  
                    
