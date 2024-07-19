@@ -54,7 +54,7 @@ class Product_model extends CI_Model{
 
   public function getTopCategory(){
     $array_data=array();
-    $this->db->select('C.category as name,C.cat_id,CONCAT("'.base_url("uploads/").'",C.cat_image) as imagepath');
+    $this->db->select('C.category as name,C.cat_id,C.cat_image,CONCAT("'.base_url("uploads/").'",C.cat_image) as imagepath');
     $this->db->from('tbl_category AS C');
     $this->db->where('C.status',1);
     $this->db->order_by('C.position','DESC');
