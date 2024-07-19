@@ -1,6 +1,5 @@
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <?php
-//print_r($categories);
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -167,23 +166,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </form>
     </div>
 </div>
