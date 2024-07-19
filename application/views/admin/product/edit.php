@@ -52,7 +52,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                
                                                 <div class="col-md-6">
                                                     <label  class="form-label">Product name <span style="color:red;">*</span></label>
-                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo isset($tdata['product_name']) && $tdata['product_name']!='' ? stripslashes($tdata['product_name']) : '' ?>" required placeholder="Please product name">
+                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo isset($tdata['product_name']) && $tdata['product_name']!='' ? stripslashes($tdata['product_name']) : '' ?>" required placeholder="Please product name" readonly>
                                                 </div>
 
 
@@ -66,23 +66,23 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                <div class="col-md-2">
                                                     <label for="hsn-code" class="form-label">HSN Code <span style="color:red;">*</span></label>
                                                     
-                                                    <input type="text" id="gsearchsimple" class="hsn-code form-control input-lg" name="hsn_code" value="<?php echo isset($tdata['hsn_code']) && $tdata['hsn_code']!='' ? stripslashes($tdata['hsn_code']) : '' ?>" onkeypress="return isNumeric(event)" required/>
+                                                    <input type="text" id="gsearchsimple" class="hsn-code form-control input-lg" name="hsn_code" value="<?php echo isset($tdata['hsn_code']) && $tdata['hsn_code']!='' ? stripslashes($tdata['hsn_code']) : '' ?>" onkeypress="return isNumeric(event)" required/ readonly>
                                                     <ul class="list-group"></ul>
                                                     <div id="localSearchSimple"></div>
                                                  </div>
                                                  <div class="col-md-2 no-gutters">
                                                       <label for="igst" class="form-label">IGST <span style="color:red;">*</span></label>
-                                                     <input type="number" class="form-control" name="igst" id="igst" value="<?php echo isset($tdata['igst']) && $tdata['igst']!='' ? stripslashes($tdata['igst']) : '' ?>" required oninput="validateIgst()" />
+                                                     <input type="number" class="form-control" name="igst" id="igst" value="<?php echo isset($tdata['igst']) && $tdata['igst']!='' ? stripslashes($tdata['igst']) : '' ?>" required oninput="validateIgst()" / readonly>
                                                    </div>
 
                                                   <div class="col-md-2">
                                                       <label for="cgst" class="form-label">CGST <span style="color:red;">*</span></label>
-                                                    <input type="number" class="form-control" name="cgst" id="cgst" value="<?php echo isset($tdata['igst']) && $tdata['igst']!='' ? stripslashes($tdata['igst']) : '' ?>" required oninput="validateCgst()" />
+                                                    <input type="number" class="form-control" name="cgst" id="cgst" value="<?php echo isset($tdata['igst']) && $tdata['igst']!='' ? stripslashes($tdata['igst']) : '' ?>" required oninput="validateCgst()" / readonly>
                                                  </div>
                                                   
                                                    <div class="col-md-2 no-gutters">
                                                       <label for="sgst" class="form-label">SGST <span style="color:red;">*</span></label>
-                                                     <input type="number" class="form-control" name="sgst" id="sgst" value="<?php echo isset($tdata['sgst']) && $tdata['sgst']!='' ? stripslashes($tdata['sgst']) : '' ?>" required oninput="validateSgst()" />
+                                                     <input type="number" class="form-control" name="sgst" id="sgst" value="<?php echo isset($tdata['sgst']) && $tdata['sgst']!='' ? stripslashes($tdata['sgst']) : '' ?>" required oninput="validateSgst()" / readonly>
                                                    </div>
                                         </div>
                                     </div>
