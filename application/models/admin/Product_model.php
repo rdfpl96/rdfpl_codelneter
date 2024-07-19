@@ -132,6 +132,14 @@ class Product_model extends CI_Model{
     return $array_record;   
   }
 
+  public function getProductWithVariants($start,$records_per_page,$name) {
+    $this->db->select('p.product_name, p.feature_img, v.pack_size, v.price, v.units');
+    $this->db->from('tbl_product p');
+    $this->db->join('tbl_product_variants v', 'p.product_id = v.variants_product_id');
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
   
 }
 ?>
