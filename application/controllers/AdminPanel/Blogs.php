@@ -275,11 +275,7 @@ class Blogs extends CI_Controller{
     public function searchBlog() {
         // Get the search keywords from the POST request
         $keywords = $this->input->post('searchText');
-        
-      
         $Cat_Html  = $this->blogs->getBlogSearchDetails($keywords);
-        
-       
         $html = '';
         foreach ($Cat_Html as $val) {
             $html .= '<tr>
@@ -292,17 +288,12 @@ class Blogs extends CI_Controller{
                 <td>' . $val['blog_status'] . '</td>
                 <td>' . $val['action'] . '</td>
                 <td><a href="' . base_url() . 'admin/blogs/edit/' . $val['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
+                <td><a href="javascript:deleteRowtablesub(' . $val['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
             </tr>';
         }
-        
-        
-        print_r($html);
+         
+       print_r($html);
         die();
-    
-
-    
-       
-
         // Load the view with the data
         $this->load->view('admin/blogs/index', $data);
     }
@@ -400,18 +391,12 @@ public function create()
         redirect('admin/subcategory/index');
     }
 
-
-  public function edit($id) {
+    public function edit($id) {
         $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
 
- 
-        $this->load->view('admin/blogs/edit', $data);
+        $this->load->view('admin/Blogs/edit', $data);
     }
-
-
-
-
 
     public function update() {
         $blog_data = array(

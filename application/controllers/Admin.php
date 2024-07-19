@@ -3139,6 +3139,7 @@ class Admin extends CI_Controller
 
   public function banner_edit_action()
   {
+    
 
     $this->load->view('admin\containerPage\edit_banner');
   }

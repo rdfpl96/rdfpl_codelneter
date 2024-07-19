@@ -210,16 +210,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 
 
-
-
-
-
-
-
 <?php $this->load->view('admin/footer'); ?>
 <script>
     CKEDITOR.replace('blog_description');
-</script> -->
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>

@@ -87,7 +87,7 @@ function loading(attr,displayValue){
 }
 
 $(document).on('click','.clean-tab-textarea',function(){
-   $('#tags-email').tagsinput('removeAll');
+   $('#tags-email').tagsinput('removeAll');s
 })
 
 $(document).on('click','.checkTypecsss',function(){
@@ -4918,105 +4918,105 @@ $(document).on('click','.save-policy',function(){
 
 
 
-  $(document).on('click','.save-ads-banner',function(){
+//   $(document).on('click','.save-ads-banner',function(){
   
-    var formData = new FormData($('#my-form-ads-banner')[0]);  
-      var get_id=$('#get_id').val();
-      var imagePath=$('#imagePath').val();
+//     var formData = new FormData($('#my-form-ads-banner')[0]);  
+//       var get_id=$('#get_id').val();
+//       var imagePath=$('#imagePath').val();
       
 
-            formData.append('get_id', get_id);
-            formData.append('imagePath', imagePath);
+//             formData.append('get_id', get_id);
+//             formData.append('imagePath', imagePath);
             
-           loading('loaderdiv','block');
-          $('.ads-cl').removeClass('save-ads-banner');
+//            loading('loaderdiv','block');
+//           $('.ads-cl').removeClass('save-ads-banner');
 
-          $.ajax({
-                  url: base_url+'Ajax_function/add_ads_bnner',
-                  data: formData,
-                  processData: false,
-                  contentType: false,
-                  type: 'POST',
-                  dataType:'JSON',
-                  success: function(data){
+//           $.ajax({
+//                   url: base_url+'Ajax_function/add_ads_bnner',
+//                   data: formData,
+//                   processData: false,
+//                   contentType: false,
+//                   type: 'POST',
+//                   dataType:'JSON',
+//                   success: function(data){
 
-                    if(data.status==1){
+//                     if(data.status==1){
 
-                       Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
-                              document.location.href=base_url+'admin/offer_banner';
-                          });
+//                        Swal.fire({
+//                         position: 'top-end',
+//                         // icon: 'success',
+//                         title: data.message,
+//                         showConfirmButton: false,
+//                         color:'white',
+//                         background: '#689F39',
+//                         timer: 3000
+//                            }).then((result) => {
+//                               document.location.href=base_url+'admin/offer_banner';
+//                           });
                        
-                    }else{
-                           Swal.fire({
-                              position: 'center',
-                              icon: 'error',
-                              title: data.message,
-                              showConfirmButton: false,
-                              timer: 3000
-                                 }).then((result) => {
-                                $('.ads-cl').addClass('save-ads-banner');
-                               });
+//                     }else{
+//                            Swal.fire({
+//                               position: 'center',
+//                               icon: 'error',
+//                               title: data.message,
+//                               showConfirmButton: false,
+//                               timer: 3000
+//                                  }).then((result) => {
+//                                 $('.ads-cl').addClass('save-ads-banner');
+//                                });
 
-                    }
+//                     }
                    
-                     loading('loaderdiv','none');
+//                      loading('loaderdiv','none');
                     
 
-                   }
+//                    }
 
-              });
+//               });
         
-})
+// })
 
 
 
-  $(document).on('click','.action-ads-banner',function(){
+//   $(document).on('click','.action-ads-banner',function(){
    
-   $.ajax({ 
-            type: "POST",
-            dataType:"JSON",
-            url: base_url+'ajax_function/active_ads_banner_ajax',
-            // data:({message:message,ads_id:ads_id}),
-            success: function(result){
+//    $.ajax({ 
+//             type: "POST",
+//             dataType:"JSON",
+//             url: base_url+'ajax_function/active_ads_banner_ajax',
+//             // data:({message:message,ads_id:ads_id}),
+//             success: function(result){
 
-              if(result.status==1){
-                      Swal.fire({
-                        position: 'top-end',
-                        // icon: 'success',
-                        title: result.message,
-                        showConfirmButton: false,
-                        color:'white',
-                        background: '#689F39',
-                        timer: 3000
-                           }).then((result) => {
+//               if(result.status==1){
+//                       Swal.fire({
+//                         position: 'top-end',
+//                         // icon: 'success',
+//                         title: result.message,
+//                         showConfirmButton: false,
+//                         color:'white',
+//                         background: '#689F39',
+//                         timer: 3000
+//                            }).then((result) => {
                           
-                          });
+//                           });
                       
-                    }else{
-                      Swal.fire({
-                          position: 'center',
-                          icon: 'error',
-                          title: result.message,
-                          showConfirmButton: false,
-                          timer: 2000
-                             }).then((result) => {
+//                     }else{
+//                       Swal.fire({
+//                           position: 'center',
+//                           icon: 'error',
+//                           title: result.message,
+//                           showConfirmButton: false,
+//                           timer: 2000
+//                              }).then((result) => {
                             
-                           });
-                    }
+//                            });
+//                     }
                   
-             }
-         });
+//              }
+//          });
 
 
-})
+// })
 
 
   $(document).on('keyup','.search-product',function(){

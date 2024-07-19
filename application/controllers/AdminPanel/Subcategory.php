@@ -171,21 +171,21 @@ class Subcategory extends CI_Controller{
 
     $html.='';  
     foreach ($Cat_Html as $val) {
+        $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
         $html.='<tr>
          <td>'.$val['sub_cat_id'].'</td>
            <td>'.$val['category'].'</td>
             <td>'.$val['subCat_name'].'</td>
-            <td>'.$val['status'].'</td>
+            <td>'.$status.'</td>
             <td>'.$val['update_date'].'</td>
             <td>'.$val['action'].'</td>
-            <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-            <td><a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-danger btn-xs deletesubbtn" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i> Delete</a></td>
+            <td><a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+            <td><a href="javascript:deleteRowtablesub('.$val['sub_cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Delete</a></td>
         </tr>';
     }
 
 
     // $data['categories']
-
     print_r($html);
     die();
 

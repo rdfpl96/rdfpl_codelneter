@@ -110,8 +110,6 @@ class Category extends CI_Controller
         }
     }
 
-
-
     public function deleteCategory() {
         $menuIdAsKey = 34;
         $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
@@ -136,35 +134,7 @@ class Category extends CI_Controller
         exit();
     }
     
-
-
-
-
-
-
-
-
-
-
-    // public function SearchCategory() {
-                    
-    //     $searchText = $this->input->post('searchText');
-    //     // print_r($searchTerm);
-    //     // die();
-    //     // Call the category_search method from the model
-    //     $data['categories'] = $this->category->category_search($searchText);
-
-    //     // print_r($data['categories']);
-    //     // die();
     
-    //     $data['content'] = 'admin/containerPage/index';
-    //     $this->load->view('admin/template', $data);
-    // }
-
-
-
-    
-
     public function SearchCategory() {
                     
         $searchText = $this->input->post('searchText');
@@ -173,14 +143,17 @@ class Category extends CI_Controller
       
         $html.='';
         foreach ($Cat_Html as $val) {
+            $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
             $html.='<tr>
                 <td>'.$val['cat_id'].'</td>
                 <td>'.$val['category'].'</td>
                 <td>'.$val['slug'].'</td>
-                <td>'.$val['status'].'</td>
+                <td>'.$status.'</td>
                 <td>'.$val['add_date'].'</td>
                 <td>'.$val['action'].'</td>
-                <td><a href="' . base_url() . 'admin/category/edit/' . $record['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                <td><a href="' . base_url() .'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
+              <a href="javascript:deleteRowtablecat('.$val['cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i> Delete</a>
+              </td>
             </tr>';
         }
 
