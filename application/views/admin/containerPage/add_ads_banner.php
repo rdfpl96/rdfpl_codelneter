@@ -41,9 +41,10 @@
                                   <input type="hidden" class="form-control" name="editv" id="editv" value="<?php echo $this->uri->segment(3);?>">
 
                                   <?php
-                                   // echo "<pre>";
-                                   // print_r($user_details);
-                                   // echo "</pre>";
+                                //    echo "<pre>";
+                                //    print_r($banner_details);
+                                //    die();
+                                //    echo "</pre>";
                                   ?>
                                   
                                     
@@ -66,9 +67,9 @@
                                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                                 <button type="button" class="btn  custom_flip_btn_css py-2 text-uppercase w-sm-100">
                                                <label class="switch">
-                                                     <input type="checkbox" id="btn-status" <?php echo ($banner_details!=0) ? (($banner_details[0]->btn_status==1) ? 'checked' :'') :'';?>>
+                                                    <input type="checkbox" id="btn-status" onclick="UpdateBlogStatus(<?php echo $banner_details[0]->banner_id ?>,<?php echo $banner_details[0]->status ?>)" value="<?php echo ($banner_details!=0) ? $banner_details[0]->status :'';?>" <?php if($banner_details[0]->status == 1) { echo 'checked';} ?>  >
                                                    <span class="slider round"></span>
-                                               </label>
+                                                 </label>
                                                </button>
                                                </div>
                                             </div>
@@ -86,7 +87,7 @@
                                                     <img src="<?php echo base_url() . 'uploads/banner/' . $banner_details[0]->desk_image; ?>" style="width:37px;height: 37px;">
                                                     <?php
                                                 }
-                                                ?>
+                                                ?>  
                                             </div>
                                             <span style="color:red;font-size: 13px;">Image dimension should be 760 X 760 Px.</span>
                                         </div>
@@ -109,3 +110,57 @@
     </div>
 </form>
    
+
+
+
+<script>
+
+function UpdateBlogStatus(baner_id,status_value) {
+    console.log('baner_id JS=> ',baner_id);
+    console.log('status_value JS=>', status_value);
+
+    $.ajax({
+        url: "<?php echo base_url('Admin/update_banner_Status'); ?>",
+        type: "POST",
+        data: { baner_id: baner_id, status_value: status_value},
+        dataType: "json",
+        success: function(response) {
+            
+            console.log(response);
+
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'Banner status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Failed to update blog status.',
+                    'error'
+                );
+            }
+        }
+        // ,
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating blog status.',
+        //         'error'
+        //     );
+        // }
+    })
+}
+
+
+</script>
+
+
+
+
+
+
