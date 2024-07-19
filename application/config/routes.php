@@ -263,10 +263,17 @@ $route['save-gst-details']='common/save_gst_details';
   $route['api/wishlist']='Api/wishlist/index';
   $route['api/wishlist/add-to-wishlist']='Api/wishlist/addToWishList';
   $route['api/wishlist/delete/(:num)']='Api/wishlist/delteWishItem/$1';
-
+  
+  //Customer
+  $route['api/customer/address-list']='Api/customeraddress/index';
+  $route['api/customer/address_save']='Api/customeraddress/save';
+  $route['api/customer/setdefault']='Api/customeraddress/setdefault';   
+  
+  //Product
+  $route['api/product/list']='Api/product/index';
 
 // ===================End API===================================
-$route['api/product/list']='Api/product/index';
+
 
 //Apoorv Route
 $route['banner_edit_action/edit/(:num)']='Admin/banner_edit_action/$1';
