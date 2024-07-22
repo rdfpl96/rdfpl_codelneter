@@ -11,19 +11,20 @@
                      <div class="col-xl-9">
                         <?php
                        $url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                       print_r($url_path);
+                       //print_r($url_path);
                            $segments = explode('/', trim($url_path, '/'));
                            $base_url = base_url();
                            $breadcrumb = [
-                            ['url' => $base_url, 'name' => 'Home'],
-                            ['url' => $base_url . 'pc', 'name' => 'pc']
+                            ['url' => $base_url, 'name' => 'Home']
+                            // ,
+                            // ['url' => $base_url . 'pc', 'name' => 'pc']
                            ];
                            $current_url = $base_url . 'pc/';
                            foreach ($segments as $index => $segment) {
-                            if ($index > 1) { 
+                            // if ($index > 1) { 
                                 $current_url .= $segment . '/';
                                 $breadcrumb[] = ['url' => $current_url, 'name' => ucfirst(str_replace('-', ' ', $segment))];
-                            }
+                            // }
                            }
                         ?>
                         <div class="breadcrumb">
