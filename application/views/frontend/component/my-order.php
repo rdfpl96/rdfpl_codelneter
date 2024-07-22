@@ -1,4 +1,7 @@
 <?php
+// echo '<pre>';
+// print_r($getOrders);
+// exit();
 $this->load->view('frontend/header', $data);
 ?>
 
@@ -50,10 +53,24 @@ $this->load->view('frontend/header', $data);
                             <?php if ($getOrders && count($getOrders) > 0): ?>
                                 <?php 
                                 $lastOrderId = null;
+                                // $total_amount = 0;
                                 foreach ($getOrders as $index => $order): 
                                     if ($lastOrderId != $order->order_no):
                                         $lastOrderId = $order->order_no;
                                         $itemCount = count(array_filter($getOrders, fn($o) => $o->order_no === $order->order_no));
+                                    // $total_amount = $order->price * $order->qty;
+
+
+                                    $order_wise_product_details = $this->common_model->getOrderDetailsFun($order->order_no);
+                                    $total_amount = 0;
+                                    foreach ($order_wise_product_details as $key => $value1) {
+                                        $total_amount += (($value1['price']) * ($value1['qty']));
+                                    }
+                                ?>
+                                <?php
+                                // echo '<pre>';
+                                // print_r($sum);
+                                // echo $total_amount; 
                                 ?>
                                 <div class="my_orders1" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $index + 1; ?>" aria-expanded="true" aria-controls="collapse<?php echo $index + 1; ?>">
                                     <div class="row">
@@ -157,16 +174,21 @@ $this->load->view('frontend/header', $data);
                                     <div class="col-md-4" style="background: #f9f9f9;">
                                         <p><strong>Order Summary</strong></p>
                                         <div class="order_table">
+                                            <?php
+                                            // foreach ($getOrders as $order) {
+                                            //     $orderTotals[$order->order_no] += $order->qty * $order->price;
+                                            ?>
                                             <table>
                                                 <tr>
                                                     <th>Order Amount</th>
-                                                    <th><strong>Rs. <?php echo $order->price * $order->qty; ?></strong></th>
+                                                    <th><strong>Rs. <?php echo $total_amount; ?></strong></th>
                                                 </tr>
                                                 <tr>
                                                     <td>Savings</td>
                                                     <td><strong class="text-success">Rs. 0.00</strong></td>
                                                 </tr>
                                             </table>
+                                        <? //}?>
                                         </div>
                                     </div>
                                 </div>
@@ -210,8 +232,8 @@ $this->load->view('frontend/header', $data);
 <?php $this->load->view('frontend/footer'); ?>
 <input type="" name="">
 <?php
-echo '<pre>';
-print_r(json_encode($getOrders));
+// echo '<pre>';
+// print_r(json_encode($getOrders));
 
 ?>
 <script type="text/javascript">

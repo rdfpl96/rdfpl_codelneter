@@ -113,6 +113,7 @@
                               </div>
                            </div>
                         </a>
+                        
                         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="padding: 0px 26px;height: 40px;margin-top: 17px;background: #f17523;">
                                         Subscribe & Save
                         </button>
@@ -188,8 +189,19 @@
                               </a>
                                <!-- <a href="javascript:void(0);" onclick="saveToLater(<?php //echo $product['cart_id']?>);">Save for later</a>  -->                                          
                            </div>
+                           <?php
+                           $checkout_url = base_url('checkout') . '?product_id=' . $pdetail['product_id'];
+                           ?>
+                           <a href="<?php echo $checkout_url; ?>">
+                           <div class="grid_offer_ad mt-20">
+                              <div class="ad_btn" style="width: 470px;">
+                                 <h4>Buy Now <span class="material-symbols-outlined"></span></h4>
+                              </div>
+                           </div>
+                           </a>
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
+
                             <h4>Pack Sizes</h4>
                             <ul class="cust_select_lists">
                                 <?php foreach ($items as $item) { ?>
@@ -245,6 +257,7 @@
                                           <div class="ad_headline">
                                              <p>Har Din Sasta!</p>
                                           </div>
+
                                           <div class="ad_offer_percent">
                                              <h2>36% Off!</h2>
                                           </div>
