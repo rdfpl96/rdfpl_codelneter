@@ -11,6 +11,7 @@
                      <div class="col-xl-9">
                         <?php
                        $url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                       print_r($url_path);
                            $segments = explode('/', trim($url_path, '/'));
                            $base_url = base_url();
                            $breadcrumb = [
