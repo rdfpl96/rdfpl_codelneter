@@ -127,7 +127,13 @@ class Blogs_model extends CI_Model{
     $this->db->order_by('tbl_blog.blog_id', 'DESC'); // Adding order by clause
     $this->db->limit($limit, $start);
     $query = $this->db->get();
+
+    // echo '<pre>';
+    // print_r($query);
+    // die();
+    
     return $query->result_array(); // Ensuring the result is returned as an array
+
 }
 
 

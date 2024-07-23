@@ -520,8 +520,7 @@ class SqlQuery_model extends CI_Model
 
    public function update_banner_Status1($bannnerId, $status){
 
-      // $banner_id = $this->input->post('banner_id');
-      // $current_status = $this->input->post('status');
+   
     
       // print_r($status);
       
@@ -530,16 +529,16 @@ class SqlQuery_model extends CI_Model
       // print_r($current_status);
       // die();
       
-      $new_status = ($status == 1) ? 0 : 1;
+      $status = ($status == 1) ? 0 : 1;
     
 
-      // print_r('new status=>',$new_status);
+      //  print_r('new status=>',$new_status);
 
       // die();
 
 
       $data = array(
-         'status' => $new_status
+         'status' => $status
       );
       $this->db->where('banner_id', $bannnerId);
       if ($this->db->update('tbl_banner', $data)) {

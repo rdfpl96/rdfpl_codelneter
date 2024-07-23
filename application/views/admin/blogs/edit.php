@@ -92,7 +92,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                     <div class="row">
                         <div class="col-md-9">
                             <label class="form-label">Header Name<span style="color: red;">*</span></label>
-                            <input type="text" class="form-control" id="blog_header" name="blog_header" value="<?php echo (!empty($blog['blog_header']) ? $blog['blog_header'] : '') ?>">
+                            <input type="text" class="form-control" id="blog_header" name="blog_header" value="<?php echo (!empty($blog['blog_header']) ? $blog['blog_header'] : '') ?>" required>
+
 
                         </div>
                         <div class="col-md-3">
@@ -107,7 +108,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         $cate_id = (!empty($blog)) ? $blog['blog_category'] : '';
                                         $selected = ($value->cat_id == $cate_id) ? 'selected' : '';
                                 ?>
-                                        <option value="<?php echo $value->category; ?>" <?php echo $selected ?>><?php echo $value->category; ?></option>
+                                        <option value="<?php echo $value->cat_id; ?>" <?php echo $selected ?>><?php echo $value->category; ?></option>
                                 <?php
                                     }
                                 }
@@ -142,26 +143,27 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                           <input type="text" class="form-control" id="blog_tag_field" name="blog_tag_field" data-role="tagsinput" style="display: none;" value="<?php //echo ($product_list!=0)? $product_list[0]->blog_tag_field :'';
                                                                                                                                                                                 ?>">        
                                      </div> -->
+                                     
 
-                            <div class="col-md-12">
-                                <label for="Tags" class="form-label">Image<span style="color: red;">*</span> </label>
-                                <input type="file" class="form-control" id="blog_image" name="blog_image">
-
-                                <input type="hidden" name="image_path" id="image_path" value="<?php echo (!empty($blog['blog_image']) ? $blog['blog_image'] : '') ?>">
-                                    <?php
-                                    $filePath = (($product_list[0]->blog_image != "") ? './uploads/blogs_image/' . $product_list[0]->blog_image : '');
-                                    if (file_exists($filePath)) {
-                                        $imgFile = base_url() . 'uploads/blogs_image/' . $product_list[0]->blog_image;
-                                    } else {
-                                        $imgFile = base_url() . 'include/assets/default_product_image.png';
-                                    }
-
-                                    ?>
-                                    <img src=" <?php echo $imgFile; ?>" style="width:40px; height:40px;border:1px solid grey; ">
-
+                                     <div class="col-md-12">
+                                        <label for="Tags" class="form-label">Image<span style="color: red;">*</span> </label>
+                                        <input type="file" class="form-control" id="blog_image" name="blog_image" required>
+                                        <input type="hidden" name="image_path" id="image_path" value="<?php echo (!empty($blog['blog_image']) ? $blog['blog_image'] : '') ?>">
+                                        
+                                        <?php
+                                        $filePath = (($product_list[0]->blog_image != "") ? './uploads/blogs_image/' . $product_list[0]->blog_image : '');
+                                        if (file_exists($filePath)) {
+                                            $imgFile = base_url() . 'uploads/blogs_image/' . $product_list[0]->blog_image;
+                                        } else {
+                                            $imgFile = base_url() . 'include/assets/default_product_image.png';
+                                        }
+                                        ?>
 
 
-                                <span style="color:red;font-size: 13px;">Image dimension should be 2000 X 950 Px.</span>
+
+                                        <img src="<?php echo $imgFile; ?>" style="width:40px; height:40px;border:1px solid grey;">
+
+                                        <span style="color:red;font-size: 13px;">Image dimension should be 2000 X 950 Px.</span>
                             </div>
                         </div>
                     </div>
@@ -200,14 +202,60 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(document).ready(function() {
+   $(document).ready(function() {
+    $('.Update-blog').on('click', function() {
+        var isValid = true;
+        var errorMessage = '';
 
-        $('.update-blog').on('click', function() {
+        // Clear previous error messages
+        $('#cat-err').text('');
+        $('#blog_header').removeClass('is-invalid');
+        $('#blog_category').removeClass('is-invalid');
+        $('#blog_description').removeClass('is-invalid');
+        $('#blog_image').removeClass('is-invalid');
+
+        var blogHeader = $('#blog_header').val().trim();
+        var blogCategory = $('#blog_category').val().trim();
+        var blogDescription = CKEDITOR.instances.blog_description.getData().trim();
+        var blogImage = $('#blog_image').val().trim();
+
+        // Validate Header Name
+        if (blogHeader === '') {
+            isValid = false;
+            $('#blog_header').addClass('is-invalid');
+            errorMessage += 'Header Name is required.\n';
+        }
+
+        // Validate Category
+        if (blogCategory === '') {
+            isValid = false;
+            $('#blog_category').addClass('is-invalid');
+            $('#cat-err').text('Category is required.');
+            errorMessage += 'Category is required.\n';
+        }
+
+        // Validate Description
+        if (blogDescription === '') {
+            isValid = false;
+            $('#blog_description').addClass('is-invalid');
+            errorMessage += 'Description is required.\n';
+        }
+
+        // Validate Image
+        if (blogImage === '') {
+            isValid = false;
+            $('#blog_image').addClass('is-invalid');
+            errorMessage += 'Image is required.\n';
+        }
+
+        // If form is valid, proceed with AJAX call
+        if (isValid) {
             var dataToSend = {
                 blog_id: $('#blog_id').val(),
-                blog_header: $('#blog_header').val(),
-                blog_category: $('#blog_category').val(),
-                blog_description: CKEDITOR.instances.blog_description.getData()
+                blog_header: blogHeader,
+                blog_category: blogCategory,
+                blog_description: blogDescription,
+                blog_image: blogImage
             };
 
             $.ajax({
@@ -241,6 +289,14 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                     console.error('Error sending data:', textStatus, errorThrown);
                 }
             });
-        });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: errorMessage
+            });
+        }
     });
+});
+
 </script>

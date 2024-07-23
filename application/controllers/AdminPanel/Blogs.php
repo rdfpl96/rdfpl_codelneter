@@ -144,14 +144,12 @@ class Blogs extends CI_Controller{
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
-    
         // Pagination configuration
         $config = array();
         $config["base_url"] = base_url() . "admin/blogs";
         $config["total_rows"] = $this->blogs->get_blog_count_category();
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
-    
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
@@ -173,7 +171,7 @@ class Blogs extends CI_Controller{
         $config['num_tag_close'] = '</li>';
     
         $this->pagination->initialize($config);
-    
+
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
     
         $data['blog_list'] = $this->blogs->get_users_blogs($config["per_page"], $page);
@@ -183,23 +181,27 @@ class Blogs extends CI_Controller{
         $name = $this->input->post('name') ? $this->input->post('name') : '';
         $start = $page;
         $array_data = $this->blogs->get_blogs($start, $config["per_page"], $name);
-    
-        $count = $this->blogs->record_count($name);
-    
+
+        // $count = $this->blogs->record_count($name);
         $i = $page + 1;
-    
+
         $option = '';
-    
+
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
                 $checked = ($record['blog_status'] == 1) ? 'checked' : '';
                 $option .= '<tr> 
                                 <td>' . $i . '</td>
                                 <td>' . $record['blog_header'] . '</td>
-                                <td>' . $record['category'] . '</td>
-                                <td>' . $record['blog_image'] . '</td>
-                                <td>' . $record['updated_by'] . '</td>
+                                <td>' . $record['category'] . '</td>';
+                                if(!empty($record['blog_image'])){                                    
+                                    $option .= '<td><img src="' . base_url().'uploads/blogs_image/'.$record['blog_image']. '" style="width:37px;height: 37px;"></td>';
+                                }else{
+                                    $option .= '<td></td>';
+                                }
+                                $option .= '<td>' . $record['updated_by'] . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['blog_add_date'])) . '</td>
+                                
                                 <td> 
                                 <a href="javascript:void(0)"> 
                                 <label class="switch">
@@ -208,10 +210,13 @@ class Blogs extends CI_Controller{
                                 </label> 
                                 </a>
                                 </td>
+
                                 <td><a href="' . base_url() . 'admin/blogs/edit/' . $record['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
+
                                 <td><a href="javascript:deleteRowtablesub(' . $record['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+
                             </tr>';
-                $i++;
+                       $i++;
             }
         } else {
             $option .= '<tr><td colspan="9" style="color:red;text-align:center">No record</td></tr>';
@@ -227,20 +232,35 @@ class Blogs extends CI_Controller{
         }
     }
 
+
+    
     public function searchBlog() {
+        // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        // echo '<pre>';
+        // print_r($page);
+        // die();
+
         // Get the search keywords from the POST request
         $keywords = $this->input->post('searchText');
         $Cat_Html  = $this->blogs->getBlogSearchDetails($keywords);
         $html = '';
         foreach ($Cat_Html as $val) {
-            $html .= '<tr>
-             <td>' . $val['blog_id'] . '</td>
-                <td>' . $val['blog_header'] . '</td>
+            $checked = ($val['blog_status'] == 1) ? 'checked' : '';
+            $html .= '<tr>        
+                <td>' . $val['blog_id'] .'</td>
+                <td>' . $val['blog_header'] .'</td>
                 <td>' . $val['category'] . '</td>
-              <td>' . $val['blog_image'].'</td>
+                <td>' . $val['blog_image'].'</td>
                  <td>' . $val['updated_by'] . '</td>
                 <td>'.date('d-m-Y', strtotime($val['blog_add_date'])).'</td>
-                <td>' . $val['blog_status'] . '</td>
+                <td> 
+                                <a href="javascript:void(0)"> 
+                                <label class="switch">
+                                   <input type="checkbox" id="Status'.$val['blog_id'].'" name="Status[]" value="'.$val['blog_status'].'" onclick="UpdateBlogStatus('.$val['blog_id'].')" '.$checked.'>
+                                <span class="slider round"></span>
+                                </label> 
+                                </a>
+                                </td>
                 <td>' . $val['action'] . '</td>
                 <td><a href="' . base_url() . 'admin/blogs/edit/' . $val['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
                 <td><a href="javascript:deleteRowtablesub(' . $val['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
@@ -253,6 +273,11 @@ class Blogs extends CI_Controller{
         $this->load->view('admin/blogs/index', $data);
     }
     
+
+
+
+
+
 
 public function create()
 {
@@ -319,6 +344,7 @@ public function create()
         redirect('admin/subcategory/index');
     }
 
+
     public function edit($id) {
         $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
@@ -326,22 +352,37 @@ public function create()
         $this->load->view('admin/blogs/edit', $data);
     }
 
-    public function update() {
+
+     public function update() {
+
         $blog_data = array(
             'blog_header' => $this->input->post('blog_header'),
             'blog_category' => $this->input->post('blog_category'),
             'blog_description' => $this->input->post('blog_description'),
-            'blog_image' => $upload_data['blog_image'] // Uncomment if needed
+             'blog_image' => $upload_data['blog_image'] // Uncomment if needed
         );
+
         $id = $this->input->post('blog_id');
+
+        // if (!empty($_FILES['blog_image']['name'])) {
+        //     $blog_data['blog_image'] = $upload_data;
+        //   }
+
+
         if ($this->blogs->update_blogs($id, $blog_data)) {
-          
             echo json_encode(['status' => 'success', 'message' => 'Blog updated successfully']);
         } else {
-          
             echo json_encode(['status' => 'error', 'message' => 'Failed to update the blog']);
         }
     }
+
+
+
+
+
+
+
+
     
 
 
