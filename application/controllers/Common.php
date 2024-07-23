@@ -400,33 +400,36 @@ public function my_order() {
 }
 
 public function getOrderDetails() {
-
     $order_no = $this->input->get('order_no');
     $order_details = $this->common_model->getOrderDetailsFun($order_no);
-        $html.='<table style="width:100%">
+
+    $html = '<table style="width:100%">
           <tr>
             <th>Image</th>
             <th>Product Name</th>
             <th>Product Qty</th>
             <th>Price</th>
+            <th>Total</th>
           </tr>';
 
-        if(!empty($order_details)){
-          foreach ($order_details as $key => $value) {
-             $imgFile1 = base_url() . 'uploads/' . $value['feature_img'];
-              $html.='<tr>
+    if (!empty($order_details)) {
+        foreach ($order_details as $key => $value) {
+            $imgFile1 = base_url() . 'uploads/' . $value['feature_img'];
+            $total_price = $value['qty'] * $value['price'];
+            $html .= '<tr>
                 <td><img src="' . $imgFile1 . '" alt="Product Image" style="width:100px; height:auto;"></td>
-                <td>'.$value['product_name'].'</td>
-                <td>'.$value['qty'].'</td>
-                <td>'.$value['price'].'</td>
+                <td>' . $value['product_name'] . '</td>
+                <td>' . $value['qty'] . '</td>
+                <td>' . $value['price'] . '</td>
+                <td>' . $total_price . '</td>
               </tr>';
-          }
-        }else{
-            $html.='<tr>
-                <td colspan="4">No data</td>
-            </tr>';
         }
-        $html.='</table>';
+    } else {
+        $html .= '<tr>
+                <td colspan="5">No data</td>
+            </tr>';
+    }
+    $html .= '</table>';
 
     echo json_encode($html);
     exit();
