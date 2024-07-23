@@ -82,7 +82,11 @@ public function getUserDetailByEmailOrMobile($email_mob){
       return true;
     } 
 
-  } 
+  }
+
+  public function insertCartData($data) {
+        $this->db->insert('tbl_cartmanager', $data);
+  }   
   
 }
 
