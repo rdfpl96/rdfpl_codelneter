@@ -69,6 +69,21 @@ class Product extends REST_Controller{
   
   }
 
+public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
+
+    $pdetail=$this->product->getProductDetailById($id,$top_cat_id,$sub_id,$child_cat_id);
+
+
+    $simillerProduct=array();
+
+    if(count($pdetail)>0){
+      $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id);
+    }
+
+    $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct))); 
+  
+}  
+
  
 
 }

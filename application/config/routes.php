@@ -271,6 +271,8 @@ $route['save-gst-details']='common/save_gst_details';
   $route['api/customer/slote-list']='Api/customeraddress/sloteList';  
   //Product
   $route['api/product/list']='Api/product/index';
+  $route['api/product/categories']='Api/product/categoryList';
+  $route['api/product/detail/(:num)/(:num)/(:num)/(:num)']='Api/product/detail/$1/$2/$3/$4';
 
 // ===================End API===================================
 
