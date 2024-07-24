@@ -51,7 +51,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                 <div class="filter-search">
                     <form action="#" id="search-form" method="post"  enctype="multipart/form-data">
                         <label class="form-label">Search Offers</label>
-                        <input type="text" placeholder="" class="form-control" name="name" onkeyup="Search();">
+                        <input type="text" placeholder="" class="form-control" name="name"  id="Search_offer">
                     </form>
                 </div>
             </div>
@@ -151,4 +151,32 @@ if (success === 'true') {
         timer: 1500
     });
 }
+
+
+$(document).ready(function() {
+    $('#Search_offer').keyup(function() {
+
+        $.ajax({
+            url: "<?php echo base_url('AdminPanel/Offers/Search_offer') ?>",
+            type: 'POST',
+            data: { searchText: $('#Search_offer').val() },
+            success: function(response) {
+                $('#datalist').html(response);
+            }
+        });
+
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 </script>

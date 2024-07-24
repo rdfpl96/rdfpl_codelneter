@@ -141,13 +141,14 @@ class Blogs extends CI_Controller{
 
 
     public function index() {
+        $name = $this->input->post('name') ? $this->input->post('name') : '';
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
         // Pagination configuration
         $config = array();
         $config["base_url"] = base_url() . "admin/blogs";
-        $config["total_rows"] = $this->blogs->get_blog_count_category();
+        $config["total_rows"] = $this->blogs->get_blog_count_category($name);
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
         // Customizing pagination
@@ -178,7 +179,7 @@ class Blogs extends CI_Controller{
     
         $data['pagination'] = $this->pagination->create_links();
     
-        $name = $this->input->post('name') ? $this->input->post('name') : '';
+        
         $start = $page;
         $array_data = $this->blogs->get_blogs($start, $config["per_page"], $name);
 
@@ -244,10 +245,12 @@ class Blogs extends CI_Controller{
         $keywords = $this->input->post('searchText');
         $Cat_Html  = $this->blogs->getBlogSearchDetails($keywords);
         $html = '';
+        $counter = 0;
         foreach ($Cat_Html as $val) {
+            $counter++;
             $checked = ($val['blog_status'] == 1) ? 'checked' : '';
             $html .= '<tr>        
-                <td>' . $val['blog_id'] .'</td>
+                <td>' . $counter .'</td>
                 <td>' . $val['blog_header'] .'</td>
                 <td>' . $val['category'] . '</td>
                 <td>' . $val['blog_image'].'</td>
@@ -353,31 +356,68 @@ public function create()
     }
 
 
-     public function update() {
+    public function update() {
 
+        $id = $this->input->post('blog_id');
+    
         $blog_data = array(
             'blog_header' => $this->input->post('blog_header'),
             'blog_category' => $this->input->post('blog_category'),
-            'blog_description' => $this->input->post('blog_description'),
-             'blog_image' => $upload_data['blog_image'] // Uncomment if needed
+            'blog_description' => $this->input->post('blog_description')
         );
 
-        $id = $this->input->post('blog_id');
+        // Upload path configuration
+        $upload_path = realpath(APPPATH . '../uploads/blogs_image/');
 
-        // if (!empty($_FILES['blog_image']['name'])) {
-        //     $blog_data['blog_image'] = $upload_data;
-        //   }
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE);
+        }
+        $config['upload_path'] = $upload_path;
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_size'] = 2048;
+        $this->load->library('upload', $config);
+    
+        // echo '<pre>';
+        // print_r($blog_data);
+        // die();
+        if (!empty($_POST['blog_image']['name'])) {
 
 
+            // die('Upload');
+
+            if (!$this->upload->do_upload('blog_image')) {
+
+                $error = $this->upload->display_errors();
+
+                echo json_encode(['status' => 'error', 'message' => $error]);
+
+                return;
+            } else {
+              // Get uploaded file data
+                $upload_data = $this->upload->data();
+
+                $blog_data['blog_image'] = $upload_data['file_name'];
+            }
+        } else {
+            // $blog_data['blog_image'] = $this->input->post('blogImage');
+        }
         if ($this->blogs->update_blogs($id, $blog_data)) {
+
             echo json_encode(['status' => 'success', 'message' => 'Blog updated successfully']);
         } else {
+
             echo json_encode(['status' => 'error', 'message' => 'Failed to update the blog']);
         }
     }
+    
 
 
 
+
+
+    
+
+    
 
 
 

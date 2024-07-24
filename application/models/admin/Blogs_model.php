@@ -42,9 +42,17 @@ class Blogs_model extends CI_Model{
 
 
 
-  public function get_blog_count_category() {
+  public function get_blog_count_category($name = '') {
   
-    return $this->db->count_all("tbl_blog");
+    //return $this->db->count_all("tbl_blog");
+    $this->db->select('tbl_blog.*, tbl_category.category');
+    $this->db->from('tbl_blog');
+    $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
+    if ($name) {
+      $this->db->like('tbl_blog.blog_cat_name', $name);
+    }
+    $query = $this->db->get();    
+    return count($query->result_array());
   }
 
 
@@ -162,6 +170,8 @@ class Blogs_model extends CI_Model{
       $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
       $this->db->like('tbl_blog.blog_header', $search);
       $this->db->or_like('tbl_category.category', $search);
+      $this->db->order_by('tbl_blog.blog_id', 'DESC');
+      $this->db->limit(10, 0);
       $query = $this->db->get();
       return $query->result_array(); 
     

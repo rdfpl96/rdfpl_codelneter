@@ -298,5 +298,41 @@ class Offers extends CI_Controller{
     // }
 
 
+
+
+
+
+public function Search_offer() {
+
+    $keywords = $this->input->post('searchText');
+
+ 
+    $array_data = $this->offers->getSearch_offerDetails($keywords);
+
+    $option = '';
+    $i = 1;
+
+    if (is_array($array_data) && count($array_data) > 0) {
+        foreach ($array_data as $keyval) {
+            $option .= '<tr>
+                            <td>' . $i . '</td>
+                            <td>' . $keyval['offer_type'] . '</td>
+                            <td>' . $keyval['description'] . '</td>
+                            <td>' . $keyval['value'] . '</td>
+                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                        </tr>';
+            $i++;
+        }
+    } else {
+      
+        $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+    }
+
+    echo $option;
+}
+
+    
+
+
 }
 ?>

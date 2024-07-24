@@ -217,7 +217,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         var blogHeader = $('#blog_header').val().trim();
         var blogCategory = $('#blog_category').val().trim();
         var blogDescription = CKEDITOR.instances.blog_description.getData().trim();
-        var blogImage = $('#blog_image').val().trim();
+        var blogImage = $('#blog_image')[0].files[0];
 
         // Validate Header Name
         if (blogHeader === '') {
@@ -268,7 +268,9 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
-                            text: response.message
+                            text: response.message,
+                            processData: false, 
+                            contentType: false,
                         }).then(() => {
                             window.location.href = "<?php echo base_url('admin/blogs'); ?>";
                         });

@@ -117,8 +117,6 @@ class Offers_model extends CI_Model{
     //     }
     // }
  
-
-
    public function getViewByID($id){
     $array_record=array();      
     $this->db->select('*');
@@ -131,6 +129,19 @@ class Offers_model extends CI_Model{
     return $array_record;   
   }
 
-  
+
+
+  public function getSearch_offerDetails($search) {
+    // Build and execute the query
+    $this->db->select('*');
+    $this->db->from('offers');
+    $this->db->like('description', $search);
+    // $this->db->like('offer_type', $search);
+    // $this->db->like('value', $search);
+    $query = $this->db->get();
+
+    // Fetch the result as an associative array
+    return $query->result_array();
+}
 }
 ?>

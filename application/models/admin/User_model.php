@@ -130,11 +130,7 @@ public function get_users_banner($limit, $start) {
     }
  
     public function insert_user($data) {
- 
- 
-      // print_r($data);
-      // die();
-        return $this->db->insert('tbl_admin', $data);
+     return $this->db->insert('tbl_admin', $data);
     }
  
  
