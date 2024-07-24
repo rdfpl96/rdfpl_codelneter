@@ -156,7 +156,7 @@ class Product_model extends CI_Model{
       $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
       $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
       $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
-      $this->db->limit($records_per_page,$start);
+     
       $query=$this->db->get();
       if($query->num_rows()>0){
           foreach($query->result_array() as $record){
