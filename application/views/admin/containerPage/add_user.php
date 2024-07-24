@@ -28,8 +28,15 @@ if ($this->session->flashdata('error')): ?>
         <?php echo $this->session->flashdata('error'); ?>
     </div>
 <?php endif; ?>
-
-<form action="<?php echo base_url('admin/'.(!empty($user_id) ? 'update_user' : 'add_user')); ?>" method="post" enctype="multipart/form-data">
+<?php 
+if(!empty($user_id)){
+    $action = 'update_user';
+}else{
+    $action = 'add_user';
+}
+//  ? 'update_user' : 'add_user')
+?>
+<form action="<?php echo base_url('admin/'.$action); ?>" method="post" enctype="multipart/form-data">
     <!-- main body area -->
     <div class="main px-lg-4 px-md-4">
         <!-- Body: Body -->
@@ -42,7 +49,7 @@ if ($this->session->flashdata('error')): ?>
                                 <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                             </div>
                             <h3 class="fw-bold mb-0"><?php echo empty($user_id) ? 'Add' : 'Edit'; ?> User</h3>
-                            <button onclick="window.location.href='<?= base_url('admin/user_list') ?>'" class="btn btn-primary" style="margin-left: 600px;">Back</button>
+                            <button href="'<?= base_url('admin/user_list') ?>'" class="btn btn-primary" style="margin-left: 600px;">Back</button>
                             <button type="submit" class="btn btn-primary" id="update_user">Save</button>
                         </div>
                     </div>
@@ -52,7 +59,7 @@ if ($this->session->flashdata('error')): ?>
                     <div class="col-xl-12 col-lg-12">
                         <div class="sticky-lg-top">
                             <div class="card mb-3">
-                                <input type="text" class="form-control" name="editv" id="editv"  value="<?php echo $user_id; ?>">
+                                <input type="hidden" class="form-control" name="editv" id="editv"  value="<?php echo $user_id; ?>">
 
                                 <div class="card-body">
                                     <div class="row g-3 align-items-center">
