@@ -206,6 +206,7 @@ class Admin extends CI_Controller
 
     // Fetch other necessary data
     $data['user_list'] = $this->sqlQuery_model->sql_select_where('tbl_admin', array('admin_type' => 'U'));
+
     $data['ActiveInactive_ActionArr'] = array('table' => 'tbl_admin', 'primary_key' => 'admin_id', 'update_target_column' => 'status');
     $data['deleteActionArr'] = array('table' => 'tbl_admin', 'primary_key' => 'admin_id');
 
@@ -214,9 +215,16 @@ class Admin extends CI_Controller
   }
 
 
+
+
+
+
+
   //new code
-  public function add_user()
-  {
+public function add_user(){
+  
+  
+ 
     // Form validation rules
     $this->form_validation->set_rules('c_fname', 'First Name', 'required');
     $this->form_validation->set_rules('username', 'Username', 'required');
@@ -274,7 +282,47 @@ class Admin extends CI_Controller
         }
       }
     }
+  
+}
+
+
+
+
+
+public function update_user() {
+  
+  $user_id = $this->input->post('editv');
+
+
+
+  $user_data = array(
+      'admin_name' => $this->input->post('c_fname'),
+      'admin_username' => $this->input->post('username'),
+      'admin_mobile' => $this->input->post('mobile'),
+      'admin_email' => $this->input->post('email'),
+      'admin_designation' => $this->input->post('designation'),
+      'admin_password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+  );
+
+  $where = array('admin_id' => $user_id);
+  $update = $this->sqlQuery_model->sql_update('tbl_admin', $user_data, $where);
+  if ($update) {
+      $this->session->set_flashdata('success', 'User updated successfully');
+      redirect('admin/user_list');
+  } else {
+      $this->session->set_flashdata('error', 'Failed to update user');
+      $data['content'] = 'admin/containerPage/edit_user';
+      $this->load->view('admin/template', $data);
   }
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -3182,7 +3230,7 @@ class Admin extends CI_Controller
         $this->load->library('upload', $config);
         $desk_imgPath = '';
 
-        // Attempt file upload
+        // Attempt file  upload
         if ($this->upload->do_upload('userfile')) {
           $upload_data = $this->upload->data();
           $desk_imgPath = $upload_data['file_name'];
@@ -3190,6 +3238,8 @@ class Admin extends CI_Controller
           $data['upload_error'] = $this->upload->display_errors();
         }
       }
+
+
       // Prepare data to insert/update
       $dataToSave = array(
         'text1' => $text1,
@@ -3202,9 +3252,9 @@ class Admin extends CI_Controller
       if (!empty($_FILES['userfile']['name'])) {
         $dataToSave['desk_image'] = $desk_imgPath;
       }
-      // Insert or update data based on whether $getuserId is set
+      
+
       if (!empty($getuserId)) {
-        // Update existing record
         $this->sqlQuery_model->sql_update('tbl_banner', $dataToSave, array('banner_id' => $getuserId));
       } else {
         // Insert new record
