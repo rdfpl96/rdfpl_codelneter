@@ -40,8 +40,9 @@ class Product extends REST_Controller{
      
       $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
         
-        echo json_encode($res);
-        exit();
+
+        $this->response($res); 
+       
   }
 
 

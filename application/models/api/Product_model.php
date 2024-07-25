@@ -147,7 +147,7 @@ class Product_model extends CI_Model{
       $this->db->where('TC.status',1);
       $this->db->where('SC.status',1);
       $this->db->where('CC.status',1);
-      $this->db->where('P.product_id',$product_id);
+      $this->db->where('P.product_id1',$product_id);
       $this->db->where('TC.cat_id',$top_cat_id);
       $this->db->where('SC.sub_cat_id',$sub_id);
       $this->db->where('CC.child_cat_id',$child_cat_id);
