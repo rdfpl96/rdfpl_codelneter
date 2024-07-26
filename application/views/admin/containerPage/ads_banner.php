@@ -75,7 +75,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                                   <input type="hidden" name="imagePath"  id="imagePath" class="form-control" value="<?php echo ($ads_Banner!=0) ? $ads_Banner[0]->ads_banner:'';?>">
                                                   <?php
-                                                  if($ads_Banner!=0) {
+
+                                                   if($ads_Banner!=0) {
                                                        $filePath=(($ads_Banner[0]->ads_banner!="") ? './uploads/user/'.$ads_Banner[0]->ads_banner :'');
                                                           if(file_exists($filePath)){
                                                              $imgFile=base_url().'uploads/user/'.$ads_Banner[0]->ads_banner;
@@ -84,9 +85,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                           }
                                                    ?>
                                                 <img src="<?php echo $imgFile;?>" style="width:40px; height:40px;border:1px solid grey; ">
+                                                <?php }?>
 
-                                                <?php } ?>
                                                  <br>
+
                                                 <span style="color:red;font-size: 13px;">Image dimension should be 1290 X 338 Px.</span>
                                             </div>
                                            

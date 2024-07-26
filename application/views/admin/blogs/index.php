@@ -41,7 +41,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 <div class="filter-search">
                     <form action="#" id="search-form" method="post" enctype="multipart/form-data">
                         <label class="form-label">Search blog</label>
-                        <input type="text" placeholder="" class="form-control" name="search-blog" id="search-blog">
+                        <input type="text" placeholder="Search blog......" class="form-control" name="search-blog" id="search-blog">
                     </form>
                 </div>
             </div>
@@ -117,6 +117,8 @@ $(document).ready(function() {
         });
     });
 });
+
+
 
 function deleteRowtablesub(blog_id) {
     Swal.fire({

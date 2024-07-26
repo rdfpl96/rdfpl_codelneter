@@ -112,6 +112,7 @@ $route['admin/offers/update/(:num)'] = 'AdminPanel/offers/update/$1';
 
 //Coupon
 $route['admin/coupon']='AdminPanel/coupon/index';
+$route['admin/coupon/(:num)']='AdminPanel/coupon/index/$1';
 $route['admin/coupon/create'] = 'AdminPanel/coupon/create';
 $route['admin/coupon/store'] = 'AdminPanel/coupon/store';
 $route['admin/coupon/edit/(:num)'] = 'AdminPanel/coupon/edit/$1';

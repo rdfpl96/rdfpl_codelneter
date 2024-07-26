@@ -55,14 +55,18 @@ class Coupon_model extends CI_Model{
       }
   }
 
-    public function record_count($name) {
+    public function record_count() {
 
-    if($name!=''){
-       $this->db->like('coupon_code',$name);
-    }
-    return $this->db->from("tbl_coupon")->count_all_results();    
-  }
+    //  if($name!=''){
+    //    $this->db->like('coupon_code',$name);
+    //  }
+     return $this->db->from("tbl_coupon")->count_all_results();    
+   }
    
+
+
+
+
 
             
   
@@ -79,7 +83,10 @@ class Coupon_model extends CI_Model{
     //     return $query->result_array(); // Ensuring the result is returned as an array
     // }
 
-    public function get_all_coupons($start, $limit, $name) {
+
+
+    public function get_all_coupons($limit, $start) {
+        $this->db->limit($limit, $start);
         $query = $this->db->get('tbl_coupon');
         return $query->result();
     }
@@ -130,6 +137,56 @@ class Coupon_model extends CI_Model{
     }
     return $array_record;   
   }
+
+
+
+
+public function edit($id){
+  $this->db->where('coupon_id',$id);
+  $query=$this->db->get('tbl_coupon');
+  return $query->row_array();
+
+}
+
+
+public function update_coupon($id, $data) {
+  $this->db->where('coupon_id', $id);
+  return $this->db->update('tbl_coupon', $data); 
+}
+
+
+public function deletecoupon($id){
+  $this->db->where('coupon_id',$id);
+  $this->db->delete('tbl_coupon',array('coupon_id' => $id));
+  if ($this->db->affected_rows() > 0) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+  
+public function getCouponSearchDetails($keywords  = '',)
+{
+    $this->db->select('*');
+    $this->db->from('tbl_coupon');
+    if (!empty($keywords)) {
+        $this->db->like('coupon_code', $keywords);
+        $this->db->or_like('disc_type', $keywords);
+    }
+    $this->db->limit(4, 0);
+    $query = $this->db->get();
+    return $query->result();
+}
+
+
+
+
+
+
+
+
+
 
   
 }
