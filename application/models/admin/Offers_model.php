@@ -79,10 +79,23 @@ class Offers_model extends CI_Model{
     //     return $query->result_array(); // Ensuring the result is returned as an array
     // }
 
-    public function get_all_offers($start, $limit, $name) {
+    public function get_all_offers($limit,$start) {
+      
+      $this->db->limit($limit, $start);
         $query = $this->db->get('offers');
         return $query->result();
     }
+
+    public function get_coupon_count_category(){
+      $this->db->select('COUNT(*) as total');
+      $this->db->from('offers');
+      $query = $this->db->get();
+      $result = $query->row_array(); 
+      return $result['total']; 
+  }
+  
+
+
 
 
     public function store($data) {
@@ -128,6 +141,30 @@ class Offers_model extends CI_Model{
     }
     return $array_record;   
   }
+
+
+
+
+
+
+
+
+
+public function get_offers_count(){
+
+   $this->db->select('COUNT(*) as total');
+   $this->db->from('offers');
+   $query = $this->db->get();
+   $result = $query->row_array();
+   return $result['total'];
+
+
+}
+
+
+
+
+
 
 
 
