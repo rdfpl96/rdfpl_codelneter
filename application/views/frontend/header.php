@@ -1,8 +1,7 @@
 <?php
-    $custDetail=getCookies('customer');
+   $custDetail=getCookies('customer');
 
-    $customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : 0 ;
-
+   $customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : 0 ;
    $record_num = end($this->uri->segment_array());
    
    $headerArray=array('checkout','delivery-address','payment-option');
@@ -11,7 +10,10 @@
       $isheader=true;
    }
    
-    $tcategories=$this->customlibrary->getTopCategory();
+   $query= "select c_fname from tbl_customer where customer_id='$customerId'";
+   $result = $this->db->query($query, array($customerId))->row();
+   //print_r($result->c_fname);
+   $tcategories=$this->customlibrary->getTopCategory();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,15 +133,18 @@
                                 </a>
                             <?php } ?>
                         </div>
-                           
                            <div class="header-action-icon-2 login_sign_up_btn">
-                              <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { ?>
+                              <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { 
+                                 //print_r($custDetail);
+                                 ?>
 
                                     <!-- Default dropend button -->
                                        <div class="user_icon_group">
                                            <div class="user_icon" data-bs-toggle="dropdown" aria-expanded="false">
-                                               <span class="material-symbols-outlined">account_circle</span>
+                                               <span class="material-symbols-outlined">account_circle </span>
+                                               <p style="text-align:center;margin-top:-10px;color:#808080"><?php echo $result->c_fname ?></p>
                                            </div>
+                                           
                                            <ul class="dropdown-menu">
                                                 <li><a href="<?php echo base_url('account');?>">My Account</a></li>
                                                 <li><a class="d-flex justify-content-between" href="<?php echo base_url('cart');?>">My Basket <span class="pro-count blue total-items"><?php echo $this->customlibrary->total_items($customerId) ?: 0;?></span></a></li>
