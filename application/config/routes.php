@@ -105,6 +105,7 @@ $route['admin/childcategory/update/(:num)'] = 'AdminPanel/childcategory/update/$
 
 //Offers
 $route['admin/offers']='AdminPanel/offers/index';
+$route['admin/offers/(:num)']='AdminPanel/offers/index/$1';
 $route['admin/offers/create'] = 'AdminPanel/offers/create';
 $route['admin/offers/store'] = 'AdminPanel/offers/store';
 $route['admin/offers/edit/(:num)'] = 'AdminPanel/offers/edit/$1';

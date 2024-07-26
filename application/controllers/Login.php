@@ -78,6 +78,8 @@ class login extends CI_Controller {
 }
 
 
+
+
 public function otpVerification() {
     $email_mobi = $this->input->post('email_mobi');
     $otpArray = $this->input->post('otp');
