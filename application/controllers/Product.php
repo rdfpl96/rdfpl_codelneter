@@ -15,27 +15,53 @@ class Product extends CI_Controller {
 
   public function index($slug1="",$slug2="",$slug3=""){
 
-   
+     $breadcrum="";
     $products=$this->productObj->getProdcutListBySlug($slug1,$slug2,$slug3);
-
+    // echo'<pre>';
+    // print_r($products);
+    // exit();
 
      if(is_array($products) && count($products)>0){
 
       $sidecategories=array();
 
-      if($slug1!="" && $slug2!=""){
+      $topDetail=$this->customlibrary->getTopCatDetailId($products[0]['cat_id']);
+      $subDetail=$this->customlibrary->getSubCatDetailId($products[0]['sub_cat_id']);
+      $childDetail=$this->customlibrary->getChildCatDetailId($products[0]['child_cat_id']);
+
+      if($slug1!="" && $slug2!="" && $slug3!=""){
+
+        $breadcrum='<span></span><a href="/shop/'.$topDetail['slug'].'">'.$topDetail['category'].'</a>';
+
+        $breadcrum.='<span></span><a href="/shop/'.$topDetail['slug'].'/'.$subDetail['slug'].'">'.$subDetail['subCat_name'].'</a>';
+
+        $breadcrum.='<span></span>'.$childDetail['childCat_name']; 
+        
+        $categoryName=$this->customlibrary->SubCatName($products[0]['sub_cat_id']);
+        $sidecategories=$this->customlibrary->getChilCategory($products[0]['cat_id'],$products[0]['sub_cat_id']);
+         $categoryLevel=2;
+
+      }
+
+      else if($slug1!="" && $slug2!=""){
         $categoryLevel=2;
         $categoryName=$this->customlibrary->SubCatName($products[0]['sub_cat_id']);
-       $sidecategories=$this->customlibrary->getChilCategory($products[0]['cat_id'],$products[0]['sub_cat_id']);
+        $sidecategories=$this->customlibrary->getChilCategory($products[0]['cat_id'],$products[0]['sub_cat_id']);
+
+       $breadcrum='<span></span><a href="/shop/'.$topDetail['slug'].'">'.$topDetail['category'].'</a>';
+
+        $breadcrum.='<span></span>'.$subDetail['subCat_name'];
       }
       else if($slug1!="" && $slug2==""){
         $categoryLevel=1;
         $categoryName=$this->customlibrary->TopCatName($products[0]['cat_id']);
         $sidecategories=$this->customlibrary->getSubCategoryByCatId($products[0]['cat_id']);
         
+         $breadcrum='<span></span>'.$topDetail['category'];
       }  
        //$sidecategories=$this->customlibrary->getTopCategory();
 
+       $data['bread']='<a href="shop">Shop</a>'. $breadcrum;
        $data['productCount']=count($products);
        $data['sidecategories']=$sidecategories;
        $data['categoryName']=$categoryName;
@@ -57,6 +83,7 @@ class Product extends CI_Controller {
        $data['sidecategories']=$sidecategories;
        $data['categoryName']="";
        $data['categoryLevel']="";
+      $data['bread']='Shop';
        $data['products']= $this->load->view('frontend/component/productItem', array("productItems"=>$products,'pcol'=>4), TRUE);
 
     $this->load->view("frontend/product/index",$data);

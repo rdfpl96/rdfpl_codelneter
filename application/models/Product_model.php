@@ -87,25 +87,27 @@ class Product_model extends CI_Model{
     $array_data=array();
     $this->db->select('P.product_id,P.product_name,P.slug,P.feature_img,PWM.cat_id,PWM.sub_cat_id,PWM.child_cat_id');
 
-    $this->db->from('tbl_mapping_category_with_product AS PWM');
-    $this->db->join('tbl_product AS P', 'PWM.mapping_product_id = P.product_id');
-    $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
+    $this->db->from('tbl_product AS P');
+   
     $this->db->where('P.status',1);
     $this->db->where('TC.status',1);
+    $this->db->where('SC.status',1);
+    $this->db->where('CC.status',1);
     if($slug1!=""){
       $this->db->where('TC.slug',$slug1);
     }
     if($slug2!=""){
-      $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
-      $this->db->where('SC.status',1);
-      $this->db->where('SC.slug',$slug2);
+     $this->db->where('SC.slug',$slug2);
     }
     if($slug3!=""){
-      $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
-      $this->db->where('CC.status',1);
       $this->db->where('CC.slug',$slug3);
     }
-     $this->db->limit(30,0);
+     
+    $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
+    $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
+    $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
+    $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
+    // $this->db->limit(30,0);
     $query=$this->db->get();
     if($query->num_rows()>0){
 

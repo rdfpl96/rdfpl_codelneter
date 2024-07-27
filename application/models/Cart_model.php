@@ -253,6 +253,17 @@ public function cancelOrder($order_id) {
         return false;
     }
 }
+
+public function get_address_by_id($addr_id) {
+    $this->db->where('addr_id', $addr_id);
+    $query = $this->db->get('tbl_address');
+    return $query->row_array();
+}
+
+public function update_address($addr_id, $data) {
+        $this->db->where('addr_id', $addr_id);
+        return $this->db->update('tbl_address', $data);
+    }
  
 
 }

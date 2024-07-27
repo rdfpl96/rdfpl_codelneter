@@ -207,6 +207,48 @@ class Customlibrary
      return $name;   
    } 
 
+   public function getTopCatDetailId($cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('cat_id',$cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
+    public function getSubCatDetailId($sub_cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_sub_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('sub_cat_id',$sub_cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
+    public function getChildCatDetailId($child_cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_child_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('child_cat_id',$child_cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
 
    public function getTopCategory($id=''){
       $return=array();
