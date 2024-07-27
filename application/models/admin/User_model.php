@@ -30,13 +30,15 @@ public function get_user_count() {
  
 public function get_users($limit, $start) {
   $this->db->limit($limit, $start);
+  $this->db->order_by('admin_id', 'DESC');
   $query = $this->db->get("tbl_admin");
- 
+
   if ($query->num_rows() > 0) {
       return $query->result();
   }
   return false;
 }
+
  
  
  
