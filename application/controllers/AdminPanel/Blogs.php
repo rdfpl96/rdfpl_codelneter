@@ -174,12 +174,12 @@ class Blogs extends CI_Controller{
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+    
     
         $data['blog_list'] = $this->blogs->get_users_blogs($config["per_page"], $page);
     
         $data['pagination'] = $this->pagination->create_links();
-    
-        
         $start = $page;
         $array_data = $this->blogs->get_blogs($start, $config["per_page"], $name);
 
@@ -188,7 +188,7 @@ class Blogs extends CI_Controller{
 
         $option = '';
 
-        if (is_array($array_data) && count($array_data) > 0) {
+         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $record) {
                 $checked = ($record['blog_status'] == 1) ? 'checked' : '';
                 $option .= '<tr> 
@@ -236,45 +236,51 @@ class Blogs extends CI_Controller{
 
     
     public function searchBlog() {
-        // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        // echo '<pre>';
-        // print_r($page);
-        // die();
-
         // Get the search keywords from the POST request
         $keywords = $this->input->post('searchText');
         $Cat_Html  = $this->blogs->getBlogSearchDetails($keywords);
         $html = '';
         $counter = 0;
+    
         foreach ($Cat_Html as $val) {
             $counter++;
             $checked = ($val['blog_status'] == 1) ? 'checked' : '';
-            $html .= '<tr>        
-                <td>' . $counter .'</td>
-                <td>' . $val['blog_header'] .'</td>
+            $imgHtml = '';
+    
+            if (!empty($val['blog_image'])) {                                    
+                $imgHtml = '<td><img src="' . base_url() . 'uploads/blogs_image/' . $val['blog_image'] . '" style="width:37px;height:37px;"></td>';
+            } else {
+                $imgHtml = '<td>No Image found</td>';
+            }
+    
+            $html .= '<tr>
+                <td>' . $counter . '</td>
+                <td>' . $val['blog_header'] . '</td>
                 <td>' . $val['category'] . '</td>
-                <td>' . $val['blog_image'].'</td>
-                 <td>' . $val['updated_by'] . '</td>
-                <td>'.date('d-m-Y', strtotime($val['blog_add_date'])).'</td>
-                <td> 
-                                <a href="javascript:void(0)"> 
-                                <label class="switch">
-                                   <input type="checkbox" id="Status'.$val['blog_id'].'" name="Status[]" value="'.$val['blog_status'].'" onclick="UpdateBlogStatus('.$val['blog_id'].')" '.$checked.'>
-                                <span class="slider round"></span>
-                                </label> 
-                                </a>
-                                </td>
+                ' . $imgHtml . '
+                <td>' . $val['updated_by'] . '</td>
+                <td>' . date('d-m-Y', strtotime($val['blog_add_date'])) . '</td>
+                <td>
+                    <a href="javascript:void(0)">
+                        <label class="switch">
+                            <input type="checkbox" id="Status' . $val['blog_id'] . '" name="Status[]" value="' . $val['blog_status'] . '" onclick="UpdateBlogStatus(' . $val['blog_id'] . ')" ' . $checked . '>
+                            <span class="slider round"></span>
+                        </label>
+                    </a>
+                </td>
                 <td>' . $val['action'] . '</td>
                 <td><a href="' . base_url() . 'admin/blogs/edit/' . $val['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
-                <td><a href="javascript:deleteRowtablesub(' . $val['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                <td><a href="javascript:deleteRowtablesub(' . $val['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
             </tr>';
         }
-         
-       print_r($html);
+    
+        print_r($html);
         die();
+    
         // Load the view with the data
-        $this->load->view('admin/blogs/index', $data);
+        $this->load->view('admin/blogs/index', ['html' => $html]);
     }
+    
     
 
 
@@ -352,12 +358,12 @@ public function create()
         $data['blog'] = $this->blogs->edit($id);
         $data['categories'] = $this->category->get_categories();
 
+        
         $this->load->view('admin/blogs/edit', $data);
     }
 
 
     public function update() {
-
         $id = $this->input->post('blog_id');
     
         $blog_data = array(
@@ -446,6 +452,9 @@ public function create()
         exit();
         redirect('admin/blogs');
     }
+
+
+    
     
     public function updateBlogStatus(){
         $status = $this->input->post('status');
@@ -461,4 +470,5 @@ public function create()
     }
 
 }
+
 ?>

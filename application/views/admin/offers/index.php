@@ -20,10 +20,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   </div>
               
     <h3 class="fw-bold mb-0">Offers List</h3>
-     <?php if(in_array('add',$getAccess['inputAction']) || $session['admin_type']=='A'){ ?>
-    <a href="<?php echo base_url('admin/offers/create');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add</a>
+    
+    <!-- <a href="<?php // echo base_url('admin/offers/create');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add</a> -->
 
-  <?php } ?>
+
 <a href="<?php echo base_url('admin/offers/create');?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Add Offer</button></a>
 
       <!-- ===== -->
@@ -117,8 +117,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
              <tbody id="datalist"><?php  echo isset($array_data) ? $array_data : "";?></tbody>
            
         </table>
-          <div id="pg"><?php  echo isset($pagination) ? $pagination : ''?></div> 
-
+        
+        <div class="pagination-links">
+                <?php echo $pagination; ?>
+            </div>
 
         
         </div>

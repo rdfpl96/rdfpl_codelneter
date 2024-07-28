@@ -45,6 +45,11 @@
           $('#product_id').chosen();
         });
 
+        $(document).ready(function () {
+          $('#product_variant').chosen();
+        });
+        
+
          $(".customerClass").select2({
           placeholder: "-Select-",
         

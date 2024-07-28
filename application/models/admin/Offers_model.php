@@ -1,4 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use Mpdf\Tag\Select;
+
+ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Offers_model extends CI_Model{
   function __construct(){
@@ -10,16 +14,17 @@ class Offers_model extends CI_Model{
       $array_data=array();
       $this->db->select('*');
       $this->db->from('tbl_product AS P');
+      // $this->db->join()
       $this->db->where('status',1);
       $query=$this->db->get();
       if($query->num_rows()>0){
 
         $array_data=$query->result_array();
       }
-    
     return $array_data;
-
   }
+
+
   
   public function chkUniqueCategoryName($name,$id=""){
     
@@ -79,10 +84,37 @@ class Offers_model extends CI_Model{
     //     return $query->result_array(); // Ensuring the result is returned as an array
     // }
 
-    public function get_all_offers($start, $limit, $name) {
+    public function get_all_offers($limit,$start) {
+      
+      $this->db->limit($limit, $start);
         $query = $this->db->get('offers');
         return $query->result();
     }
+
+
+
+    public function get_variants($category_id) {
+      $this->db->select('variant_id, pack_size, units');
+      $this->db->from('tbl_product_variants');
+      $this->db->where('variants_product_id',$category_id);
+      $query=$this->db->get() ; 
+      return $query->result_array();
+    }
+
+
+
+
+
+    public function get_coupon_count_category(){
+      $this->db->select('COUNT(*) as total');
+      $this->db->from('offers');
+      $query = $this->db->get();
+      $result = $query->row_array(); 
+      return $result['total']; 
+  }
+  
+
+
 
 
     public function store($data) {
@@ -131,17 +163,43 @@ class Offers_model extends CI_Model{
 
 
 
+
+
+
+
+
+
+public function get_offers_count(){
+
+   $this->db->select('COUNT(*) as total');
+   $this->db->from('offers');
+   $query = $this->db->get();
+   $result = $query->row_array();
+   return $result['total'];
+
+
+}
+
+
+
+
+
+
+
+
   public function getSearch_offerDetails($search) {
     // Build and execute the query
     $this->db->select('*');
     $this->db->from('offers');
     $this->db->like('description', $search);
-    // $this->db->like('offer_type', $search);
+    //  $this->db->like('offer_type', $search);
+    $this->db->limit(10, 0);
     // $this->db->like('value', $search);
     $query = $this->db->get();
 
     // Fetch the result as an associative array
     return $query->result_array();
 }
+
 }
 ?>
