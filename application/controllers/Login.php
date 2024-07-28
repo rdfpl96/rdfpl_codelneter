@@ -8,6 +8,7 @@ class login extends CI_Controller {
         parent::__construct();
 
           $this->load->model('frontlogin_model','loginObj');
+          $this->load->model('cart_model','cartObj');
           $this->load->library('my_libraries');
    }
       
@@ -98,31 +99,17 @@ public function otpVerification() {
 
                 // Set cookies
                 setCookies("customer", array("customer_id" => $userDetail['customer_id'], 'name' => $userDetail['c_fname'], 'isCustomerLogin' => 1));
-                $cart_contents = $_SESSION['cart_contents'];
                 
-                // Insert cart data into cart_manager table
-                foreach ($cart_contents as $key => $cart_item) {
-                    if (in_array($key, ['cart_total', 'total_items'])) {
-                        continue;
-                    }
-                    if (is_array($cart_item)) {
-                        $cart_data = array(
-                            'user_id' => $userDetail['customer_id'],
-                            'product_id' => isset($cart_item['id']) ? $cart_item['id'] : NULL,
-                            'qty' => isset($cart_item['qty']) ? $cart_item['qty'] : NULL,
-                            'price' => isset($cart_item['price']) ? $cart_item['price'] : NULL,
-                            'variant_id' => isset($cart_item['variant_id']) ? $cart_item['variant_id'] : NULL,
-                            'name' => isset($cart_item['name']) ? $cart_item['name'] : NULL,
-                            'options' => isset($cart_item['options']) ? json_encode($cart_item['options']) : NULL,
-                        );
 
-                        if ($cart_data['product_id'] !== NULL && $cart_data['qty'] !== NULL && $cart_data['price'] !== NULL) {
-                            $this->loginObj->insertCartData($cart_data);
-                        } else {
-                            log_message('error', 'Missing cart item data: ' . print_r($cart_item, true));
-                        }
-                    }
+                $cartItems= $this->cart->contents();
+                
+                if(is_array( $cartItems) && count($cartItems)){
+
+                    $this->customlibrary->upDateCartAfterLogin($cartItems,$userDetail['customer_id']);
+
                 }
+                
+              
 
                 $data['status'] = 1;
                 $data['message'] = 'OTP verified successfully';

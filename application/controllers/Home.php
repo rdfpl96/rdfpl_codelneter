@@ -16,7 +16,9 @@ class Home extends CI_Controller {
 
      $userCookies=getCookies('customer');
 
-    
+      //$cartItems= $this->cart->contents();
+
+     // $this->customlibrary->upDateCartAfterLogin($cartItems,120);
 
       //$data['category_list']=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_category WHERE  status=1 ORDER BY position DESC");
 

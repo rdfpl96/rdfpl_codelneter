@@ -3,11 +3,14 @@ class Customlibrary
    {
    var $CI;
     public function __construct($params = array()){
+
        $this->CI =& get_instance();
 
        $custDetail=getCookies('customer');
 
        $this->customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
+
+       $this->CI->load->model('cart_model','cartObj');
     }
 
     public function getDefaultAddressId(){
@@ -383,7 +386,29 @@ class Customlibrary
       }
       return $return;
     }
+    
+    //
+    //updateCart
+    //
+  public function upDateCartAfterLogin($cartItems,$customer_id){
 
+     foreach($cartItems as $item){
+        $cartItem=$this->CI->cartObj->getCartItem($customer_id,$item['id'],$item['variant_id']);
+        if(count($cartItem)){
+          $qty=$cartItem['qty']+$item['qty'];
+          $this->CI->cartObj->updateItemQty($customer_id,$item['id'],$item['variant_id'],array('qty'=>$qty));
+        }
+        else{
+           $cartProduct = array(
+                      'user_id'       =>$customer_id,
+                      'product_id'    =>$item['id'],
+                      'variant_id'    =>$item['variant_id'],
+                       'qty'          =>$item['qty']
+                      );
+          $this->CI->cartObj->itemSave($cartProduct);
+        }  
+     }
+  }
 
 
 
