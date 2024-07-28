@@ -246,7 +246,6 @@ class Product extends CI_Controller{
 
 public function edit($id){
 	$detail=$this->product->getViewByID($id);
-
 	$form_data['tdata']=$detail;
 	$this->load->view('admin/product/edit',$form_data);  
 } 
@@ -432,7 +431,7 @@ function productitem(){
                     $imgFile1 = base_url() . 'uploads/' . $record['feature_img'];
                     $option.='<tr> 
                                 <td>'.$i.'</td>
-                                <td><img src="' . $imgFile1 . '" alt="Product Image" style="width:30%; height:auto;"></td>
+                                <td><img src="' . $imgFile1 . '" alt="Product Image" style="width:60px; height:60px;"></td>
                                 <td>'.$record['product_name'].'</td>
                                 <td>'.$record['pack_size'].'</td>
                                 <td>'.$record['price'].'</td>
