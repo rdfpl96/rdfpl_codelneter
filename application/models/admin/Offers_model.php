@@ -60,7 +60,7 @@ class Offers_model extends CI_Model{
       }
   }
 
-    public function record_count($name) {
+public function record_count($name) {
 
     if($name!=''){
        $this->db->like('offer_type',$name);
@@ -84,12 +84,18 @@ class Offers_model extends CI_Model{
     //     return $query->result_array(); // Ensuring the result is returned as an array
     // }
 
-    public function get_all_offers($limit,$start) {
-      
+    public function get_all_offers($limit, $start) {
+    
+      $this->db->select('offers.*, tbl_product.product_name, tbl_product_variants.pack_size, tbl_product_variants.units');
+      $this->db->from('offers');
+      $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
+      $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
+      // Uncomment the following line if you want to use pagination
       $this->db->limit($limit, $start);
-        $query = $this->db->get('offers');
-        return $query->result();
-    }
+      $query = $this->db->get();
+      return $query->result_array();
+
+  }
 
 
 
@@ -182,7 +188,16 @@ public function get_offers_count(){
 
 
 
+ public function delete_offer(){
 
+   $this->db->where('id', $this->input->post('id'));
+   if ($this->db->delete('offers')) {
+       return true;
+   } else {
+       return false;
+   }
+
+ }
 
 
 
@@ -201,5 +216,45 @@ public function get_offers_count(){
     return $query->result_array();
 }
 
+public function get_offer_by_id($id){
+  $array_data=array();
+  $this->db->select('*');
+  $this->db->from('offers');
+  $this->db->where('id',$id);
+  $query=$this->db->get();
+  if($query->num_rows()>0){
+    $array_data=$query->result_array();
+  }
+  return $array_data;
 }
+
+public function get_variants_by_product_id($product_id) {
+  $this->db->select('variant_id');
+  $this->db->from('offers');
+  $this->db->where('product_id', $product_id);
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
+
+public function delete_offers($product_id_old) {
+
+  $this->db->where_in('product_id', $product_id_old);
+
+  if ($this->db->delete('offers')) {
+      return true;
+  } else {
+      return false;
+  }
+}
+
+}
+
+
+
+
+
+
+
+
 ?>

@@ -84,7 +84,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label  class="form-label">Discount Per <span style="color:red;">*</span></label>
+                                            <label  class="form-label">Discount Amt <span style="color:red;">*</span></label>
                                             <input type="text" class="form-control url" id="disc_per" name="disc_per" value="" required placeholder="Please enter Amount">
                                         </div>
                                         <div class="col-md-6">

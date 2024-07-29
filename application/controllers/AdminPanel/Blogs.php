@@ -363,6 +363,8 @@ public function create()
     }
 
 
+    
+
     public function update() {
         $id = $this->input->post('blog_id');
     

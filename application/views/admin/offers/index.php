@@ -38,6 +38,17 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 <!-- filters -->
 
+<?php
+
+// print_r($array_data);
+
+// die();
+
+
+
+?>
+
+
 <div class="row g-3 mb-3">
 <div class="col-xl-12 col-lg-12">
 
@@ -96,11 +107,21 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 
 
+<?php
+
+// echo "<pre>";
+// print_r($array_data);
+// die();
+?> 
+
+
 <!-- filters end -->
 <div class="row g-3 mb-3">
 <div class="col-md-12">
 <div class="card">
     <div class="card-body">
+
+    <!-- <input type="text" value="<?php //echo $keyval->id; ?>"> -->
 
         <div class="table-responsive">
         <table class="table mb-0" style="width: 100%;">
@@ -110,6 +131,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                     <th>Offer Type</th>
                     <th>Description</th>
                     <th>Value</th>
+                    <th>Product</th>
+                    <th>Product Variant</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -173,6 +196,45 @@ $(document).ready(function() {
 
 
 
+
+function deleteRowtablesub(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+    
+            $.ajax({
+                url: "<?php echo base_url('AdminPanel/Offers/delete_offer'); ?>",
+                type: "POST",
+                data: { id: id },
+                dataType: "json",
+                success: function(response) {
+                    if (response == 'True') {
+                        Swal.fire(
+                            'Deleted!',
+                            'Offer has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } 
+                    else {
+                        Swal.fire(
+                            'Failed!',
+                            'Failed to delete Offer.',
+                            'error'
+                        );
+                    }
+                }
+            });
+        
+    });
+}
 
 
 

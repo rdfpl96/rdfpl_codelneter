@@ -91,7 +91,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label">Discount Per <span style="color:red;">*</span></label>
+                                            <label class="form-label">Discount Amt <span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" id="disc_per" name="disc_per" value="<?php echo $coupon['disc_per']; ?>" required placeholder="Please enter Percentage">
                                         </div>
 
