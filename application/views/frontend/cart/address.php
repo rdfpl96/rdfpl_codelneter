@@ -3,6 +3,17 @@
 // exit();
 $this->load->view('frontend/header'); 
 ?>
+<style type="text/css">
+   .selected-address-type {
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+   /*.modal-dialog{
+      max-width: 50% !important;
+      margin:1.75rem auto !important;
+   }*/
+}
+</style>
 <main class="main">
    <div class="page-header mb-50">
       <div class="">
@@ -331,12 +342,13 @@ $this->load->view('frontend/header');
    </div>
 </main>
 <!-- Edit Address Modal -->
-<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true" style="width:100%">
+<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true" >
    <?php
    //echo '<pre>';
-   // print_r($addressDetails);
+   //print_r($addressDetails);
+   //exit();
    ?>
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
@@ -344,7 +356,9 @@ $this->load->view('frontend/header');
             </div>
             <div class="modal-body">
                 <form action="<?php echo base_url('update-address'); ?>" method="post" id="editAddressForm">
-                    <input type="hidden" name="addr_id" id="addr_id" value="">
+
+                  <input type="hidden" name="edit_addr_id" id="edit_addr_id">
+
                     <div class="row">
                         <div class="form-group col-lg-4">
                             <label for="edit_fname" class="form-label">First Name <span class="text-danger">*</span></label>
@@ -389,9 +403,6 @@ $this->load->view('frontend/header');
                         <div class="form-group col-lg-4">
                             <label for="edit_state_id" class="form-label">Select State <span class="text-danger">*</span> </label>
                             <div class="custom_select w-100 select2-selection-state">
-                                <!-- <select class="form-control select-active class-state select2-hidden-accessible" name="state_id" id="edit_state_id" required>
-                                    <?php //echo $this->customlibrary->getStateOptionInOption(); ?>
-                                </select> -->
                                 <input type="text" name="state" id="edit_state" placeholder="Enter state name" value="" required>
                             </div>
                         </div>
@@ -407,11 +418,29 @@ $this->load->view('frontend/header');
                     </div>
                     <h6>*Address Type</h6>
                     <ul class="ad_type">
-                        <li><input type="radio" name="address_type" id="edit_home" value="Home" class="actinput" required><label for="edit_home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label></li>
-                        <li><input type="radio" name="address_type" id="edit_office" value="Office" class="actinput" required><label for="edit_office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label></li>
-                        <li><input type="radio" name="address_type" id="edit_other" value="Other" class="actinput" required><label for="edit_other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label></li>
-                        <li><input type="text" class="form-control" name="address_type" id="edit_other_loc" value="" placeholder="Type Here" style="display:none;"></li>
-                    </ul>
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_home" value="Home" class="actinput" required>
+                              <label for="edit_home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_office" value="Office" class="actinput" required>
+                              <label for="edit_office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_other" value="Other" class="actinput" required>
+                              <label for="edit_other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label>
+                          </div>
+                      </li>
+                      <li>
+                          <input type="text" class="form-control" name="address_type" id="edit_other_loc" value="" placeholder="Type Here" style="display:none;">
+                      </li>
+                     </ul>
+
                     <div class="delivery_check d-flex align-items-center pt-10">
                         <input class="form-check-input class-price-desk0" type="checkbox" value="1" name="setAddressDefault">&nbsp;&nbsp;
                         <label class="form-check-label mb-0">
@@ -696,6 +725,20 @@ function deleteAddress(addr_id) {
     }
 }
 
+$(document).ready(function() {
+    $('input[name="address_type"]').on('change', function() {
+        $('.address-type-container').removeClass('selected-address-type');
+        $(this).closest('.address-type-container').addClass('selected-address-type');
+        if ($('#edit_other').is(':checked')) {
+            $('#edit_other_loc').show();
+        } else {
+            $('#edit_other_loc').hide();
+        }
+    });
+    $('input[name="address_type"]:checked').trigger('change');
+});
+
+
 function editAddress(addr_id) {
    //alert('addr_id=> '+addr_id);
     $.ajax({
@@ -704,7 +747,7 @@ function editAddress(addr_id) {
         data: { addr_id: addr_id },
         dataType: 'json',
         success: function(response) {
-         // console.log(response);
+         console.log(response);
             if (response.status) {
                 $('#edit_addr_id').val(response.data.addr_id);
                 $('#edit_fname').val(response.data.fname);
@@ -718,7 +761,7 @@ function editAddress(addr_id) {
                 $('#edit_city').val(response.data.city);
                 $('#edit_pincode').val(response.data.pincode);
                 $('input[name="address_type"][value="' + response.data.address_type + '"]').prop('checked', true);
-                
+                $('input[name="address_type"]').trigger('change');
                 $('#editAddressModal').modal('show');
                 //console.log(response);
             } else {

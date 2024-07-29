@@ -260,10 +260,10 @@ public function get_address_by_id($addr_id) {
     return $query->row_array();
 }
 
-public function update_address($addr_id, $data) {
-        $this->db->where('addr_id', $addr_id);
-        return $this->db->update('tbl_address', $data);
-    }
+public function update_deliveryaddress($addr_id, $data) {
+    $this->db->where('addr_id', $addr_id);
+    return $this->db->update('tbl_address', $data);
+}
  
 
 }

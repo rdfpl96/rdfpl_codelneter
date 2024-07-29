@@ -206,7 +206,6 @@ $route['delete-address'] = 'cart/delete';
 $route['buynow'] = 'cart/buyNow';
 $route['get_address_details'] = 'cart/get_address_details';
 $route['update-address'] = 'cart/update_address';
-//
 
 //Wish list
 $route['add-to-wishlist']='wishlist/addToWishList';
