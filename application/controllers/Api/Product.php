@@ -54,7 +54,7 @@ class Product extends REST_Controller{
         $subcategory=$this->customlibrary->getSubCategoryByCatId($topc['cat_id']);
           if(count($subcategory)>0){
             foreach($subcategory as $subCat){
-                $childCategory=$this->customlibrary->getSubCategoryByCatId($topc['cat_id'],$subCat['sub_cat_id']);
+                $childCategory=$this->customlibrary->getChilCategory($topc['cat_id'],$subCat['sub_cat_id']);
                 
                 $subCat['child']=$childCategory;
               }
