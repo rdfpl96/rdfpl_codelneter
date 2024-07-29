@@ -40,7 +40,6 @@ class Offers extends CI_Controller
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
     
-        // Pagination styling
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
         $config['first_link'] = 'First';

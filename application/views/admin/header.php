@@ -2,7 +2,7 @@
             <!-- Body: Header -->
             <div class="header">
                 <input type="hidden" value="<?php echo base_url();?>" class="base_url">
-                <nav class="navbar">  <!-- py-4 -->
+                <nav class="navbar"> 
                     <div class="container-xxl">
                         <?php //$walletAmount = walletBalance();?>
                        <!-- <div class="walletDiv" style="float:right;"><b>Wallet : </b><span style="font-weight:bold;font-size: 16px;">₹ <?php //echo sprintf("%0.2f",$walletAmount->data->balance_amount);?></span></div> -->
