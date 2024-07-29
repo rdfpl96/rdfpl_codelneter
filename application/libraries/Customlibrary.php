@@ -101,6 +101,24 @@ class Customlibrary
         }
     }
 
+    public function chkReviewAlreadyExist($customerId,$product_id,$order_id){
+
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_rate_and_review');
+        $this->CI->db->where('cust_id',$customerId);
+        $this->CI->db->where('product_id',$product_id);
+        $this->CI->db->where('order_id',$order_id);
+        $this->CI->db->where('status',1);
+        $query=$this->CI->db->get() ;
+        if($query->num_rows()>0){ 
+         return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+
 
      public function chkDeliveryLocation($pincode){
         $this->CI->db->select('*');

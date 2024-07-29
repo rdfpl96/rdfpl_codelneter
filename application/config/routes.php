@@ -273,7 +273,11 @@ $route['save-gst-details']='common/save_gst_details';
   $route['api/customer/address_save']='Api/customeraddress/save';
   $route['api/customer/setdefault']='Api/customeraddress/setdefault';   
   $route['api/customer/save-gst']='Api/customeraddress/saveGst';
-  $route['api/customer/slote-list']='Api/customeraddress/sloteList';  
+  $route['api/customer/slote-list']='Api/customeraddress/sloteList'; 
+  $route['api/customer/rate-reviews']='Api/product/rateAndReview'; 
+  $route['api/customer/stateList']='Api/customeraddress/getStatelist';
+  $route['api/customer/order-list']='Api/order/index'; 
+
   //Product
   $route['api/product/list']='Api/product/index';
   $route['api/product/categories']='Api/product/categoryList';

@@ -184,7 +184,24 @@ class Product_model extends CI_Model{
     return $array_data;
 
   }
+  
+  public function saveReview($array_data){
+   
+    $this->db->trans_begin(); 
+    // product Insert
+    $this->db->insert('tbl_rate_and_review', $array_data);
+    $last_id= $this->db->insert_id();
 
+    
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      
+      return $last_id;
+    }
+  }
   
 
 }
