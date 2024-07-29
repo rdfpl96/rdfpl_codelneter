@@ -21,7 +21,6 @@ class Cart extends REST_Controller{
         echo json_encode($res);
         exit();
         }
-
     }
 
     public function index_get(){

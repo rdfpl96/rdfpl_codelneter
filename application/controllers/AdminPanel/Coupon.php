@@ -123,7 +123,7 @@ class Coupon extends CI_Controller
         $config = array();
         $config["base_url"] = base_url() . "admin/coupon";
         $config["total_rows"] = $this->coupon->record_count();
-        $config["per_page"] = 4;
+        $config["per_page"] = 10;
         $config["uri_segment"] = 3;
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';

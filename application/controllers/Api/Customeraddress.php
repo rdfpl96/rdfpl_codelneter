@@ -172,9 +172,20 @@ class CustomerAddress extends REST_Controller{
     }
     public function sloteList_get(){
 
-        $slots=getTakeAwaySlot();
+       
+        $slots=$this->addObj->getAllSlot();
 
-        $this->response(array('error' =>0,'msg'=>'Success',"data"=>array('slot'=>$slots)));
+        $this->response(array('error' =>0,'msg'=>'Success',"data"=>$slots));
+
+    }
+
+
+    public function getStatelist_get(){
+
+       
+        $slots=$this->addObj->getStateList();
+
+        $this->response(array('error' =>0,'msg'=>'Success',"data"=>$slots));
 
     }
 

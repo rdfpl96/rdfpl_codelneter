@@ -25,13 +25,12 @@ class Product extends REST_Controller{
   }  
   public function index_post(){
 
+       $post = json_decode($this->input->raw_input_stream, true);
+
       $records_per_page =25;
-      $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
+      $page = (int)(isset($post['page']) ? $post['page'] : 1);
       $page = ($page == 0 ? 1 : $page);
       $start = ($page-1) * $records_per_page;
-
-      $post = json_decode($this->input->raw_input_stream, true);
-
       $top_cat_id = isset($post['top_cat_id']) ? $post['top_cat_id'] : "";
       $sub_id = isset($post['sub_id']) ? $post['sub_id'] : "";
       $child_cat_id = isset($post['child_cat_id']) ? $post['child_cat_id'] : 1;
@@ -55,7 +54,7 @@ class Product extends REST_Controller{
         $subcategory=$this->customlibrary->getSubCategoryByCatId($topc['cat_id']);
           if(count($subcategory)>0){
             foreach($subcategory as $subCat){
-                $childCategory=$this->customlibrary->getSubCategoryByCatId($topc['cat_id'],$subCat['sub_cat_id']);
+                $childCategory=$this->customlibrary->getChilCategory($topc['cat_id'],$subCat['sub_cat_id']);
                 
                 $subCat['child']=$childCategory;
               }
@@ -84,6 +83,44 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
     $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct))); 
   
 }  
+
+
+//
+//Save Rate and review
+//
+public function rateAndReview_post(){
+
+  $customer_id=2; //$this->authorization_token->userData()->customer_id;
+
+  $post = json_decode($this->input->raw_input_stream, true);
+
+  $orderId=isset($post['order_id']) ? $post['order_id'] : "";
+  $productId=isset($post['product_id']) ? $post['product_id'] : "";
+  $rate=isset($post['rate']) ? $post['rate'] : "";
+  $comment=isset($post['comment']) ? addslashes($post['comment']) : "";
+
+  if($orderId!="" && $productId!="" && $rate!="" && $comment!=""){
+
+    if(!$this->customlibrary->chkReviewAlreadyExist($customer_id,$productId,$orderId)){
+
+      $this->product->saveReview(array(
+        "cust_id"=>$customer_id,
+        "product_id"=>$productId,
+        "order_id"=>$orderId,
+        "cust_rate"=>$rate,
+        "comment"=>$comment
+      ));
+
+      $this->response(array('error' =>0,'msg'=>'Thank you for your rating'));
+
+    }else{
+      $this->response(array('error' =>1,'msg'=>'Already reviewed')); 
+    }
+
+  }else{
+     $this->response(array('error' =>1,'msg'=>'Some parameter missing')); 
+  }
+}
 
  
 

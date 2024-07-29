@@ -141,5 +141,28 @@ public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
     return $this->db->update('tbl_gst', $nv);
 }
 
+public function getAllSlot(){
+  $this->db->select('day_type as day_type_id, start_time,end_time');
+    $this->db->from('tbl_delivery_slot');
+    $this->db->where('status',1);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+}
+
+public function getStateList(){
+  $this->db->select('id,name');
+    $this->db->from('states');
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    
+    return $array_data;
+}
+
 }
 ?>
