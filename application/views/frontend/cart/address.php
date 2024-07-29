@@ -105,22 +105,24 @@ $this->load->view('frontend/header');
                                              foreach($addressList as $record){ ?>
                                                 <div class="col-md-6 mb-3">
                                                    <div id="defaAddr">
-                                                      <a href="" class="apply-addr" onclick="">
-                                                         <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
+                                                      
+                                                         
+                                                     
+                                                      <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
                                                            <div class="d-flex align-items-center">
                                                                <span class="material-symbols-outlined text-white">done</span>
                                                                <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="deleteAddress(<?php echo $record['addr_id']; ?>); return false;">delete</span>
                                                                <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="editAddress('<?php echo $record['addr_id']; ?>'); return false;" data-bs-toggle="modal" data-bs-target="#editAddressModal">edit</span>
                                                             </div>
-                                                            
+                                                            <a href="#" class="apply-addr" onclick="selecAddress(<?php echo $record['addr_id'];?>);return false;">
                                                             <p><?php echo $record['address1']?>, <?php echo $record['address2']?>,<?php echo $record['area']?>
                                                             <br>
                                                             <?php echo $record['state_id']?>, <?php echo $record['city']?> -<?php echo $record['pincode']?></p>
                                                             <?php if($record['setAddressDefault']==1){ 
                                                                 echo'<h6>Default</h6>';
                                                             } ?>
+                                                             </a>
                                                          </div>
-                                                      </a>
                                                    </div>
                                                 </div>
                                        <?php         
