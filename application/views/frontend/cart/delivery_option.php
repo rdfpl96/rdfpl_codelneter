@@ -351,21 +351,16 @@
       
     }
     function cancelOrder(button) {
-        // Retrieve the order ID from the data attribute
         var orderId = button.getAttribute('data-order-id');
-
-        // Confirm cancellation
         if (confirm('Are you sure you want to cancel the order?')) {
-            // Perform AJAX call to cancel the order
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "<?php echo base_url('cart/cancel_order'); ?>", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Handle response
                     alert(xhr.responseText);
                     if (xhr.responseText.includes('Order cancelled successfully')) {
-                        window.location.href = "<?php echo base_url('cart'); ?>"; // Redirect to cart page or any other page
+                        window.location.href = "<?php echo base_url('cart'); ?>"; 
                     }
                 }
             };

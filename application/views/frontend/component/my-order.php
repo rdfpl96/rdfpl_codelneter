@@ -193,6 +193,7 @@ $this->load->view('frontend/header', $data);
                                     </div>
                                 </div>
                                 <a href="<?= base_url('shop') ?>" class="buy-again-btn" target="_blank">Buy Again</a>
+                                <button class="btn btn-cancel" data-order-id="12345" onclick="cancelOrder(this);">Cancel</button>
                             </div>
                         </div>
                         </div>
@@ -252,4 +253,22 @@ function getOrderProduct(orderNo) {
         }
     });
 }
+
+function cancelOrder(button) {
+    var orderId = button.getAttribute('data-order-id');
+    if (confirm('Are you sure you want to cancel the order?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "<?php echo base_url('cart/cancel_order'); ?>", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert(xhr.responseText);
+                if (xhr.responseText.includes('Order cancelled successfully')) {
+                    window.location.href = "<?php echo base_url('my-order'); ?>"; 
+                }
+            }
+        };
+        xhr.send("order_id=" + orderId);
+    }
+} 
 </script>

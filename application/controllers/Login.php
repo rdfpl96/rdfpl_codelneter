@@ -105,7 +105,7 @@ public function otpVerification() {
 
                 $cartItems= $this->cart->contents();
                 
-                if(is_array( $cartItems) && count($cartItems)){
+                if(is_array($cartItems) && count($cartItems)){
 
                     $this->customlibrary->upDateCartAfterLogin($cartItems,$userDetail['customer_id']);
 

@@ -159,8 +159,25 @@ $blogs_footer=$data['blogs_footer'];
                         <div class="row">
                             <div class="cities_we_serve">
                                 <h3>Cities We Serve</h3>
+                                <?php
+                                $cities = [
+                                    "Srirangapatna", "Shoranur", "Rameswaram", "Nagpur", "Balaghat",
+                                    "Puri", "Bodhan", "Barabanki", "Chagalamarri", "PETERBAR",
+                                    "Kilimanoor", "Begusarai", "BACHHRAWAN",
+                                    "Mumbai", "Pune", "Nashik", "Aurangabad", "Thane",
+                                    "Solapur", "Amravati", "Kolhapur", "Malegaon", "Jalgaon",
+                                    "Akola", "Latur"
+                                ];
+                                $cities = array_unique($cities);
+                                ?>
                                 <ul>
-                                    <?php for ($i=0; $i < 10 ; $i++) { ?>
+                                    <?php foreach ($cities as $city) { ?>
+                                        <li><?php echo $city; ?></li>
+                                    <?php } ?>
+                                </ul>
+
+                                <!-- <ul>
+                                    <?php //for ($i=0; $i < 10 ; $i++) { ?>
                                         <li>Srirangapatna</li>
                                         <li>Shoranur</li>
                                         <li>Rameswaram</li>
@@ -174,7 +191,6 @@ $blogs_footer=$data['blogs_footer'];
                                         <li>Kilimanoor</li>
                                         <li>Begusarai</li>
                                         <li>BACHHRAWAN</li>
-                                        <!-- Maharashtra Cities -->
                                         <li>Mumbai</li>
                                         <li>Pune</li>
                                         <li>Nagpur</li>
@@ -189,9 +205,8 @@ $blogs_footer=$data['blogs_footer'];
                                         <li>Akola</li>
                                         <li>Latur</li>
                                         <li>Bodhan</li>
-                                    <?php } ?>
-                                    
-                                </ul>
+                                    <?php //} ?>   
+                                </ul> -->
                             </div>
                         </div>
                 </div>
