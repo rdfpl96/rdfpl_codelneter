@@ -25,13 +25,12 @@ class Product extends REST_Controller{
   }  
   public function index_post(){
 
+       $post = json_decode($this->input->raw_input_stream, true);
+
       $records_per_page =25;
-      $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
+      $page = (int)(isset($post['page']) ? $post['page'] : 1);
       $page = ($page == 0 ? 1 : $page);
       $start = ($page-1) * $records_per_page;
-
-      $post = json_decode($this->input->raw_input_stream, true);
-
       $top_cat_id = isset($post['top_cat_id']) ? $post['top_cat_id'] : "";
       $sub_id = isset($post['sub_id']) ? $post['sub_id'] : "";
       $child_cat_id = isset($post['child_cat_id']) ? $post['child_cat_id'] : 1;
