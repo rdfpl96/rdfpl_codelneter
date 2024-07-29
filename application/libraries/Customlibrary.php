@@ -210,7 +210,7 @@ class Customlibrary
 
    public function getTopCategory($id=''){
       $return=array();
-      $this->CI->db->select('*');
+      $this->CI->db->select('cat_id,category,slug,cat_image');
       $this->CI->db->from('tbl_category');
       $this->CI->db->where('status',1);
       $query=$this->CI->db->get() ; 
@@ -234,7 +234,7 @@ class Customlibrary
 
     public function getSubCategoryByCatId($top_cat_id,$id=''){
       $return=array();
-      $this->CI->db->select('SC.*,TC.category as top_cat_name, TC.slug as top_cat_slug');
+      $this->CI->db->select('SC.sub_cat_id,SC.cat_id,SC.subCat_name,SC.slug,SC.subcat_image,TC.category as top_cat_name, TC.slug as top_cat_slug');
       $this->CI->db->from('tbl_sub_category AS SC');
       $this->CI->db->where('SC.cat_id',$top_cat_id);
       $this->CI->db->where('SC.status',1);
@@ -246,9 +246,11 @@ class Customlibrary
       return $return;
     }
 
+   
     public function getChilCategory($top_cat_id,$sub_cat_id,$id=''){
       $return=array();
-      $this->CI->db->select('CC.*,TC.category AS top_cat_name, TC.slug AS top_cat_slug, SC.subCat_name AS sub_cat_name,SC.slug AS sub_cat_slug');
+      $this->CI->db->select('CC.child_cat_id,CC.cat_id,CC.sub_cat_id,CC.childCat_name,CC.slug,
+      TC.category AS top_cat_name, TC.slug AS top_cat_slug, SC.subCat_name AS sub_cat_name,SC.slug AS sub_cat_slug');
       $this->CI->db->from('tbl_category AS TC');
       $this->CI->db->where('CC.cat_id',$top_cat_id);
       $this->CI->db->where('CC.sub_cat_id',$sub_cat_id);
