@@ -84,6 +84,44 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
   
 }  
 
+
+//
+//Save Rate and review
+//
+public function rateAndReview_post(){
+
+  $customer_id=2; //$this->authorization_token->userData()->customer_id;
+
+  $post = json_decode($this->input->raw_input_stream, true);
+
+  $orderId=isset($post['order_id']) ? $post['order_id'] : "";
+  $productId=isset($post['product_id']) ? $post['product_id'] : "";
+  $rate=isset($post['rate']) ? $post['rate'] : "";
+  $comment=isset($post['comment']) ? addslashes($post['comment']) : "";
+
+  if($orderId!="" && $productId!="" && $rate!="" && $comment!=""){
+
+    if(!$this->customlibrary->chkReviewAlreadyExist($customer_id,$productId,$orderId)){
+
+      $this->product->saveReview(array(
+        "cust_id"=>$customer_id,
+        "product_id"=>$productId,
+        "order_id"=>$orderId,
+        "cust_rate"=>$rate,
+        "comment"=>$comment
+      ));
+
+      $this->response(array('error' =>0,'msg'=>'Thank you for your rating'));
+
+    }else{
+      $this->response(array('error' =>1,'msg'=>'Already reviewed')); 
+    }
+
+  }else{
+     $this->response(array('error' =>1,'msg'=>'Some parameter missing')); 
+  }
+}
+
  
 
 }
