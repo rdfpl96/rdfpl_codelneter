@@ -5,11 +5,8 @@ class Cart extends CI_Controller {
 
    function __construct(){
         parent::__construct();
-
         $this->load->model('product_model','productObj');
-        $this->load->model('cart_model','cartObj');
-
-          
+        $this->load->model('cart_model','cartObj');     
    }
       
 
@@ -28,7 +25,7 @@ class Cart extends CI_Controller {
      // $cartItems= $this->cart->contents();
      // echo'<pre>';
      // print_r($cartItems);
-
+     // exit();
      // $rowRecord=getCookiesRowId($cartItems,2,3);
 
      // print_r($rowRecord);
@@ -219,56 +216,111 @@ public function deliveryAddress(){
 //
 // Delevery Option
 //  
-public function checkout(){
+//previous code without buy now
+// public function checkout(){
     
-    $userCookies=getCookies('customer');
+//     $userCookies=getCookies('customer');
   
-    $customer_id = $userCookies['customer_id'];
+//     $customer_id = $userCookies['customer_id'];
     
-    $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
+//     $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
 
-    if(count($data['products'])>0){
+//     if(count($data['products'])>0){
 
-        $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
+//         $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
 
-        $data['orderSumery']=$this->customlibrary->getCartSummery();
+//         $data['orderSumery']=$this->customlibrary->getCartSummery();
 
-        $data['timeSlot'] = $this->cartObj->getTimeSlot();
+//         $data['timeSlot'] = $this->cartObj->getTimeSlot();
 
-        $data['customer_id']=$customer_id;
+//         $data['customer_id']=$customer_id;
 
-        $this->load->view("frontend/cart/delivery_option",$data);
-    }else{
-             return redirect('cart');    
+//         $this->load->view("frontend/cart/delivery_option",$data);
+//     }else{
+//              return redirect('cart');    
+//     }
+// }
+
+public function checkout() {
+    $userCookies = getCookies('customer');
+    $customer_id = $userCookies['customer_id'];
+    $data['products'] = $this->cartObj->getCartList($customer_id);
+    $product_id = $this->input->get('product_id');
+
+    if ($product_id) {
+        $items = $this->customlibrary->getProductItemByproductId($product_id);
+        $firstItem = isset($items[0]) ? $items[0] : array();
+        $data['products'] = array($firstItem);
+        $data['orderSumery'] = array(
+            'totalSellingPrice' => $firstItem['price'],
+            'totalSave' => 0
+        );
+        //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
+        //$this->session->set_userdata('buy_now_product', $firstItem);
+    } else {
+        if (count($data['products']) > 0) {
+            $data['orderSumery'] = $this->customlibrary->getCartSummery();
+        } else {
+            return redirect('cart');
+        }
     }
 
-  
-  }
-
-
-public function paymentOption(){
-    $userCookies=getCookies('customer');
-    
-    $customer_id = $userCookies['customer_id'];
-    $data['customer_id']=$customer_id;
-
-    $products = $this->cartObj->getCartList($userCookies['customer_id']);
-    if(count($products)>0){
-        $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();
-        $data['order_no']='ORD'.date('Ymdhis');
-        $data['couponList']=$this->cartObj->getCouponList();
-
-        $data['orderSummery']=$this->orderSummeryForCart();
-
-
-
-        $this->load->view("frontend/cart/paymentOption",$data);
-
-    }else{
-        return redirect('cart');  
-    }
-    
+    $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
+    $data['timeSlot'] = $this->cartObj->getTimeSlot();
+    $data['customer_id'] = $customer_id;
+    $this->load->view("frontend/cart/delivery_option", $data);
 }
+
+
+//previous function without buy now option
+// public function paymentOption(){
+//     $userCookies=getCookies('customer');
+    
+//     $customer_id = $userCookies['customer_id'];
+//     $data['customer_id']=$customer_id;
+
+//     $products = $this->cartObj->getCartList($userCookies['customer_id']);
+//     if(count($products)>0){
+//         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();
+//         $data['order_no']='ORD'.date('Ymdhis');
+//         $data['couponList']=$this->cartObj->getCouponList();
+//         $data['orderSummery']=$this->orderSummeryForCart();
+//         $this->load->view("frontend/cart/paymentOption",$data);
+//     }else{
+//         return redirect('cart');  
+//     } 
+// }
+
+public function paymentOption() {
+    $userCookies = getCookies('customer');
+    $customer_id = $userCookies['customer_id'];
+    $data['customer_id'] = $customer_id;
+    $buy_now_product = $this->session->userdata('buy_now_product');
+    if ($buy_now_product) {
+        $data['products'] = array($buy_now_product);
+        $data['orderSummery'] = array(
+            'totalSellingPrice' => $buy_now_product['price'],
+            'totalSave' => 0
+        );
+        $this->session->unset_userdata('buy_now_product');
+    } else {
+        $products = $this->cartObj->getCartList($customer_id);
+        if (count($products) > 0) {
+            $data['products'] = $products;
+            $data['orderSummery'] = $this->orderSummeryForCart();
+        } else {
+            return redirect('cart');
+        }
+    }
+    $data['gstDetail'] = $this->customlibrary->getCustomerGstDetailId();
+    $data['order_no'] = 'ORD' . date('Ymdhis');
+    $data['couponList'] = $this->cartObj->getCouponList();
+    $this->load->view("frontend/cart/paymentOption", $data);
+}
+
+
+
+
 
 //
 // Save To later
@@ -449,6 +501,80 @@ public function orderSummeryForCart(){
             echo 'Failed to cancel order';
         }
     }
+    
+    public function buyNow() {
+    // echo "step1";
+    // exit();
+    $userCookies = getCookies('customer');
+    $customer_id = $userCookies['customer_id'];
+    $product_id = $this->input->get('product_id');
+    
+    if ($product_id) {
+        // echo "step2";
+        // exit();
+         $this->load->view("frontend/cart/buy_nowProducts");
+         exit;
+        $items = $this->customlibrary->getProductItemByproductId($product_id);
+        $firstItem = isset($items[0]) ? $items[0] : array();
+        //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
+        
+        $data['products'] = array($firstItem);
+        // print_r($data);
+        // exit;
+        $data['orderSumery'] = array(
+            'totalSellingPrice' => $firstItem['price'],
+            'totalSave' => 0 
+        );
+
+        $this->session->set_userdata('buy_now_product', $firstItem);
+
+        $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
+        $data['timeSlot'] = $this->cartObj->getTimeSlot();
+        $data['customer_id'] = $customer_id;
+        $this->load->view("frontend/cart/buy_nowProducts", $data);
+    } else {
+        //return redirect('cart');
+    }
+}
+
+public function get_address_details() {
+    $addr_id = $this->input->post('addr_id');
+    $addressDetails = $this->cartObj->get_address_by_id($addr_id);
+    // echo '<pre>';
+    // print_r($addressDetails);
+    // die();
+    if($addressDetails) {
+        echo json_encode(['status' => true, 'data' => $addressDetails]);
+    } else {
+        echo json_encode(['status' => false]);
+    }
+}
+
+public function update_address() {
+    $addr_id = $this->input->post('edit_addr_id');
+    $data = array(
+        'fname'        => $this->input->post('fname'),
+        'email'        => $this->input->post('email'),
+        'mobile'       => $this->input->post('mobile'),
+        'address1'     => $this->input->post('address1'),
+        'address2'     => $this->input->post('address2'),
+        'area'         => $this->input->post('area'),
+        'landmark'     => $this->input->post('landmark'),
+        'state'        => $this->input->post('state'),
+        'city'         => $this->input->post('city'),
+        'pincode'      => $this->input->post('pincode'),
+        'address_type' => $this->input->post('address_type'),
+        'setAddressDefault' => $this->input->post('setAddressDefault') ? 1 : 0
+    );
+    $update_status = $this->cartObj->update_deliveryaddress($addr_id, $data);
+    if ($update_status) {
+        $this->session->set_flashdata('success', 'Address updated successfully.');
+        redirect('delivery-address');
+    } else {
+        $this->session->set_flashdata('error', 'Failed to update address.');
+        redirect('delivery-address'); 
+    }
+}
 
 
 
