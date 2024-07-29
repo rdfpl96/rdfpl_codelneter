@@ -71,7 +71,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="row g-3 align-items-center mb-3">
-                                        <input type="text" id="old_product_id" name="old_product_id" value="<?php echo $offer[0]['product_id'];?>">
+                                        <input type="hidden" id="old_product_id" name="old_product_id" value="<?php echo $offer[0]['product_id'];?>">
                                         <div class="col-md-6">
                                             <label class="form-label">Offer Type <span style="color:red;">*</span></label>
                                             <select class="form-control" id="offer_type" name="offer_type" required>
@@ -148,7 +148,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 $('#product_variant').trigger('chosen:updated');
             },
             complete: function() {
-
                 $('#product_variant').chosen();
             }
         });
