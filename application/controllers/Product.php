@@ -40,8 +40,7 @@ class Product extends CI_Controller {
         $categoryName=$this->customlibrary->SubCatName($products[0]['sub_cat_id']);
         $sidecategories=$this->customlibrary->getChilCategory($products[0]['cat_id'],$products[0]['sub_cat_id']);
          $categoryLevel=2;
-
-      }
+      }   
 
       else if($slug1!="" && $slug2!=""){
         $categoryLevel=2;

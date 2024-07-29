@@ -1,5 +1,11 @@
 
-<?php $this->load->view('frontend/header'); ?>
+<?php 
+
+$this->load->view('frontend/header');
+// echo '<pre>'; 
+// print_r($_SESSION);
+// exit();
+?>
 
 <main class="main shop_main_background" style="transform: none;">
    <div class="page-call" style="transform: none;">
@@ -9,32 +15,8 @@
                <div class="archive-header">
                   <div class="row align-items-center">
                      <div class="col-xl-9">
-                        <?php
-                       $url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                       //print_r($url_path);
-                           $segments = explode('/', trim($url_path, '/'));
-                           $base_url = base_url();
-                           $breadcrumb = [
-                            ['url' => $base_url, 'name' => 'Home']
-                            // ,
-                            // ['url' => $base_url . 'pc', 'name' => 'pc']
-                           ];
-                           $current_url = $base_url . 'pc/';
-                           foreach ($segments as $index => $segment) {
-                            // if ($index > 1) { 
-                                $current_url .= $segment . '/';
-                                $breadcrumb[] = ['url' => $current_url, 'name' => ucfirst(str_replace('-', ' ', $segment))];
-                            // }
-                           }
-                        ?>
                         <div class="breadcrumb">
-                            <?php foreach ($breadcrumb as $index => $crumb): ?>
-                                <?php if ($index != 0): ?><span></span><?php endif; ?>
-                                <a href="<?php echo $crumb['url']; ?>" <?php if ($crumb['url'] == 'javascript:void(0);'): ?>class="filterCategory"<?php else: ?>rel="nofollow"<?php endif; ?>>
-                                    <?php if ($index == 0): ?><i class="fi-rs-home mr-5"></i><?php endif; ?>
-                                    <?php echo $crumb['name']; ?>
-                                </a>
-                            <?php endforeach; ?>
+                           Home<span></span><?php echo isset($bread) ? $bread : ""; ?>
                         </div>
                      </div>
                      <div class="col-xl-3 text-end d-none d-xl-block"></div>
