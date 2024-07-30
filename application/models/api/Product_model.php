@@ -6,7 +6,23 @@ class Product_model extends CI_Model{
     //$this->load->database();
   }
 
-   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id){
+   public function getRatingReviewByProdID($product_id){
+     $array_data=array();
+      $this->db->select('R.cust_rate,R.comment,R.add_date,C.c_fname as customer_name');
+      $this->db->from('tbl_rate_and_review AS R');
+      $this->db->join('tbl_customer AS C', 'C.customer_id = R.cust_id');
+      $this->db->where('R.status',1);
+      $this->db->where('R.product_id',$product_id);
+      $this->db->order_by('C.add_date','DESC');
+      $query=$this->db->get();
+      if($query->num_rows()>0){
+          $array_data=$query->result_array();
+      }
+      return $array_data;
+
+   }
+
+   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key){
     $array_data=array();
     $this->db->select(
     
@@ -36,6 +52,9 @@ class Product_model extends CI_Model{
     if($child_cat_id!=""){
       $this->db->where('CC.child_cat_id',$child_cat_id);
     }
+    if($search_key!=""){
+      $this->db->like('P.product_name',$search_key);
+    }
     $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
     $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
     $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
@@ -51,6 +70,7 @@ class Product_model extends CI_Model{
     }
     return $array_data;
    }
+
 
   public function getTopCategory(){
     $array_data=array();
