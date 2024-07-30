@@ -35,7 +35,9 @@ class Product extends REST_Controller{
       $sub_id = isset($post['sub_id']) ? $post['sub_id'] : "";
       $child_cat_id = isset($post['child_cat_id']) ? $post['child_cat_id'] : 1;
 
-      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id);
+      $search_key = isset($post['search_key']) ? $post['search_key'] : "";
+
+      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key);
      
       $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
         
@@ -77,10 +79,11 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
     $simillerProduct=array();
 
     if(count($pdetail)>0){
-      $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id);
+      $ratingReview=$this->product->getRatingReviewByProdID($id);
+      $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id,$search_key="");
     }
 
-    $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct))); 
+    $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct,"ratingReview"=> $ratingReview))); 
   
 }  
 
