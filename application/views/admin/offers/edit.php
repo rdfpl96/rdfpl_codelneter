@@ -179,9 +179,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     });
 
     function UpdateOffer() {
-
     var formData = new FormData(document.getElementById('updateOfferForm'));
-
     $.ajax({
         url: "<?php echo base_url('AdminPanel/Offers/update'); ?>",
         type: 'POST',

@@ -85,17 +85,53 @@ public function record_count($name) {
     // }
 
     public function get_all_offers($limit, $start) {
-    
       $this->db->select('offers.*, tbl_product.product_name, tbl_product_variants.pack_size, tbl_product_variants.units');
       $this->db->from('offers');
       $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
       $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
-      // Uncomment the following line if you want to use pagination
       $this->db->limit($limit, $start);
       $query = $this->db->get();
       return $query->result_array();
-
   }
+
+
+
+  
+//   public function getSearch_offerDetails($search) {
+//     // Build and execute the query
+//     $this->db->select('*');
+//     $this->db->from('offers');
+//     $this->db->like('description', $search);
+//     //  $this->db->like('offer_type', $search);
+//     $this->db->limit(10, 0);
+//     // $this->db->like('value', $search);
+//     $query = $this->db->get();
+
+//     // Fetch the result as an associative array
+//     return $query->result_array();
+// }
+
+
+
+public function getSearch_offerDetails($search) {
+  // Build the query with joins to include product and product variant details
+  $this->db->select('offers.*, tbl_product.product_name, tbl_product_variants.pack_size, tbl_product_variants.units');
+  $this->db->from('offers');
+  $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
+  $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
+  $this->db->like('offers.description', $search);
+  // Uncomment and modify the following lines if you want to include other fields in the search
+   $this->db->or_like('offers.offer_type', $search);
+   $this->db->or_like('offers.value', $search);
+  $this->db->limit(10, 0);
+  $query = $this->db->get();
+  return $query->result_array();
+}
+
+
+
+
+
 
 
 
@@ -199,23 +235,6 @@ public function get_offers_count(){
 
  }
 
-
-
-
-  public function getSearch_offerDetails($search) {
-    // Build and execute the query
-    $this->db->select('*');
-    $this->db->from('offers');
-    $this->db->like('description', $search);
-    //  $this->db->like('offer_type', $search);
-    $this->db->limit(10, 0);
-    // $this->db->like('value', $search);
-    $query = $this->db->get();
-
-    // Fetch the result as an associative array
-    return $query->result_array();
-}
-
 public function get_offer_by_id($id){
   $array_data=array();
   $this->db->select('*');
@@ -227,6 +246,9 @@ public function get_offer_by_id($id){
   }
   return $array_data;
 }
+
+
+
 
 public function get_variants_by_product_id($product_id) {
   $this->db->select('variant_id');

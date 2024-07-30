@@ -207,7 +207,7 @@ function deleteRowtablesub(id) {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
-    
+        if (result.isConfirmed) {
             $.ajax({
                 url: "<?php echo base_url('AdminPanel/Offers/delete_offer'); ?>",
                 type: "POST",
@@ -222,8 +222,7 @@ function deleteRowtablesub(id) {
                         ).then(() => {
                             location.reload();
                         });
-                    } 
-                    else {
+                    } else {
                         Swal.fire(
                             'Failed!',
                             'Failed to delete Offer.',
@@ -232,9 +231,10 @@ function deleteRowtablesub(id) {
                     }
                 }
             });
-        
+        }
     });
 }
+
 
 
 

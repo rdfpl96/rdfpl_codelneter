@@ -18,35 +18,19 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                     <div class="mob_back_btn">
                         <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                     </div>
-
                     <h3 class="fw-bold mb-0">Coupons List </h3>
                     <?php if (in_array('add', $getAccess['inputAction']) || $session['admin_type'] == 'A') { ?>
                         <a href="<?php echo base_url('admin/coupon/create'); ?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add</a>
-
                     <?php } ?>
                     <a href="<?php echo base_url('admin/coupon/create'); ?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Add Coupon</button></a>
-
-                    <!-- ===== -->
-
-
-                    <!-- ==== -->
-
                 </div>
             </div>
         </div> <!-- Row end  -->
-
-
-        <!-- filters -->
-
         <div class="row g-3 mb-3">
             <div class="col-xl-12 col-lg-12">
-
                 <div class="card mb-3">
-
                     <div class="card-body">
-
                         <div class="row">
-
                             <div class="col-md-3">
                                 <div class="filter-search">
                                     <form action="#" id="search-form" method="post" enctype="multipart/form-data">
@@ -55,9 +39,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                     </form>
                                 </div>
                             </div>
-
                             <?php if (in_array('import', $actAcx) || $session['admin_type'] == 'A') { ?>
-
                                 <div class="col-md-1 width_20 d-none">
                                     <form action="<?php //echo base_url('admin/importSVC');
                                                     ?>" method="post" class="fordi" id="my-form-import" enctype="multipart/form-data">
@@ -65,38 +47,23 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             <input type="file" class="sr-only" id="inputImage" name="fileupload" accept="csv/*">
                                             <span class="docs-tooltip" data-toggle="tooltip" title="" data-bs-original-title="Import image with Blob URLs">Import </span>
                                         </label>
-
                                     </form>
                                     <div class="loaderdiv" style="margin-top: 35%;"></div>
-
-
                                 </div>
                             <?php } ?>
-
                             <?php if (in_array('export', $actAcx) || $session['admin_type'] == 'A') { ?>
-
                                 <div class="col-md-1 width_50 d-none">
                                     <label class="form-label mt-30 btn btn-sm btn-secondary btn-upload">
                                         <a href="<?php echo base_url('exportCSV'); ?>" style="color:white;"><span class="docs-tooltip" data-toggle="tooltip" title="" data-bs-original-title="Import image with Blob URLs">Export</span></a>
                                     </label>
                                 </div>
                             <?php } ?>
-
-
-
                         </div>
                         <br>
-
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
-
-
         <!-- filters end -->
         <div class="row g-3 mb-3">
             <div class="col-md-12">
@@ -110,6 +77,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>Coupon COde</th>
                                         <th>Discount Type</th>
                                         <th>Discount Amt</th>
+                                        <th>Discount per</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -158,7 +126,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             if (response == 'True') {
                                 Swal.fire(
                                     'Deleted!',
-                                    'Blog has been deleted.',
+                                    'coupon has been deleted.',
                                     'success'
                                 ).then(() => {
                                     location.reload();
@@ -166,7 +134,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             } else {
                                 Swal.fire(
                                     'Failed!',
-                                    'Failed to delete blog.',
+                                    'Failed to delete coupon.',
                                     'error'
                                 );
                             }
@@ -174,7 +142,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         error: function() {
                             Swal.fire(
                                 'Error!',
-                                'Error deleting blog.',
+                                'Error deleting coupon.',
                                 'error'
                             );
                         }

@@ -88,7 +88,7 @@ class Offers extends CI_Controller
                                  <td>' . $pack_size_units . '</td> 
                                 <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
                                 <td><a href="javascript:deleteRowtablesub(' . $keyval['id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
-                            </tr>';
+                           </tr>';
                 $i++;
             }
         } else {
@@ -109,6 +109,48 @@ class Offers extends CI_Controller
 
 
 
+    public function Search_offer()
+    {
+        $keywords = $this->input->post('searchText');
+        $array_data = $this->offers->getSearch_offerDetails($keywords);
+
+
+
+
+        $option = '';
+        $i = 1;
+        if (is_array($array_data) && count($array_data) > 0) {
+         
+            foreach ($array_data as $keyval) {
+                $offer_type = ($keyval->offer_type == 1) ? 'Percentage' : 'Fixed Amount';
+                $pack_size_units = $keyval['pack_size'] . ' ' . $keyval['units'];
+                $option .= '<tr>
+                            <td>' . $i . '</td>
+                           <td>' . $offer_type . '</td>
+                            <td>' . $keyval['description'] . '</td>
+                            <td>' . $keyval['value'] . '</td>
+                            <td>' . $keyval['product_name'] . '</td>
+                            <td>' . $pack_size_units . '</td> 
+                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                           <td><a href="javascript:deleteRowtablesub(' . $keyval['id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                        </tr>';
+                $i++;
+            }
+        } else {
+
+            $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+        }
+        echo $option;
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -119,39 +161,6 @@ class Offers extends CI_Controller
     }
 
 
-    // public function store()
-    // {
-    //     $product_variant = $this->input->post('product_variant');
-    //     $lastKey = array_key_last($product_variant);
-    //     // echo '<pre>'; print_r($lastKey);die();
-
-    //     foreach ($product_variant as $key => $val){
-    //         $data = array(
-    //             'offer_type' => $this->input->post('offer_type'),
-    //             'description' => $this->input->post('description'),
-    //             'value' => $this->input->post('value'),
-    //             'product_id' => $this->input->post('product_id'),
-    //             'variant_id' => $val
-    //         );
-
-    //         $responce = $this->offers->store($data);
-    //         if($key === $lastKey){
-    //             if ($responce) {
-    //                 $this->session->set_flashdata('msg', 'Offers inserted successfully.');
-    //             } else {
-    //                 $this->session->set_flashdata('msg', 'Failed to insert Offers.');
-    //             }
-
-    //             redirect('admin/offers/create');
-    //         }
-
-    //     }
-
-    //     // $product_ids = is_array($product_id_array) ? implode(',', $product_id_array) : '';
-
-
-
-    // }
 
     public function store()
     {
@@ -259,31 +268,7 @@ class Offers extends CI_Controller
         }
     }
 
-    public function Search_offer()
-    {
-        $keywords = $this->input->post('searchText');
-        $array_data = $this->offers->getSearch_offerDetails($keywords);
-        $option = '';
-        $i = 1;
-        if (is_array($array_data) && count($array_data) > 0) {
-            $offer_type = ($keyval->offer_type == 1) ? 'Percentage' : 'Fixed Amount';
-            foreach ($array_data as $keyval) {
-                $option .= '<tr>
-                            <td>' . $i . '</td>
-                           <td>' . $offer_type . '</td>
-                            <td>' . $keyval['description'] . '</td>
-                            <td>' . $keyval['value'] . '</td>
-                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        </tr>';
-                $i++;
-            }
-        } else {
-
-            $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
-        }
-        echo $option;
-    }
-
+   
 
     public function delete_offer()
     {

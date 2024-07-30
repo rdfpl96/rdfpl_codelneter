@@ -85,13 +85,14 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Type<span style="color:red;">*</span></label>
-                                            <select class="form-control" id="disc_type" name="disc_type" required>
-                                                <option value="fixed_amt" <?php echo ($coupon['disc_type'] == 'fixed_amt') ? 'selected' : ''; ?>>Fixed Amount</option>
+                                           <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
+                                                <option value="Fixed Amount" <?php echo ($coupon['disc_type'] == 'Fixed Amount') ? 'selected' : ''; ?>>Fixed Amount</option>
                                                 <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : ''; ?>>Percentage</option>
                                             </select>
+
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label">Discount Amt <span style="color:red;">*</span></label>
+                                            <label class="form-label">Discount per <span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" id="disc_per" name="disc_per" value="<?php echo $coupon['disc_per']; ?>" required placeholder="Please enter Percentage">
                                         </div>
 
@@ -184,4 +185,26 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
             });
         });
     });
+
+
+
+   
+    function toggleDiscountInputs() {
+        var discType = $('#disc_type').val();
+
+        if (discType === 'Fixed Amount') {
+            $('#disc_amt').parent().show();
+            $('#disc_per').parent().hide(); 
+        } else if (discType === 'percentage') {
+            $('#disc_amt').parent().hide(); 
+            $('#disc_per').parent().show(); 
+        }
+    }
+
+    
+    $(document).ready(function() {
+        toggleDiscountInputs();
+    });
+
+
 </script>
