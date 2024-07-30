@@ -47,7 +47,7 @@ public function isGstNumberUnigue($gst_no){
  public function chkAlreadyAdressExist($pincode,$apart_house,$customerId){
       $this->db->select('*');
       $this->db->from('tbl_address');
-      $this->db->where('apart_house',$apart_house);
+      $this->db->where('address1',$apart_house);
       $this->db->where('customer_id',$customerId);
       $this->db->where('pincode',$pincode);
       $this->db->where('status',1);
