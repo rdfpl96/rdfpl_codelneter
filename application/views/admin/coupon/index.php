@@ -76,8 +76,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>S.N.</th>
                                         <th>Coupon COde</th>
                                         <th>Discount Type</th>
-                                        <th>Discount Amt</th>
-                                        <th>Discount per</th>
+                                        <th>Discount Value</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

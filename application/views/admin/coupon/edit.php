@@ -191,13 +191,16 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
    
     function toggleDiscountInputs() {
         var discType = $('#disc_type').val();
-
         if (discType === 'Fixed Amount') {
             $('#disc_amt').parent().show();
-            $('#disc_per').parent().hide(); 
+            $('#disc_per').parent().hide();
+            $('#disc_per').val('0.00'); 
+            
         } else if (discType === 'percentage') {
             $('#disc_amt').parent().hide(); 
             $('#disc_per').parent().show(); 
+            $('#disc_amt').val('0.00');
+            
         }
     }
 

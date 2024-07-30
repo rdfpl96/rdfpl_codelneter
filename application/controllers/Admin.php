@@ -268,9 +268,11 @@ class Admin extends CI_Controller
           'admin_mobile' => $this->input->post('mobile'),
           'admin_email' => $this->input->post('email'),
           'admin_designation' => $this->input->post('designation'),
-          'admin_password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+          'admin_password' => md5($this->input->post('password')),
           'admin_image' => $upload_data['file_name']
+
         );
+
         $insert = $this->user_model->insert_user($user_data);
         if ($insert) {
           $response = array('success' => true, 'message' => 'User added successfully');
@@ -302,7 +304,7 @@ class Admin extends CI_Controller
         'admin_mobile' => $this->input->post('mobile'),
         'admin_email' => $this->input->post('email'),
         'admin_designation' => $this->input->post('designation'),
-        'admin_password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+        'admin_password' => md5($this->input->post('password'))
     );
     $where = array('admin_id' => $user_id);
 

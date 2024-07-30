@@ -72,26 +72,22 @@ class Coupon extends CI_Controller
 
         $start = $page;
         $array_data = $this->coupon->get_all_coupons($config["per_page"], $start);
-        // echo '<pre>';
-        // print_r($data);
-        // die();
-
+    
         $i = $page + 1;
-
 
         $option = '';
 
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $keyval) {
+                $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
                 $option .= '<tr> 
-                                    <td>' . $i++ . '</td>
-                                <td>' . $keyval->coupon_code . '</td>
-                                <td>' . $keyval->disc_type . '</td>
-                                 <td>' . $keyval->disc_amt . '</td>
-                                <td>' . $keyval->disc_per . '</td>
-                                <td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                          <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
-                            </tr>';
+                        <td>' . $i++ . '</td>
+                        <td>' . $keyval->coupon_code . '</td>
+                        <td>' . $keyval->disc_type . '</td>
+                        <td>' . $discountVal . '</td>
+                        <td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                        <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                    </tr>';
             }
         } else {
             $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
@@ -202,6 +198,8 @@ class Coupon extends CI_Controller
         $data['coupon'] = $this->coupon->edit($id);
         $this->load->view('admin/coupon/edit', $data);
     }
+
+    
 
 
 
