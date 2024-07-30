@@ -117,13 +117,13 @@ class Coupon extends CI_Controller
         $option = '';
         
         foreach ($Cat_Html as $keyval) {
+            $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
             $counter++;
             $option .= '<tr> 
                 <td>' . $counter .'</td>
                 <td>' . $keyval->coupon_code . '</td>
                 <td>' . $keyval->disc_type . '</td>
-                <td>' . $keyval->disc_per . '</td>
-                 <td>' . $keyval->disc_amt . '</td>
+                <td>' . $discountVal . '</td>
                 <td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
                 <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
             </tr>';
@@ -140,20 +140,6 @@ class Coupon extends CI_Controller
     {
         $this->load->view('admin/coupon/create');
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function store()
     {

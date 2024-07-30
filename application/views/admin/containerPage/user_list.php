@@ -45,9 +45,23 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                     <th><span style="float: right;">Action</span></th>
                                 </tr>
                             </thead>
+                            
                             <tbody class="row_position">
+
+
+                            <?php
+
+// echo "<pre>";
+
+// print_r($users_list);
+// die();
+
+
+                            ?>
+
                             <?php  
                                 if($users_list) {
+                                    
                                     $index = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
                                     foreach($users_list as $value) {
                                         $index++;
@@ -62,10 +76,17 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                         <td><?php echo $value->updated_by;?></td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox" data-id="<?php echo base64_encode($value->admin_id.':::'.implode(',',$ActiveInactive_ActionArr));?>" class="cate-status" <?php echo ($value->status==1) ?'checked' :'';?>>
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="Status<?php echo htmlspecialchars($value->admin_id); ?>"  
+                                                    name="Status[]" 
+                                                    value="<?php echo $value->status; ?>"  
+                                                    onclick="UpdateUserStatus(<?php echo htmlspecialchars($value->admin_id); ?>)"
+                                                    <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
+
                                         <td><?php echo date('d-m-Y',strtotime($value->add_date));?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">
@@ -94,3 +115,44 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
     </div>
 </div>
  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+function UpdateUserStatus(id){
+    
+    var status = $('#Status' + id).val();
+    $.ajax({
+        url: "<?php echo base_url('Admin/updateuserStatus'); ?>",
+        type: "POST",
+        data: { user_id: id, status: status },
+        dataType: "json",
+        success: function(response) {
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'user status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            // else {
+            //     Swal.fire(
+            //         'Failed!',
+            //         'Failed to update user status.',
+            //         'error'
+            //     );
+            // }
+        },
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating user status.',
+        //         'error'
+        //     );
+        // }
+    });
+}
+
+
+</script>

@@ -318,6 +318,19 @@ class Admin extends CI_Controller
 }
 
 
+public function updateuserStatus(){
+  $status = $this->input->post('status');
+  $user_id = $this->input->post('user_id');
+  $updateStatus = $this->sqlQuery_model->updateuserStatus($user_id, $status);
+  if ($updateStatus) {
+      echo json_encode('True');
+  } else {
+      
+      $this->load->view('admin/blogs/create', $data);
+      echo json_encode('False');
+  }
+}
+
 
 
 
@@ -387,21 +400,12 @@ class Admin extends CI_Controller
     // $querys="SELECT * FROM tbl_hsn_code ORDER BY hsn_code_id DESC $sql_limit";
     // $querys="SELECT * FROM tbl_hsn_code WHERE status=1 ORDER BY hsn_code_id DESC LIMIT 20";
     // $data['hsn_list']=$this->sqlQuery_model->sql_query($querys);
-
-
-
     $data['cat_and_sub_catlist'] = $this->my_libraries->getMenus();
-
     // $data['category_list']=$this->sqlQuery_model->sql_select_where('tbl_category',array('status'=>1));
-
     $data['units_list'] = $this->sqlQuery_model->sql_select_where('tbl_units', array('status' => 1));
-
     $data['period_list'] = $this->sqlQuery_model->sql_select_where('period_type', array('status' => 1));
-
     // $data['delivery_place_list']=$this->sqlQuery_model->sql_select_where('tbl_delivery_place',array('status'=>1));
     $data['werehouse_list'] = $this->sqlQuery_model->sql_select_where('tbl_werehouse', array('status' => 1));
-
-
     $data['food_habitats_list'] = $this->sqlQuery_model->sql_select_where('tbl_food_habitats', array('status' => 1));
     $data['deleteActionArr_variants'] = array('table' => 'tbl_product_variants', 'primary_key' => 'variant_id');
     $data['content'] = 'admin/containerPage/add-product';

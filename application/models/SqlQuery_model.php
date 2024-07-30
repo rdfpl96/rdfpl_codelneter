@@ -72,9 +72,7 @@ class SqlQuery_model extends CI_Model
     public function get_users_banner_list($limit, $start) {
       $this->db->limit($limit, $start);
       $query = $this->db->get("tbl_banner");
-     
-     
-
+   
       // print_r($result);
       // die();
 
@@ -83,15 +81,6 @@ class SqlQuery_model extends CI_Model
       }
       return false;
     }
-
-
-
-
-
-
-
-
-
 
 
    public function sql_select_where_asc($tablename, $col_name, $where)
@@ -216,12 +205,6 @@ class SqlQuery_model extends CI_Model
    }
 
 
-
-   
-
-
-
-
    public function get_current_page_records($tablename, $limit, $start, $where)
    {
       $this->db->limit($limit, $start);
@@ -245,26 +228,6 @@ class SqlQuery_model extends CI_Model
       return $query->num_rows();
       // return $this->db->count_all($tablename);
    }
-
-   // public function sql_update_or($tablename,$data,$email,$contact)
-   //    {
-   //        $query=$this->db->update($tablename,$data);
-   //        $this->db->where('contact=', $contact);
-   //        $this->db->or_where('email=', $email);
-   //         // $retu=$this->db->affected_rows();
-   //        if($query)
-   //        {
-   //           return 1;  
-   //        }
-   //        else
-   //        {
-   //           return 0;  
-   //        }
-   //    }
-
-
-
-
 
 
    public function sql_delete($tablename, $where)
@@ -311,32 +274,6 @@ class SqlQuery_model extends CI_Model
          return 0;
       }
    }
-
-
-   // public function get_current_page_records($limit, $start) 
-   //   {
-   //       $this->db->limit($limit, $start);
-   //      // $this->db->get();
-   //       $query =$this->db->get_where("tbl_blogs",array('status'=>1)); 
-   //       if ($query->num_rows() > 0) 
-   //       {
-   //           foreach ($query->result() as $row) 
-   //           {
-   //               $data[] = $row;
-   //           }
-
-   //           return $data;
-   //       }else{
-   //          return 0;  
-   //       }
-
-
-   //   }
-
-   // public function get_total() 
-   // {
-   //     return $this->db->count_all("tbl_blogs");
-   // }
 
 
    public function get_last_inset_id($tablename)
@@ -387,6 +324,32 @@ class SqlQuery_model extends CI_Model
       }
    }
 
+
+   public function updateuserStatus() {
+      $user_id = $this->input->post('user_id');
+      $current_status = $this->input->post('status');
+    
+
+      // echo "<pre>"; 
+
+      // print_r($user_id);
+
+      // print_r($current_status);
+      // die();
+
+      $new_status = ($current_status == 1) ? 0 : 1;
+   
+      $data = array(
+          'status' => $new_status
+      );
+
+      $this->db->where('admin_id', $user_id);
+      if ($this->db->update('tbl_admin', $data)) {
+          return true;
+      } else {
+          return false; 
+      }
+    }
 
    public function sql_single_query($sqry)
    {
