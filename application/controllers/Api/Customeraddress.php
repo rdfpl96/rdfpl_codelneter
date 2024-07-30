@@ -37,6 +37,8 @@ class CustomerAddress extends REST_Controller{
 
         $post = json_decode($this->input->raw_input_stream, true);
 
+        //print_r($post);
+
         $fname=isset($post['fname']) ? $post['fname'] : "" ; 
         $lname=isset($post['lname']) ? $post['lname'] : "" ;
         $mobile=isset($post['mobile']) ? $post['mobile'] : "" ;
@@ -47,7 +49,7 @@ class CustomerAddress extends REST_Controller{
         $state=isset($post['state']) ? $post['state'] : "" ;
         $city=isset($post['city']) ? $post['city'] : "" ;
         $pincode=isset($post['pincode']) ? $post['pincode'] : "" ;
-        $loc_type=isset($post['loc_type']) ? $post['loc_type'] : "" ;
+        $loc_type=isset($post['address_type']) ? $post['address_type'] : "" ;
         $other_loc=isset($post['other_loc']) ? $post['other_loc'] : "" ;                      
         
         if($fname!="" && $mobile!="" && $apart_house!="" && $apart_name!="" && $state!="" && $city!="" && $pincode!="" && $loc_type!=""){
@@ -56,13 +58,13 @@ class CustomerAddress extends REST_Controller{
                 "fname"=>$fname,
                 "lname"=>$lname,
                 "mobile"=>$mobile,
-                "apart_house"=>$apart_house,
-                "apart_name"=>$apart_name,
+                "address1"=>$apart_house,
+                "address2"=>$apart_name,
                 "area"=>$area,
                 "state"=>$state,
                 "city"=>$city,
                 "pincode"=>$pincode,
-                "loc_type"=>$loc_type,
+                "address_type"=>$loc_type,
                 "other_loc"=>$other_loc,
             );  
             if($this->addObj->chkAlreadyAdressExist($customer_id,$apart_house,$pincode)){
