@@ -67,7 +67,7 @@ class CustomerAddress extends REST_Controller{
                 "address_type"=>$loc_type,
                 "other_loc"=>$other_loc,
             );  
-            if($this->addObj->chkAlreadyAdressExist($customer_id,$apart_house,$pincode)){
+            if(!$this->addObj->chkAlreadyAdressExist($customer_id,$apart_house,$pincode)){
 
                 if($this->addObj->addressSave($array_data)){
 
