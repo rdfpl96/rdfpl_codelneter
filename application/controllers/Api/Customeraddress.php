@@ -55,6 +55,7 @@ class CustomerAddress extends REST_Controller{
         if($fname!="" && $mobile!="" && $apart_house!="" && $apart_name!="" && $state!="" && $city!="" && $pincode!="" && $loc_type!=""){
             
             $array_data=array(
+                "customer_id"=>$customer_id,
                 "fname"=>$fname,
                 "lname"=>$lname,
                 "mobile"=>$mobile,
