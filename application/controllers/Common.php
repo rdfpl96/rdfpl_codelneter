@@ -377,24 +377,25 @@ public function smart_basket(){
         $this->load->view('frontend/template',$data);
     }     
 public function my_order() {
-    // Fetch customer data from session
     $user = $this->my_libraries->mh_getCookies('customer');
     
     if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
         $customer_id = (int)$user['customer_id'];
-
-        // Load the model
         $this->load->model('Common_model');
-        $data['getOrders'] = $this->common_model->getCustomerOrders($customer_id);
-        // echo '<pre>';
-        // print_r($data);
-        // exit;
+        //$data['getOrders'] = $this->common_model->getCustomerOrders($customer_id);
+        $year = $this->input->post('year');
+        $data['selected_year'] = $year;
+        if ($year) {
+            $data['getOrders'] = $this->common_model->getCustomerOrdersByYear($customer_id, $year);
+        } else {
+            $data['getOrders'] = $this->common_model->getCustomerOrders($customer_id);
+        }
+
         $data['order_count'] = ($data['getOrders'] != 0) ? count($data['getOrders']) : 0;
         $data['content'] = 'frontend/component/my-order';
         $this->load->view('frontend/template', $data);
 
     } else {
-        // If user is not logged in, redirect to the home page
         redirect(base_url(), 'refresh');
     }
 }

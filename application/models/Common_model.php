@@ -132,6 +132,16 @@ public function check_existing_email($customer_id, $email) {
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function getCustomerOrdersByYear($customer_id, $year) {
+        $this->db->select('*');
+        $this->db->from('tbl_order');
+        $this->db->where('customer_id', $customer_id);
+        $this->db->where('YEAR(order_date)', $year);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
   
 }
 ?>
