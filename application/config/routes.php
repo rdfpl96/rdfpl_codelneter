@@ -271,6 +271,7 @@ $route['save-gst-details']='common/save_gst_details';
   //Customer
   $route['api/customer/address-list']='Api/customeraddress/index';
   $route['api/customer/address_save']='Api/customeraddress/save';
+  $route['api/customer/address_update']='Api/customeraddress/update';
   $route['api/customer/setdefault']='Api/customeraddress/setdefault';   
   $route['api/customer/save-gst']='Api/customeraddress/saveGst';
   $route['api/customer/slote-list']='Api/customeraddress/sloteList'; 

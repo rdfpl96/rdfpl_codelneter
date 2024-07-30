@@ -44,13 +44,16 @@ public function isGstNumberUnigue($gst_no){
   }
 }
  
- public function chkAlreadyAdressExist($pincode,$apart_house,$customerId){
+ public function chkAlreadyAdressExist($customer_id,$apart_house,$pincode,$address_id=""){
       $this->db->select('*');
       $this->db->from('tbl_address');
       $this->db->where('address1',$apart_house);
       $this->db->where('customer_id',$customerId);
       $this->db->where('pincode',$pincode);
       $this->db->where('status',1);
+      if($address_id!=""){
+        $this->db->where('addr_id !=',1);
+      }
       $query=$this->db->get() ;
       if($query->num_rows()>0){ 
        return true;
@@ -77,6 +80,22 @@ public function isGstNumberUnigue($gst_no){
     }
 
  } 
+
+   public function addressUpdate($id,$array_data){
+
+    $this->db->trans_begin(); 
+
+    $this->db->where('addr_id', $id);     
+    $this->db->update('tbl_address', $array_data);
+
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      return true;
+    } 
+} 
 
  public function addressSave($array_data){
 

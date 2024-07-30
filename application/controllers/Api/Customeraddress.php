@@ -61,7 +61,7 @@ class CustomerAddress extends REST_Controller{
                 "address1"=>$apart_house,
                 "address2"=>$apart_name,
                 "area"=>$area,
-                "state"=>$state,
+                "state_id"=>$state,
                 "city"=>$city,
                 "pincode"=>$pincode,
                 "address_type"=>$loc_type,
@@ -70,6 +70,63 @@ class CustomerAddress extends REST_Controller{
             if(!$this->addObj->chkAlreadyAdressExist($customer_id,$apart_house,$pincode)){
 
                 if($this->addObj->addressSave($array_data)){
+
+                    $this->response(array('error' =>0,'msg'=>'Success')); 
+
+                }else{
+                    $this->response(array('error' =>1,'msg'=>'Problem to add the address')); 
+                }
+
+            }else{
+                $this->response(array('error' =>1,'msg'=>'Address already exsit'));     
+            }
+
+        }else{
+
+            $this->response(array('error' =>1,'msg'=>'Some parameter missing'));   
+        }
+    }
+
+    public function update_post(){
+
+        $customer_id=$this->authorization_token->userData()->customer_id;
+
+        $post = json_decode($this->input->raw_input_stream, true);
+
+        //print_r($post);
+        $address_id=isset($post['address_id']) ? $post['address_id'] : "" ; 
+
+        $fname=isset($post['fname']) ? $post['fname'] : "" ; 
+        $lname=isset($post['lname']) ? $post['lname'] : "" ;
+        $mobile=isset($post['mobile']) ? $post['mobile'] : "" ;
+        $apart_house=isset($post['apart_house']) ? $post['apart_house'] : "" ;
+        $apart_name=isset($post['apart_name']) ? $post['apart_name'] : "" ;
+        $area=isset($post['area']) ? $post['area'] : "" ;
+        $street_landmark=isset($post['street_landmark']) ? $post['street_landmark'] : "" ;
+        $state=isset($post['state']) ? $post['state'] : "" ;
+        $city=isset($post['city']) ? $post['city'] : "" ;
+        $pincode=isset($post['pincode']) ? $post['pincode'] : "" ;
+        $loc_type=isset($post['address_type']) ? $post['address_type'] : "" ;
+        $other_loc=isset($post['other_loc']) ? $post['other_loc'] : "" ;                      
+        
+        if($fname!="" && $mobile!="" && $apart_house!="" && $apart_name!="" && $state!="" && $city!="" && $pincode!="" && $loc_type!=""){
+            
+            $array_data=array(
+                "fname"=>$fname,
+                "lname"=>$lname,
+                "mobile"=>$mobile,
+                "address1"=>$apart_house,
+                "address2"=>$apart_name,
+                "area"=>$area,
+                "state_id"=>$state,
+                "city"=>$city,
+                "pincode"=>$pincode,
+                "address_type"=>$loc_type,
+                "other_loc"=>$other_loc,
+            );  
+            if(!$this->addObj->chkAlreadyAdressExist($customer_id,$apart_house,$pincode,$address_id)){
+
+                if($this->addObj->addressUpdate($address_id,$array_data)){
 
                     $this->response(array('error' =>0,'msg'=>'Success')); 
 
