@@ -1,4 +1,3 @@
-
 <?php
 //  $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 // if((!in_array('add',$actAcx) && !in_array('edit',$actAcx)) && $session['admin_type']!='A'){
@@ -7,7 +6,7 @@
 //    }
 
 ?>
-<!-- Body: Body -->       
+<!-- Body: Body -->
 <!-- Body: Body -->
 <div class="body d-flex py-lg-3 py-md-2">
     <div class="container-xxl">
@@ -17,11 +16,20 @@
                     <div class="mob_back_btn">
                         <h2 style="padding-top: 8px; color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                     </div>
+                    <div class="d-flex justify-content-between w-100"> 
                     <h3 class="fw-bold mb-0">Other Product</h3>
+                    <button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" style="margin-left: 300px;" onclick="window.location.href='<?php echo base_url('admin/other-product'); ?>'">
+                        Back
+                    </button>
+                    </div>
                     <div class="loaderdiv"></div>
                 </div>
             </div>
-        </div> <!-- Row end  -->
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+        <!-- Row end  -->
         <div class="row clearfix g-3">
             <div class="col-lg-12">
                 <div class="card mb-3">
@@ -42,8 +50,8 @@
                                     <select class="form-select" name="product_id[]" id="product_id" data-placeholder="Choose product ..." multiple required>
                                         <option value="">Select</option>
                                         <?php
-                                        foreach($productList as $precord){
-                                            echo '<option value="'.$precord->product_id.'">'.$precord->product_name.'</option>';
+                                        foreach ($productList as $precord) {
+                                            echo '<option value="' . $precord->product_id . '">' . $precord->product_name . '</option>';
                                         }
                                         ?>
                                     </select>
@@ -53,6 +61,7 @@
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-primary con-cl py-2 px-5 text-uppercase btn-set-task w-sm-100">Submit</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -74,4 +83,3 @@
         max-width: inherit;
     }
 </style>
-

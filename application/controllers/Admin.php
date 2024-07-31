@@ -3905,15 +3905,42 @@ class Admin extends CI_Controller
 
     $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
     $querys = "SELECT P.product_id, P.product_name, OP.product_type_id  FROM tbl_product AS P INNER JOIN tbl_other_product AS OP ON P.product_id = OP.product_id  ORDER BY P.product_id DESC $sql_limit";
-
     $data['productList'] = $this->sqlQuery_model->sql_query($querys);
-
     $data["links"] = $this->pagination->create_links();
-
-
     $data['content'] = 'admin/other_product/index';
     $this->load->view('admin/template', $data);
   }
+
+
+  public function delete_Other_Product()
+  {
+
+    $menuIdAsKey = 44;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
+    $id = $this->input->post('id');
+
+    $response= $this->sqlQuery_model->sql_delete('tbl_other_product', array('product_id' => $id));
+    if($response=='1'){
+
+      $Flag= 'True';
+  }else{
+      $Flag= 'False';
+  }
+  echo json_encode($Flag);
+  exit();
+  redirect('admin/other-product');
+
+  }
+
+
+
+
+
+
+
+
+
 
   public function addOtherProduct()
   {
