@@ -329,14 +329,6 @@ class SqlQuery_model extends CI_Model
       $user_id = $this->input->post('user_id');
       $current_status = $this->input->post('status');
     
-
-      // echo "<pre>"; 
-
-      // print_r($user_id);
-
-      // print_r($current_status);
-      // die();
-
       $new_status = ($current_status == 1) ? 0 : 1;
    
       $data = array(

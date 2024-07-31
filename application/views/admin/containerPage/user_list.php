@@ -1,18 +1,10 @@
 
  
 <?php
-   // echo "<pre>";
-   // print_r($actAcx);
-   // print_r($session['admin_type']);
-   // echo "</pre>";
+   
 $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 ?>
- 
- 
- 
- <!-- Body: Body -->
- 
-<!-- Body: Body -->
+
 <div class="body d-flex py-3">
     <div class="container-xxl">
         <div class="row align-items-center">
@@ -48,17 +40,6 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                             
                             <tbody class="row_position">
 
-
-                            <?php
-
-// echo "<pre>";
-
-// print_r($users_list);
-// die();
-
-
-                            ?>
-
                             <?php  
                                 if($users_list) {
                                     
@@ -86,7 +67,6 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
-
                                         <td><?php echo date('d-m-Y',strtotime($value->add_date));?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">

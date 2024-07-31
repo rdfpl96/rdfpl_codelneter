@@ -34,8 +34,21 @@ if (!empty($user_id)) {
 } else {
     $action = 'add_user';
 }
-//  ? 'update_user' : 'add_user')
+
 ?>
+
+
+
+<?php
+
+// echo "<pre>";
+
+// print_r($user_details);
+// die();
+?>
+
+
+
 <form action="<?php echo base_url('admin/' . $action); ?>" id="Userformdata" method="post" enctype="multipart/form-data">
     <!-- main body area -->
     <div class="main px-lg-4 px-md-4">
@@ -54,7 +67,7 @@ if (!empty($user_id)) {
                             <button type="submit" class="btn btn-primary" id="update_user">Save</button>
                         </div>
                     </div>
-
+                    <td>
                 </div> <!-- Row end -->
                 <div class="row g-3 mb-3">
                     <div class="col-xl-12 col-lg-12">
@@ -107,12 +120,27 @@ if (!empty($user_id)) {
                                             </div>
                                             <span style="color:red;font-size: 13px;">Image dimension should be 300 X 300 Px.</span>
                                         </div>
+                                        
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Status</label>
+                                            <label class="switch">
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="Status<?php echo htmlspecialchars($user_details->admin_id); ?>"  
+                                                    name="Status[]" 
+                                                    value="<?php echo $user_details->status; ?>"  
+                                                    onclick="UpdateUserStatus(<?php echo htmlspecialchars($user_details->admin_id); ?>)"
+                                                    <?php echo ($user_details->status == 1) ? 'checked' : ''; ?>>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><!-- Row end -->
+                </div>
             </div>
         </div>
     </div>
@@ -181,17 +209,16 @@ if (!empty($user_id)) {
     function UpdateUserStatus(id){
     
     var status = $('#Status' + id).val();
-
     $.ajax({
-        url: "<?php echo base_url('AdminPanel/Blogs/updateBlogStatus'); ?>",
+        url: "<?php echo base_url('Admin/updateuserStatus'); ?>",
         type: "POST",
-        data: { blog_id: id, status: status },
+        data: { user_id: id, status: status },
         dataType: "json",
         success: function(response) {
             if (response == 'True') {
                 Swal.fire(
                     'Updated!',
-                    'Blog status has been updated.',
+                    'user status has been updated.',
                     'success'
                 ).then(() => {
                     location.reload();
@@ -200,20 +227,22 @@ if (!empty($user_id)) {
             else {
                 Swal.fire(
                     'Failed!',
-                    'Failed to update blog status.',
+                    'Failed to update user status.',
                     'error'
                 );
             }
         },
-        error: function() {
-            Swal.fire(
-                'Error!',
-                'Error updating blog status.',
-                'error'
-            );
-        }
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating user status.',
+        //         'error'
+        //     );
+        // }
     });
 }
+
+
 
 
 

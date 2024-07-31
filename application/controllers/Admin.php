@@ -223,7 +223,6 @@ class Admin extends CI_Controller
   //new code
   public function add_user()
   {
-
     if ($this->input->is_ajax_request()) {
 
       $this->form_validation->set_rules('c_fname', 'First Name', 'required');
@@ -239,7 +238,6 @@ class Admin extends CI_Controller
         echo json_encode($response);
         return;
       }
-
       // File upload configuration
       $upload_path = realpath(APPPATH . '../uploads');
       if (!is_dir($upload_path)) {
@@ -272,7 +270,6 @@ class Admin extends CI_Controller
           'admin_image' => $upload_data['file_name']
 
         );
-
         $insert = $this->user_model->insert_user($user_data);
         if ($insert) {
           $response = array('success' => true, 'message' => 'User added successfully');
@@ -289,60 +286,48 @@ class Admin extends CI_Controller
   }
 
 
-
-
-
-
-
-
   public function update_user()
-{
+  {
     $user_id = $this->input->post('editv');
     $user_data = array(
-        'admin_name' => $this->input->post('c_fname'),
-        'admin_username' => $this->input->post('username'),
-        'admin_mobile' => $this->input->post('mobile'),
-        'admin_email' => $this->input->post('email'),
-        'admin_designation' => $this->input->post('designation'),
-        'admin_password' => md5($this->input->post('password'))
+      'admin_name' => $this->input->post('c_fname'),
+      'admin_username' => $this->input->post('username'),
+      'admin_mobile' => $this->input->post('mobile'),
+      'admin_email' => $this->input->post('email'),
+      'admin_designation' => $this->input->post('designation'),
+      'admin_password' => md5($this->input->post('password'))
     );
     $where = array('admin_id' => $user_id);
 
     $update = $this->sqlQuery_model->sql_update('tbl_admin', $user_data, $where);
     if ($update) {
-        $response = array('success' => true, 'message' => 'User updated successfully');
+      $response = array('success' => true, 'message' => 'User updated successfully');
     } else {
-        $response = array('success' => false, 'message' => 'Failed to update user');
+      $response = array('success' => false, 'message' => 'Failed to update user');
     }
     echo json_encode($response);
-}
-
-
-public function updateuserStatus(){
-  $status = $this->input->post('status');
-  $user_id = $this->input->post('user_id');
-  $updateStatus = $this->sqlQuery_model->updateuserStatus($user_id, $status);
-  if ($updateStatus) {
-      echo json_encode('True');
-  } else {
-      
-      $this->load->view('admin/blogs/create', $data);
-      echo json_encode('False');
   }
-}
 
 
-
-
-
-
-
+  public function updateuserStatus()
+  {
+    $status = $this->input->post('status');
+    $user_id = $this->input->post('user_id');
+    $updateStatus = $this->sqlQuery_model->updateuserStatus($user_id, $status);
+    if ($updateStatus) {
+      echo json_encode('True');
+    } else {
+      $this->load->view('admin\containerPage\user_list', $data);
+      echo json_encode('False');
+    }
+  }
 
 
 
 
 
   
+
   public function user_setting()
   {
     $menuIdAsKey = 14;
@@ -355,6 +340,7 @@ public function updateuserStatus(){
     $data['content'] = 'admin/containerPage/user_setting';
     $this->load->view('admin/template', $data);
   }
+
 
   public function category1()
   {
@@ -1994,60 +1980,6 @@ public function updateuserStatus(){
     $this->load->view('admin/template', $data);
   }
 
-
-
-  //  public function product_order(){
-
-  //         // $customer_id=$this->input->get('custo');
-  //         // $where ="";
-  //         // if($customer_id!="" && is_numeric($customer_id)){
-  //         //  $where = " WHERE order_cust_id=".$customer_id."";
-  //         // }
-
-  //         $menuIdAsKey=3;
-  //         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-  //         $data['page_menu_id']=$menuIdAsKey;
-
-  //        //$querys="SELECT * FROM tbl_order_manager $where";
-  //        $pr_list_count=$this->sqlQuery_model->getOrderDetails();
-
-  //         //   echo   "<pre>";
-  //         // print_r($pr_list_count);
-  //         // echo "</pre>";
-  //         // die();
-
-
-  //        $url_link=base_url('admin/product_order'); 
-  //        $limit_per_page = 10;
-  //        $getVariable=$this->input->get('per_page');
-  //        $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
-
-  //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
-  //        $config=createPagination($total_records,$url_link,$limit_per_page);
-  //          $this->pagination->initialize($config);
-
-  //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
-  //        ///$querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
-  //        $data['order_list']=$this->sqlQuery_model->getOrderDetails();
-  //        $data["links"] = $this->pagination->create_links();
-
-
-  //       //  $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
-  //       //  $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
-  //       //  $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
-
-
-  //        //$querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
-  //        $data['order_amount']=$this->sqlQuery_model->getOrderDetails();
-
-  //        $data['content']='admin/containerPage/product-orders';
-  //   		 $this->load->view('admin/template',$data);
-
-
-
-  //  }
-
-
   public function product_order()
   {
 
@@ -3579,7 +3511,6 @@ public function updateuserStatus(){
       "Ser No",
       "Order ID",
       "Customer Name",
-
       "Selling Price",
       "Quantity",
       "Sub Total",
@@ -3666,9 +3597,6 @@ public function updateuserStatus(){
     $final = array("", "Total : ", "", $sellingAmount, "", $subTotal, "", $totalIGSTAmount, "", $totalCGSTAmount, "", $totalSGSTAmount, $taxableAmount, "", "", "", "", "", "", "", "", "", "", "");
 
     fputcsv($file, $final);
-
-
-
     fclose($file);
     exit;
   }
@@ -3805,9 +3733,6 @@ public function updateuserStatus(){
 
     $querys = "SELECT * FROM tbl_delivery_pincode WHERE courier_type ='dtdc'";
     $pincode_list = $this->sqlQuery_model->sql_query($querys);
-
-
-
     $header = array(
       "Pincode_Id",
       "Pincode",
@@ -3862,10 +3787,6 @@ public function updateuserStatus(){
           $whcode[] = end(explode('_', $coluKey));
         }
       }
-
-
-
-
       if ($this->upload->do_upload('fileupload')) {
         // Get data about the file
         $uploadData = $this->upload->data();
