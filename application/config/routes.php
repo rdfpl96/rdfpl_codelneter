@@ -181,12 +181,11 @@ $route['product-search']='common/productSearch';
 
 
 $route['shop']='product/shop';
+$route['shop/(:num)']='Product/shop/$1';
 $route['pc/(:any)']='product/index/$1';
 $route['pc/(:any)/(:any)']='product/index/$1/$2';
 $route['pc/(:any)/(:any)/(:any)']='product/index/$1/$2/$3';
-
 $route['product-filter']='product/search';
-
 $route['product/(:any)']='product/detail/$1';
 $route['rating-review-details'] = 'product/review_rating'; 
 $route['getSubCategoryTopId/(:num)']='common/getSubCategoryTopId/$1';

@@ -6,7 +6,7 @@ $this->load->view('frontend/header');
 // print_r($_SESSION);
 // exit();
 ?>
-
+ 
 <main class="main shop_main_background" style="transform: none;">
    <div class="page-call" style="transform: none;">
       <div id="page-act" style="transform: none;">
@@ -247,6 +247,9 @@ $this->load->view('frontend/header');
                      <!-- <div class="col-lg-3 col-md-4 col-12 col-sm-6"> -->
                       <?php echo $products; ?>  
                      <!--  -->
+                     <div class="pagination-links">
+                <?php echo $pagination; ?>
+            </div> 
                   </div>
                  
                </div>
@@ -432,6 +435,8 @@ $this->load->view('frontend/header');
          </div>
       </div>
    </div>
+       
+         
 </main>
 <?php $this->load->view('frontend/footer'); ?>
 <script>
