@@ -80,11 +80,10 @@ class Product extends CI_Controller
 public function shop()
 {
     $total_rows = $this->productObj->get_Product_count($slug1, $slug2, $slug3);
-    // Pagination configuration
     $config = array();
     $config["base_url"] = base_url() ."shop";
     $config['total_rows'] = $total_rows;
-    $config["per_page"] = 8;
+    $config["per_page"] = 12;
     $config["uri_segment"] = 2;
     $config['full_tag_open'] = '<ul class="pagination" style="padding-bottom:20px;">';
     $config['full_tag_close'] = '</ul>';
@@ -108,7 +107,7 @@ public function shop()
     $this->pagination->initialize($config);
     $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
     // Fetch product list
-    $products = $this->productObj->getProdcutListBySlug($slug1, $slug2, $slug3, $config["per_page"], $page);
+    $products = $this->productObj->getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $config["per_page"], $page);
     $data['pagination_links'] = $this->pagination->create_links();
     $data['productCount'] = $total_rows;
     $data['sidecategories'] = $this->customlibrary->getTopCategory();
