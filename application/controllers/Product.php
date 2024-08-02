@@ -9,6 +9,7 @@ class Product extends CI_Controller
     parent::__construct();
 
     $this->load->model('product_model', 'productObj');
+    $this->load->model('common_model');
     $this->load->library('my_libraries');
     $this->load->library('pagination');
 
@@ -132,11 +133,11 @@ public function shop()
 
     if (count($pdetail) > 0) {
       $simillerProduct = $this->productObj->getProdcutListBySlug($pdetail['top_cat_slug'], $pdetail['sub_cat_slug'], $pdetail['child_cat_slug']);
+      $reviews = $this->common_model->getReviewsByProductId($pdetail['product_id']);
     }
+    //$this->load->view("frontend/product/detail", array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct));
 
-
-
-    $this->load->view("frontend/product/detail", array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct));
+    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews));
   }
 
   public function search()

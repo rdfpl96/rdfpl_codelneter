@@ -178,6 +178,41 @@ public function check_existing_email($customer_id, $email) {
         }
     } 
 
+    public function getReviewsByProductId($product_id)
+    {
+        $this->db->select('r.*, c.c_fname as customer_name');
+        $this->db->from('tbl_rate_and_review r');
+        $this->db->join('tbl_customer c', 'r.cust_id = c.customer_id', 'left');
+        $this->db->where('r.product_id', $product_id);
+        $this->db->where('r.status', 1);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    function dateDifference($date1) {
+
+    $date2 = date('Y-m-d'); // Current date
+        $datetime1 = new DateTime($date1);
+        $datetime2 = new DateTime($date2);
+        $interval = $datetime1->diff($datetime2);
+     
+        $years = $interval->y;
+        $months = $interval->m;
+        $days = $interval->d;
+     
+        if ($years > 0) {
+            return $years . ' year' . ($years > 1 ? 's' : '');
+        } elseif ($months > 0) {
+            return $months . ' month' . ($months > 1 ? 's' : '');
+        } else {
+            return $days . ' day' . ($days > 1 ? 's' : '');
+        }
+    }
+     
+    // $date1 = '2024-07-01';
+     
+    // echo dateDifference($date1);
+
   
 }
 ?>

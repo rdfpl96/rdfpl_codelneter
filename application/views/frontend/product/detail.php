@@ -7,7 +7,7 @@
 
 ?>
 <?php
-// print_r($pdetail);
+// print_r($reviews);
 // exit();
 ?>
 <?php $this->load->view('frontend/header'); ?>
@@ -434,40 +434,34 @@
                      <div class="col-md-8">
                         <div class="review_sec_right_sec">
                            <h3>Product Reviews</h3>
-                           <div class="rating_review_details_list">
-                              <div class="mt-10">
-                                 <div class="grid_product_rating">
-                                    <p>3 <i class="material-symbols-outlined">star</i></p>
-                                 </div>
-                                 <h4>The product is good but the quantity is very less compared to offline product available in the retail market. Totally upset after receiving the product.</h4>
-                                 <div class="rating_review_author d-flex justify-content-between">
-                                    <p class="text-muted">Joydeep Ghosh, (a year ago)</p>
-                                    <div class="thumb_icon">
-                                       3
-                                       <span class="material-symbols-outlined">thumb_up</span>
-                                       3
-                                       <span class="material-symbols-outlined">personal_places</span>
+                            <?php if (!empty($reviews)): ?>
+                                <?php foreach ($reviews as $review): ?>
+                                    <div class="rating_review_details_list">
+                                        <div class="mt-10">
+                                            <div class="grid_product_rating">
+                                                <p><?php echo $review['cust_rate']; ?> <i class="material-symbols-outlined">star</i></p>
+                                            </div>
+                                            <h4><?php echo $review['comment']; ?></h4>
+                                            <div class="rating_review_author d-flex justify-content-between">
+                                             <p class="text-muted">
+                                                <?php echo $review['customer_name']; ?>, 
+                                                (<?php echo $this->common_model->dateDifference($review['add_date']); ?> ago)
+                                                
+                                             </p>
+                                                <div class="thumb_icon">
+                                                    <?php echo $review['thumbs_up']; ?>
+                                                    <span class="material-symbols-outlined">thumb_up</span>
+                                                    <?php echo $review['thumbs_down']; ?>
+                                                    <span class="material-symbols-outlined">thumb_down</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="rating_review_details_list">
-                              <div class="mt-10">
-                                 <div class="grid_product_rating">
-                                    <p>3 <i class="material-symbols-outlined">star</i></p>
-                                 </div>
-                                 <h4>The product is good but the quantity is very less compared to offline product available in the retail market. Totally upset after receiving the product.</h4>
-                                 <div class="rating_review_author d-flex justify-content-between">
-                                    <p class="text-muted">Joydeep Ghosh, (a year ago)</p>
-                                    <div class="thumb_icon">
-                                       <span class="material-symbols-outlined">thumb_up</span>
-                                       2
-                                       <span class="material-symbols-outlined">personal_places</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                              <p>No reviews yet. Be the first to review this product!</p>
+                            <?php endif; ?>
+                            <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
                         </div>
                      </div>
                   </div>
