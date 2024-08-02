@@ -1131,6 +1131,78 @@ public function getSubCategoryInOption($top_cat_id=""){
     exit();
     
   }
+
+public function order_details($order_no){
+    // $data['content'] = 'frontend/component/order_details';
+    // $this->load->view('frontend/template', $data);
+  
+    $user = $this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
+        $customer_id = (int)$user['customer_id'];
+        //$order_id=base64_decode($_GET['ord_id']);
+        $data['order_details'] = $this->common_model->getOrderDetailsFun($order_no);
+        $data['getOrders'] = $this->common_model->getCustomerOrdersDetailsByOrderId($customer_id,$order_no);
+        $data['order_count'] = ($data['getOrders'] != 0) ? count($data['getOrders']) : 0;
+        $data['content'] = 'frontend/component/order_details';
+        $this->load->view('frontend/template', $data);
+
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}  
+
+public function rating_review($order_no,$product_id){
+    $user = $this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
+        $customer_id = (int)$user['customer_id'];
+        $data['content']='frontend/component/rating_review';
+        $this->load->view('frontend/template',$data);
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}    
+
+public function rating_review_submit() {
+        $user = $this->my_libraries->mh_getCookies('customer');
+        if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
+            $customer_id = (int)$user['customer_id'];
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('comment', 'Comment', 'required');
+
+            if ($this->form_validation->run() == FALSE) {
+                $data['content'] = 'frontend/component/rating_review';
+                $this->load->view('frontend/template', $data);
+            } else {
+                $rate_id = $this->input->post('rate_id');
+                $order_id = $this->input->post('order_id');
+                $product_id = $this->input->post('pro_id');
+                $star_rate = $this->input->post('rating');
+                $comment = $this->input->post('comment');
+
+                $data = array(
+                    'cust_id' => $customer_id,
+                    'product_id' => $product_id,
+                    'order_id' => $order_id,
+                    'cust_rate' => $star_rate,
+                    'comment' => $comment,
+                    'add_date' => date('Y-m-d H:i:s'),
+                    'status' => 1
+                );
+                // print_r($data);
+                // exit();
+                $this->common_model->save_review($data, $rate_id);
+                //redirect(base_url('order-details?ord_id=' . $order_id));
+                redirect(base_url('my-order'));
+            }
+        } else {
+            redirect(base_url(), 'refresh');
+        }
+}   
+
+public function rating_review_details(){
+    $data['content']='frontend/component/rating_review_details';
+    $this->load->view('frontend/template',$data);
+} 
     
 }
 

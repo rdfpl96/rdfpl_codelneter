@@ -209,6 +209,12 @@ $this->load->view('frontend/header', $data);
                                         <? //}?>
                                         </div>
                                     </div>
+                                    <div class="order_view_more_details text-right pt-30">
+                                        <a href="<?php echo base_url('order-details/'.$order->order_no); ?>">
+                                            View More Details &gt;&gt;
+                                        </a>
+
+                                    </div>
                                 </div>
                                 <a href="<?= base_url('shop') ?>" class="buy-again-btn" target="_blank">Buy Again</a>
                                 <button class="btn btn-cancel" data-order-id="12345" onclick="cancelOrder(this);">Cancel</button>
