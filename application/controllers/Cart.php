@@ -433,6 +433,9 @@ public function applyCouponCode(){
 
                     $cardSummery=$this->orderSummeryForCart($couponDiscoutAmt);
 
+                    $_SESSION['couponDisc']=$couponDiscoutAmt;
+                    $_SESSION['coupon_id']=$couponCodeDetail['coupon_id'];
+
                     $data['orderSummery']=$cardSummery;
                     $data['status']=1;
                     $data['message']="succes";  
@@ -461,17 +464,16 @@ public function applyCouponCode(){
 //Order Submmer
 //
 
-public function orderSummeryForCart($couponDisc=0){
+public function orderSummeryForCart(){
    $userCookies=getCookies('customer');
    $customer_id = $userCookies['customer_id'];
-
-   
-    $shipingCharg=30;
+    
+   $shipingCharg=30;
     $totalSellingPrice=0;
     $totalMrpPrice=0;
     $totalSave=0;
     $totalPayAmout=0;
-    // $couponDisc=$couponDiscoutAmt;
+    $couponDisc=isset($_SESSION['couponDisc']) ? $_SESSION['couponDisc'] : 0;
 
     $cartProduct = $this->cartObj->getCartList($customer_id);
 

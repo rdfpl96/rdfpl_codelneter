@@ -288,9 +288,10 @@ label.btn.inverse.active {
                 data:({couponcode:couponcode}),
                 success: function(result){
                   if(result.status==1){
-                    $('.total-items').text(result.total_items);
+                     window.location=reload();
+                  //   $('.total-items').text(result.total_items);
                   }else{
-                      $('#coupon_err_msg').text(result.message);
+                     $('#coupon_err_msg').text(result.message);
                   }
                }
             });
