@@ -259,7 +259,7 @@ public function checkout() {
         //$this->session->set_userdata('buy_now_product', $firstItem);
     } else {
         if (count($data['products']) > 0) {
-            $data['orderSumery'] = $this->customlibrary->getCartSummery();
+            $data['orderSumery'] = $this->customlibrary->getCartSummery($customer_id);
         } else {
             return redirect('cart');
         }
