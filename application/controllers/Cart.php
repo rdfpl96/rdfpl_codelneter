@@ -229,11 +229,7 @@ public function deliveryAddress(){
 
 //         $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
 
-<<<<<<< HEAD
 //         $data['orderSumery']=$this->customlibrary->getCartSummery();
-=======
-        $data['orderSumery']=$this->customlibrary->getCartSummery($customer_id);
->>>>>>> pramod
 
 //         $data['timeSlot'] = $this->cartObj->getTimeSlot();
 
