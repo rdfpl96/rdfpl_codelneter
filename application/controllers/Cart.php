@@ -417,7 +417,7 @@ public function applyCouponCode(){
     $coupon_code=$this->input->post('couponcode');
 
     if($coupon_code!=''){
-        
+
         $couponCodeDetail=$this->cartObj->getCouponCodeDetail($coupon_code);
         
         if(count($couponCodeDetail) > 0){
@@ -426,10 +426,14 @@ public function applyCouponCode(){
 
                 $AmountDetail=$this->customlibrary->getTotalCartAmount($userCookies['customer_id']);
                 if($AmountDetail['totalPrice']> $couponCodeDetail['min']){
+
                     $couponDiscoutAmt=$this->customlibrary->getCouponDiscount($AmountDetail['totalPrice'],$coupon_code);
 
-                    $cardSummery=$this->customlibrary->getCartSummery($customer_id);
-                    $data['orderSumery']=$cardSummery;
+                    //$cardSummery=$this->customlibrary->getCartSummery($customer_id);
+
+                    $cardSummery=$this->orderSummeryForCart($couponDiscoutAmt);
+
+                    $data['orderSummery']=$cardSummery;
                     $data['status']=1;
                     $data['message']="succes";  
                 }else{
@@ -457,7 +461,7 @@ public function applyCouponCode(){
 //Order Submmer
 //
 
-public function orderSummeryForCart(){
+public function orderSummeryForCart($couponDisc=0){
    $userCookies=getCookies('customer');
    $customer_id = $userCookies['customer_id'];
 
@@ -467,7 +471,7 @@ public function orderSummeryForCart(){
     $totalMrpPrice=0;
     $totalSave=0;
     $totalPayAmout=0;
-    $couponDisc=0;
+    // $couponDisc=$couponDiscoutAmt;
 
     $cartProduct = $this->cartObj->getCartList($customer_id);
 
@@ -492,7 +496,7 @@ public function orderSummeryForCart(){
 
             $totalSave=$totalMrpPrice-$totalSellingPrice;
 
-            $totalPayAmout=$totalSellingPrice+$shipingCharg;
+            $totalPayAmout=$totalSellingPrice+$shipingCharg -$couponDisc;
 
         }
         

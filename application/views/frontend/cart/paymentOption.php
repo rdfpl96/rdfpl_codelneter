@@ -287,22 +287,14 @@ label.btn.inverse.active {
                 url: '<?php echo base_url('apply-coupon-code')?>',
                 data:({couponcode:couponcode}),
                 success: function(result){
-
                   if(result.status==1){
                     $('.total-items').text(result.total_items);
+                  }else{
+                      $('#coupon_err_msg').text(result.message);
                   }
-                  var x = document.getElementById("snackbar");
-                  x.className = "show";
-                  var message=result.message;
-                  document.getElementById('snackbar').innerText=message;
-                  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-
-                  //location.reload();
-                }
-
+               }
             });
-
-        }else{
+         }else{
             $('#coupon_err_msg').text('Please enter the coupon code');
         }
 
