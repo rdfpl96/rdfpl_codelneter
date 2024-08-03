@@ -307,7 +307,7 @@ $lastRange = round($end);
                               </label>
                            </div>
                         </div>
-
+                        </div>
                      <a class="shop-filter-toogle" href="">
                         Product Rating
                         <i class="fi-rs-angle-small-down angle-down"></i>
