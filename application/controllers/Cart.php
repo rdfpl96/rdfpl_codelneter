@@ -417,6 +417,7 @@ public function applyCouponCode(){
     $coupon_code=$this->input->post('couponcode');
 
     if($coupon_code!=''){
+        
         $couponCodeDetail=$this->cartObj->getCouponCodeDetail($coupon_code);
         
         if(count($couponCodeDetail) > 0){

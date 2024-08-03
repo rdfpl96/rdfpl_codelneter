@@ -229,7 +229,7 @@ public function getBeforeCheckout(){
     $array_data=array();
     $this->db->select('*');
     $this->db->from('tbl_coupon');
-    $this->db->where('status',1);
+    $this->db->where('status1',1);
     $this->db->where('coupon_code',$code);
     $query=$this->db->get();
     if($query->num_rows()>0){
