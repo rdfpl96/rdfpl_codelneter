@@ -307,7 +307,7 @@ public function paymentOption() {
         $products = $this->cartObj->getCartList($customer_id);
         if (count($products) > 0) {
             $data['products'] = $products;
-            $data['orderSummery'] = $this->orderSummeryForCart();
+            $data['orderSummery'] = $this->orderSummeryForCart($customer_id);
         } else {
             return redirect('cart');
         }
