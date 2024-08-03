@@ -125,13 +125,9 @@ class Product_model extends CI_Model
 
   public function getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $per_page, $page)
   {
-
-    // SELECT P.product_name,P.slug,P.feature_img,TC.category as tc_name,TC.slug as tc_slug,SC.subCat_name as sc_name, SC.slug as sc_slug, CC.childCat_name as cc_name, CC.slug as cc_slug from tbl_mapping_category_with_product AS PWM INNER tbl_product as P ON P.product_id=PWM.mapping_product_id INNER JOIN tbl_category AS TC ON TC.cat_id=PWM.cat_id INNER JOIN tbl_sub_category as SC ON SC.sub_cat_id=PWM.sub_cat_id INNER JOIN tbl_child_category as CC ON CC.child_cat_id=PWM.child_cat_id;
     $array_data = array();
     $this->db->select('P.product_id,P.product_name,P.slug,P.feature_img,PWM.cat_id,PWM.sub_cat_id,PWM.child_cat_id');
-
     $this->db->from('tbl_product AS P');
-
     $this->db->where('P.status', 1);
     $this->db->where('TC.status', 1);
     $this->db->where('SC.status', 1);
@@ -160,6 +156,9 @@ class Product_model extends CI_Model
 
     return $array_data;
   }
+
+
+
 
   public function searchProductByKeyword($pkeyword)
   {
@@ -230,7 +229,7 @@ class Product_model extends CI_Model
       $this->db->where('CC.status', 1);
       $this->db->where('CC.slug', $slug3);
     }
-    $this->db->limit(50, 0);
+    // $this->db->limit(50, 0);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
 
@@ -273,4 +272,28 @@ class Product_model extends CI_Model
 
     return $this->db->count_all_results();
   }
+
+
+
+ public function getPriceRange() {
+  $this->db->select_min('price', 'min_price');
+  $this->db->select_max('price', 'max_price');
+  $query = $this->db->get('tbl_product_variants');
+  return $query->row_array();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

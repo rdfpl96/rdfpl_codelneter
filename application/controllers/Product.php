@@ -116,8 +116,38 @@ public function shop()
     $data['categoryLevel'] = "";
     $data['bread'] = 'Shop';
     $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
+
+    $data['price_range'] = $this->productObj->getPriceRange();
+
+    // echo "<pre>";
+    // print_r($data['price_range']);
+    // die();
+
+
     $this->load->view("frontend/product/index", $data);
 }
+
+
+
+
+
+
+
+public function Price_range() {
+
+  $data['price_range'] = $this->productObj->getPriceRange();
+
+  echo "<pre>";
+  print_r($data['price_range']);
+  die();
+
+}
+
+
+
+
+
+
 
 
 
