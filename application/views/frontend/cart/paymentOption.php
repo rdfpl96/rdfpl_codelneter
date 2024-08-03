@@ -289,7 +289,7 @@ label.btn.inverse.active {
                 success: function(result){
                   if(result.status==1){
                      window.location=reload();
-                  //   $('.total-items').text(result.total_items);
+                  //$('.total-items').text(result.total_items);
                   }else{
                      $('#coupon_err_msg').text(result.message);
                   }
