@@ -176,11 +176,14 @@
                         <div class="detail-extralink mb-50">
                            <div class="product-extra-link2">
                               <div class="updd475" style="width: 100%;">
-                                 <button class="btn product_details_qty_btn w-100  uptos475 hover-up add-to-cart-button" id="addtobtn<?php echo $pdetail['product_id']; ?>"  onclick="addToCart(<?php echo $pdetail['product_id']; ?>);return false;" >Add to basket</button>
-                                 <div class="quantity-controls w-100 hover-up width100 common-button css-inc475" id="aquantitycontrols<?php echo $pdetail['product_id']?>">
-                                    <button class="quantity-decrease qtymode"  onclick="itemtIncreament(<?php echo $pdetail['product_id']; ?>,1);"><span class="material-symbols-outlined">remove</span></button>
-                                    <input type="text" class="quantity-input" id="qty<?php echo $pdetail['product_id']; ?>" value="1">
-                                    <button class="quantity-increase qtymode" onclick="itemtIncreament(<?php echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
+                                 <!-- <div class="quantity-controls w-100 hover-up width100 common-button css-inc475" id="aquantitycontrols<?php //echo $pdetail['product_id']?>" style="display: inline-flex;;">
+                                    <button class="quantity-decrease qtymode"  onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,1);"><span class="material-symbols-outlined">remove</span></button>
+                                    <input type="text" class="quantity-input" id="qty<?php //echo $pdetail['product_id']; ?>" value="1">
+                                    <button class="quantity-increase qtymode" onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
+                                 </div> -->
+                                 <div>
+                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity :</strong></label>
+                                    <input type="number" class="quantity-input" name="qty" id="qty<?php echo $pdetail['product_id']; ?>" value="1" min="1" max="99" style="display:inline-block;">
                                  </div>
                               </div>
                               <a href="javascript:void(0);" title="Wishlist" class="wish-div product_save_for_later_btn" data-id="NDc1" onclick="saveToLaterpdp(<?php echo $pdetail['product_id'];?>);">
@@ -192,10 +195,18 @@
                            <?php
                            $checkout_url = base_url('checkout') . '?product_id=' . $pdetail['product_id'];
                            ?>
-                           <a href="<?php echo $checkout_url; ?>">
+                           <a href="javascript:void(0)">
                            <div class="grid_offer_ad mt-20">
-                              <div class="ad_btn" style="width: 470px;">
-                                 <h4>Buy Now <span class="material-symbols-outlined"></span></h4>
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <button class="btn w-100  uptos475 hover-up add-to-cart-button" id="addtobtn<?php echo $pdetail['product_id']; ?>"  onclick="addToCartFromProduct(<?php echo $pdetail['product_id']; ?>);return false;">Add to basket</button>
+                                 </div>
+                                 <div class="col-md-6">
+                                 <div class="ad_btn" style="">
+                                    <!-- <h4>Buy Now <span class="material-symbols-outlined"></span></h4> -->
+                                    <button class="btn w-100  uptos475 hover-up"  onclick="buyNow(<?php echo $pdetail['product_id']; ?>);return false;">Buy Now</button>
+                                 </div>
+                                 </div>
                               </div>
                            </div>
                            </a>
@@ -644,5 +655,30 @@ $(document).ready(function() {
     });
 });
 
+function countIncreament(product_id,type){
+   var productItemId=$('#productItemId'+product_id).val();
+    var qty=$('#qty'+product_id).val();
+    
+    if(type==2){
+      qty=parseInt(qty)+1;
+    }
+    else if(type==1){
+      if(parseInt(qty) >1){
+        qty=parseInt(qty)-1;
+      }else{
+        $('#addtobtn'+product_id).css('display','inline-block');
+        $('#aquantitycontrols'+product_id).hide();
+      }
 
+    }
+    
+    $('#qty'+product_id).val(qty);
+}
+
+function buyNow(product_id){
+   var qty=$('#qty'+product_id).val();
+   let base_url='<?php echo base_url('checkout')?>?product_id='+product_id+'&qty='+qty;
+  // alert(base_url);
+   window.location=base_url;
+}
 </script>
