@@ -362,18 +362,59 @@ class Customlibrary
       return $return;
     }
 
+    public function getTotalCartAmount($customerId){
+        $return_data=array("totalPrice"=>0,"totalSellPrice"=>0);
+        $this->CI->db->select('SUM(PV.price * C.qty) as totalPrice,SUM(PV.before_off_price * C.qty) as totalSellPrice');
+        $this->CI->db->from('tbl_cartmanager AS C');
+        $this->CI->db->where('user_id',$customerId);
+        $this->CI->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
+         $query=$this->CI->db->get() ;
+        if($query->num_rows()>0){ 
+           $return_data=$query->row_array();
+        }
+        return $return_data;
+    }
 
 
+    public function getCouponDiscount($total,$coupon_code) {
+        $return_amt=0;
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_coupon');
+        $this->CI->db->where('coupon_code',$coupon_code);
+        $this->CI->db->where('status',1);
+        $query=$this->db->get() ;
+        if($query->num_rows()>0){ 
+           $return_data=$query->row_array();
+            if($return_data['disc_type']=='fixed_amt'){
+                $return_amt=$return_data['disc_amt'];
+            }
+           else  if($return_data['disc_type']=='percentage'){
+            $return_amt=($total *$return_data['disc_amt'])/100;
+           }
+        }
+        return $return_amt;
+    }
 
+    public function getCheckoutSummery($customerId){
+        $totalSellingPrice=0;
+        $totalMrpPrice=0;
+        $totalSave=0;
+        $couponAmt=0;
 
-    public function getCartSummery(){
+        $cartAmount=$this->getTotalCartAmount($customerId);
+        print_r($cartAmount);
+
+    }
+ 
+    public function getCartSummery($customerId){
         $array_data=array();
         $totalSellingPrice=0;
         $totalMrpPrice=0;
         $totalSave=0;
+        $couponAmt=0;
         $this->CI->db->select('P.product_id,PV.price,PV.before_off_price,C.qty as cart_qty,C.cart_id,C.variant_id');
         $this->CI->db->from('tbl_cartmanager AS C');
-        $this->CI->db->where('user_id',$this->customerId);
+        $this->CI->db->where('user_id',$customerId);
         $this->CI->db->order_by('C.cart_id','ASC');
         $this->CI->db->join('tbl_product AS P', 'P.product_id = C.product_id');
         $this->CI->db->join('tbl_product_variants AS PV', 'PV.variant_id = C.variant_id');
@@ -403,7 +444,7 @@ class Customlibrary
 
         }
         
-        return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave);
+        return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave,'couponAmt'=>$couponAmt);
 
     }
 
