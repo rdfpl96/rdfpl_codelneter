@@ -97,7 +97,7 @@ $route['admin/subcategory/update/(:num)'] = 'AdminPanel/subcategory/update/$1';
 $route['AdminPanel/subcategory/index'] = 'AdminPanel/subcategory/deleteSubcategory';
 
 //child category
-$route['admin/childcategory']='AdminPanel/childcategory/index';
+$route['admin/childcategory']='AdminPanel/ChildCategory/index';
 $route['admin/childcategory/create'] = 'AdminPanel/childcategory/create';
 $route['admin/childcategory/insert_child_category'] = 'AdminPanel/childcategory/insert_child_category';
 $route['admin/childcategory/edit/(:num)'] = 'AdminPanel/childcategory/edit/$1';
