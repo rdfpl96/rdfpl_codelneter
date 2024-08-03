@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $delivery_time=isset($_POST['stime']) & $_POST['stime']!='' ? $_POST['stime'] : '';
         $gst_id=isset($_POST['gst_id']) & $_POST['gst_id']!='' ? $_POST['gst_id'] : 0;
         $order_no=isset($_POST['order_no']) & $_POST['order_no']!='' ? $_POST['order_no'] : '';
-        $couponId=isset($_POST['coupon_id']) & $_POST['coupon_id']!='' ? $_POST['coupon_id'] : 0;
+        $couponId=isset($_SESSION['coupon_id']) & $_SESSION['coupon_id']!='' ? $_SESSION['coupon_id'] : 0;
         $delivery_charge=0;
         if($address_id!="" && $delivery_date!="" && $delivery_time!="" ){
 
@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     $products= $this->cartObj->getCartList($customer_id);
 
                     if($this->paymentObj->orderSave($orderData,$products)){
-
+                        unset($_SESSION["coupon_id"]);
                         $data['status']=0;
                         $date['message']="Order Placed succesfully";
                         $data['order_no']=$order_no;
