@@ -449,7 +449,7 @@ class Customlibrary
         $this->CI->db->from('tbl_coupon');
         $this->CI->db->where('coupon_code',$coupon_code);
         $this->CI->db->where('status',1);
-        $query=$this->db->get() ;
+        $query=$this->CI->db->get();
         if($query->num_rows()>0){ 
            $return_data=$query->row_array();
             if($return_data['disc_type']=='fixed_amt'){
