@@ -269,7 +269,11 @@ $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
   $route['api/wishlist']='Api/wishlist/index';
   $route['api/wishlist/add-to-wishlist']='Api/wishlist/addToWishList';
   $route['api/wishlist/delete/(:num)']='Api/wishlist/delteWishItem/$1';
-  
+
+  //order
+  $route['api/coupon/list']='Api/order/getCouponList';
+  $route['api/coupon/apply-code']='Api/order/applyCouponCode';
+
   //Customer
   $route['api/customer/address-list']='Api/customeraddress/index';
   $route['api/customer/address_save']='Api/customeraddress/save';
@@ -279,7 +283,9 @@ $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
   $route['api/customer/slote-list']='Api/customeraddress/sloteList'; 
   $route['api/customer/rate-reviews']='Api/product/rateAndReview'; 
   $route['api/customer/stateList']='Api/customeraddress/getStatelist';
-  $route['api/customer/order-list']='Api/order/index'; 
+  $route['api/customer/order-list']='Api/order/index';
+  $route['api/customer/detail']='Api/customer/getCustomerDetail';
+   
 
   //Product
   $route['api/product/list']='Api/product/index';

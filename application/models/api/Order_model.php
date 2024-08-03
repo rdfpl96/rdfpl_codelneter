@@ -35,12 +35,23 @@ class Order_model extends CI_Model{
     return $array_data;
    }
 
- 
 
+  public function getCouponList(){
+
+    $currentdata=date('Y-m-d');
   
+    $array_data=array();
+    $this->db->select('coupon_id,coupon_code,description,end_date as expiry_date');
+    $this->db->from('tbl_coupon');
+    $this->db->where('status',1);
+     $this->db->where('end_date >',$currentdata);
+    $query=$this->db->get();
+    if($query->num_rows()>0){
+      $array_data=$query->result_array();
+    }
+    return $array_data;
 
-
-
-
+  }
+ 
 }
 ?>

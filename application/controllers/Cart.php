@@ -209,7 +209,7 @@ public function deliveryAddress(){
     $userCookies=getCookies('customer');
     $customer_id = $userCookies['customer_id'];
     $data['addressList']=$this->customlibrary->getAllCustomerList($userCookies['customer_id']);
-    $data['orderSumery']=$this->customlibrary->getCartSummery();
+    $data['orderSumery']=$this->customlibrary->getCartSummery($customer_id);
     $data['customer_id']=$userCookies['customer_id'];
     $this->load->view("frontend/cart/address",$data); 
 }
@@ -229,7 +229,11 @@ public function deliveryAddress(){
 
 //         $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
 
+<<<<<<< HEAD
 //         $data['orderSumery']=$this->customlibrary->getCartSummery();
+=======
+        $data['orderSumery']=$this->customlibrary->getCartSummery($customer_id);
+>>>>>>> pramod
 
 //         $data['timeSlot'] = $this->cartObj->getTimeSlot();
 
@@ -412,6 +416,8 @@ public function deleteItem(){
 //   
 public function applyCouponCode(){
     $currentDate=date('Y-m-d');
+    $userCookies=getCookies('customer');
+   
     $coupon_code=$this->input->post('couponcode');
 
     if($coupon_code!=''){
@@ -421,8 +427,20 @@ public function applyCouponCode(){
             
             if($currentDate > $couponCodeDetail['start_date'] && $currentDate < $couponCodeDetail['end_date']){
 
-                 $data['message']="Success";  
+                $AmountDetail=$this->customlibrary->getTotalCartAmount($userCookies['customer_id']);
+                if($AmountDetail['totalPrice']> $couponCodeDetail['min']){
+                    $couponDiscoutAmt=$this->customlibrary->getCouponDiscount($AmountDetail['totalPrice'],$coupon_code);
+
+                    $cardSummery=$this->customlibrary->getCartSummery($customer_id);
+                    $data['orderSumery']=$cardSummery;
+                    $data['status']=1;
+                    $data['message']="succes";  
+                }else{
+                    $data['status']=0;
+                    $data['message']="Not applicable on this amount";  
+                }
             }else{
+              $data['status']=0;  
               $data['message']="Coupon code expired";  
             }
         }else{
@@ -445,6 +463,7 @@ public function applyCouponCode(){
 public function orderSummeryForCart(){
    $userCookies=getCookies('customer');
    $customer_id = $userCookies['customer_id'];
+
    
     $shipingCharg=30;
     $totalSellingPrice=0;
