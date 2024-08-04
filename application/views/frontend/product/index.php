@@ -1,6 +1,7 @@
 <?php
 
 $this->load->view('frontend/header');
+
 // echo '<pre>'; 
 // print_r($_SESSION);
 // exit();
@@ -22,6 +23,10 @@ for ($i = 0; $i < $num_ranges; $i++) {
 
 
 $lastRange = round($end);
+// echo '<pre>';
+// echo 'shop';
+// print_r($max_price);
+// die();
 ?>
 <main class="main shop_main_background" style="transform: none;">
    <div class="page-call" style="transform: none;">
@@ -243,7 +248,8 @@ $lastRange = round($end);
 
                <div class="col-lg-1-5 primary-sidebar sticky-sidebar sticky_sidebar_desktop" style="overflow: visible; box-sizing: border-box; min-height: 1px;">
 
-                  <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 55.7695px;">
+                  <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 55.7695px;overflow-y: auto;
+                  height: 100vh;">
 
                      <h5 class="section-title style-1 mb-30">Shop by Category</h5>
                      <div class="sidebar-widget widget-category-2 mb-30">
@@ -272,7 +278,7 @@ $lastRange = round($end);
                         </div>
                      </div>
                      <a class="shop-filter-toogle" href="#">
-                        Price
+                        PriceShop page
                         <i class="fi-rs-angle-small-down angle-down"></i>
                         <i class="fi-rs-angle-small-up angle-up"></i>
                      </a>
@@ -423,20 +429,23 @@ $lastRange = round($end);
 
 
 </main>
-<?php $this->load->view('frontend/footer'); ?>
+<?php
+$this->load->view('frontend/footer'); 
+
+?>
 <script>
    $(document).on('click', '.price', function() {
       $('.price').not(this).prop('checked', false);
    });
-
-
-
 
    $(document).on('click', '.product-rating-filter', function() {
       $('.product-rating-filter').not(this).prop('checked', false);
    });
 
    var formData = new FormData();
+   formData.append('slug1', '<?php echo $this->uri->segment(2);?>');
+   formData.append('slug2', '<?php echo $this->uri->segment(3);?>');
+   formData.append('slug3', '<?php echo $this->uri->segment(4);?>');
 
    function searchBySelection() {
       formData.append("searchbyselect", $('select[name="searchbyselect"] option:selected').val());
@@ -480,3 +489,4 @@ $lastRange = round($end);
       });
    }
 </script>
+

@@ -104,12 +104,9 @@ class Product_model extends CI_Model{
   
 
   public function Edit($id,$array_data){
-
     $this->db->trans_begin(); 
-
     $this->db->where('product_id', $id);     
     $this->db->update('tbl_product', $array_data);
-
     if($this->db->trans_status() === FALSE){
       $this->db->trans_rollback();
       return false;
@@ -132,14 +129,43 @@ class Product_model extends CI_Model{
     return $array_record;   
   }
 
-  public function getProductWithVariants($start,$records_per_page,$name) {
+  public function getProductWithVariants($start, $records_per_page, $name) {
     $this->db->select('p.product_name, p.feature_img, v.pack_size, v.price, v.units');
     $this->db->from('tbl_product p');
     $this->db->join('tbl_product_variants v', 'p.product_id = v.variants_product_id');
-    $query = $this->db->get();
-    return $query->result_array();
-  }
 
   
+    if (!empty($name)) {
+        $this->db->like('p.product_name', $name);
+    }
+
+    
+    $this->db->limit($records_per_page, $start);
+
+    $query = $this->db->get();
+    return $query->result_array();
+}
+
+
+
+  public function searchProducts($start, $records_per_page, $search_term) {
+    // Clean the search term to prevent SQL injection
+    $search_term = $this->db->escape_like_str($search_term);
+
+    // Build the query
+    $this->db->select('p.product_name, p.feature_img, v.pack_size, v.price, v.units');
+    $this->db->from('tbl_product p');
+    $this->db->join('tbl_product_variants v', 'p.product_id = v.variants_product_id');
+    $this->db->like('p.product_name', $search_term);
+    $this->db->limit($records_per_page, $start);
+    $query = $this->db->get();
+
+    // Return the result as an array
+    return $query->result_array();
+}
+
+  
+
+
 }
 ?>

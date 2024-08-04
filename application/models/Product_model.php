@@ -276,6 +276,7 @@ class Product_model extends CI_Model
 
 
  public function getPriceRange() {
+  
   $this->db->select_min('price', 'min_price');
   $this->db->select_max('price', 'max_price');
   $query = $this->db->get('tbl_product_variants');

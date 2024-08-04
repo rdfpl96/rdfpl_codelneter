@@ -71,6 +71,7 @@ class Product extends CI_Controller
       $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pcol' => 4), TRUE);
     }
 
+    $data['price_range'] = $this->productObj->getPriceRange();
 
     $this->load->view("frontend/product/index", $data);
   }
@@ -78,7 +79,7 @@ class Product extends CI_Controller
  
 
 
-public function shop()
+public function shop($slug1=null, $slug2=null, $slug3=null)
 {
     $total_rows = $this->productObj->get_Product_count($slug1, $slug2, $slug3);
     $config = array();
@@ -116,14 +117,7 @@ public function shop()
     $data['categoryLevel'] = "";
     $data['bread'] = 'Shop';
     $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
-
     $data['price_range'] = $this->productObj->getPriceRange();
-
-    // echo "<pre>";
-    // print_r($data['price_range']);
-    // die();
-
-
     $this->load->view("frontend/product/index", $data);
 }
 
@@ -134,17 +128,14 @@ public function shop()
 
 
 public function Price_range() {
-
   $data['price_range'] = $this->productObj->getPriceRange();
-
   echo "<pre>";
   print_r($data['price_range']);
   die();
-
 }
 
 
-
+  
 
 
 
@@ -172,7 +163,7 @@ public function Price_range() {
 
   public function search()
   {
-
+    // searchbyselect
     $min_price = isset($_POST['min_price']) ? trim($_POST['min_price']) : "";
 
     $max_price = isset($_POST['max_price']) ? trim($_POST['max_price']) : "";
@@ -180,6 +171,9 @@ public function Price_range() {
     $rating = isset($_POST['rating']) ? trim($_POST['rating']) : "";
 
     $searchbyselect = isset($_POST['searchbyselect']) ? trim($_POST['searchbyselect']) : "";
+    $slug1 = $_POST['slug1']; 
+    $slug2 = $_POST['slug2']; 
+    $slug3 = $_POST['slug3'];
 
 
 
@@ -187,7 +181,7 @@ public function Price_range() {
 
     //print_r($productArraId);
 
-    $products = $this->productObj->filterProduct($slug1 = "", $slug2 = "", $slug3 = "", $min_price, $max_price, $searchbyselect, $rating);
+    $products = $this->productObj->filterProduct($slug1, $slug2, $slug3, $min_price, $max_price, $searchbyselect, $rating);
 
 
     $products = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pcol' => 4, 'min_price' => $min_price, 'max_price' => $max_price), TRUE);
