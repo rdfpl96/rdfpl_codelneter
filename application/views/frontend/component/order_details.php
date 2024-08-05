@@ -137,7 +137,7 @@
                                             </div>
                                             <div class="box_1">
                                                 <h3>Payment status</h3>
-                                                <p>InProcess</p>
+                                                <p>Pending</p>
                                             </div>
                                             <div class="box_1">
                                                 <h3>Mode of payment</h3>
