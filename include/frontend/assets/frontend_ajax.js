@@ -29,8 +29,6 @@ function searchProduct(){
 
 $(document).on('click', '.shipping-address-save', function(e) {
     e.preventDefault();
- 
-    // Get form values
     let fname = $('#fname').val().trim();
     let lname = $('#lname').val().trim();
     let mobile = $('#mobile').val().trim();

@@ -2,8 +2,7 @@
 
   $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
 
-         $firstItem=isset($items[0]) ? $items[0] : array();  
-  //print_r($items);
+         $firstItem=isset($items[0]) ? $items[0] : array();
 
 ?>
 <?php
