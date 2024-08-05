@@ -189,7 +189,7 @@ label.btn.inverse.active {
                                <div class="first_div_total">
                                   <p>Delivery &amp; Handling Charges</p>
                                   <p><strike>₹<?php echo isset($orderSummery['shipingcharge']) ? $orderSummery['shipingcharge'] : 0;?></strike>
-                                   <!-- <span class="text-brand">FREE</span>  -->
+                                 
                                 </p>
                                </div>
                                 <?php if(isset($orderSummery['couponDisc']) && $orderSummery['couponDisc']!=0 ) { ?>
