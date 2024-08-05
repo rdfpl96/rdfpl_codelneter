@@ -239,7 +239,7 @@ public function checkout(){
 
         $this->load->view("frontend/cart/delivery_option",$data);
     }else{
-             return redirect('cart');    
+        return redirect('cart');    
     }
 
   
