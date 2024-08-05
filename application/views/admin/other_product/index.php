@@ -46,9 +46,7 @@
                                             <tr>
                                                 <th>Product Type</th>
                                                 <th>Product Name</th>
-                     
                                                 <th>Actions</th>  
-                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,6 +64,13 @@
                                                     <span class="fw-bold ms-1"><?php echo $values->product_name;?></span><br>
                                                 </td>
                                             
+                                            
+                                                <!-- <td>
+                                                    <a href="<?php //echo base_url('admin/other-product/edit/' . $values->other_product_id); ?>" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="fa fa-pencil"></i> Edit
+                                                    </a>
+                                                </td> -->
+
                                                                                             
                                                 <td>
                                                     <a href="javascript:deleteRowtablesub(<?php echo $values->product_id; ?>)"
@@ -76,6 +81,7 @@
                                                         <i class="fa fa-trash"></i> Delete
                                                     </a>
                                                 </td>
+                                                
 
                                             </tr>
 
@@ -85,20 +91,26 @@
                                         ?>
                                         <tr>
                                           <td colspan="15">
-                                           <div id="pagint-div" style="float: right;">
-                                            <?php echo $links;?>
-                                           </div>
+           
+            
                                            </td>
                                         </tr>
                 
 
                                         </tbody>
                                     </table>
-                                    </div>
+
+                                </div>
+                                <div class="pagination-links">
+                <?php echo $pagination; ?>
+            </div>
                                 </div>
                             </div>
+                            
                     </div>
                     </div><!-- Row End -->
+                                                  
+           
                 </div>
             </div>
 

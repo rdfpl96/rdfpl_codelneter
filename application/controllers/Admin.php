@@ -326,7 +326,7 @@ class Admin extends CI_Controller
 
 
 
-  
+
 
   public function user_setting()
   {
@@ -2966,29 +2966,114 @@ class Admin extends CI_Controller
     exit();
   }
 
-
-
-
-
-
-
-
-
-  public function banner_edit_add()
+  public  function banner_edit_action($banner_id)
   {
+    $data['banner'] = $this->sqlQuery_model->get_banner_by_id($banner_id);
+    $this->load->view('admin/containerPage/edit_banner', $data);
+  }
 
-    $this->load->view('admin\containerPage\banner');
+
+
+  public function banner_update()
+  {
+    $banner_id = $this->input->post('banner_id');
+    $text1 = $this->input->post('text1');
+    $description = $this->input->post('description');
+    $button_link = $this->input->post('button_link');
+    $status = $this->input->post('status');
+    $config['upload_path'] = './uploads/banner/';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = 2048;
+    $this->load->library('upload', $config);
+    $desk_image = '';
+    $existing_banner = $this->sqlQuery_model->get_banner_by_id($banner_id);
+    if ($existing_banner) {
+      $desk_image = $existing_banner->desk_image; // Access object property correctly
+    }
+    if ($this->upload->do_upload('desk_image')) {
+      $upload_data = $this->upload->data();
+      $desk_image = $upload_data['file_name']; // Update with new image name
+    }
+    // Prepare data for update
+    $update_data = array(
+      'text1' => $text1,
+      'description' => $description,
+      'button_link' => $button_link,
+      'desk_image' => $desk_image,
+      'status' => $status
+    );
+    
+    if ($this->sqlQuery_model->update_banner($banner_id, $update_data)) {
+      $response['success'] = true;
+      $response['message'] = 'Banner updated successfully';
+    } else {
+      $response['success'] = false;
+      $response['message'] = 'Failed to update banner';
+    }
+
+    echo json_encode($response);
   }
 
 
 
 
-  public function banner_edit_action()
+
+
+
+
+
+
+  public function create()
   {
-
-
-    $this->load->view('admin\containerPage\edit_banner');
+    $this->load->view('admin/containerPage/add_banner_list');
   }
+
+public function banner_add_action()
+{
+    // Retrieve POST data
+    $header = $this->input->post('header');
+    $description = $this->input->post('description');
+    $link = $this->input->post('link');
+
+    // Configure file upload settings
+    $config['upload_path'] = 'uploads/banner';
+    $config['allowed_types'] = 'gif|jpg|png';
+    $config['max_size'] = 1000;
+    $this->load->library('upload', $config);
+
+    // Attempt file upload
+    if ($this->upload->do_upload('image')) {
+      $upload_data = $this->upload->data();
+      $image = $upload_data['file_name'];
+    } else {
+      $image = ''; // Default image or handle the error as needed
+    }
+
+    // Prepare data for insertion
+    $data = array(
+      'text1' => $header,
+      'description' => $description,
+      'button_link' => $link,
+      'desk_image' => $image,
+      'add_date' => date('Y-m-d H:i:s')
+    );
+
+    // Insert data into database
+    $result = $this->sqlQuery_model->insert_banner_list($data);
+
+    // Return response
+    if ($result) {
+      echo json_encode(array('status' => 'success', 'message' => 'Banner added successfully.'));
+    } else {
+      echo json_encode(array('status' => 'error', 'message' => 'Failed to add banner.'));
+    }
+  }
+
+
+
+
+
+
 
 
 
@@ -3888,28 +3973,87 @@ class Admin extends CI_Controller
 
   public function otherProduct()
   {
+    $this->load->library('pagination');
+
     $menuIdAsKey = 44;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
 
-    $querys = "SELECT * FROM tbl_other_product";
-    $pr_list_count = $this->sqlQuery_model->sql_query($querys);
-    $url_link = base_url('admin/otherProduct');
-    $limit_per_page = 10;
-    $getVariable = $this->input->get('per_page');
-    $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0) : 0;
+    // Count total records
+    $query = "SELECT COUNT(*) as count FROM tbl_other_product";
+    $pr_list_count = $this->sqlQuery_model->sql_query($query);
+    $total_records = ($pr_list_count) ? $pr_list_count[0]->count : 0;
 
-    $total_records = ($pr_list_count != 0) ? count($pr_list_count) : 0;
-    $config = createPagination($total_records, $url_link, $limit_per_page);
+    // Pagination configuration
+    $limit_per_page = 10;
+    $url_link = base_url('admin/otherProduct');
+
+    $config = [
+      "base_url" => $url_link,
+      "total_rows" => $total_records,
+      "per_page" => $limit_per_page,
+      "uri_segment" => 3,
+      "num_links" => 5, // Number of links to show in pagination
+      "full_tag_open" => '<ul class="pagination">',
+      "full_tag_close" => '</ul>',
+      "first_link" => 'First',
+      "first_tag_open" => '<li class="paginate_button page-item page-link"><a href="#">',
+      "first_tag_close" => '</a></li>',
+      "last_link" => 'Last',
+      "last_tag_open" => '<li class="paginate_button page-item page-link"><a href="#">',
+      "last_tag_close" => '</a></li>',
+      "next_link" => 'Next',
+      "next_tag_open" => '<li class="paginate_button page-item page-link"><a href="#">',
+      "next_tag_close" => '</a></li>',
+      "prev_link" => 'Previous',
+      "prev_tag_open" => '<li class="paginate_button page-item page-link"><a href="#">',
+      "prev_tag_close" => '</a></li>',
+      "cur_tag_open" => '<li class="paginate_button page-item active"><a href="#" class="page-link">',
+      "cur_tag_close" => '</a></li>',
+      "num_tag_open" => '<li class="paginate_button page-item page-link">',
+      "num_tag_close" => '</li>'
+    ];
+
     $this->pagination->initialize($config);
 
-    $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
-    $querys = "SELECT P.product_id, P.product_name, OP.product_type_id  FROM tbl_product AS P INNER JOIN tbl_other_product AS OP ON P.product_id = OP.product_id  ORDER BY P.product_id DESC $sql_limit";
-    $data['productList'] = $this->sqlQuery_model->sql_query($querys);
-    $data["links"] = $this->pagination->create_links();
+    // Get current page number
+    $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+    // SQL limit for pagination
+    $offset = $page;
+    $query = "SELECT P.product_id, P.product_name, OP.other_product_id, OP.product_type_id
+              FROM tbl_product AS P
+              INNER JOIN tbl_other_product AS OP ON P.product_id = OP.product_id
+              ORDER BY P.product_id DESC
+              LIMIT $offset, $limit_per_page";
+
+    $data['productList'] = $this->sqlQuery_model->sql_query($query);
+    $data['pagination'] = $this->pagination->create_links();
     $data['content'] = 'admin/other_product/index';
+
     $this->load->view('admin/template', $data);
   }
+
+
+
+
+
+
+
+
+  public function Edit_other_product()
+  {
+
+    $this->load->view('admin/other_product/edit');
+  }
+
+
+
+
+
+
+
+
 
 
   public function delete_Other_Product()
@@ -3920,17 +4064,16 @@ class Admin extends CI_Controller
     $data['page_menu_id'] = $menuIdAsKey;
     $id = $this->input->post('id');
 
-    $response= $this->sqlQuery_model->sql_delete('tbl_other_product', array('product_id' => $id));
-    if($response=='1'){
+    $response = $this->sqlQuery_model->sql_delete('tbl_other_product', array('product_id' => $id));
+    if ($response == '1') {
 
-      $Flag= 'True';
-  }else{
-      $Flag= 'False';
-  }
-  echo json_encode($Flag);
-  exit();
-  redirect('admin/other-product');
-
+      $Flag = 'True';
+    } else {
+      $Flag = 'False';
+    }
+    echo json_encode($Flag);
+    exit();
+    redirect('admin/other-product');
   }
 
 
@@ -3984,8 +4127,6 @@ class Admin extends CI_Controller
       redirect('admin/other-product');
       return;
     }
-
-    // Load the view if not a form submission
     $data['content'] = 'admin/other_product/add';
     $this->load->view('admin/template', $data);
   }

@@ -44,9 +44,20 @@ class SqlQuery_model extends CI_Model
       }
    }
 
+public function insert_banner_list($data){
+   return $this->db->insert('tbl_banner', $data);
 
+}
 
+public function get_banner_by_id($banner_id) {
+   $query = $this->db->get_where('tbl_banner', array('banner_id' => $banner_id));
+   return $query->row(); 
+}
 
+public function update_banner($banner_id, $data) {
+   $this->db->where('banner_id', $banner_id);
+   return $this->db->update('tbl_banner', $data);
+}
 
 
    public function sql_select_where_desc($tablename, $col_name, $where)
@@ -70,17 +81,21 @@ class SqlQuery_model extends CI_Model
     
      
     public function get_users_banner_list($limit, $start) {
+      // Apply the limit and offset for pagination
       $this->db->limit($limit, $start);
+  
+      
+      $this->db->order_by('banner_id', 'DESC');
+ 
       $query = $this->db->get("tbl_banner");
-   
-      // print_r($result);
-      // die();
-
+  
+  
       if ($query->num_rows() > 0) {
           return $query->result();
       }
       return false;
-    }
+  }
+  
 
 
    public function sql_select_where_asc($tablename, $col_name, $where)

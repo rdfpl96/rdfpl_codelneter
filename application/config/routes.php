@@ -65,7 +65,8 @@ $route['admin/logout'] = 'AdminPanel/login/logout';
 $route['admin/product']='AdminPanel/product/index';
 $route['admin/product/create']='AdminPanel/product/create';
 $route['admin/product/save']='AdminPanel/product/save';
-$route['admin/product/edit/(:num)']='AdminPanel/product/edit/$1';
+$route['admin/other-product/edit/(:num)']='Admin/Edit_other_product/$1';
+
 $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 $route['admin/productItem']='AdminPanel/product/productitem';
 $route['admin/productItem/(:num)']='AdminPanel/product/productitem/$1';
@@ -298,7 +299,9 @@ $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
 
 
 //Apoorv Route
-$route['banner_edit_action/edit/(:num)']='Admin/banner_edit_action/$1';
+$route['banner_edit_action/edit_banner/(:num)']='Admin/banner_edit_action/$1';
+$route['admin/edit_banner/(:num)']='Admin/banner_edit_action/$1';
+$route['admin/add_banner_list']='Admin/create';
 $route['customer_list']='AdminPanel/Customer/customer_list';
 $route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
 // ===================End API===================================
