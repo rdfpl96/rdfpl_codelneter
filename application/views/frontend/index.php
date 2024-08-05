@@ -176,7 +176,7 @@
         </div> -->
     </div>
     <div class="row">
-       <?php echo $this->load->view('frontend/component/productItem', array("productItems"=>$newProduct,'pcol'=>5), TRUE); ?>
+       <?php echo $this->load->view('frontend/component/productItem', array("productItems"=>$Newproduct,'pcol'=>5), TRUE); ?>
     </div>
 </div>
 

@@ -34,7 +34,7 @@ class Home extends CI_Controller {
 
       $data['topsellingProduct']=$this->home->getTopSellingProduct();
 
-      $data['newProduct']=$this->home->getNewProduct();
+     // $data['newProduct']=$this->home->getNewProduct();
 
 
       $data['sliders']=$this->home->getSliderbanner();
