@@ -32,7 +32,7 @@
       ?>
       <div class="cart_head">
             <div class="row">
-               <div class="col-lg-4">
+               <div class="col-lg-9">
                      <div class="cart_head_left">
                          <div class="heading_s1">
                              Subtotal (<span class="total-items"><?php echo $totalItem;?></span> items)
@@ -41,7 +41,7 @@
                          <h3 class="text-success">Savings: ₹ <span id="savePrice"><?php echo $saveTotalAmt;?></span></h3>
                      </div>
                </div>
-                <div class="col-lg-8 d-flex justify-content-center align-items-center">
+                <div class="col-lg-3 d-flex justify-content-center align-items-center">
                     <?php if($isdelivered) { ?>
                     <a href="<?php echo base_url('checkout'); ?>" class="btn head_checkout_btn">CheckOut</a>
                     <?php } else { ?>
