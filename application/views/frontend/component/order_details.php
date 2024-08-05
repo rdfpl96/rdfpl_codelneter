@@ -106,8 +106,11 @@
                                     <div class="col-md-4">
                                         <div class="order_details_first_info">
                                             <h3>Your Delivery address</h3>
+                                            <?php
+                                            $full_name = $getOrders[0]->fname . ' ' . $getOrders[0]->lname;
+                                            ?>
                                             <h4><?php echo $getOrders[0]->address_type;?></h4>
-                                            <h4><?php echo $getOrders[0]->fname . ', ' . $getOrders[0]->lname; ?></h4>
+                                            <h4><?php echo $full_name; ?></h4>
                                             <p><?php echo $getOrders[0]->address1 . ', ' . $getOrders[0]->address2; ?></p>
                                             <p>
                                             <?php echo $getOrders[0]->area; ?>     
