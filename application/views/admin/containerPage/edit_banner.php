@@ -44,10 +44,18 @@ $this->load->view('admin/headheader');
 
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
-                                <select class="form-select" id="status" name="status">
-                                    <option value="1" <?php echo $banner->status == 1 ? 'selected' : ''; ?>>Active</option>
-                                    <option value="0" <?php echo $banner->status == 0 ? 'selected' : ''; ?>>Inactive</option>
-                                </select>
+                                
+                                                <label class="switch">
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="Status<?php echo htmlspecialchars($banner->banner_id); ?>"  
+                                                    name="Status[]" 
+                                                    value="<?php echo $banner->status; ?>"  
+                                                    onclick="UpdateBannerStatus(<?php echo htmlspecialchars($banner->banner_id); ?>)"
+                                                    <?php echo ($banner->status == 1) ? 'checked' : ''; ?>>
+                                                <span class="slider round"></span>
+                                  </label>
+                                                    
                             </div>
 
                             <button type="submit" class="btn btn-primary">Update Banner</button>
@@ -103,4 +111,43 @@ $this->load->view('admin/headheader');
             }
         });
     });
+
+
+    
+
+    function UpdateBannerStatus(id){
+    var status = $('#Status' + id).val();
+    $.ajax({
+        url: "<?php echo base_url('Admin/updatebannerStatus'); ?>",
+        type: "POST",
+        data: { banner_id: id, status: status },
+        dataType: "json",
+        success: function(response) {
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'banner status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Failed to update user status.',
+                    'error'
+                );
+            }
+        },
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating user status.',
+        //         'error'
+        //     );
+        // }
+    });
+}
+
 </script>

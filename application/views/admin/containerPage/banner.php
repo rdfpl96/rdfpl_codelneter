@@ -7,7 +7,14 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
         text-align: center;
     }
 </style>
+<?php
+// echo "<pre>"; 
 
+// print_r($banner_list);
+
+// die();
+
+?>
 <!-- Body -->
 <div class="body d-flex py-3">
     <div class="container-xxl">
@@ -20,11 +27,11 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                         </h2>
                     </div>
                     <h3 class="fw-bold mb-0">Banner List</h3>
-                    <?php if (in_array('add', $actAcx) || $session['admin_type'] == 'A') { ?>
+                
                         <a href="<?php echo base_url('admin/add_banner_list'); ?>">
                             <button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Banner</button>
                         </a>
-                    <?php } ?>
+                    
                 </div>
             </div>
         </div> 
@@ -67,11 +74,20 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                                                 <td style="text-align:center;"><?php echo htmlspecialchars($value->updated_by); ?></td>
                                                 
                                                     <td>
-                                                        <label class="switch">
-                                                            <input type="checkbox"  class="cate-status" <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
-                                                            <span class="slider round"></span>
-                                                        </label>
+                                                <label class="switch">
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="Status<?php echo htmlspecialchars($value->banner_id); ?>"  
+                                                    name="Status[]" 
+                                                    value="<?php echo $value->status; ?>"  
+                                                    onclick="UpdateBannerStatus(<?php echo htmlspecialchars($value->banner_id); ?>)"
+                                                    <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
+                                                <span class="slider round"></span>
+                                            </label>
                                                     </td>
+
+                                               
+
                                             
                                                 <td><?php echo date('d-m-Y', strtotime($value->add_date)); ?></td>
                                                 <td>
@@ -145,4 +161,50 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
             });
         }
     });
+
+
+
+
+
+    function UpdateBannerStatus(id){
+    var status = $('#Status' + id).val();
+    $.ajax({
+        url: "<?php echo base_url('Admin/updatebannerStatus'); ?>",
+        type: "POST",
+        data: { banner_id: id, status: status },
+        dataType: "json",
+        success: function(response) {
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'banner status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Failed to update user status.',
+                    'error'
+                );
+            }
+        },
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating user status.',
+        //         'error'
+        //     );
+        // }
+    });
+}
+
+
+
+
+
+
+
 </script>

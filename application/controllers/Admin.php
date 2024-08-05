@@ -2972,6 +2972,19 @@ class Admin extends CI_Controller
     $this->load->view('admin/containerPage/edit_banner', $data);
   }
 
+  public function updatebannerStatus(){
+    $banner_id = $this->input->post('banner_id');
+    $status = $this->input->post('status');
+    $updateStatus = $this->sqlQuery_model->toggle_banner_status($banner_id, $status);
+    if ($updateStatus) {
+      echo json_encode('True');
+    } else {
+      $this->load->view('admin\containerPage\banner', $updateStatus);
+      echo json_encode('False');
+    }
+  }
+  
+
 
 
   public function banner_update()

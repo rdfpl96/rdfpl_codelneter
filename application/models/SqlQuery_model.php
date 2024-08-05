@@ -47,7 +47,35 @@ class SqlQuery_model extends CI_Model
 public function insert_banner_list($data){
    return $this->db->insert('tbl_banner', $data);
 
+
 }
+
+
+
+
+public function toggle_banner_status() {
+   $user_id = $this->input->post('banner_id');
+   $current_status = $this->input->post('status');
+ 
+   $new_status = ($current_status == 1) ? 0 : 1;
+
+   $data = array(
+       'status' => $new_status
+   );
+
+   $this->db->where('banner_id', $user_id);
+   if ($this->db->update('tbl_banner', $data)) {
+       return true;
+   } else {
+       return false; 
+   }
+ }
+
+
+
+
+
+
 
 public function get_banner_by_id($banner_id) {
    $query = $this->db->get_where('tbl_banner', array('banner_id' => $banner_id));
