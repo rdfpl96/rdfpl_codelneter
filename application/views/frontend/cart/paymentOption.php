@@ -178,7 +178,7 @@ label.btn.inverse.active {
                          </a>
                          <div class="order_summary_div mt-30">
                             <div class="order_summary_header mb-10 mt-10">
-                               <h4>Order Summary</h4>
+                               <h4>Order Summarycdcd</h4>
                             </div>
                             <div class="custom_hr"></div>
                             <div class="first_sec_summary  mb-10 mt-10">
@@ -204,7 +204,7 @@ label.btn.inverse.active {
                             <div class="third_sec_summary mb-10 mt-10">
                                <div class="first_div_total">
                                   <p><b>Total Amount Payable</b></p>
-                                  <p><b>₹<?php echo isset($orderSummery['totalPayAmout']) ? $orderSummery['totalPayAmout'] : 0;?></b></p>
+                                  <p><b>₹<?php echo isset($orderSummery['totalSellingPrice']) ? $orderSummery['totalSellingPrice'] : 0;?></b></p>
                                </div>
                             </div>
                             <div class="fourth_sec_summary total_summary mb-10 mt-10">
