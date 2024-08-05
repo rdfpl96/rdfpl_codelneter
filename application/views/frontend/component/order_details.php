@@ -30,7 +30,7 @@
                                     <h3>Order No: <span><?php echo $getOrders[0]->order_no;?></span></h3>
                                 </div>
                                 <div class="order_status">
-                                    <h3>Status: <span>Cancelled</span></h3>
+                                    <h3>Status: <span>Inprocess</span></h3>
                                 </div>
                             </div>
 
@@ -87,14 +87,14 @@
                                         <p>Place another order with the same timeslot to avail free delivery</p>
                                     </div>
                                 </div>
-                                <div class="second_part">
+                                <!-- <div class="second_part">
                                     <a href="">Read More <span>>></span></a>
-                                </div>
+                                </div> -->
                             </div>
 
-                            <div class="order_cancel_alert_box">
+                            <!-- <div class="order_cancel_alert_box">
                                 <h3>Order cancelled : <span>Your order has been cancelled as per your request.</span></h3>
-                            </div>
+                            </div> -->
 
                         </div><!--card-body end-->
                     </div><!--card end-->
@@ -106,20 +106,35 @@
                                     <div class="col-md-4">
                                         <div class="order_details_first_info">
                                             <h3>Your Delivery address</h3>
-                                            <h4><span><?php echo $getOrders[0]->fname;?></span></h4>
-                                            <p><span><?php echo $getOrders[0]->area;?></span></p>
+                                            <h4><?php echo $getOrders[0]->address_type;?></h4>
+                                            <h4><?php echo $getOrders[0]->fname . ', ' . $getOrders[0]->lname; ?></h4>
+                                            <p><?php echo $getOrders[0]->address1 . ', ' . $getOrders[0]->address2; ?></p>
+                                            <p>
+                                            <?php echo $getOrders[0]->area; ?>     
+                                        </p>
+                                        <p>Ph: <?php echo $getOrders[0]->mobile; ?></p>
                                         </div>
                                     </div><!--col-md-4-->
                                     <div class="col-md-4">
                                         <div class="order_details_second_info">
                                             <div class="box_1">
                                                 <h3>Your Delivery Slot</h3>
-                                                <p><span class="material-symbols-outlined">calendar_month</span>&nbsp;&nbsp; Mon 18 March 2024</p>
-                                                <p class="p-0"><span class="material-symbols-outlined">schedule</span>&nbsp;&nbsp; 18 March, Monday 05:30 PM - 07:30 PM</p>
+                                                <?php 
+                                                $date = new DateTime($getOrders[0]->delivery_date);
+                                                $formattedDate = $date->format('d F Y');
+                                                $delivery_time = $getOrders[0]->delivery_time;
+                                                list($start_time, $end_time) = explode('-', $delivery_time);
+                                                $start_time_formatted = date('h:i A', strtotime($start_time)); 
+                                                $end_time_formatted = date('h:i A', strtotime($end_time)); 
+                                                $full_formatted_date = "{$formattedDate}, {$dayOfWeek} {$start_time_formatted} - {$end_time_formatted}";
+
+                                                ?>
+                                                <p><span class="material-symbols-outlined">calendar_month</span>&nbsp;&nbsp; <?php echo $formattedDate; ?></p>
+                                                <p class="p-0"><span class="material-symbols-outlined">schedule</span>&nbsp;&nbsp; <?php echo $full_formatted_date; ?></p>
                                             </div>
                                             <div class="box_1">
                                                 <h3>Payment status</h3>
-                                                <p>Failed</p>
+                                                <p>InProcess</p>
                                             </div>
                                             <div class="box_1">
                                                 <h3>Mode of payment</h3>
