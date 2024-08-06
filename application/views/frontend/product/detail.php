@@ -1,14 +1,8 @@
 <?php 
-
-  $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
-
-         $firstItem=isset($items[0]) ? $items[0] : array();
-
+$items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
+$firstItem=isset($items[0]) ? $items[0] : array();
 ?>
-<?php
-// print_r($reviews);
-// exit();
-?>
+
 <?php $this->load->view('frontend/header'); ?>
 
 <main class="main">
@@ -45,17 +39,17 @@
                         <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                         <!-- THUMBNAILS -->
                         <div class="slider-nav-thumbnails">
-                        <?php for($i=1; $i<7; $i++){ 
-                            $img=isset($pdetail['image'.$i]) ? $pdetail['image'.$i] : "" ;
+                           <?php for($i=1; $i<7; $i++){ 
+                               $img=isset($pdetail['image'.$i]) ? $pdetail['image'.$i] : "" ;
 
-                            if($img!=""){
-                        ?>
-                        <div>
-                           <img src="<?php echo base_url('uploads/'.$img);?>" alt="product image">
+                               if($img!=""){
+                           ?>
+                           <div>
+                              <img src="<?php echo base_url('uploads/'.$img);?>" alt="product image">
+                           </div>
+                           
+                           <?php } }?>
                         </div>
-                        
-                        <?php } }?>
-                     </div>
                         <!-- MAIN SLIDES -->
                         <div class="product-image-slider">
                            <?php for($i=1; $i<7; $i++){ 
@@ -67,8 +61,7 @@
                               <img src="<?php echo base_url('uploads/'.$img);?>" alt="product image">
                            </figure>
                            <?php } }?>
-                        </div>
-                       
+                        </div> 
                      </div>
                      <!-- End Gallery -->
                   </div>
@@ -105,70 +98,69 @@
                            </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                        <a href="#product_details_offer_ad">
-                           <div class="grid_offer_ad mt-20">
-                              <div class="ad_btn" style="width: 470px;">
-                                 <h4>Har Din Sasta! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                           <a href="#product_details_offer_ad">
+                              <div class="grid_offer_ad mt-20">
+                                 <div class="ad_btn" style="width: 470px;">
+                                    <h4>Har Din Sasta! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                                 </div>
                               </div>
-                           </div>
-                        </a>
-                        
-                        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="padding: 0px 26px;height: 40px;margin-top: 17px;background: #f17523;">
-                                        Subscribe & Save
-                        </button>
-                        <!-- Offcanvas Component -->
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color:rgb(250 250 250);">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Subscribe & Save</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
+                           </a>
+                           <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="padding: 0px 26px;height: 40px;margin-top: 17px;background: #f17523;">
+                                           Subscribe & Save
+                           </button>
+                           <!-- Offcanvas Component -->
+                           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color:rgb(250 250 250);">
+                                 <div class="offcanvas-header">
+                                   <h5 class="offcanvas-title" id="offcanvasExampleLabel">Subscribe & Save</h5>
+                                   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                 </div>
+                                    <div class="offcanvas-body">
 
-                                    <!-- ------subscribe details------ -->
-                                    
-                                    <div class="sub_percent">
-                                        <p class="first_p">5%</p> <p class="second_p">10%</p>
-                                    </div>
+                                       <!-- ------subscribe details------ -->
+                                       
+                                       <div class="sub_percent">
+                                           <p class="first_p">5%</p> <p class="second_p">10%</p>
+                                       </div>
 
-                                    <div class="product_details_price mt-20">
-                                        <p class="text-muted-low"><span>MRP </span><span><strike>₹165.00</strike></span></p>
-                                        <div class="clearfix product-price-cover">
-                                            <div class="product-price primary-color float-left">
-                                               <span class="current-price">Price: ₹<span class="price<?php echo $value->product_id;?>"><?php echo $value->variants[0]->price;?></span></span>
-                                               <span>
+                                       <div class="product_details_price mt-20">
+                                           <p class="text-muted-low"><span>MRP </span><span><strike>₹165.00</strike></span></p>
+                                          <div class="clearfix product-price-cover">
+                                             <div class="product-price primary-color float-left">
+                                                  <span class="current-price">Price: ₹<span class="price<?php echo $value->product_id;?>"><?php echo $value->variants[0]->price;?></span></span>
+                                                  <span>
+                                             </div>
+                                          </div>       
+                                       </div><br>
+
+                                       <p class="text-muted">Save 5% now and up to 10% on repeat deliveries. Cancel Anytime</p><br>
+
+                                       <div class="sub_quantity d-flex">
+                                           <div class="row mb-3">
+                                               <label for="inputEmail3" class="col-sm-2 col-form-label">Qty:</label>
+                                               <div class="col-sm-10">
+                                                   <select class="form-select">
+                                                       <option>0 (Delete)</option>
+                                                       <option selected>1</option>
+                                                       <option>2</option>
+                                                   </select>
                                                </div>
-                                           </div>                                          
-                                    </div><br>
+                                           </div>               
+                                       </div>
 
-                                    <p class="text-muted">Save 5% now and up to 10% on repeat deliveries. Cancel Anytime</p><br>
+                                       <div class="delivery_time">
+                                           <label>Deliver every</label>
+                                           <select class="form-select">
+                                               <option>2 month (Most common)</option>
+                                               <option>1 Year</option>
+                                           </select>
+                                       </div><br>
 
-                                    <div class="sub_quantity d-flex">
-                                        <div class="row mb-3">
-                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Qty:</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-select">
-                                                    <option>0 (Delete)</option>
-                                                    <option selected>1</option>
-                                                    <option>2</option>
-                                                </select>
-                                            </div>
-                                        </div>               
+                                       <a href="" class="btn"> Subscribe Now</a>
+
+
+                                       <!-- ---------subscribe details end--------- -->
                                     </div>
-
-                                    <div class="delivery_time">
-                                        <label>Deliver every</label>
-                                        <select class="form-select">
-                                            <option>2 month (Most common)</option>
-                                            <option>1 Year</option>
-                                        </select>
-                                    </div><br>
-
-                                    <a href="" class="btn"> Subscribe Now</a>
-
-
-                                    <!-- ---------subscribe details end--------- -->
-                            </div>
-                        </div>
+                           </div>
                         </div>
                         <div class="short-desc mb-30">
                         </div>
@@ -208,7 +200,7 @@
                                  </div>
                               </div>
                            </div>
-                           </a>
+                           </a>  
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
 
@@ -500,16 +492,11 @@
                <div class="container popular_background">
                   <div class="section-title mt-10">
                      <h3 class="">Similar products</h3>
-                     <!-- <div class="arrows_slider d-flex align-items-center">
-                        <a href="">Show More</a>       
-                        <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-related-arrows"><span class="slider-btn slider-prev slick-arrow" aria-disabled="false" style=""><i class="fi-rs-arrow-small-left"></i></span><span class="slider-btn slider-next slick-arrow" aria-disabled="false" style=""><i class="fi-rs-arrow-small-right"></i></span></div>
-                     </div> -->
                   </div>
                   <div class="row">
                      <div class="col-lg-12 col-md-12 " data-wow-delay=".4s">
                         <div class="carausel-4-columns-cover arrow-center position-relative">
-                           <div class="carausel-4-columns carausel-arrow-center slick-initialized slick-slider" id="carausel-4-columns-related">
-                              <!-- <div class="col-lg-3 col-md-4 col-12 col-sm-6"> -->
+                           <div class="carausel-4-columns carausel-arrow-center slick-slider" id="carausel-4-columns-related">
                               <div class="slick-list draggable">
                                  <div class="slick-track" style="opacity: 1; width: 5652px; transform: translate3d(-1256px, 0px, 0px);">
                                     <?php echo  $this->load->view("frontend/component/productItemSlick",array('productItems'=>$simillerProduct,'pcol'=>5),true);?>
@@ -523,29 +510,24 @@
                </div>
                <!-- --------------you may like to more in--------- -->
                <div class="custom_hr"></div>
-               <div class="container popular_background d-none">
-                  <div class="section-title mt-10">
-                     <h3 class="">Popular products</h3>
-                     <!-- <div class="arrows_slider d-flex align-items-center">
-                        <a href="">Show More</a>       
-                        <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-popular-arrows"><span class="slider-btn slider-prev slick-arrow slick-disabled" aria-disabled="true" style=""><i class="fi-rs-arrow-small-left"></i></span><span class="slider-btn slider-next slick-arrow" aria-disabled="false" style=""><i class="fi-rs-arrow-small-right"></i></span></div>
-                     </div> -->
-                  </div>
-                  <div class="row pop">
-                     <div class="col-lg-12 col-md-12 " data-wow-delay=".4s">
-                        <div class="carausel-4-columns-cover arrow-center position-relative">
-                           <div class="carausel-4-columns carausel-arrow-center slick-initialized slick-slider" id="carausel-4-columns-popular">
-                              <!-- <div class="col-lg-3 col-md-4 col-12 col-sm-6"> -->
-                              <div class="slick-list draggable">
-                                 <div class="slick-track" style="opacity: 1; width: 5652px; transform: translate3d(0px, 0px, 0px);">
-                                     <?php echo  $this->load->view("frontend/component/productItemSlick",array('productItems'=>$simillerProduct,'pcol'=>5),true);?>
+                  <div class="container popular_background d-none">
+                     <div class="section-title mt-10">
+                        <h3 class="">Popular products</h3>
+                     </div>
+                     <div class="row pop">
+                        <div class="col-lg-12 col-md-12 " data-wow-delay=".4s">
+                           <div class="carausel-4-columns-cover arrow-center position-relative">
+                              <div class="carausel-4-columns carausel-arrow-center  slick-slider" id="carausel-4-columns-popular">
+                                 <div class="slick-list draggable">
+                                    <div class="slick-track" style="opacity: 1; width: 5652px; transform: translate3d(0px, 0px, 0px);">
+                                        <?php echo  $this->load->view("frontend/component/productItemSlick",array('productItems'=>$simillerProduct,'pcol'=>5),true);?>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
-               </div>
 
                <!-- --------------you may like to more in--------- -->
                <div class="product_details_you_may_like_sec mt-30 mb-30 d-none">
