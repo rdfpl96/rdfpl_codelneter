@@ -38,12 +38,13 @@ class Coupon extends CI_Controller
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
-
+    
         $config = array();
         $config["base_url"] = base_url() . "admin/coupon";
         $config["total_rows"] = $this->coupon->record_count();
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
+    
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
@@ -63,27 +64,31 @@ class Coupon extends CI_Controller
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
         $config['num_tag_close'] = '</li>';
-
+    
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data['copun_list'] = $this->coupon->get_all_coupons($config["per_page"], $page);
-        // $data['blog_list'] = $this->blogs->get_users_blogs($config["per_page"], $page);    
         $data['pagination'] = $this->pagination->create_links();
-
+    
         $start = $page;
         $array_data = $this->coupon->get_all_coupons($config["per_page"], $start);
-    
+        
         $i = $page + 1;
-
+    
         $option = '';
-
+    
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $keyval) {
+                // Convert disc_type to human-readable format
+                $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
+                                     (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
+                
                 $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
+                
                 $option .= '<tr> 
                         <td>' . $i++ . '</td>
                         <td>' . $keyval->coupon_code . '</td>
-                        <td>' . $keyval->disc_type . '</td>
+                        <td>' . $disc_type_display . '</td>
                         <td>' . $discountVal . '</td>
                         <td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
                         <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
@@ -92,14 +97,14 @@ class Coupon extends CI_Controller
         } else {
             $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
         }
-
+    
         $output = array(
             'array_data' => $option,
             'page_menu_id' => $page_menu_id,
             'getAccess' => $getAccess,
             'pagination' => $data['pagination']
         );
-
+    
         if ($this->input->post('method') == "changepage") {
             echo json_encode($output);
             exit();
@@ -107,6 +112,7 @@ class Coupon extends CI_Controller
             $this->load->view('admin/coupon/index', $output);
         }
     }
+    
 
 
     public function searchCoupon()

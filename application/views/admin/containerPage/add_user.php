@@ -96,7 +96,6 @@ if (!empty($user_id)) {
                                             <label class="form-label">Email</label>
                                             <input type="hidden" class="form-control" name="oldemail" id="oldemail" value="<?php echo !empty($user_details) ? $user_details->admin_email : ''; ?>">
                                             <input type="text" class="form-control" name="email" id="email" value="<?php echo !empty($user_details) ? $user_details->admin_email : ''; ?>" required>
-                                            
                                         </div>
 
                                         <div class="col-md-3">
@@ -123,19 +122,19 @@ if (!empty($user_id)) {
                                         </div>
                                         
 
-                                        <div class="col-md-4">
+                                        <!-- <div class="col-md-4">
                                             <label class="form-label">Status</label>
                                             <label class="switch">
                                                 <input 
                                                     type="checkbox" 
-                                                    id="Status<?php echo htmlspecialchars($user_details->admin_id); ?>"  
+                                                    id="Status<?php // echo htmlspecialchars($user_details->admin_id); ?>"  
                                                     name="Status[]" 
-                                                    value="<?php echo $user_details->status; ?>"  
-                                                    onclick="UpdateUserStatus(<?php echo htmlspecialchars($user_details->admin_id); ?>)"
-                                                    <?php echo ($user_details->status == 1) ? 'checked' : ''; ?>>
+                                                    value="<?php ///echo $user_details->status; ?>"  
+                                                    onclick="UpdateUserStatus(<?php// echo htmlspecialchars($user_details->admin_id); ?>)"
+                                                    <?php //echo ($user_details->status == 1) ? 'checked' : ''; ?>>
                                                 <span class="slider round"></span>
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

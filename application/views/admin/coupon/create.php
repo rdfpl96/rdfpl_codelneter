@@ -79,7 +79,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Type<span style="color:red;">*</span></label>
                                             <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
-                                                <option value="Fixed Amount" <?php echo ($coupon['disc_type'] == 'Fixed Amount') ? 'selected' : ''; ?>>Fixed Amount</option>
+                                                <option value="fixed_amt" <?php echo ($coupon['disc_type'] == 'fixed_amt') ? 'selected' : ''; ?>>Fixed Amount</option>
                                                 <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : ''; ?>>Percentage</option>
                                             </select>
                                         </div>
@@ -111,7 +111,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                             </div>
                         
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -122,7 +122,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                 </div>
                                             </div>
                         
-                                        </div>
+                                        </div> -->
                                         </div>
 
                                     </div>
@@ -160,7 +160,7 @@ $(document).ready(function() {
 function toggleDiscountInputs() {
         var discType = $('#disc_type').val();
 
-        if (discType === 'Fixed Amount') {
+        if (discType === 'fixed_amt') {
             $('#disc_amt').parent().show();
             $('#disc_amt').prop('required', true); // Add required attribute
             $('#disc_per').parent().hide();
