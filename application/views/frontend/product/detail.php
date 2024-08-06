@@ -611,8 +611,6 @@ $(document).ready(function() {
         // Remove 'active' class from all options and add it to the clicked one
         $('.pack-size-option').removeClass('active');
         $(this).addClass('active');
-
-        // Get the price and other details from the data attributes of the clicked option
         var newPrice = $(this).data('price');
         var beforeOffPrice = $(this).data('before-off-price');
 
