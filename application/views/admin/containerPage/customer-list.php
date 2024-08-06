@@ -77,10 +77,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                             <?php echo $value->email;?>
                                                             <?php if($value->email!="") { ?>
                                                             <?php if($value->verify_email==1){ ?>
-                                                              <span class="badge" style="background-color:#33cc33;color:white;border:white;">Verified</span>
+                                                              <!-- <span class="badge" style="background-color:#33cc33;color:white;border:white;">Verified</span> -->
                                                               <br>
                                                             <?php }else{ ?>
-                                                              <span class="badge" style="background-color:#ff0066;color:white;border:white;">Unverified</span>
+                                                              <!-- <span class="badge" style="background-color:#ff0066;color:white;border:white;">Unverified</span> -->
                                                              
                                                             <?php } ?>
                                                         <?php } ?>
@@ -90,10 +90,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                                             <?php if($value->mobile!="") { ?>
                                                             <?php if($value->verify_mobile==1){ ?>
-                                                               <span class="badge" style="background-color:#33cc33;color:white;border:white;">Verified</span>
+                                                               <!-- <span class="badge" style="background-color:#33cc33;color:white;border:white;">Verified</span> -->
                                                            
                                                             <?php }else{ ?>
-                                                              <span class="badge" style="background-color:#ff0066;color:white;border:white;">Unverified</span>
+                                                              <!-- <span class="badge" style="background-color:#ff0066;color:white;border:white;">Unverified</span> -->
                                                               
                                                             <?php } ?>
                                                         <?php } ?>

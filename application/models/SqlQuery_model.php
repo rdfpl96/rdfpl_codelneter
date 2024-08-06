@@ -31,6 +31,16 @@ class SqlQuery_model extends CI_Model
       return $query->result_array();
    }
 
+   public function get_user_by_email($email){
+
+       $this->db->select('admin_email'); 
+       $this->db->from('tbl_admin');
+       $this->db->where('admin_email', $email);
+       $query = $this->db->get();
+       return $query->row(); 
+   }
+   
+
 
    public function sql_select_where($tablename, $where)
    {

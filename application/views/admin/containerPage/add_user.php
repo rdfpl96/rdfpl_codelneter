@@ -96,6 +96,7 @@ if (!empty($user_id)) {
                                             <label class="form-label">Email</label>
                                             <input type="hidden" class="form-control" name="oldemail" id="oldemail" value="<?php echo !empty($user_details) ? $user_details->admin_email : ''; ?>">
                                             <input type="text" class="form-control" name="email" id="email" value="<?php echo !empty($user_details) ? $user_details->admin_email : ''; ?>" required>
+                                            
                                         </div>
 
                                         <div class="col-md-3">
