@@ -32,6 +32,7 @@ class Admin extends CI_Controller
   public function index()
   {
     $session = $this->session->userdata('admin');
+    
     if ($session == "") {
       $this->load->view('admin/index');
     } else {
@@ -223,72 +224,76 @@ class Admin extends CI_Controller
   //new code
   public function add_user()
   {
-    if ($this->input->is_ajax_request()) {
-
-      $this->form_validation->set_rules('c_fname', 'First Name', 'required');
-      $this->form_validation->set_rules('username', 'Username', 'required');
-      $this->form_validation->set_rules('mobile', 'Mobile', 'required|numeric');
-      $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-      $this->form_validation->set_rules('password', 'Password', 'required');
-      $this->form_validation->set_rules('conf_password', 'Confirm Password', 'required|matches[password]');
-
-      if ($this->form_validation->run() == FALSE) {
-        $errors = validation_errors();
-        $response = array('success' => false, 'errors' => $errors);
-        echo json_encode($response);
-        return;
-      }
-      // File upload configuration
-      $upload_path = realpath(APPPATH . '../uploads');
-      if (!is_dir($upload_path)) {
-        mkdir($upload_path, 0777, TRUE);
-      }
-
-      $config['upload_path'] = $upload_path;
-      $config['allowed_types'] = 'gif|jpg|jpeg|png';
-      $config['max_size'] = 2048;
-
-      $this->load->library('upload', $config);
-
-      if (!$this->upload->do_upload('image')) {
-        $error = $this->upload->display_errors();
-        $response = array('success' => false, 'errors' => $error);
-        echo json_encode($response);
-        return;
+    
+      if ($this->input->is_ajax_request()) {
+       
+          $email = $this->input->post('email');
+          $existing_user = $this->sqlQuery_model->get_user_by_email($email);
+          if ($existing_user) {
+              $response = array('success' => false, 'errors' => 'This email already exists.');
+              echo json_encode($response);
+              return;
+          }
+  
+          $upload_path = realpath(APPPATH . '../uploads');
+          if (!is_dir($upload_path)) {
+              mkdir($upload_path, 0777, TRUE);
+          }
+  
+          $config['upload_path'] = $upload_path;
+          $config['allowed_types'] = 'gif|jpg|jpeg|png';
+          $config['max_size'] = 2048;
+          $this->load->library('upload', $config);
+          if (!$this->upload->do_upload('image')) {
+              $error = $this->upload->display_errors();
+              $response = array('success' => false, 'errors' => $error);
+              echo json_encode($response);
+              return;
+          } else {
+              // Get the uploaded file data
+              $upload_data = $this->upload->data();
+              $user_data = array(
+                  'admin_name' => $this->input->post('c_fname'),
+                  'admin_username' => $this->input->post('username'),
+                  'admin_mobile' => $this->input->post('mobile'),
+                  'admin_email' => $this->input->post('email'),
+                  'admin_designation' => $this->input->post('designation'),
+                  'admin_password' => md5($this->input->post('password')),
+                  'admin_image' => $upload_data['file_name']
+              );
+              $insert = $this->user_model->insert_user($user_data);
+              if ($insert) {
+                  $response = array('success' => true, 'message' => 'User added successfully');
+                  echo json_encode($response);
+              } else {
+                  $response = array('success' => false, 'message' => 'Failed to add user');
+                  echo json_encode($response);
+              }
+          }
       } else {
-        // Get the uploaded file data
-        $upload_data = $this->upload->data();
-
-        // Insert user data into database
-        $user_data = array(
-          'admin_name' => $this->input->post('c_fname'),
-          'admin_username' => $this->input->post('username'),
-          'admin_mobile' => $this->input->post('mobile'),
-          'admin_email' => $this->input->post('email'),
-          'admin_designation' => $this->input->post('designation'),
-          'admin_password' => md5($this->input->post('password')),
-          'admin_image' => $upload_data['file_name']
-
-        );
-        $insert = $this->user_model->insert_user($user_data);
-        if ($insert) {
-          $response = array('success' => true, 'message' => 'User added successfully');
-          echo json_encode($response);
-        } else {
-          $response = array('success' => false, 'message' => 'Failed to add user');
-          echo json_encode($response);
-        }
+          $data['content'] = 'admin/containerPage/add_user';
+          $this->load->view('admin/template', $data);
       }
-    } else {
-      $data['content'] = 'admin/containerPage/add_user';
-      $this->load->view('admin/template', $data);
-    }
   }
+  
 
 
   public function update_user()
   {
     $user_id = $this->input->post('editv');
+    $email = $this->input->post('email');
+    $Old_email = $this->input->post('oldemail');
+    
+    if ($email != $Old_email) {
+
+      $existing_user = $this->sqlQuery_model->get_user_by_email($email);
+      if ($existing_user) {
+          $response = array('success' => false, 'errors' => 'This email already exists.');
+          echo json_encode($response);
+          return;
+      }
+    }
+  
     $user_data = array(
       'admin_name' => $this->input->post('c_fname'),
       'admin_username' => $this->input->post('username'),
