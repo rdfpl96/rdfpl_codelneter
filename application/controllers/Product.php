@@ -11,6 +11,7 @@ class Product extends CI_Controller
     $this->load->model('product_model', 'productObj');
     $this->load->model('common_model');
     $this->load->library('my_libraries');
+    $this->load->library('customlibrary');
     $this->load->library('pagination');
 
   }
@@ -76,9 +77,6 @@ class Product extends CI_Controller
     $this->load->view("frontend/product/index", $data);
   }
 
- 
-
-
 public function shop($slug1=null, $slug2=null, $slug3=null)
 {
     $total_rows = $this->productObj->get_Product_count($slug1, $slug2, $slug3);
@@ -116,16 +114,10 @@ public function shop($slug1=null, $slug2=null, $slug3=null)
     $data['categoryName'] = "";
     $data['categoryLevel'] = "";
     $data['bread'] = 'Shop';
-    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
+    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products,"productRatings" =>$productRatings, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
     $data['price_range'] = $this->productObj->getPriceRange();
     $this->load->view("frontend/product/index", $data);
 }
-
-
-
-
-
-
 
 public function Price_range() {
   $data['price_range'] = $this->productObj->getPriceRange();
@@ -134,18 +126,7 @@ public function Price_range() {
   die();
 }
 
-
-  
-
-
-
-
-
-
-
-
-
-  public function detail($pslug)
+public function detail($pslug)
   {
 
     $pdetail = $this->productObj->getProductDetailBySlug($pslug);
@@ -155,11 +136,15 @@ public function Price_range() {
     if (count($pdetail) > 0) {
       $simillerProduct = $this->productObj->getProdcutListBySlug($pdetail['top_cat_slug'], $pdetail['sub_cat_slug'], $pdetail['child_cat_slug']);
       $reviews = $this->common_model->getReviewsByProductId($pdetail['product_id']);
+      
+      $productRate = $this->customlibrary->getProductRatingSummary($pdetail['product_id']);
     }
+    
+
     //$this->load->view("frontend/product/detail", array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct));
 
-    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews));
-  }
+    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'productRate' =>$productRate));
+}
 
   public function search()
   {

@@ -3,7 +3,10 @@ $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']);
 $firstItem=isset($items[0]) ? $items[0] : array();
 ?>
 
-<?php $this->load->view('frontend/header'); ?>
+<?php $this->load->view('frontend/header'); 
+// print_r($productRate);
+// exit();
+?>
 
 <main class="main">
    <div class="page-header breadcrumb-wrap">
@@ -73,8 +76,15 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                         </div>
                         <h2 class="title-detail"><?php echo isset($pdetail['product_name']) ? $pdetail['product_name'] : '' ;?></h2>
                         <div class="grid_product_rating mt-10">
-                           <p>4.2 <i class="material-symbols-outlined">star</i></p>
-                           <a href="<?= base_url('rating-review-details') ?>"><span class="text-muted">&nbsp; <u>5171 Ratings &amp; 70 Reviews</u></span></a>
+                          <?php
+                              $average_rating = number_format($productRate['average_rating'], 1);
+                              $total_ratings = $productRate['total_ratings'];
+                              $total_reviews = $productRate['total_reviews'];
+                              //print_r($average_rating);
+
+                          ?>
+                          <p><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></p>
+                          <a href="<?= base_url('rating-review-details/' . $product->product_id) ?>"><span class="text-muted">&nbsp; <u><?php echo $total_ratings; ?> Ratings &amp; <?php echo $total_reviews; ?> Reviews</u></span></a>
                         </div>
                         <div class="product_details_price mt-20">
                            <p class="text-muted-low"><span>MRP </span><span><strike id="current-mrp">₹<?php echo isset($firstItem['before_off_price']) ? $firstItem['before_off_price'] : '' ?></strike></span></p>

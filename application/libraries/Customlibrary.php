@@ -11,6 +11,7 @@ class Customlibrary
        $this->customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
 
        $this->CI->load->model('cart_model','cartObj');
+       $this->CI->load->model('common_model');
     }
 
     public function getDefaultAddressId(){
@@ -609,6 +610,29 @@ class Customlibrary
 return $html;  
 
   }
+  
+public function getProductRatingSummary($product_id) {
+        $ratings = $this->CI->common_model->getRatingsByProduct($product_id);
+        $total_ratings = count($ratings);
+        $total_reviews = 0;
+        $average_rating = 0;
+
+        if ($total_ratings > 0) {
+            foreach ($ratings as $rating) {
+                $average_rating += $rating->cust_rate;
+                if (!empty($rating->comment)) {
+                    $total_reviews++;
+                }
+            }
+            $average_rating = $average_rating / $total_ratings;
+        }
+
+        return [
+            'average_rating' => $average_rating,
+            'total_ratings' => $total_ratings,
+            'total_reviews' => $total_reviews
+        ];
+    }
   
 
  }

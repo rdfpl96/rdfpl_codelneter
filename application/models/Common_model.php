@@ -209,9 +209,11 @@ public function check_existing_email($customer_id, $email) {
         }
     }
      
-    // $date1 = '2024-07-01';
-     
-    // echo dateDifference($date1);
+public function getRatingsByProduct($product_id) {
+    $this->db->where('product_id', $product_id);
+    $query = $this->db->get('tbl_rate_and_review');
+    return $query->result();
+}
 
   
 }

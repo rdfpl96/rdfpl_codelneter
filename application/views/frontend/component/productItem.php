@@ -39,10 +39,25 @@
                <div class="product-category">
                   <a href="javascript:void(0);" tabindex="0"></a>
                </div>
-               <h2><a href="<?php echo base_url('detail/'.$record['slug'])?>" tabindex="0"><?php echo stripslashes($record['product_name'])?></a></h2>
-               <div class="grid_product_rating">
-                  <p>4.2 <i class="material-symbols-outlined">star</i></p>
+               <h2><a href="<?php echo base_url('product/'.$record['slug'])?>" tabindex="0"><?php echo stripslashes($record['product_name'])?></a></h2>
+               <!-- <div class="grid_product_rating">
+                  <p>4 <i class="material-symbols-outlined">star</i></p>
                   <span>&nbsp;209 Rating</span>
+               </div> -->
+               <div class="grid_product_rating mt-10">
+                 <?php
+
+                     $productRatings=$this->customlibrary->getProductRatingSummary($record['product_id']);
+
+                     $average_rating = number_format($productRatings['average_rating'], 1);
+                     $total_ratings = $productRatings['total_ratings'];
+                     $total_reviews = $productRatings['total_reviews'];
+
+
+                     $rati=$this->customlibrary->getProductRatingSummary($record['product_id']);
+                 ?>
+                 <p><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></p>
+                 <span>&nbsp;<?php echo $total_ratings; ?> Ratings</span>
                </div>
                <div class="product-card-bottom mt-15 mb-15">
                   <div class="brand_size">

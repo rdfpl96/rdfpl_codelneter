@@ -194,8 +194,9 @@ $route['product/(:any)']='product/detail/$1';
 $route['rating-review-details'] = 'product/review_rating'; 
 $route['getSubCategoryTopId/(:num)']='common/getSubCategoryTopId/$1';
 $route['getChildDataBySubCatId/(:num)/(:num)']='common/getChildDataBySubCatId/$1/$2';
+$route['rating-details/(:num)'] = 'common/ratingReviewDetails/$1';
 
-//Cart
+//cart
 $route['cart']='cart/index';
 $route['cart/save-to-later']='cart/saveToLater';
 $route['cart/delete-item']='cart/deleteItem';
