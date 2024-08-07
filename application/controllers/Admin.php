@@ -2939,6 +2939,11 @@ class Admin extends CI_Controller
     $this->pagination->initialize($config);
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
     $data['banner_list'] = $this->sqlQuery_model->get_users_banner_list($config["per_page"], $page);
+
+    // echo "<pre>";
+    // print_r($data['banner_list']);
+    // die();
+    
     $data['pagination'] = $this->pagination->create_links();
     $data['content'] = 'admin/containerPage/banner';
     $data['page'] = (!empty($page) ? ($page + 1) : '1');
@@ -3076,7 +3081,8 @@ public function banner_add_action()
       'description' => $description,
       'button_link' => $link,
       'desk_image' => $image,
-      'add_date' => date('Y-m-d H:i:s')
+      'add_date' =>date('Y-m-d H:i:s'),
+      'type'=>'banner'
     );
 
     // Insert data into database
