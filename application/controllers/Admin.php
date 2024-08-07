@@ -261,6 +261,9 @@ class Admin extends CI_Controller
                   'admin_password' => md5($this->input->post('password')),
                   'admin_image' => $upload_data['file_name']
               );
+
+              // echo "<pre>"; print_r($user_data); die();"</pre>";
+
               $insert = $this->user_model->insert_user($user_data);
               if ($insert) {
                   $response = array('success' => true, 'message' => 'User added successfully');

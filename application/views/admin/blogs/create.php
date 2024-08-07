@@ -181,13 +181,13 @@ $(document).ready(function() {
                         window.location.href = "<?php echo base_url('admin/blogs'); ?>";
                     });
                 }
-                //  else {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Error',
-                //         text: responseData.message
-                //     });
-                // }
+                 else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: responseData.message
+                    });
+                }
             },
             // error: function(jqXHR, textStatus, errorThrown) {
             //     Swal.fire({

@@ -86,7 +86,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Type<span style="color:red;">*</span></label>
                                            <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
-                                                <option value="Fixed Amount" <?php echo ($coupon['disc_type'] == 'Fixed Amount') ? 'selected' : ''; ?>>Fixed Amount</option>
+                                                <option value="fixed_amt" <?php echo ($coupon['disc_type'] == 'fixed_amt') ? 'selected' : ''; ?>>Fixed Amount</option>
                                                 <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : ''; ?>>Percentage</option>
                                             </select>
 
@@ -119,7 +119,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label class="form-label">Coupon Time Uses<span style="color:red;">*</span></label>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -130,7 +130,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -191,7 +191,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
    
     function toggleDiscountInputs() {
         var discType = $('#disc_type').val();
-        if (discType === 'Fixed Amount') {
+        if (discType === 'fixed_amt') {
             $('#disc_amt').parent().show();
             $('#disc_per').parent().hide();
             $('#disc_per').val('0.00'); 

@@ -87,7 +87,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             </table>
                             <!-- Pagination -->
                             <div class="pagination-links">
-                                <?php echo $pagination; ?>
+                                <?php echo $pagination_links; ?>
                             </div>
                         </div>
                     </div>

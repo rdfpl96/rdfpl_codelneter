@@ -29,7 +29,7 @@
                                        
                                         $imageUrl = (!empty($adminImage)) ? base_url() . 'uploads/' . $adminImage : $defaultImageUrl;
 
-                                        // echo "<pre>"; print_r($imageUrl); die();
+                                        //  echo "<pre>"; print_r($imageUrl); die();
 
                                         ?>
                                         
@@ -41,7 +41,7 @@
                                         <div class="card-body">
                                             <div class="">
                                                 <div class="flex-fill">
-                                                    <a href="<?php echo base_url('admin/logout');?>" class="font-weight-bold">Ḷogout</a>
+                                                    <a href="<?php echo base_url('admin/logout');?>" class="font-weight-bold">Ḷogout </a>
                                                 </div>
                                             </div>
                                         </div>

@@ -9,6 +9,13 @@ class Child_category_model extends CI_Model
     $this->load->database();
   }
 
+  public function Child_category_count_all(){
+
+    $this->db->select('*');
+    $this->db->from('tbl_child_category');
+    return $this->db->count_all_results();
+
+  }
 
 
 
@@ -69,19 +76,19 @@ class Child_category_model extends CI_Model
     }
 
 
-    public function get_Childcategory_data() {
+    public function get_Childcategory_data($limit,$start) {
+      $this->db->limit($limit, $start);
       $this->db->select('tbl_child_category.*, tbl_category.category,tbl_sub_category.subCat_name');
       $this->db->from('tbl_child_category');
       // $this->db->join('tbl_category', 'tbl_category.cat_id = tbl_child_category.cat_id');
       // $this->db->join('tbl_sub_category', 'tbl_sub_category.sub_cat_id = tbl_sub_category.sub_cat_id');
       $this->db->join('tbl_category', 'tbl_child_category.cat_id = tbl_category.cat_id');
       $this->db->join('tbl_sub_category', 'tbl_child_category.sub_cat_id = tbl_sub_category.sub_cat_id');
-      // $this->db->limit(10);
+      //$this->db->limit(10);
       $query = $this->db->get();
       return $query->result_array();
   }
   
-
 
 
 

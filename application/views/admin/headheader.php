@@ -55,13 +55,20 @@
                                     <small><?php echo getShortData($session['admin_designation'],20);?></small>
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
+                                        <?php
+                                        // Retrieve the session data for the admin image
+                                        $adminImage = $this->session->userdata('admin_image');
+                                        $defaultImageUrl = base_url() . 'include/assets/images/profile_av.svg';
+                                       
+                                        $imageUrl = (!empty($adminImage)) ? base_url() . 'uploads/' . $adminImage : $defaultImageUrl;
 
-                                    <?php
-                                    $imageUrl=($session['admin_image']!="") ? base_url().'/uploads/user/'.$session['admin_image'] : base_url().'/include/assets/images/profile_av.svg';
-                                    ?>
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="<?php echo $imageUrl;?>" alt="profile">
-                                    <!-- include/assets/images/profile_av.svg -->
-                                </a>
+                                        //  echo "<pre>"; print_r($imageUrl); die();
+
+                                        ?>
+                                        
+                                        <img class="avatar lg rounded-circle img-thumbnail" src="<?php echo $imageUrl; ?>" alt="profile">  
+                                        <h6>Welcome, <?php echo $this->session->userdata('name'); ?>!</h6>
+                                    </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                     <div class="card border-0 w280">
                                         <div class="card-body">

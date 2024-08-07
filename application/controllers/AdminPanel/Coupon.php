@@ -80,7 +80,7 @@ class Coupon extends CI_Controller
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $keyval) {
                 // Convert disc_type to human-readable format
-                $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
+         $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
                                      (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
                 
                 $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
