@@ -123,10 +123,9 @@ public function update_banner($banner_id, $data) {
       $this->db->limit($limit, $start);
   
       
-      $this->db->order_by('banner_id', 'DESC');
+      $this->db->order_by('banner_id','ASC');
  
       $query = $this->db->get("tbl_banner");
-  
   
       if ($query->num_rows() > 0) {
           return $query->result();
