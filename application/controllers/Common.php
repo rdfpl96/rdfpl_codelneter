@@ -1162,20 +1162,70 @@ public function rating_review($order_no,$product_id){
     }
 }    
 
-public function rating_review_submit() {
-        $user = $this->my_libraries->mh_getCookies('customer');
-        if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
-            $customer_id = (int)$user['customer_id'];
-            $this->load->library('form_validation');
-            $this->form_validation->set_rules('comment', 'Comment', 'required');
+// public function rating_review_submit() {
+//         $user = $this->my_libraries->mh_getCookies('customer');
+//         if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
+//             $customer_id = (int)$user['customer_id'];
+//             $this->load->library('form_validation');
+//             $this->form_validation->set_rules('comment', 'Comment', 'required');
 
-            if ($this->form_validation->run() == FALSE) {
-                $data['content'] = 'frontend/component/rating_review';
-                $this->load->view('frontend/template', $data);
+//             if ($this->form_validation->run() == FALSE) {
+//                 $data['content'] = 'frontend/component/rating_review';
+//                 $this->load->view('frontend/template', $data);
+//             } else {
+//                 $rate_id = $this->input->post('rate_id');
+//                 $order_id = $this->input->post('order_id');
+//                 $product_id = $this->input->post('pro_id');
+//                 $star_rate = $this->input->post('rating');
+//                 $comment = $this->input->post('comment');
+
+//                 $data = array(
+//                     'cust_id' => $customer_id,
+//                     'product_id' => $product_id,
+//                     'order_id' => $order_id,
+//                     'cust_rate' => $star_rate,
+//                     'comment' => $comment,
+//                     'add_date' => date('Y-m-d H:i:s'),
+//                     'status' => 1
+//                 );
+//                 // print_r($data);
+//                 // exit();
+//                 $this->common_model->save_review($data, $rate_id);
+//                 //redirect(base_url('order-details?ord_id=' . $order_id));
+//                 redirect(base_url('my-order'));
+//             }
+//         } else {
+//             redirect(base_url(), 'refresh');
+//         }
+// }   
+
+public function rating_review_submit() {
+    $user = $this->my_libraries->mh_getCookies('customer');
+    if ($user && isset($user['customer_id']) && !empty($user['customer_id'])) {
+        $customer_id = (int)$user['customer_id'];
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('comment', 'Comment', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['content'] = 'frontend/component/rating_review';
+            $this->load->view('frontend/template', $data);
+        } else {
+            $product_id = $this->input->post('pro_id');
+
+            // Check if the user has already submitted a review for this product
+            $this->load->model('common_model');
+            $existing_review = $this->common_model->get_user_review($customer_id, $product_id);
+
+            if ($existing_review) {
+                // User has already submitted a review for this product
+                $this->session->set_flashdata('message', 'You have already submitted a review for this product.');
+                // Fetch product slug
+                $product_slug = $this->common_model->get_product_slug_by_id($product_id);
+                redirect(base_url('product/' . $product_slug));
             } else {
+                // Proceed with saving the review
                 $rate_id = $this->input->post('rate_id');
                 $order_id = $this->input->post('order_id');
-                $product_id = $this->input->post('pro_id');
                 $star_rate = $this->input->post('rating');
                 $comment = $this->input->post('comment');
 
@@ -1188,16 +1238,19 @@ public function rating_review_submit() {
                     'add_date' => date('Y-m-d H:i:s'),
                     'status' => 1
                 );
-                // print_r($data);
-                // exit();
+                // Save the review
                 $this->common_model->save_review($data, $rate_id);
-                //redirect(base_url('order-details?ord_id=' . $order_id));
-                redirect(base_url('my-order'));
+                // Fetch product slug
+                $product_slug = $this->common_model->get_product_slug_by_id($product_id);
+                redirect(base_url('product/' . $product_slug));
             }
-        } else {
-            redirect(base_url(), 'refresh');
         }
-}   
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}
+
+
 
 public function rating_review_details(){
     $data['content']='frontend/component/rating_review_details';

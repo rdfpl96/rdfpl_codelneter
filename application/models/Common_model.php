@@ -215,6 +215,26 @@ public function getRatingsByProduct($product_id) {
     return $query->result();
 }
 
+public function get_user_review($customer_id, $product_id) {
+    $this->db->select('*');
+    $this->db->from('tbl_rate_and_review');
+    $this->db->where('cust_id', $customer_id);
+    $this->db->where('product_id', $product_id);
+    $query = $this->db->get();
+
+    return $query->row(); // Returns a single row or null if no review found
+}
+
+public function get_product_slug_by_id($product_id) {
+    $this->db->select('slug');
+    $this->db->from('tbl_product');
+    $this->db->where('product_id', $product_id);
+    $query = $this->db->get();
+    $result = $query->row();
+    return $result ? $result->slug : null;
+}
+
+
   
 }
 ?>
