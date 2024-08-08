@@ -197,9 +197,9 @@
                             }
                         ?>
                         <h3>Items purchased <span><?php echo $itemCount;?> Item<?php echo ($itemCount > 1) ? 's' : ''; ?></span></h3>
-                        <div class="item_purchase_button">
+                        <!-- <div class="item_purchase_button">
                             <a href="">Shop from this Order</a>
-                        </div>
+                        </div> -->
                     </div><!--order_details-button-->
                     <br>
                     <div class="card">
