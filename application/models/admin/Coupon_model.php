@@ -91,6 +91,18 @@ class Coupon_model extends CI_Model{
         return $query->result();
     }
 
+    public function CheckCouponsPresentInOrderTable($coupon_id) {
+      $this->db->where('coupon_id', $coupon_id);
+      $query = $this->db->get('tbl_order');
+
+      if($query->num_rows()>0){ 
+        $flag=1;
+      }else{
+        $flag=0;
+      }
+      return $flag; 
+    }
+
 
     public function store($data) {
       // print_r($data);

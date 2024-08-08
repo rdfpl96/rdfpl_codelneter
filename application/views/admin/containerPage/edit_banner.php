@@ -42,21 +42,21 @@ $this->load->view('admin/headheader');
                                 <img src="<?php echo base_url('uploads/banner/' . $banner->desk_image); ?>" style="width:100px; margin-top:10px;">
                             </div>
 
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 
                                                 <label class="switch">
                                                 <input 
                                                     type="checkbox" 
-                                                    id="Status<?php echo htmlspecialchars($banner->banner_id); ?>"  
+                                                    id="Status<?php // echo htmlspecialchars($banner->banner_id); ?>"  
                                                     name="Status[]" 
-                                                    value="<?php echo $banner->status; ?>"  
-                                                    onclick="UpdateBannerStatus(<?php echo htmlspecialchars($banner->banner_id); ?>)"
-                                                    <?php echo ($banner->status == 1) ? 'checked' : ''; ?>>
+                                                    value="<?php //echo $banner->status; ?>"  
+                                                    onclick="UpdateBannerStatus(<?php //echo htmlspecialchars($banner->banner_id); ?>)"
+                                                    <?php //echo ($banner->status == 1) ? 'checked' : ''; ?>>
                                                 <span class="slider round"></span>
                                   </label>
                                                     
-                            </div>
+                            </div> -->
 
                             <button type="submit" class="btn btn-primary">Update Banner</button>
                         </form>

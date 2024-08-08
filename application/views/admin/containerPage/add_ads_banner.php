@@ -62,7 +62,7 @@
                                                 <span id="link-error" class="text-danger"></span>
                                             
                                             </div>
-                                            <div class="col-md-2">
+                                            <!-- <div class="col-md-2">
                                                 <label  class="form-label">Active</label><br>
                                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                                 <button type="button" class="btn  custom_flip_btn_css py-2 text-uppercase w-sm-100">
@@ -72,7 +72,7 @@
                                                  </label>
                                                </button>
                                                </div>
-                                            </div>
+                                            </div> -->
 
                                          
                                        <div class="col-md-4">

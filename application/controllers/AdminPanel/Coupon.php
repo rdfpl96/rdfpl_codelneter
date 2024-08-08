@@ -84,15 +84,20 @@ class Coupon extends CI_Controller
                                      (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
                 
                 $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
-                
+                $coupon_flag =$this->coupon->CheckCouponsPresentInOrderTable($keyval->coupon_id);
                 $option .= '<tr> 
                         <td>' . $i++ . '</td>
                         <td>' . $keyval->coupon_code . '</td>
                         <td>' . $disc_type_display . '</td>
-                        <td>' . $discountVal . '</td>
-                        <td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
-                    </tr>';
+                        <td>' . $discountVal . '</td>';
+                        if($coupon_flag == 1){
+                            $option .= '<td></td>
+                            <td></td>';
+                        }else{
+                            $option .= '<td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                            <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>';
+                        }
+                    $option .= '</tr>';
             }
         } else {
             $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
