@@ -30,7 +30,7 @@ $this->load->view('admin/headheader');
             <div class="col-md-12">
                 <div class="card category_list_css">
                     <div class="card-body">
-                        <form id="addBannerForm" action="<?php echo base_url('admin/banner_add_action'); ?>" method="post" enctype="multipart/form-data">
+                        <form id="addBannerForm" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="header">Header</label>
                                 <input type="text" class="form-control" id="header" name="header" required>
@@ -45,7 +45,9 @@ $this->load->view('admin/headheader');
                             </div>
                             <div class="form-group">
                                 <label for="image">Image</label>
+                                <span style="color:red"> image must be 2300px wide and 780px tall.*</span>
                                 <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                                <span></span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Add Banner</button>
@@ -61,37 +63,64 @@ $this->load->view('admin/headheader');
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+ 
     $(document).ready(function() {
         $('#addBannerForm').on('submit', function(e) {
             e.preventDefault(); 
+            
+            var fileInput = $('#image')[0];
+            var file = fileInput.files[0];
 
-            var formData = new FormData(this); 
-
-            $.ajax({
-                url: "<?php echo base_url('admin/banner_add_action'); ?>",
-                type: 'POST',
-                data: formData,
-                contentType: false, 
-                processData: false,
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: 'Banner added successfully.',
-                        timer: 1500,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = "<?php echo base_url('admin/banner'); ?>"; // Redirect on success
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'An error occurred: ' + textStatus
-                    });
-                }
-            });
+            if (file) {
+                var img = new Image();
+                img.onload = function() {
+                    // Check image dimensions
+                    if (this.width === 2300 && this.height === 780) {
+                        // Proceed with form submission
+                        var formData = new FormData($('#addBannerForm')[0]); 
+                        $.ajax({
+                            url: "<?php echo base_url('admin/banner_add_action'); ?>",
+                            type: 'POST',
+                            data: formData,
+                            contentType: false, 
+                            processData: false,
+                            success: function(response) {
+                                console.log(response);
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: 'Banner added successfully.',
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.href = "<?php echo base_url('admin/banner'); ?>"; // Redirect on success
+                                });
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: 'An error occurred: ' + textStatus
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Image Dimensions!',
+                            text: 'The image must be 2300px wide and 780px tall.'
+                        });
+                    }
+                };
+                img.src = URL.createObjectURL(file);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No File Selected!',
+                    text: 'Please select an image file to upload.'
+                });
+            }
         });
     });
 </script>
+
+
