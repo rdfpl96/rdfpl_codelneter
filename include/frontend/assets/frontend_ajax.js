@@ -231,7 +231,7 @@ function onHoverTopCat(thisobj, tocat_id) {
                         getChildDataBySubCatId(tocat_id, element.sub_cat_id);
                         active = 'active';
                     }
-                    html += '<li><a href="' + base_url + 'pc/' + element.top_cat_slug + '/' + element.slug + '" id="sub-i" class="link-filter-sub ' + active + '">' + element.subCat_name + '</a></li>'
+                    html += '<li><a href="' + base_url + 'shop/' + element.top_cat_slug + '/' + element.slug + '" id="sub-i" class="link-filter-sub ' + active + '">' + element.subCat_name + '</a></li>'
                 });
             }
             $('#sub-cat').html(html);
@@ -257,7 +257,7 @@ function getChildDataBySubCatId(tocat_id, sub_cat_id) {
             if (res?.chilcategories.length > 0) {
                 res.chilcategories.forEach((element, index) => {
 
-                    html1 += '<li><a href="' + base_url + 'pc/' + element.top_cat_slug + '/' + element.sub_cat_slug + '/' + element.slug + '" id="chi-sub-i" class="link-filter-child">' + element.childCat_name + '</a></li>';
+                    html1 += '<li><a href="' + base_url + 'shop/' + element.top_cat_slug + '/' + element.sub_cat_slug + '/' + element.slug + '" id="chi-sub-i" class="link-filter-child">' + element.childCat_name + '</a></li>';
                 });
             }
             $('#child-cat').html(html1);
