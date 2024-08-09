@@ -146,7 +146,7 @@
             </div>
             <div class="co-12">
                 <div class="row related-products">
-                    <?php echo $this->load->view("frontend/component/productItem", array('productItems' => $beforeCheckProducts), true); ?>
+                    <?php echo $this->load->view("frontend/component/productItem _checkout", array('productItems' => $beforeCheckProducts), true); ?>
                 </div>
             </div>
         </div>

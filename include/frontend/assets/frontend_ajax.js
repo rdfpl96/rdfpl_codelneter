@@ -1,5 +1,5 @@
 // Pramod
-  var base_url="https://site.rdfpl.com/";
+var base_url="https://site.rdfpl.com/";
 
 // Pramod
  //var base_url="http://localhost/rdfpl/";
@@ -360,13 +360,29 @@ function addToCartFromProduct(product_id){
     saveCart(product_id,productItemId,qty,2)
 }
 
-function addToCart(product_id){
-    var productItemId=$('#productItemId'+product_id).val();
-    $('#addtobtn'+product_id).hide();
-    $('#aquantitycontrols'+product_id).css('display','flex');
-    
-    saveCart(product_id,productItemId,1,2)
-}
+        function addToCart(product_id){
+            var productItemId=$('#productItemId'+product_id).val();
+            $('#addtobtn'+product_id).hide();
+            $('#aquantitycontrols'+product_id).css('display','flex');
+            
+            saveCart(product_id,productItemId,1,2)
+        }
+
+
+        function addToCartBeforCheckout(product_id){
+            var productItemId=$('#productItemId'+product_id).val();
+            $('#addtobtn'+product_id).hide();
+            $('#aquantitycontrols'+product_id).css('display','flex');
+            saveCart(product_id,productItemId,1,2)
+            // location.reload();
+        }
+
+
+
+
+
+
+
 
 function itemtIncreament(product_id,type){
     var productItemId=$('#productItemId'+product_id).val();
