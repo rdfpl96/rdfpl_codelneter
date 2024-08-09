@@ -2,7 +2,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowe');
 
-class ChildCategory extends CI_Controller
+class Childcategory extends CI_Controller
 {
 
     public function __construct()
