@@ -33,12 +33,30 @@ $this->load->view('frontend/header', $data);
             </div>
         </div>
     </div>
-
+    
     <div class="page-content pt-20 pb-80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 my_account_main m-auto">
                     <div class="row">
+                        <div class="row" style="margin-top: 20px;">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-2" style="width:200px">
+        <form id="yearFilterForm" method="post" action="<?php echo base_url('common/my_order'); ?>">
+            <select name="year" id="year_select" class="form-control" required onchange="document.getElementById('yearFilterForm').submit();">
+                <option value="">Select Year</option>
+                <option value="2021" <?php echo ($selected_year == '2021') ? 'selected' : ''; ?>>2021</option>
+                <option value="2022" <?php echo ($selected_year == '2022') ? 'selected' : ''; ?>>2022</option>
+                <option value="2023" <?php echo ($selected_year == '2023') ? 'selected' : ''; ?>>2023</option>
+                <option value="2024" <?php echo ($selected_year == '2024') ? 'selected' : ''; ?>>2024</option>
+                <option value="2025" <?php echo ($selected_year == '2025') ? 'selected' : ''; ?>>2025</option>
+            </select>
+        </form>
+        </div>
+        </div>
                         <div class="col-md-2">
                             <?php 
                             $p['pageType'] = 'order';
@@ -191,15 +209,27 @@ $this->load->view('frontend/header', $data);
                                         <? //}?>
                                         </div>
                                     </div>
+                                    <div class="order_view_more_details text-right pt-30">
+                                        <a href="<?php echo base_url('order-details/'.$order->order_no); ?>">
+                                            View More Details &gt;&gt;
+                                        </a>
+
+                                    </div>
                                 </div>
                                 <a href="<?= base_url('shop') ?>" class="buy-again-btn" target="_blank">Buy Again</a>
+                                <button class="btn btn-cancel" data-order-id="12345" onclick="cancelOrder(this);">Cancel</button>
                             </div>
                         </div>
                         </div>
                         <?php endif; ?>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No orders found.</p>
+                        <div class="no-orders-message">
+                            <div class="nofo" style="text-align: center;margin-left: auto;margin-right: auto;width: 500px;">
+                              <img src="<?php echo base_url().'include/frontend/assets/imgs/no_orders.png';?>">
+                              <p style="text-align: center;"><h3>No Orders</h3></p>
+                            </div>
+                        </div>
                     <?php endif; ?>
                         </div>
                     </div>
@@ -252,4 +282,29 @@ function getOrderProduct(orderNo) {
         }
     });
 }
+
+function cancelOrder(button) {
+    var orderId = button.getAttribute('data-order-id');
+    if (confirm('Are you sure you want to cancel the order?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "<?php echo base_url('cart/cancel_order'); ?>", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert(xhr.responseText);
+                if (xhr.responseText.includes('Order cancelled successfully')) {
+                    window.location.href = "<?php echo base_url('my-order'); ?>"; 
+                }
+            }
+        };
+        xhr.send("order_id=" + orderId);
+    }
+} 
+
+function filterOrdersByYear() {
+    //alert('ahdkjahds');
+    const year = document.getElementById('year_select').value;
+    window.location.href = '<?php echo base_url('common/my_order'); ?>/' + year;
+}
+
 </script>

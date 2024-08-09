@@ -3,7 +3,7 @@
 //exit;
 ?>
 <form action="<?php echo base_url('save-gst-details')?>" method="post" id="gstdetailsform" name="gstdetailsform" onsubmit="saveGstDetails();return false;">
-        <div class="row">
+        <div class="row" style="padding:18px">
             <div class="form-group col-lg-6">
             <input class="form-control" name="registration_no" id="registration_no" placeholder="GST No*" type="text" value="<?php echo isset($gstDetail['registration_no']) ? $gstDetail['registration_no'] : "" ?>">
             <span id="er_registration_no" class="form-text" style="color: red;"></span>

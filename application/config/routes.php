@@ -68,6 +68,8 @@ $route['admin/product/save']='AdminPanel/product/save';
 $route['admin/product/edit/(:num)']='AdminPanel/product/edit/$1';
 $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 $route['admin/productItem']='AdminPanel/product/productitem';
+$route['admin/productItem/(:num)']='AdminPanel/product/productitem/$1';
+
 
 $route['admin/categorywithproduct']='AdminPanel/categorywithproduct/index';
 $route['admin/categorywithproduct/save']='AdminPanel/categorywithproduct/save';
@@ -97,7 +99,7 @@ $route['admin/subcategory/update/(:num)'] = 'AdminPanel/subcategory/update/$1';
 $route['AdminPanel/subcategory/index'] = 'AdminPanel/subcategory/deleteSubcategory';
 
 //child category
-$route['admin/childcategory']='AdminPanel/childcategory/index';
+$route['admin/childcategory']='AdminPanel/ChildCategory/index';
 $route['admin/childcategory/create'] = 'AdminPanel/childcategory/create';
 $route['admin/childcategory/insert_child_category'] = 'AdminPanel/childcategory/insert_child_category';
 $route['admin/childcategory/edit/(:num)'] = 'AdminPanel/childcategory/edit/$1';
@@ -105,13 +107,16 @@ $route['admin/childcategory/update/(:num)'] = 'AdminPanel/childcategory/update/$
 
 //Offers
 $route['admin/offers']='AdminPanel/offers/index';
+$route['admin/offers/(:num)']='AdminPanel/offers/index/$1';
 $route['admin/offers/create'] = 'AdminPanel/offers/create';
 $route['admin/offers/store'] = 'AdminPanel/offers/store';
 $route['admin/offers/edit/(:num)'] = 'AdminPanel/offers/edit/$1';
-$route['admin/offers/update/(:num)'] = 'AdminPanel/offers/update/$1';
+$route['admin/offers/update/(:num)'] = 'AdminPanel/Offers/update/$1';
+
 
 //Coupon
 $route['admin/coupon']='AdminPanel/coupon/index';
+$route['admin/coupon/(:num)']='AdminPanel/coupon/index/$1';
 $route['admin/coupon/create'] = 'AdminPanel/coupon/create';
 $route['admin/coupon/store'] = 'AdminPanel/coupon/store';
 $route['admin/coupon/edit/(:num)'] = 'AdminPanel/coupon/edit/$1';
@@ -178,12 +183,11 @@ $route['product-search']='common/productSearch';
 
 
 $route['shop']='product/shop';
+$route['shop/(:num)']='Product/shop/$1';
 $route['pc/(:any)']='product/index/$1';
 $route['pc/(:any)/(:any)']='product/index/$1/$2';
 $route['pc/(:any)/(:any)/(:any)']='product/index/$1/$2/$3';
-
 $route['product-filter']='product/search';
-
 $route['product/(:any)']='product/detail/$1';
 $route['rating-review-details'] = 'product/review_rating'; 
 $route['getSubCategoryTopId/(:num)']='common/getSubCategoryTopId/$1';
@@ -201,8 +205,11 @@ $route['delivery-address']='cart/deliveryAddress';
 $route['payment-option']='cart/paymentOption';
 $route['apply-coupon-code']='cart/applyCouponCode';
 $route['delete-address'] = 'cart/delete';
-//
-
+// $route['buynow'] = 'cart/buyNow';
+$route['get_address_details'] = 'cart/get_address_details';
+$route['update-address'] = 'cart/update_address';
+$route['setbuynowdetail'] = 'cart/setBuynowDetail';
+$route['buy-now'] = 'cart/buynow';
 //Wish list
 $route['add-to-wishlist']='wishlist/addToWishList';
 
@@ -237,6 +244,9 @@ $route['billing-address']='common/billing_address';
 $route['email-addresses'] = 'common/email_addresses';
 $route['smart-basket'] = 'common/smart_basket';
 $route['save-gst-details']='common/save_gst_details';
+$route['order-details/(:any)'] = 'common/order_details/$1';
+$route['rating-review-details'] = 'common/rating_review_details';
+$route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
 // ====================End Fronted ===========================
 
 

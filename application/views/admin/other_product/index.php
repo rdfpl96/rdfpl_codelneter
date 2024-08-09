@@ -6,6 +6,16 @@
   $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 ?>
 
+<?php
+
+
+// echo "<pre>";
+
+// print_r($productList);
+// die();
+
+?>
+
 
   <!-- Body: Body -->       
             <div class="body d-flex py-lg-3 py-md-2">
@@ -36,9 +46,9 @@
                                             <tr>
                                                 <th>Product Type</th>
                                                 <th>Product Name</th>
-                                                <?php if((in_array('edit',$actAcx) || in_array('delete',$actAcx)) || $session['admin_type']=='A'){ ?>
+                     
                                                 <th>Actions</th>  
-                                                <?php } ?>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -56,6 +66,17 @@
                                                     <span class="fw-bold ms-1"><?php echo $values->product_name;?></span><br>
                                                 </td>
                                             
+                                                                                            
+                                                <td>
+                                                    <a href="javascript:deleteRowtablesub(<?php echo $values->product_id; ?>)"
+                                                    class="btn btn-primary btn-xs"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="Delete">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </td>
+
                                             </tr>
 
                                                 <?php
@@ -80,3 +101,66 @@
                     </div><!-- Row End -->
                 </div>
             </div>
+
+
+
+
+
+
+
+            <script>
+
+
+function deleteRowtablesub(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "<?php echo base_url('admin/delete_Other_Product'); ?>",
+                type: "POST",
+                data: { id: id },
+                dataType: "json",
+                success: function(response) {
+                    if (response == 'True') {
+                        Swal.fire(
+                            'Deleted!',
+                            'Other Product has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } 
+                    // else {
+                    //     Swal.fire(
+                    //         'Failed!',
+                    //         'Failed to Other Product.',
+                    //         'error'
+                    //     );
+                    // }
+                },
+                // error: function() {
+                //     Swal.fire(
+                //         'Error!',
+                //         'Error Other Product.',
+                //         'error'
+                //     );
+                // }
+            });
+        }
+    });
+}
+
+
+
+
+
+
+
+            </script>

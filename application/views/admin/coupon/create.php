@@ -78,14 +78,18 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Type<span style="color:red;">*</span></label>
-                                            <select class="form-control" id="disc_type" name="disc_type" required>
-                                                <option value="1">Percentage</option>
-                                                <option value="0">Fixed Amount</option>
+                                            <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
+                                                <option value="Fixed Amount" <?php echo ($coupon['disc_type'] == 'Fixed Amount') ? 'selected' : ''; ?>>Fixed Amount</option>
+                                                <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : ''; ?>>Percentage</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label  class="form-label">Discount Per <span style="color:red;">*</span></label>
                                             <input type="text" class="form-control url" id="disc_per" name="disc_per" value="" required placeholder="Please enter Amount">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Discount Amount <span style="color:red;">*</span></label>
+                                            <input type="text" class="form-control" id="disc_amt" name="disc_amt" value="<?php echo $coupon['disc_amt']; ?>" required placeholder="Please enter Amount">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Start Date<span style="color:red;">*</span></label>
@@ -150,4 +154,31 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+function toggleDiscountInputs() {
+        var discType = $('#disc_type').val();
+
+        if (discType === 'Fixed Amount') {
+            $('#disc_amt').parent().show();
+            $('#disc_amt').prop('required', true); // Add required attribute
+            $('#disc_per').parent().hide();
+            $('#disc_per').removeAttr('required'); // Remove required attribute
+        } else if (discType === 'percentage') {
+            $('#disc_amt').parent().hide();
+            $('#disc_amt').removeAttr('required'); // Remove required attribute
+            $('#disc_per').parent().show();
+            $('#disc_per').prop('required', true); // Add required attribute
+        }
+    }
+
+    $(document).ready(function() {
+        toggleDiscountInputs(); // Call initially to set based on current value
+
+        $('#disc_type').change(function() {
+            toggleDiscountInputs(); // Call again on change of select
+        });
+    });
 </script>
+

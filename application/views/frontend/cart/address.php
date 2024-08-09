@@ -1,4 +1,19 @@
-<?php $this->load->view('frontend/header'); ?>
+<?php 
+// print_r($addressDetails);
+// exit();
+$this->load->view('frontend/header'); 
+?>
+<style type="text/css">
+   .selected-address-type {
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+   /*.modal-dialog{
+      max-width: 50% !important;
+      margin:1.75rem auto !important;
+   }*/
+}
+</style>
 <main class="main">
    <div class="page-header mb-50">
       <div class="">
@@ -90,21 +105,24 @@
                                              foreach($addressList as $record){ ?>
                                                 <div class="col-md-6 mb-3">
                                                    <div id="defaAddr">
-                                                      <a href="javascript:void(0);" class="apply-addr" onclick="selecAddress(<?php echo $record['addr_id'];?>);return false;">
-                                                         <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
+                                                      
+                                                         
+                                                     
+                                                      <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
                                                            <div class="d-flex align-items-center">
                                                                <span class="material-symbols-outlined text-white">done</span>
                                                                <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="deleteAddress(<?php echo $record['addr_id']; ?>); return false;">delete</span>
+                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="editAddress('<?php echo $record['addr_id']; ?>'); return false;" data-bs-toggle="modal" data-bs-target="#editAddressModal">edit</span>
                                                             </div>
-                                                            
+                                                            <a href="#" class="apply-addr" onclick="selecAddress(<?php echo $record['addr_id'];?>);return false;">
                                                             <p><?php echo $record['address1']?>, <?php echo $record['address2']?>,<?php echo $record['area']?>
                                                             <br>
                                                             <?php echo $record['state_id']?>, <?php echo $record['city']?> -<?php echo $record['pincode']?></p>
                                                             <?php if($record['setAddressDefault']==1){ 
                                                                 echo'<h6>Default</h6>';
                                                             } ?>
+                                                             </a>
                                                          </div>
-                                                      </a>
                                                    </div>
                                                 </div>
                                        <?php         
@@ -154,57 +172,60 @@
                                 <h6>Personal Details</h6>
                                 <br>
                                 <form action="<?php echo base_url('add-neww-address')?>" method="post" id="addressForm" enctype="" onsubmit="createNewAddress();return false;">
+                                 <input type="hidden" name="addr_id" id="addr_id" value="">
                                     <div class="row">
-                                        <div class="form-group col-lg-4">
-                                            <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="fname" id="fname" placeholder="Enter First Name" value="" required>
-                                            <span id="er_fname" class="form-text" style="color: red;"></span>
-                                        </div>
-                                        <div class="form-group col-lg-4">
-                                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                            <input type="email" name="email" id="email" placeholder="Enter email id" value="" required onchange="validateEmail(this)">
-                                            <span id="er_email" class="form-text" style="color: red;"></span>
-                                        </div>
-                                        <div class="form-group col-lg-4">
-                                            <label for="mobile" class="form-label">Mobile No <span class="text-danger">*</span></label>
-                                            <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile Number" value="" required onchange="validateMobile(this)">
-                                            <span id="er_mobile" class="form-text" style="color: red;"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <h6>Address Details</h6>
-                                    <br>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputPassword5" class="form-label">House No <span class="text-danger">*</span></label>
-                                            <input type="text" name="address1" id="address1" placeholder="Enter House No" value="" required>
-                                            <span id="er_address1" class="form-text" style="color: red;"></span>
-                                        </div>
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputPassword5" class="form-label">Apartment name <span class="text-danger">*</span> </label>
-                                            <input type="text" name="address2" id="address2" placeholder="Enter Apartment name" value="" required>
-                                            <span id="er_address2" class="form-text" style="color: red;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputPassword5" class="form-label">Area<span class="text-danger">*</span></label>
-                                            <input type="text" name="area" id="area" placeholder="Enter Landmark for easy reach out" value="" required>
-                                            <span id="er_area" class="form-text" style="color: red;"></span>
-                                        </div>
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputPassword5" class="form-label">Street Details/Landmark </label>
-                                            <input type="text" name="landmark" id="landmark" placeholder="Enter Street Details/Landmark" value="">
-                                            <!-- <span id="er_landmark" class="form-text" style="color: red;"></span> -->
-                                        </div>
-                                    </div>
+                                     <div class="form-group col-lg-4">
+                                         <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
+                                         <input type="text" name="fname" id="fname" placeholder="Enter First Name" value="" required>
+                                         <span id="er_fname" class="form-text" style="color: red;"></span>
+                                     </div>
+                                     <div class="form-group col-lg-4">
+                                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                         <input type="email" name="email" id="email" placeholder="Enter email id" value="" required onchange="validateEmail(this)">
+                                         <span id="er_email" class="form-text" style="color: red;"></span>
+                                     </div>
+                                     <div class="form-group col-lg-4">
+                                         <label for="mobile" class="form-label">Mobile No <span class="text-danger">*</span></label>
+                                         <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile Number" value="" required onchange="validateMobile(this)">
+                                         <span id="er_mobile" class="form-text" style="color: red;"></span>
+                                     </div>
+                                 </div>
+                                 <br>
+                                 <h6>Address Details</h6>
+                                 <br>
+                                 <div class="row">
+                                     <div class="form-group col-lg-6">
+                                         <label for="inputPassword5" class="form-label">House No <span class="text-danger">*</span></label>
+                                         <input type="text" name="address1" id="address1" placeholder="Enter House No" value="" required>
+                                         <span id="er_address1" class="form-text" style="color: red;"></span>
+                                     </div>
+                                     <div class="form-group col-lg-6">
+                                         <label for="inputPassword5" class="form-label">Apartment name <span class="text-danger">*</span> </label>
+                                         <input type="text" name="address2" id="address2" placeholder="Enter Apartment name" value="" required>
+                                         <span id="er_address2" class="form-text" style="color: red;"></span>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="form-group col-lg-6">
+                                         <label for="inputPassword5" class="form-label">Area<span class="text-danger">*</span></label>
+                                         <input type="text" name="area" id="area" placeholder="Enter Landmark for easy reach out" value="" required>
+                                         <span id="er_area" class="form-text" style="color: red;"></span>
+                                     </div>
+                                     <div class="form-group col-lg-6">
+                                         <label for="inputPassword5" class="form-label">Street Details/Landmark </label>
+                                         <input type="text" name="landmark" id="landmark" placeholder="Enter Street Details/Landmark" value="">
+                                     </div>
+                                 </div>
                                     <div class="row shipping_calculator">
                                         <div class="form-group col-lg-4">
                                             <label for="inputPassword5" class="form-label">Select State <span class="text-danger">*</span> </label>
-                                            <div class="custom_select w-100 select2-selection-state">
+                                            <!-- <div class="custom_select w-100 select2-selection-state">
                                                 <select class="form-control select-active class-state select2-hidden-accessible" name="state_id" id="state_id" data-select2-id="state" tabindex="-1" aria-hidden="true" required>
-                                                    <?php echo $this->customlibrary->getStateOptionInOption(); ?>
+                                                    <?php //echo $this->customlibrary->getStateOptionInOption(); ?>
                                                 </select>
+                                            </div> -->
+                                            <div class="custom_select w-100 select2-selection-city">
+                                                <input type="text" name="state_id" id="state_id" placeholder="Enter city state" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group col-lg-4">
@@ -240,9 +261,7 @@
                                     <hr>
                                     <div class="row p-20 float-right">
                                         <div class="col-md-4"></div>
-                                        <div class="col-md-4">
-                                            <!-- <a href="" class="btn btn_dark w-100">Cancel</a> -->
-                                        </div>
+                                        <div class="col-md-4"></div>
                                         <div class="col-md-4">
                                             <button type="submit" class="btn btn-md w-100 add-shi-sa" data-id="">
                                                 Add Address
@@ -250,6 +269,7 @@
                                             <div class="loaderdiv_addrs"></div>
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
@@ -293,13 +313,12 @@
                   <div class="border p-md-4 cart-totals ml-30">
                      <div class="table-responsive page-manage">
                         <div id="updPage">
-                           
                            <div class="order_summary_div mt-30">
                               <div class="order_summary_header mb-10 mt-10">
                                  <h4>Order Summary</h4>
                               </div>
                               <div class="custom_hr"></div>
-                             <div class="third_sec_summary mb-10 mt-10">
+                              <div class="third_sec_summary mb-10 mt-10">
                                  <div class="first_div_total">
                                     <p><b>Total Amount Payable</b></p>
                                     <p><b><?php echo isset($orderSumery['totalSellingPrice']) ? $orderSumery['totalSellingPrice'] : 0;?></b></p>
@@ -324,6 +343,131 @@
       </section>
    </div>
 </main>
+<!-- Edit Address Modal -->
+<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true" >
+   <?php
+   //echo '<pre>';
+   //print_r($addressDetails);
+   //exit();
+   ?>
+    <div class="modal-dialog" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo base_url('update-address'); ?>" method="post" id="editAddressForm">
+
+                  <input type="hidden" name="edit_addr_id" id="edit_addr_id">
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label for="edit_fname" class="form-label">First Name <span class="text-danger">*</span></label>
+                            <input type="text" name="fname" id="edit_fname" placeholder="Enter First Name" value="" required>
+                            <span id="er_edit_fname" class="form-text" style="color: red;"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="edit_email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" id="edit_email" placeholder="Enter email id" value="" required>
+                            <span id="er_edit_email" class="form-text" style="color: red;"></span>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="edit_mobile" class="form-label">Mobile No <span class="text-danger">*</span></label>
+                            <input type="text" name="mobile" id="edit_mobile" placeholder="Enter Mobile Number" value="" required>
+                            <span id="er_edit_mobile" class="form-text" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label for="edit_address1" class="form-label">House No <span class="text-danger">*</span></label>
+                            <input type="text" name="address1" id="edit_address1" placeholder="Enter House No" value="" required>
+                            <span id="er_edit_address1" class="form-text" style="color: red;"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label for="edit_address2" class="form-label">Apartment name <span class="text-danger">*</span> </label>
+                            <input type="text" name="address2" id="edit_address2" placeholder="Enter Apartment name" value="" required>
+                            <span id="er_edit_address2" class="form-text" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label for="edit_area" class="form-label">Area<span class="text-danger">*</span></label>
+                            <input type="text" name="area" id="edit_area" placeholder="Enter Landmark for easy reach out" value="" required>
+                            <span id="er_edit_area" class="form-text" style="color: red;"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label for="edit_landmark" class="form-label">Street Details/Landmark </label>
+                            <input type="text" name="landmark" id="edit_landmark" placeholder="Enter Street Details/Landmark" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <label for="edit_state_id" class="form-label">Select State <span class="text-danger">*</span> </label>
+                            <div class="custom_select w-100 select2-selection-state">
+                                <input type="text" name="state" id="edit_state" placeholder="Enter state name" value="" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="edit_city" class="form-label">Select City <span class="text-danger">*</span></label>
+                            <input type="text" name="city" id="edit_city" placeholder="Enter city name" value="" required>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="edit_pincode" class="form-label">Pincode <span class="text-danger">*</span></label>
+                            <input type="text" name="pincode" id="edit_pincode" placeholder="Enter Pincode" maxlength="6" value="" required>
+                            <span id="er_edit_pincode" class="form-text" style="color: red;"></span>
+                        </div>
+                    </div>
+                    <h6>*Address Type</h6>
+                    <ul class="ad_type">
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_home" value="Home" class="actinput" required>
+                              <label for="edit_home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_office" value="Office" class="actinput" required>
+                              <label for="edit_office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="address-type-container">
+                              <input type="radio" name="address_type" id="edit_other" value="Other" class="actinput" required>
+                              <label for="edit_other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label>
+                          </div>
+                      </li>
+                      <li>
+                          <input type="text" class="form-control" name="address_type" id="edit_other_loc" value="" placeholder="Type Here" style="display:none;">
+                      </li>
+                     </ul>
+
+                    <div class="delivery_check d-flex align-items-center pt-10">
+                        <input class="form-check-input class-price-desk0" type="checkbox" value="1" name="setAddressDefault">&nbsp;&nbsp;
+                        <label class="form-check-label mb-0">
+                            <span>
+                                <p class="text-muted">Make this as my default delivery address</p>
+                            </span>
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="row p-20 float-right">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-md w-100 add-shi-sa">
+                                Update Address
+                            </button>
+                            <div class="loaderdiv_addrs"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php $this->load->view('frontend/footer'); ?>
 <script>
    function validateEmail(input) {
@@ -426,29 +570,49 @@ function validatePincode(input) {
             });
       }
 
-      function getAddress(latLng) {
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ location: latLng }, function (results, status) {
-                if (status === 'OK') {
-                    if (results[0]) {
-                       // console.log(results[0]);
-                       console.log(results);
+   function getAddress(latLng) {
+         const geocoder = new google.maps.Geocoder();
+         geocoder.geocode({ location: latLng }, function (results, status) {
+             if (status === 'OK') {
+                 if (results[0]) {
+                    // console.log(results[0]);
+                    console.log(results);
 
-                       let area=results[0].address_components[1].long_name +' '+ results[0].address_components[2].long_name
-
-                       $('.areaName').text(results[0].address_components[1].long_name);
-                       $('.fullAdress').text(results[0].formatted_address);
-                       $('#area').val(area);
-                       $('#useLocationSection').show();
-                       //alert('Address: ' + results[0].formatted_address);
-                    } else {
-                        alert('No results found');
+                    let area=results[0].address_components[1].long_name +' '+ results[0].address_components[2].long_name;
+                    let city = '';
+                    let state = '';
+                    let pincode = '';
+                    results[0].address_components.forEach(component => {
+                    if (component.types.includes('locality')) {
+                        city = component.long_name;
                     }
-                } else {
-                    alert('Geocoder failed due to: ' + status);
-                }
-            });
-      }
+                    if (component.types.includes('administrative_area_level_1')) {
+                        state = component.long_name;
+                    }
+                    if (component.types.includes('postal_code')) {
+                        pincode = component.long_name;
+                    }
+                });
+                    // console.log(area);
+                    // console.log(city);
+                    // console.log(state);
+
+                    $('.areaName').text(results[0].address_components[1].long_name);
+                    $('.fullAdress').text(results[0].formatted_address);
+                    $('#area').val(area);
+                    $('#city').val(city);
+                    $('#state_id').val(state);
+                    $('#pincode').val(pincode);
+                    $('#useLocationSection').show();
+                    //alert('Address: ' + results[0].formatted_address);
+                 } else {
+                     alert('No results found');
+                 }
+             } else {
+                 alert('Geocoder failed due to: ' + status);
+             }
+         });
+   }
 
    function showAddForm(){
       $('.section').hide();
@@ -561,5 +725,51 @@ function deleteAddress(addr_id) {
             }
         });
     }
+}
+
+$(document).ready(function() {
+    $('input[name="address_type"]').on('change', function() {
+        $('.address-type-container').removeClass('selected-address-type');
+        $(this).closest('.address-type-container').addClass('selected-address-type');
+        if ($('#edit_other').is(':checked')) {
+            $('#edit_other_loc').show();
+        } else {
+            $('#edit_other_loc').hide();
+        }
+    });
+    $('input[name="address_type"]:checked').trigger('change');
+});
+
+
+function editAddress(addr_id) {
+   //alert('addr_id=> '+addr_id);
+    $.ajax({
+        url: "<?php echo base_url('get_address_details'); ?>",
+        type: 'POST',
+        data: { addr_id: addr_id },
+        dataType: 'json',
+        success: function(response) {
+         console.log(response);
+            if (response.status) {
+                $('#edit_addr_id').val(response.data.addr_id);
+                $('#edit_fname').val(response.data.fname);
+                $('#edit_email').val(response.data.email);
+                $('#edit_mobile').val(response.data.mobile);
+                $('#edit_address1').val(response.data.address1);
+                $('#edit_address2').val(response.data.address2);
+                $('#edit_area').val(response.data.area);
+                $('#edit_landmark').val(response.data.landmark);
+                $('#edit_state').val(response.data.state);
+                $('#edit_city').val(response.data.city);
+                $('#edit_pincode').val(response.data.pincode);
+                $('input[name="address_type"][value="' + response.data.address_type + '"]').prop('checked', true);
+                $('input[name="address_type"]').trigger('change');
+                $('#editAddressModal').modal('show');
+                //console.log(response);
+            } else {
+                alert('Failed to fetch address details.');
+            }
+        }
+    });
 }
 </script>

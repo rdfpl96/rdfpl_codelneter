@@ -17,26 +17,39 @@ if (!empty($user_id)) {
 }
 
 // Flash messages
-if ($this->session->flashdata('success')): ?>
+if ($this->session->flashdata('success')) : ?>
     <div class="alert alert-success">
         <?php echo $this->session->flashdata('success'); ?>
     </div>
 <?php endif;
 
-if ($this->session->flashdata('error')): ?>
+if ($this->session->flashdata('error')) : ?>
     <div class="alert alert-danger">
         <?php echo $this->session->flashdata('error'); ?>
     </div>
 <?php endif; ?>
-<?php 
-if(!empty($user_id)){
+<?php
+if (!empty($user_id)) {
     $action = 'update_user';
-}else{
+} else {
     $action = 'add_user';
 }
-//  ? 'update_user' : 'add_user')
+
 ?>
-<form action="<?php echo base_url('admin/'.$action); ?>" method="post" enctype="multipart/form-data">
+
+
+
+<?php
+
+// echo "<pre>";
+
+// print_r($user_details);
+// die();
+?>
+
+
+
+<form action="<?php echo base_url('admin/' . $action); ?>" id="Userformdata" method="post" enctype="multipart/form-data">
     <!-- main body area -->
     <div class="main px-lg-4 px-md-4">
         <!-- Body: Body -->
@@ -49,17 +62,18 @@ if(!empty($user_id)){
                                 <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                             </div>
                             <h3 class="fw-bold mb-0"><?php echo empty($user_id) ? 'Add' : 'Edit'; ?> User</h3>
-                            <button href="'<?= base_url('admin/user_list') ?>'" class="btn btn-primary" style="margin-left: 600px;">Back</button>
+                         
+                            <a href="<?= base_url('admin/user_list') ?>" class="btn btn-primary" style="margin-left: 600px;">Back</a>
                             <button type="submit" class="btn btn-primary" id="update_user">Save</button>
                         </div>
                     </div>
-
+                    <td>
                 </div> <!-- Row end -->
                 <div class="row g-3 mb-3">
                     <div class="col-xl-12 col-lg-12">
                         <div class="sticky-lg-top">
                             <div class="card mb-3">
-                                <input type="hidden" class="form-control" name="editv" id="editv"  value="<?php echo $user_id; ?>">
+                                <input type="hidden" class="form-control" name="editv" id="editv" value="<?php echo $user_id; ?>">
 
                                 <div class="card-body">
                                     <div class="row g-3 align-items-center">
@@ -106,46 +120,127 @@ if(!empty($user_id)){
                                             </div>
                                             <span style="color:red;font-size: 13px;">Image dimension should be 300 X 300 Px.</span>
                                         </div>
+                                        
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Status</label>
+                                            <label class="switch">
+                                                <input 
+                                                    type="checkbox" 
+                                                    id="Status<?php echo htmlspecialchars($user_details->admin_id); ?>"  
+                                                    name="Status[]" 
+                                                    value="<?php echo $user_details->status; ?>"  
+                                                    onclick="UpdateUserStatus(<?php echo htmlspecialchars($user_details->admin_id); ?>)"
+                                                    <?php echo ($user_details->status == 1) ? 'checked' : ''; ?>>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><!-- Row end -->
+                </div>
             </div>
         </div>
     </div>
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
+    $(document).ready(function() {
+        $('form').on('submit', function(event) {
+            var formdata = new FormData($('#Userformdata')[0]);
+            formdata.append('<?php echo $action; ?>', 'update_user');
+
+            event.preventDefault();
+            var password = $('#password').val();
+            var confirmPassword = $('#conf_password').val();
+
+            if (password !== confirmPassword) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Passwords do not match.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            $.ajax({
+                url: "<?php echo base_url('Admin/' . $action); ?>",
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(response) {
+
+
+                    if (response.success) {
+                        
+                        Swal.fire({
+                            title: 'Success!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(function() {
+                            window.location.href = "<?php echo base_url('admin/user_list'); ?>";
+                        });
+                    } 
+                    else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.errors,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+
+            });
+        });
+    });
 
 
 
-// $('#update_user').click(function() {
-//     var userId = $('#editv').val();
 
-//     $.ajax({
-//         url: "<?php echo base_url('Admin/update_user'); ?>",
-//         type: 'POST',
-//         data: {
-//             var userId = <?php echo base_url('Admin/add_user'); ?>;
-//             type: 'POST',
-//             dataType: "json",
-//         },
-//         success: function(response) {
-            
-//             console.log(response);
-//         },
-//         error: function(xhr, status, error) {
-            
-//             console.error(error);
-//         }
-//     });
-// });
-
-
+    function UpdateUserStatus(id){
+    
+    var status = $('#Status' + id).val();
+    $.ajax({
+        url: "<?php echo base_url('Admin/updateuserStatus'); ?>",
+        type: "POST",
+        data: { user_id: id, status: status },
+        dataType: "json",
+        success: function(response) {
+            if (response == 'True') {
+                Swal.fire(
+                    'Updated!',
+                    'user status has been updated.',
+                    'success'
+                ).then(() => {
+                    location.reload();
+                });
+            } 
+            else {
+                Swal.fire(
+                    'Failed!',
+                    'Failed to update user status.',
+                    'error'
+                );
+            }
+        },
+        // error: function() {
+        //     Swal.fire(
+        //         'Error!',
+        //         'Error updating user status.',
+        //         'error'
+        //     );
+        // }
+    });
+}
 
 
 

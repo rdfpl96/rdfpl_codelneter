@@ -20,10 +20,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   </div>
               
     <h3 class="fw-bold mb-0">Offers List</h3>
-     <?php if(in_array('add',$getAccess['inputAction']) || $session['admin_type']=='A'){ ?>
-    <a href="<?php echo base_url('admin/offers/create');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add</a>
+    
+    <!-- <a href="<?php // echo base_url('admin/offers/create');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add</a> -->
 
-  <?php } ?>
+
 <a href="<?php echo base_url('admin/offers/create');?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Add Offer</button></a>
 
       <!-- ===== -->
@@ -37,6 +37,17 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 
 <!-- filters -->
+
+<?php
+
+// print_r($array_data);
+
+// die();
+
+
+
+?>
+
 
 <div class="row g-3 mb-3">
 <div class="col-xl-12 col-lg-12">
@@ -96,11 +107,21 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
 
 
+<?php
+
+// echo "<pre>";
+// print_r($array_data);
+// die();
+?> 
+
+
 <!-- filters end -->
 <div class="row g-3 mb-3">
 <div class="col-md-12">
 <div class="card">
     <div class="card-body">
+
+    <!-- <input type="text" value="<?php //echo $keyval->id; ?>"> -->
 
         <div class="table-responsive">
         <table class="table mb-0" style="width: 100%;">
@@ -110,6 +131,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                     <th>Offer Type</th>
                     <th>Description</th>
                     <th>Value</th>
+                    <th>Product</th>
+                    <th>Product Variant</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -117,8 +140,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
              <tbody id="datalist"><?php  echo isset($array_data) ? $array_data : "";?></tbody>
            
         </table>
-          <div id="pg"><?php  echo isset($pagination) ? $pagination : ''?></div> 
-
+        
+        <div class="pagination-links">
+                <?php echo $pagination; ?>
+            </div>
 
         
         </div>
@@ -170,6 +195,45 @@ $(document).ready(function() {
 });
 
 
+
+
+function deleteRowtablesub(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "<?php echo base_url('AdminPanel/Offers/delete_offer'); ?>",
+                type: "POST",
+                data: { id: id },
+                dataType: "json",
+                success: function(response) {
+                    if (response == 'True') {
+                        Swal.fire(
+                            'Deleted!',
+                            'Offer has been deleted.',
+                            'success'
+                        ).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            'Failed!',
+                            'Failed to delete Offer.',
+                            'error'
+                        );
+                    }
+                }
+            });
+        }
+    });
+}
 
 
 

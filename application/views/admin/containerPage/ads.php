@@ -94,8 +94,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">
 
-                                <a href="<?php echo base_url('admin/add_ads_banner/'.$value->banner_id);?>" class="btn btn-outline-secondary "><i class="icofont-edit text-success"></i></a>
-                            
+                                <a href="<?php echo base_url('admin/add_ads_banner/'.$value->banner_id);?>" class="btn btn-outline-secondary "><i class="icofont-edit text-success"></i></a>     
 
                             <button type="button" class="btn btn-outline-secondary deleteRowBtn" id="deleteRow" data-id="<?php echo $value->banner_id;?>"> <i class="icofont-ui-delete text-danger"></i></button>
                             </div>

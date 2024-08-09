@@ -221,23 +221,23 @@ class Admin extends CI_Controller
 
 
   //new code
-public function add_user(){
-  
-  
- 
-    // Form validation rules
-    $this->form_validation->set_rules('c_fname', 'First Name', 'required');
-    $this->form_validation->set_rules('username', 'Username', 'required');
-    $this->form_validation->set_rules('mobile', 'Mobile', 'required|numeric');
-    $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-    $this->form_validation->set_rules('password', 'Password', 'required');
-    $this->form_validation->set_rules('conf_password', 'Confirm Password', 'required|matches[password]');
+  public function add_user()
+  {
+    if ($this->input->is_ajax_request()) {
 
-    if ($this->form_validation->run() == FALSE) {
-      // echo validation_errors();
-      $data['content'] = 'admin/containerPage/add_user';
-      $this->load->view('admin/template', $data);
-    } else {
+      $this->form_validation->set_rules('c_fname', 'First Name', 'required');
+      $this->form_validation->set_rules('username', 'Username', 'required');
+      $this->form_validation->set_rules('mobile', 'Mobile', 'required|numeric');
+      $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+      $this->form_validation->set_rules('password', 'Password', 'required');
+      $this->form_validation->set_rules('conf_password', 'Confirm Password', 'required|matches[password]');
+
+      if ($this->form_validation->run() == FALSE) {
+        $errors = validation_errors();
+        $response = array('success' => false, 'errors' => $errors);
+        echo json_encode($response);
+        return;
+      }
       // File upload configuration
       $upload_path = realpath(APPPATH . '../uploads');
       if (!is_dir($upload_path)) {
@@ -252,9 +252,9 @@ public function add_user(){
 
       if (!$this->upload->do_upload('image')) {
         $error = $this->upload->display_errors();
-        $this->session->set_flashdata('error', $error);
-        $data['content'] = 'admin/containerPage/add_user';
-        $this->load->view('admin/template', $data);
+        $response = array('success' => false, 'errors' => $error);
+        echo json_encode($response);
+        return;
       } else {
         // Get the uploaded file data
         $upload_data = $this->upload->data();
@@ -266,68 +266,67 @@ public function add_user(){
           'admin_mobile' => $this->input->post('mobile'),
           'admin_email' => $this->input->post('email'),
           'admin_designation' => $this->input->post('designation'),
-          'admin_password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+          'admin_password' => md5($this->input->post('password')),
           'admin_image' => $upload_data['file_name']
+
         );
-
         $insert = $this->user_model->insert_user($user_data);
-
         if ($insert) {
-          $this->session->set_flashdata('success', 'User added successfully');
-          redirect('admin/user_list');
+          $response = array('success' => true, 'message' => 'User added successfully');
+          echo json_encode($response);
         } else {
-          $this->session->set_flashdata('error', 'Failed to add user');
-          $data['content'] = 'admin/containerPage/add_user';
-          $this->load->view('admin/template', $data);
+          $response = array('success' => false, 'message' => 'Failed to add user');
+          echo json_encode($response);
         }
       }
+    } else {
+      $data['content'] = 'admin/containerPage/add_user';
+      $this->load->view('admin/template', $data);
     }
-  
-}
+  }
 
 
-
-
-
-public function update_user() {
-  
-  $user_id = $this->input->post('editv');
-
-
-
-  $user_data = array(
+  public function update_user()
+  {
+    $user_id = $this->input->post('editv');
+    $user_data = array(
       'admin_name' => $this->input->post('c_fname'),
       'admin_username' => $this->input->post('username'),
       'admin_mobile' => $this->input->post('mobile'),
       'admin_email' => $this->input->post('email'),
       'admin_designation' => $this->input->post('designation'),
-      'admin_password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
-  );
+      'admin_password' => md5($this->input->post('password'))
+    );
+    $where = array('admin_id' => $user_id);
 
-  $where = array('admin_id' => $user_id);
-  $update = $this->sqlQuery_model->sql_update('tbl_admin', $user_data, $where);
-  if ($update) {
-      $this->session->set_flashdata('success', 'User updated successfully');
-      redirect('admin/user_list');
-  } else {
-      $this->session->set_flashdata('error', 'Failed to update user');
-      $data['content'] = 'admin/containerPage/edit_user';
-      $this->load->view('admin/template', $data);
+    $update = $this->sqlQuery_model->sql_update('tbl_admin', $user_data, $where);
+    if ($update) {
+      $response = array('success' => true, 'message' => 'User updated successfully');
+    } else {
+      $response = array('success' => false, 'message' => 'Failed to update user');
+    }
+    echo json_encode($response);
   }
 
-}
+
+  public function updateuserStatus()
+  {
+    $status = $this->input->post('status');
+    $user_id = $this->input->post('user_id');
+    $updateStatus = $this->sqlQuery_model->updateuserStatus($user_id, $status);
+    if ($updateStatus) {
+      echo json_encode('True');
+    } else {
+      $this->load->view('admin\containerPage\user_list', $data);
+      echo json_encode('False');
+    }
+  }
 
 
 
 
 
-
-
-
-
-
-
-
+  
 
   public function user_setting()
   {
@@ -341,6 +340,7 @@ public function update_user() {
     $data['content'] = 'admin/containerPage/user_setting';
     $this->load->view('admin/template', $data);
   }
+
 
   public function category1()
   {
@@ -368,32 +368,6 @@ public function update_user() {
     $this->load->view('admin/template', $data);
   }
 
-  /*public function sub_category(){
-        $menuIdAsKey=1;
-        $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-        $data['page_menu_id']=$menuIdAsKey;
-        $getCatId=$this->uri->segment(3);
-         $data['subcategory_list']=0;
-       if($getCatId!=""){
-         $data['subcategory_list']=$this->sqlQuery_model->sql_select_where_desc('tbl_sub_category','position',array('cat_id'=>$getCatId));
-        }
-
-
-         $getSubCatId=$this->uri->segment(4);
-         $data['subCat_detaials']=0;
-       if($getCatId!=""){
-         $data['subCat_detaials']=$this->sqlQuery_model->sql_select_where('tbl_sub_category',array('sub_cat_id'=>$getSubCatId));
-        }
-
-      // $data['subcategory_list']=$this->sqlQuery_model->sql_select('tbl_sub_category','sub_cat_id');
-       $data['deleteActionArr']=array('table'=>'tbl_sub_category','primary_key'=>'sub_cat_id');
-       $data['ActiveInactive_ActionArr']=array('table'=>'tbl_sub_category','primary_key'=>'sub_cat_id','update_target_column'=>'status');
-
-        $data['in_stock_active_inactive']=array('table'=>'tbl_sub_category','primary_key'=>'sub_cat_id','update_target_column'=>'in_stock_status');
-      $data['content']='admin/containerPage/sub-category';
-		  $this->load->view('admin/template',$data);
-	}*/
-
   public function add_product()
   {
 
@@ -412,21 +386,12 @@ public function update_user() {
     // $querys="SELECT * FROM tbl_hsn_code ORDER BY hsn_code_id DESC $sql_limit";
     // $querys="SELECT * FROM tbl_hsn_code WHERE status=1 ORDER BY hsn_code_id DESC LIMIT 20";
     // $data['hsn_list']=$this->sqlQuery_model->sql_query($querys);
-
-
-
     $data['cat_and_sub_catlist'] = $this->my_libraries->getMenus();
-
     // $data['category_list']=$this->sqlQuery_model->sql_select_where('tbl_category',array('status'=>1));
-
     $data['units_list'] = $this->sqlQuery_model->sql_select_where('tbl_units', array('status' => 1));
-
     $data['period_list'] = $this->sqlQuery_model->sql_select_where('period_type', array('status' => 1));
-
     // $data['delivery_place_list']=$this->sqlQuery_model->sql_select_where('tbl_delivery_place',array('status'=>1));
     $data['werehouse_list'] = $this->sqlQuery_model->sql_select_where('tbl_werehouse', array('status' => 1));
-
-
     $data['food_habitats_list'] = $this->sqlQuery_model->sql_select_where('tbl_food_habitats', array('status' => 1));
     $data['deleteActionArr_variants'] = array('table' => 'tbl_product_variants', 'primary_key' => 'variant_id');
     $data['content'] = 'admin/containerPage/add-product';
@@ -2015,60 +1980,6 @@ public function update_user() {
     $this->load->view('admin/template', $data);
   }
 
-
-
-  //  public function product_order(){
-
-  //         // $customer_id=$this->input->get('custo');
-  //         // $where ="";
-  //         // if($customer_id!="" && is_numeric($customer_id)){
-  //         //  $where = " WHERE order_cust_id=".$customer_id."";
-  //         // }
-
-  //         $menuIdAsKey=3;
-  //         $data['getAccess']=$this->my_libraries->userAthorizetion($menuIdAsKey);
-  //         $data['page_menu_id']=$menuIdAsKey;
-
-  //        //$querys="SELECT * FROM tbl_order_manager $where";
-  //        $pr_list_count=$this->sqlQuery_model->getOrderDetails();
-
-  //         //   echo   "<pre>";
-  //         // print_r($pr_list_count);
-  //         // echo "</pre>";
-  //         // die();
-
-
-  //        $url_link=base_url('admin/product_order'); 
-  //        $limit_per_page = 10;
-  //        $getVariable=$this->input->get('per_page');
-  //        $page = (is_numeric($getVariable)) ? (($getVariable) ? ($getVariable - 1) : 0 ) : 0;
-
-  //        $total_records = ($pr_list_count!=0) ? count($pr_list_count) : 0;
-  //        $config=createPagination($total_records,$url_link,$limit_per_page);
-  //          $this->pagination->initialize($config);
-
-  //        $sql_limit='LIMIT '.$page*$limit_per_page.','.$limit_per_page;
-  //        ///$querys="SELECT * FROM tbl_order_manager $where ORDER BY order_id DESC $sql_limit";
-  //        $data['order_list']=$this->sqlQuery_model->getOrderDetails();
-  //        $data["links"] = $this->pagination->create_links();
-
-
-  //       //  $data['order_status']=$this->sqlQuery_model->sql_select_where_desc('tbl_order_status','position',array('status'=>1));
-  //       //  $today_order_list=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_order_manager WHERE DATE(order_date)=CURDATE()");
-  //       //  $data['countTodayOrder']=($today_order_list!=0) ? count($today_order_list) :0;
-
-
-  //        //$querys_total_amount="SELECT SUM(order_total_final_amt) as total_amount FROM tbl_order_manager WHERE ord_status=1";
-  //        $data['order_amount']=$this->sqlQuery_model->getOrderDetails();
-
-  //        $data['content']='admin/containerPage/product-orders';
-  //   		 $this->load->view('admin/template',$data);
-
-
-
-  //  }
-
-
   public function product_order()
   {
 
@@ -2230,32 +2141,6 @@ public function update_user() {
     fclose($file);
     exit;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   public function customer_list()
@@ -3048,7 +2933,7 @@ public function update_user() {
     $data['banner_list'] = $this->sqlQuery_model->get_users_banner_list($config["per_page"], $page);
     $data['pagination'] = $this->pagination->create_links();
     $data['content'] = 'admin/containerPage/banner';
-    $data['page'] = (!empty($page) ? ($page+1) : '1');
+    $data['page'] = (!empty($page) ? ($page + 1) : '1');
     $this->load->view('admin/template', $data);
   }
 
@@ -3100,7 +2985,7 @@ public function update_user() {
 
   public function banner_edit_action()
   {
-    
+
 
     $this->load->view('admin\containerPage\edit_banner');
   }
@@ -3109,7 +2994,8 @@ public function update_user() {
 
 
 
-  public function update_banner_Status(){
+  public function update_banner_Status()
+  {
     $status = $this->input->post('status_value');
     $bannnerId = $this->input->post('baner_id');
 
@@ -3120,13 +3006,13 @@ public function update_user() {
 
     $updateStatus = $this->sqlQuery_model->update_banner_Status1($bannnerId, $status);
     if ($updateStatus) {
-        echo json_encode('True');
+      echo json_encode('True');
     } else {
-    
-        $this->load->view('admin/containerPage/add_ads_banner', $data);
-        echo json_encode('False');
+
+      $this->load->view('admin/containerPage/add_ads_banner', $data);
+      echo json_encode('False');
     }
-}
+  }
 
 
 
@@ -3252,7 +3138,7 @@ public function update_user() {
       if (!empty($_FILES['userfile']['name'])) {
         $dataToSave['desk_image'] = $desk_imgPath;
       }
-      
+
 
       if (!empty($getuserId)) {
         $this->sqlQuery_model->sql_update('tbl_banner', $dataToSave, array('banner_id' => $getuserId));
@@ -3625,7 +3511,6 @@ public function update_user() {
       "Ser No",
       "Order ID",
       "Customer Name",
-
       "Selling Price",
       "Quantity",
       "Sub Total",
@@ -3712,9 +3597,6 @@ public function update_user() {
     $final = array("", "Total : ", "", $sellingAmount, "", $subTotal, "", $totalIGSTAmount, "", $totalCGSTAmount, "", $totalSGSTAmount, $taxableAmount, "", "", "", "", "", "", "", "", "", "", "");
 
     fputcsv($file, $final);
-
-
-
     fclose($file);
     exit;
   }
@@ -3851,9 +3733,6 @@ public function update_user() {
 
     $querys = "SELECT * FROM tbl_delivery_pincode WHERE courier_type ='dtdc'";
     $pincode_list = $this->sqlQuery_model->sql_query($querys);
-
-
-
     $header = array(
       "Pincode_Id",
       "Pincode",
@@ -3908,10 +3787,6 @@ public function update_user() {
           $whcode[] = end(explode('_', $coluKey));
         }
       }
-
-
-
-
       if ($this->upload->do_upload('fileupload')) {
         // Get data about the file
         $uploadData = $this->upload->data();
@@ -4013,8 +3888,6 @@ public function update_user() {
 
   public function otherProduct()
   {
-
-
     $menuIdAsKey = 44;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
@@ -4032,18 +3905,45 @@ public function update_user() {
 
     $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
     $querys = "SELECT P.product_id, P.product_name, OP.product_type_id  FROM tbl_product AS P INNER JOIN tbl_other_product AS OP ON P.product_id = OP.product_id  ORDER BY P.product_id DESC $sql_limit";
-
     $data['productList'] = $this->sqlQuery_model->sql_query($querys);
-
     $data["links"] = $this->pagination->create_links();
-
-
     $data['content'] = 'admin/other_product/index';
     $this->load->view('admin/template', $data);
   }
 
+
+  public function delete_Other_Product()
+  {
+
+    $menuIdAsKey = 44;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
+    $id = $this->input->post('id');
+
+    $response= $this->sqlQuery_model->sql_delete('tbl_other_product', array('product_id' => $id));
+    if($response=='1'){
+
+      $Flag= 'True';
+  }else{
+      $Flag= 'False';
+  }
+  echo json_encode($Flag);
+  exit();
+  redirect('admin/other-product');
+
+  }
+
+
+
+
+
+
+
+
+
+
   public function addOtherProduct()
-{
+  {
     // Check user authorization
     $menuIdAsKey = 44;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
@@ -4055,45 +3955,38 @@ public function update_user() {
 
     // Check if the form is submitted
     if ($this->input->server('REQUEST_METHOD') === 'POST') {
-        // Get form data
-        $product_type_id = $this->input->post('product_type_id');
-        $product_ids = $this->input->post('product_id');
-        
-        // Validate the inputs
-        if (empty($product_type_id) || empty($product_ids)) {
-            $this->session->set_flashdata('error', 'All fields are required.');
-            redirect('admin/other-product');
-            return;
-        }
+      // Get form data
+      $product_type_id = $this->input->post('product_type_id');
+      $product_ids = $this->input->post('product_id');
 
-        // Insert each product ID into the database
-        foreach ($product_ids as $product_id) {
-            $insert_data = [
-                'product_type_id' => $product_type_id,
-                'product_id' => $product_id,
-                'add_date' => date('Y-m-d H:i:s'),
-                'updated_by' => $this->session->userdata('admin_id')
-            ];
-
-            // Insert the data
-            $this->db->insert('tbl_other_product', $insert_data);
-        }
-
-        // Set success message and redirect
-        $this->session->set_flashdata('success', 'Products added successfully.');
+      // Validate the inputs
+      if (empty($product_type_id) || empty($product_ids)) {
+        $this->session->set_flashdata('error', 'All fields are required.');
         redirect('admin/other-product');
         return;
+      }
+
+      // Insert each product ID into the database
+      foreach ($product_ids as $product_id) {
+        $insert_data = [
+          'product_type_id' => $product_type_id,
+          'product_id' => $product_id,
+          'add_date' => date('Y-m-d H:i:s'),
+          'updated_by' => $this->session->userdata('admin_id')
+        ];
+
+        // Insert the data
+        $this->db->insert('tbl_other_product', $insert_data);
+      }
+
+      // Set success message and redirect
+      $this->session->set_flashdata('success', 'Products added successfully.');
+      redirect('admin/other-product');
+      return;
     }
 
     // Load the view if not a form submission
     $data['content'] = 'admin/other_product/add';
     $this->load->view('admin/template', $data);
-}
-
-
-
-
-
-
-
+  }
 }

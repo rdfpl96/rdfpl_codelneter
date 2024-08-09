@@ -47,10 +47,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
            
             <div class="col-md-3">
                 <div class="filter-search">
-                    <form action="#" id="search-form" method="post"  enctype="multipart/form-data">
+       
                         <label class="form-label">Search Product</label>
-                        <input type="text" placeholder="" class="form-control" name="name" onkeyup="Search();">
-                    </form>
+                        <input type="text" placeholder="" class="form-control" name="name" id="search-Product" >
+                  
                 </div>
             </div>
 
@@ -112,7 +112,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
              <tbody id="datalist"><?php  echo isset($array_data) ? $array_data : "";?></tbody>
            
         </table>
-          <div id="pg"><?php  echo isset($pagination) ? $pagination : ''?></div> 
+        <div class="pagination-links">
+                <?php echo $pagination; ?>
+            </div>
 
 
         
@@ -132,26 +134,29 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 </style>
 <?php $this->load->view('admin/footer'); ?>
 <script type="text/javascript">
- function change_page(page){
-    var formData = new FormData($('#search-form')[0]);
-    formData.append('page', page);
-    formData.append('method','changepage');
-    $.ajax({
-        url:"<?php echo base_url(); ?>admin/product",
-        type: "POST",
-        data:formData,
-        dataType:"json",
-        processData: false,
-        contentType: false,
-        success:function(data)
-            {
-            $('#datalist').html(data.array_data);
-            $('#pg').html(data.pagination);
+ 
+
+
+ $(document).ready(function() {
+    $('#search-Product').keyup(function() {
+        $.ajax({
+            url: "<?php echo base_url('AdminPanel/Product/search_Product_item') ?>",
+            type: 'POST',
+            data: { searchText: $('#search-Product').val() },
+            success: function(response) {
+                $('#datalist').html(response);
             }
-        });  
-    }
-  function Search() {
-    var page;    
-    change_page(page);
-} 
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
 </script>

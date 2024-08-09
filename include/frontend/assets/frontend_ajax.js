@@ -29,8 +29,6 @@ function searchProduct() {
 
 $(document).on('click', '.shipping-address-save', function (e) {
     e.preventDefault();
-
-    // Get form values
     let fname = $('#fname').val().trim();
     let lname = $('#lname').val().trim();
     let mobile = $('#mobile').val().trim();
@@ -353,6 +351,13 @@ function verifyOtp() {
 function addToCartFromSearchBar(product_id, variant_id) {
 
     saveCart(product_id, variant_id, 1, 1)
+}
+
+function addToCartFromProduct(product_id) {
+    var productItemId = $('#productItemId' + product_id).val();
+    var qty = $('#qty' + product_id).val();
+
+    saveCart(product_id, productItemId, qty, 2)
 }
 
 function addToCart(product_id) {

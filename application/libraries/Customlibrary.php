@@ -3,11 +3,14 @@ class Customlibrary
    {
    var $CI;
     public function __construct($params = array()){
+
        $this->CI =& get_instance();
 
        $custDetail=getCookies('customer');
 
        $this->customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
+
+       $this->CI->load->model('cart_model','cartObj');
     }
 
     public function getDefaultAddressId(){
@@ -225,6 +228,48 @@ class Customlibrary
      return $name;   
    } 
 
+   public function getTopCatDetailId($cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('cat_id',$cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
+    public function getSubCatDetailId($sub_cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_sub_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('sub_cat_id',$sub_cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
+    public function getChildCatDetailId($child_cat_id){
+        $return=array();
+        $this->CI->db->select('*');
+        $this->CI->db->from('tbl_child_category');
+        $this->CI->db->where('status',1);
+        $this->CI->db->where('child_cat_id',$child_cat_id);
+        $query=$this->CI->db->get() ; 
+        if($query->num_rows()>0){
+          $return=$query->row_array();
+        }
+       return $return;
+
+    }
+
 
    public function getTopCategory($id=''){
       $return=array();
@@ -361,8 +406,30 @@ class Customlibrary
       }
       return $return;
     }
+    
+    //
+    //updateCart
+    //
+  public function upDateCartAfterLogin($cartItems,$customer_id){
 
-    public function getTotalCartAmount($customerId){
+     foreach($cartItems as $item){
+        $cartItem=$this->CI->cartObj->getCartItem($customer_id,$item['id'],$item['variant_id']);
+        if(count($cartItem)){
+          $qty=$cartItem['qty']+$item['qty'];
+          $this->CI->cartObj->updateItemQty($customer_id,$item['id'],$item['variant_id'],array('qty'=>$qty));
+        }
+        else{
+           $cartProduct = array(
+                      'user_id'       =>$customer_id,
+                      'product_id'    =>$item['id'],
+                      'variant_id'    =>$item['variant_id'],
+                       'qty'          =>$item['qty']
+                      );
+          $this->CI->cartObj->itemSave($cartProduct);
+        }  
+     }
+  }
+  public function getTotalCartAmount($customerId){
         $return_data=array("totalPrice"=>0,"totalSellPrice"=>0);
         $this->CI->db->select('SUM(PV.price * C.qty) as totalPrice,SUM(PV.before_off_price * C.qty) as totalSellPrice');
         $this->CI->db->from('tbl_cartmanager AS C');
@@ -382,7 +449,7 @@ class Customlibrary
         $this->CI->db->from('tbl_coupon');
         $this->CI->db->where('coupon_code',$coupon_code);
         $this->CI->db->where('status',1);
-        $query=$this->db->get() ;
+        $query=$this->CI->db->get();
         if($query->num_rows()>0){ 
            $return_data=$query->row_array();
             if($return_data['disc_type']=='fixed_amt'){

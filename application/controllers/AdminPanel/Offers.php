@@ -1,276 +1,189 @@
 
 <?php
- defined('BASEPATH') OR exit('No direct script access allowe');
+defined('BASEPATH') or exit('No direct script access allowe');
 
-class Offers extends CI_Controller{   
-  
-    public function __construct() {
-    	
-	    parent::__construct();
-		
-		 date_default_timezone_set('Asia/Kolkata');
+class Offers extends CI_Controller
+{
 
-		  $this->load->library('my_libraries');
-		  $this->load->model('admin/offers_model','offers');
-          $this->load->helper(array('form', 'url')); // Load form and URL helpers
+    public function __construct()
+    {
+
+        parent::__construct();
+
+        date_default_timezone_set('Asia/Kolkata');
+
+        $this->load->library('my_libraries');
+        $this->load->model('admin/offers_model', 'offers');
+        $this->load->helper(array('form', 'url')); // Load form and URL helpers
         $this->load->library('session'); // Load session library for flash messages
-		  $session=$this->session->userdata('admin');
-		  
-		  $_SERVER['REQUEST_URI']="admin";
+        $session = $this->session->userdata('admin');
+        $this->load->library('pagination');
 
-		  if(basename($_SERVER['REQUEST_URI'])!='admin'){
-		       if(!isset($session) && $session['is_login']!=1){
-		          // redirect(base_url('login'));
-		           redirect(base_url('admin'));
-		       }
-		  }
-  
-  	}
+        $_SERVER['REQUEST_URI'] = "admin";
 
-    // public function index() {
-    //     $menuIdAsKey = 2;
-    //     $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
-    //     $page_menu_id = $menuIdAsKey;
-
-    //     $adjacents = 2;
-    //     $records_per_page = 25;
-    //     $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-    //     $page = ($page == 0 ? 1 : $page);
-    //     $start = ($page - 1) * $records_per_page;
-
-    //     $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
-
-    //     $array_data = $this->offers->get_all_offers($start, $records_per_page, $name);
-    //     $count = $this->offers->record_count($name);
-
-    //     $next = $page + 1;
-    //     $prev = $page - 1;
-    //     $last_page = ceil($count / $records_per_page);
-    //     $second_last = $last_page - 1;
-
-    //     $i = (($page * $records_per_page) - ($records_per_page - 1));
-    //     $pagination = "";
-
-    //     if ($last_page > 1) {
-    //         $pagination .= "<div class='pagination'>";
-    //         if ($page > 1) {
-    //             $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($prev) . ");'>&laquo; Previous&nbsp;&nbsp;</a>";
-    //         } else {
-    //             $pagination .= "<span class='disabled'>&laquo; Previous&nbsp;&nbsp;</span>";
-    //         }
-
-    //         if ($last_page < 7 + ($adjacents * 2)) {
-    //             for ($counter = 1; $counter <= $last_page; $counter++) {
-    //                 if ($counter == $page) {
-    //                     $pagination .= "<span class='current'>$counter</span>";
-    //                 } else {
-    //                     $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-    //                 }
-    //             }
-    //         } elseif ($last_page > 5 + ($adjacents * 2)) {
-    //             if ($page < 1 + ($adjacents * 2)) {
-    //                 for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
-    //                     if ($counter == $page) {
-    //                         $pagination .= "<span class='current'>$counter</span>";
-    //                     } else {
-    //                         $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-    //                     }
-    //                 }
-    //                 $pagination .= "...";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-    //             } elseif ($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-    //                 $pagination .= "...";
-    //                 for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
-    //                     if ($counter == $page) {
-    //                         $pagination .= "<span class='current'>$counter</span>";
-    //                     } else {
-    //                         $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-    //                     }
-    //                 }
-    //                 $pagination .= "..";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-    //             } else {
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-    //                 $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-    //                 $pagination .= "..";
-    //                 for ($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++) {
-    //                     if ($counter == $page) {
-    //                         $pagination .= "<span class='current'>$counter</span>";
-    //                     } else {
-    //                         $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         if ($page < $counter - 1) {
-    //             $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($next) . ");'>Next &raquo;</a>";
-    //         } else {
-    //             $pagination .= "<span class='disabled'>Next &raquo;</span>";
-    //         }
-    //         $pagination .= "</div>";
-    //     }
-
-    //     $option = '';
-    //     if (is_array($array_data) && count($array_data) > 0) {
-    //         //print_r($array_data);
-    //         foreach ($array_data as $keyval) {
-    //             $option .= '<tr> 
-    //                             <td>' . $i . '</td>
-    //                             <td>' . $keyval['offer_type'] . '</td>
-    //                             <td>' . $keyval['description'] . '</td>
-    //                             <td>' . $keyval['value'] . '</td>
-    //                             <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-    //                     </tr>';
-    //             $i++;
-    //         }
-    //     } else {
-    //         $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
-    //     }
-
-    //     $output = array('array_data' => $option, 'pagination' => $pagination, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
-    //     if ($this->input->post('method') == "changepage") {
-    //         echo json_encode($output);
-    //         exit();
-    //     } else {
-    //         $this->load->view('admin/offers/index', $output);
-    //     }
-    // }
-
-    public function index() {
-    $menuIdAsKey = 2;
-    $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
-    $page_menu_id = $menuIdAsKey;
-
-    $adjacents = 2;
-    $records_per_page = 25;
-    $page = (int)(isset($_POST['page']) ? $_POST['page'] : 1);
-    $page = ($page == 0 ? 1 : $page);
-    $start = ($page - 1) * $records_per_page;
-
-    $name = isset($_POST['name']) && $_POST['name'] != '' ? $_POST['name'] : '';
-
-    $array_data = $this->offers->get_all_offers($start, $records_per_page, $name);
-    $count = $this->offers->record_count($name);
-
-    $next = $page + 1;
-    $prev = $page - 1;
-    $last_page = ceil($count / $records_per_page);
-    $second_last = $last_page - 1;
-
-    $i = (($page * $records_per_page) - ($records_per_page - 1));
-    $pagination = "";
-
-    if ($last_page > 1) {
-        $pagination .= "<div class='pagination'>";
-        if ($page > 1) {
-            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($prev) . ");'>&laquo; Previous&nbsp;&nbsp;</a>";
-        } else {
-            $pagination .= "<span class='disabled'>&laquo; Previous&nbsp;&nbsp;</span>";
-        }
-
-        if ($last_page < 7 + ($adjacents * 2)) {
-            for ($counter = 1; $counter <= $last_page; $counter++) {
-                if ($counter == $page) {
-                    $pagination .= "<span class='current'>$counter</span>";
-                } else {
-                    $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                }
-            }
-        } elseif ($last_page > 5 + ($adjacents * 2)) {
-            if ($page < 1 + ($adjacents * 2)) {
-                for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
-                    if ($counter == $page) {
-                        $pagination .= "<span class='current'>$counter</span>";
-                    } else {
-                        $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                    }
-                }
-                $pagination .= "...";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-            } elseif ($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2)) {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                $pagination .= "...";
-                for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++) {
-                    if ($counter == $page) {
-                        $pagination .= "<span class='current'>$counter</span>";
-                    } else {
-                        $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                    }
-                }
-                $pagination .= "..";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($second_last) . ");'>$second_last</a>";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($last_page) . ");'>$last_page</a>";
-            } else {
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(1);'>1</a>";
-                $pagination .= "<a href='javascript:void(0);' onClick='change_page(2);'>2</a>";
-                $pagination .= "..";
-                for ($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++) {
-                    if ($counter == $page) {
-                        $pagination .= "<span class='current'>$counter</span>";
-                    } else {
-                        $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($counter) . ");'>$counter</a>";
-                    }
-                }
+        if (basename($_SERVER['REQUEST_URI']) != 'admin') {
+            if (!isset($session) && $session['is_login'] != 1) {
+                // redirect(base_url('login'));
+                redirect(base_url('admin'));
             }
         }
-        if ($page < $counter - 1) {
-            $pagination .= "<a href='javascript:void(0);' onClick='change_page(" . ($next) . ");'>Next &raquo;</a>";
-        } else {
-            $pagination .= "<span class='disabled'>Next &raquo;</span>";
-        }
-        $pagination .= "</div>";
     }
 
-    $option = '';
-    if (is_array($array_data) && count($array_data) > 0) {
-        foreach ($array_data as $keyval) {
-            // $status = isset($keyval->status) && $keyval->status == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
 
-            $option .= '<tr> 
+    public function index()
+    {
+
+        // Pagination configuration
+        $config = array();
+        $config["base_url"] = base_url() . "admin/offers";
+        $config["total_rows"] = $this->offers->get_offers_count();
+        $config["per_page"] = 10;
+        $config["uri_segment"] = 3;
+
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['prev_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
+
+        // Initialize pagination
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $data['offer_list'] = $this->offers->get_all_offers($config["per_page"], $page);
+
+
+        $data['pagination'] = $this->pagination->create_links();
+
+        //  echo '<pre>';
+        // print_r($data);
+        // die();
+
+        $option = '';
+        if (is_array($data['offer_list']) && count($data['offer_list']) > 0) {
+            $i = $page + 1;
+            foreach ($data['offer_list'] as $keyval) {
+                $offer_type = ($keyval['offer_type'] == 1) ? 'Percentage' : 'Fixed Amount';
+                $pack_size_units = $keyval['pack_size'] . ' ' . $keyval['units'];
+                $option .= '<tr> 
+                                <td>' . $i . '</td>
+                                <td>' . $offer_type . '</td>
+                                <td>' . $keyval['description'] . '</td>
+                                <td>' . $keyval['value'] . '</td>
+                                  <td>' . $keyval['product_name'] . '</td>
+                                 <td>' . $pack_size_units . '</td> 
+                                <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
+                                <td><a href="javascript:deleteRowtablesub(' . $keyval['id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                           </tr>';
+                $i++;
+            }
+        } else {
+            $option .= '<tr><td colspan="5" style="color:red;text-align:center">No record</td></tr>';
+        }
+
+        $output = array('array_data' => $option, 'pagination' => $data['pagination']);
+
+
+        if ($this->input->post('method') == "changepage") {
+            echo json_encode($output);
+            exit();
+        } else {
+            $this->load->view('admin/offers/index', $output);
+        }
+    }
+
+
+
+
+    public function Search_offer()
+    {
+        $keywords = $this->input->post('searchText');
+        $array_data = $this->offers->getSearch_offerDetails($keywords);
+
+
+
+
+        $option = '';
+        $i = 1;
+        if (is_array($array_data) && count($array_data) > 0) {
+         
+            foreach ($array_data as $keyval) {
+                $offer_type = ($keyval->offer_type == 1) ? 'Percentage' : 'Fixed Amount';
+                $pack_size_units = $keyval['pack_size'] . ' ' . $keyval['units'];
+                $option .= '<tr>
                             <td>' . $i . '</td>
-                            <td>' . $keyval->offer_type . '</td>
-                            <td>' . $keyval->description . '</td>
-                            <td>' . $keyval->value . '</td>
-                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval->id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                    </tr>';
-            $i++;
+                           <td>' . $offer_type . '</td>
+                            <td>' . $keyval['description'] . '</td>
+                            <td>' . $keyval['value'] . '</td>
+                            <td>' . $keyval['product_name'] . '</td>
+                            <td>' . $pack_size_units . '</td> 
+                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                           <td><a href="javascript:deleteRowtablesub(' . $keyval['id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
+                        </tr>';
+                $i++;
+            }
+        } else {
+
+            $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
         }
-    } else {
-        $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+        echo $option;
     }
 
-    $output = array('array_data' => $option, 'pagination' => $pagination, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess);
-    if ($this->input->post('method') == "changepage") {
-        echo json_encode($output);
-        exit();
-    } else {
-        $this->load->view('admin/offers/index', $output);
+
+
+
+
+
+
+
+
+
+
+
+    public function create()
+    {
+        $data['productList'] = $this->offers->getProductList();
+        $this->load->view('admin/offers/create', $data);
     }
-}
 
 
 
-    public function create() {
-        $data['productList']=$this->offers->getProductList();
-        $this->load->view('admin/offers/create',$data);
-    }
-
-    public function store() {
-        $product_id_array = $this->input->post('product_id');
-        $product_ids = is_array($product_id_array) ? implode(',', $product_id_array) : '';
-        $data = array(
+    public function store()
+    {
+        $product_variant = $this->input->post('product_variant');
+        $offer_data = array(
             'offer_type' => $this->input->post('offer_type'),
             'description' => $this->input->post('description'),
             'value' => $this->input->post('value'),
-            'product_id' => $product_ids
+            'product_id' => $this->input->post('product_id')
         );
-        if ($this->offers->store($data)) {
+
+        $success = true;
+
+        foreach ($product_variant as $variant_id) {
+            $offer_data['variant_id'] = $variant_id;
+
+            if (!$this->offers->store($offer_data)) {
+                $success = false;
+                break;
+            }
+        }
+
+        if ($success) {
             $this->session->set_flashdata('msg', 'Offers inserted successfully.');
         } else {
             $this->session->set_flashdata('msg', 'Failed to insert Offers.');
@@ -280,59 +193,98 @@ class Offers extends CI_Controller{
     }
 
 
-    // public function edit($id) {
-    //     $data['subcategory'] = $this->subcategory->get_subcategory($id);
-    //     $data['categories'] = $this->category->get_categories();
-    //     $this->load->view('admin/subcategory/edit', $data);
-    // }
-
-    // public function update($id) {
-    //     $data = array(
-    //         'cat_id' => $this->input->post('cat_id'),
-    //         'subCat_name' => $this->input->post('subcategory_name'),
-    //         'slug' => $this->input->post('slug'),
-    //     );
-    //     $this->subcategory->update_subcategory($id, $data);
-    //     $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
-    //     redirect('admin/subcategory');
-    // }
 
 
-
-
-
-
-public function Search_offer() {
-
-    $keywords = $this->input->post('searchText');
-
- 
-    $array_data = $this->offers->getSearch_offerDetails($keywords);
-
-    $option = '';
-    $i = 1;
-
-    if (is_array($array_data) && count($array_data) > 0) {
-        foreach ($array_data as $keyval) {
-            $option .= '<tr>
-                            <td>' . $i . '</td>
-                            <td>' . $keyval['offer_type'] . '</td>
-                            <td>' . $keyval['description'] . '</td>
-                            <td>' . $keyval['value'] . '</td>
-                            <td><a href="' . base_url() . 'admin/offers/edit/' . $keyval['id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                        </tr>';
-            $i++;
+    public function getvariantbycategory()
+    {
+        $category_id = $this->input->post('category_id');
+        $variantList = $this->offers->get_variants($category_id);
+        $option = '';
+        foreach ($variantList as $variant) {
+            $option .= '<option value="' . $variant['variant_id'] . '">' . $variant['pack_size'] . ' ' . $variant['units'] . '</option>';
         }
-    } else {
-      
-        $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+        echo json_encode($option);
+        exit();
     }
 
-    echo $option;
+
+
+
+
+    public function edit()
+    {
+
+
+        $id = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $data['productList'] = $this->offers->getProductList();
+        $data['offer'] = $this->offers->get_offer_by_id($id);
+        $data['variant'] = $this->offers->get_variants_by_product_id($data['offer'][0]['product_id']);
+
+        $this->load->view('admin/offers/edit', $data);
+    }
+
+
+
+    public function update()
+    {
+        $offer_type = $this->input->post('offer_type');
+        $description = $this->input->post('description');
+        $value = $this->input->post('value');
+        $product_id = $this->input->post('product_id');
+        $product_variant = $this->input->post('product_variant');
+
+
+        $product_id_old = $this->input->post('old_product_id');
+
+        $offer_data = array(
+            'offer_type' => $offer_type,
+            'description' => $description,
+            'value' => $value,
+            'product_id' => $product_id
+        );
+
+
+        $update_success = $this->offers->delete_offers($product_id_old);
+
+        if ($update_success) {
+            $success = true;
+
+            foreach ($product_variant as $variant_id) {
+                $offer_data['variant_id'] = $variant_id;
+
+                if (!$this->offers->store($offer_data)) {
+                    $success = false;
+                    break;
+                }
+            }
+
+            if ($success) {
+                echo json_encode(['status' => 'success', 'message' => 'Offer updated successfully.']);
+            } else {
+                echo json_encode(['status' => 'success', 'message' => 'Offer failed.']);
+            }
+        } else {
+            $this->session->set_flashdata('msg', 'Failed to insert Offers.');
+        }
+    }
+
+   
+
+    public function delete_offer()
+    {
+        $id = $this->input->post('id');
+        $response = $this->offers->delete_offer($id);
+        if ($response == '1') {
+
+            $Flag = 'True';
+        } else {
+            $Flag = 'False';
+        }
+        echo json_encode($Flag);
+        exit();
+        redirect('admin/offers');
+    }
 }
 
-    
 
-
-}
 ?>

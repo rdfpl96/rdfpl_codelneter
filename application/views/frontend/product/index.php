@@ -1,6 +1,33 @@
+<?php
 
-<?php $this->load->view('frontend/header'); ?>
+$this->load->view('frontend/header');
 
+// echo '<pre>'; 
+// print_r($_SESSION);
+// exit();
+?>
+
+<?php
+$max_price = $price_range['max_price'];
+$min_price = $price_range['min_price'];
+$num_ranges = 8;
+$range_step = 100;
+$start_with = $min_price + 10;
+
+$price_ranges = [];
+for ($i = 0; $i < $num_ranges; $i++) {
+   $start = $start_with + ($i * $range_step);
+   $end = $start + $range_step;
+   $price_ranges[] = ['start' => round($start), 'end' => round($end)];
+}
+
+
+$lastRange = round($end);
+// echo '<pre>';
+// echo 'shop';
+// print_r($max_price);
+// die();
+?>
 <main class="main shop_main_background" style="transform: none;">
    <div class="page-call" style="transform: none;">
       <div id="page-act" style="transform: none;">
@@ -9,32 +36,8 @@
                <div class="archive-header">
                   <div class="row align-items-center">
                      <div class="col-xl-9">
-                        <?php
-                       $url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-                       //print_r($url_path);
-                           $segments = explode('/', trim($url_path, '/'));
-                           $base_url = base_url();
-                           $breadcrumb = [
-                            ['url' => $base_url, 'name' => 'Home']
-                            // ,
-                            // ['url' => $base_url . 'pc', 'name' => 'pc']
-                           ];
-                           $current_url = $base_url . 'pc/';
-                           foreach ($segments as $index => $segment) {
-                            // if ($index > 1) { 
-                                $current_url .= $segment . '/';
-                                $breadcrumb[] = ['url' => $current_url, 'name' => ucfirst(str_replace('-', ' ', $segment))];
-                            // }
-                           }
-                        ?>
                         <div class="breadcrumb">
-                            <?php foreach ($breadcrumb as $index => $crumb): ?>
-                                <?php if ($index != 0): ?><span></span><?php endif; ?>
-                                <a href="<?php echo $crumb['url']; ?>" <?php if ($crumb['url'] == 'javascript:void(0);'): ?>class="filterCategory"<?php else: ?>rel="nofollow"<?php endif; ?>>
-                                    <?php if ($index == 0): ?><i class="fi-rs-home mr-5"></i><?php endif; ?>
-                                    <?php echo $crumb['name']; ?>
-                                </a>
-                            <?php endforeach; ?>
+                           Home<span></span><?php echo isset($bread) ? $bread : ""; ?>
                         </div>
                      </div>
                      <div class="col-xl-3 text-end d-none d-xl-block"></div>
@@ -46,7 +49,7 @@
             <div class="row flex-row-reverse" style="transform: none;">
                <div class="shop-product-fillter" style="transform: none;">
                   <div class="totall-product">
-                     <p style="color:black;">We found <strong class="text-brand"><?php  echo isset($productCount) ? $productCount : 0 ;?></strong> items for you!</p>
+                     <p style="color:black;">We found <strong class="text-brand"><?php echo isset($productCount) ? $productCount : 0; ?></strong> items for you!</p>
 
                      <div class="filters_result pt-10 d-none">
                         <!-- <p>Filters: </p> -->
@@ -79,7 +82,7 @@
                            <option value="low_to_high">Price: Low to High</option>
                            <option value="high_to_low">Price: High to Low</option>
                            <!-- <option value="best_selling">Best Selling</option> -->
-                          <!--  <option value="A_Z">Title(A-Z)</option>
+                           <!--  <option value="A_Z">Title(A-Z)</option>
                            <option value="Z_A">Title(Z-A)</option> -->
                         </select>
                      </div>
@@ -112,88 +115,59 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <?php  if(isset($priceRangs) && count($priceRangs)>0){ ?>
-
                                  <a class="shop-filter-toogle" href="">
-                                 Price
-                                 <i class="fi-rs-angle-small-down angle-down"></i>
-                                 <i class="fi-rs-angle-small-up angle-up"></i>
-                                 </a>
-                                 <div class="shop-product-fillter-header">
-                                    <div class="list-group">
-                                       <div class="list-group-item">
-                                          <input class="form-check-input price-range class-price-desk0" type="checkbox">
-                                          <label class="form-check-label">
-                                          <span> Less than Rs <?php echo '';?>></span>
-                                          </label>                       
-                                       </div>
-                                    </div>
-                                    <?php for ($i=0; $i < count($priceRangs); $i++) { ?>
-                                       <div class="list-group">
-                                          <div class="list-group-item">
-                                             <input class="form-check-input price-range class-price-desk0" type="checkbox">
-                                             <label class="form-check-label">
-                                             <span> Less than Rs 120</span>
-                                             </label>                       
-                                          </div>
-                                       </div>
-                                    <?php } ?>
-                                 </div>
-                                 <?php } ?>
-
-                                 <a class="shop-filter-toogle" href="">
-                                 Product Rating
-                                 <i class="fi-rs-angle-small-down angle-down"></i>
-                                 <i class="fi-rs-angle-small-up angle-up"></i>
+                                    Product Rating
+                                    <i class="fi-rs-angle-small-down angle-down"></i>
+                                    <i class="fi-rs-angle-small-up angle-up"></i>
                                  </a>
                                  <div class="shop-product-fillter-header">
                                     <div class="list-group">
                                        <div class="list-group-item">
                                           <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox">
                                           <label class="form-check-label" for="exampleCheckbox-che-5">
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          </label>                        
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <div class="list-group">
                                        <div class="list-group-item ">
                                           <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox">
                                           <label class="form-check-label" for="exampleCheckbox-che-5">
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          </label>                        
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <div class="list-group">
                                        <div class="list-group-item ">
                                           <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox">
                                           <label class="form-check-label" for="exampleCheckbox-che-5">
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          </label>                        
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <div class="list-group">
                                        <div class="list-group-item ">
                                           <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox">
                                           <label class="form-check-label" for="exampleCheckbox-che-5">
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          <span class="material-symbols-outlined fill_star">star</span>
-                                          </label>                        
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                             <span class="material-symbols-outlined fill_star">star</span>
+                                          </label>
                                        </div>
                                     </div>
                                  </div>
                                  <a class="shop-filter-toogle" href="">
-                                 Brands
-                                 <i class="fi-rs-angle-small-down angle-down"></i>
-                                 <i class="fi-rs-angle-small-up angle-up"></i>
+                                    Brands
+                                    <i class="fi-rs-angle-small-down angle-down"></i>
+                                    <i class="fi-rs-angle-small-up angle-up"></i>
                                  </a>
                                  <div class="shop-product-fillter-header">
                                     <div class="list-group">
@@ -205,8 +179,8 @@
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">
                                           <label class="form-check-label">
-                                          <span> Amar</span>
-                                          </label>                       
+                                             <span> Amar</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <!--list-group end-->
@@ -214,8 +188,8 @@
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">
                                           <label class="form-check-label">
-                                          <span> Amar</span>
-                                          </label>                       
+                                             <span> Amar</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <!--list-group end-->
@@ -223,8 +197,8 @@
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">
                                           <label class="form-check-label">
-                                          <span> Amar</span>
-                                          </label>                       
+                                             <span> Amar</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <!--list-group end-->
@@ -232,8 +206,8 @@
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">
                                           <label class="form-check-label">
-                                          <span> Amar</span>
-                                          </label>                       
+                                             <span> Amar</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <!--list-group end-->
@@ -241,8 +215,8 @@
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">
                                           <label class="form-check-label">
-                                          <span> Amar</span>
-                                          </label>                       
+                                             <span> Amar</span>
+                                          </label>
                                        </div>
                                     </div>
                                     <!--list-group end-->
@@ -263,134 +237,136 @@
                      <div id="page-act"> -->
                   <div class="row product-grid" id="productList">
                      <!-- <div class="col-lg-3 col-md-4 col-12 col-sm-6"> -->
-                      <?php echo $products; ?>  
+                     <?php echo $products; ?>
                      <!--  -->
+                     <div class="pagination-links">
+                        <?php echo $pagination; ?>
+                     </div>
                   </div>
-                 
+
                </div>
 
                <div class="col-lg-1-5 primary-sidebar sticky-sidebar sticky_sidebar_desktop" style="overflow: visible; box-sizing: border-box; min-height: 1px;">
-                
-                  <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 55.7695px;">
+
+                  <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 55.7695px;overflow-y: auto;
+                  height: 100vh;">
 
                      <h5 class="section-title style-1 mb-30">Shop by Category</h5>
                      <div class="sidebar-widget widget-category-2 mb-30">
                         <div class="sidebar2">
                            <div class="category-list">
-                              <?php if(isset($categoryName) && $categoryName!="") { ?>
-                                 <h4><?php echo $categoryName;?></h4>
-                              <?php } ?>  
-                              <?php if(isset($sidecategories) && count($sidecategories)>0) { ?>
-                              <ul>
-                                 <?php 
-                                    foreach($sidecategories as $scategory){ 
-                                       if(isset($categoryLevel) && $categoryLevel==1){
-                                          echo' <li><a href="'.base_url('pc/'.$scategory['top_cat_slug'].'/'.$scategory['slug']).'" class="filterCategory"><span>'.$scategory['subCat_name'].'</span></a></li>';
-                                       }
-                                       else if(isset($categoryLevel) && $categoryLevel==2){
-                                          echo' <li><a href="'.base_url('pc/'.$scategory['top_cat_slug'].'/'.$scategory['sub_cat_slug'].'/'.$scategory['slug']).'" class="filterCategory"><span>'.$scategory['childCat_name'].'</span></a></li>';
-                                       }else{
-                                          echo'<li><a href="'.base_url('pc/'.$scategory['slug']).'" class="filterCategory"><span>'.$scategory['category'].'</span></a></li>';
+                              <?php if (isset($categoryName) && $categoryName != "") { ?>
+                                 <h4><?php echo $categoryName; ?></h4>
+                              <?php } ?>
+                              <?php if (isset($sidecategories) && count($sidecategories) > 0) { ?>
+                                 <ul>
+                                    <?php
+                                    foreach ($sidecategories as $scategory) {
+                                       if (isset($categoryLevel) && $categoryLevel == 1) {
+                                          echo ' <li><a href="' . base_url('pc/' . $scategory['top_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['subCat_name'] . '</span></a></li>';
+                                       } else if (isset($categoryLevel) && $categoryLevel == 2) {
+                                          echo ' <li><a href="' . base_url('pc/' . $scategory['top_cat_slug'] . '/' . $scategory['sub_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['childCat_name'] . '</span></a></li>';
+                                       } else {
+                                          echo '<li><a href="' . base_url('pc/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['category'] . '</span></a></li>';
                                        }
                                     ?>
-                                   
-                                 <?php } ?>
-                              </ul>
-                            <?php } ?>
+
+                                    <?php } ?>
+                                 </ul>
+                              <?php } ?>
                            </div>
                         </div>
                      </div>
-                     <?php  if(isset($priceRangs) && count($priceRangs)>0){ ?>
-                     <a class="shop-filter-toogle" href="">
-                     Price
-                     <i class="fi-rs-angle-small-down angle-down"></i>
-                     <i class="fi-rs-angle-small-up angle-up"></i>
+                     <a class="shop-filter-toogle" href="#">
+                        PriceShop page
+                        <i class="fi-rs-angle-small-down angle-down"></i>
+                        <i class="fi-rs-angle-small-up angle-up"></i>
                      </a>
                      <div class="shop-product-fillter-header">
+
                         <div class="list-group">
                            <div class="list-group-item">
-                              <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(0,<?php echo current($priceRangs)?>);">
+                              <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(0, <?php echo $start_with; ?>);">
                               <label class="form-check-label">
-                              <span> Less than Rs <?php echo current($priceRangs)?></span>
-                              </label>                       
+                                 <span> Less than Rs <?php echo $start_with; ?></span>
+                              </label>
                            </div>
                         </div>
-                        <?php for ($i=0; $i < count($priceRangs)/2; $i++) { ?>
+
+                        <?php foreach ($price_ranges as $range) { ?>
                            <div class="list-group">
                               <div class="list-group-item">
-                                 <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(<?php echo $priceRangs[$i]?>,<?php echo $priceRangs[$i+1]?>);">
+                                 <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(<?php echo $range['start']; ?>, <?php echo $range['end']; ?>);">
                                  <label class="form-check-label">
-                                 <span> <?php echo $priceRangs[$i]?> To <?php echo $priceRangs[$i+1]?></span>
-                                 </label>                       
+                                    <span>Rs <?php echo $range['start']; ?> To <?php echo $range['end']; ?></span>
+                                 </label>
                               </div>
                            </div>
                         <?php } ?>
 
+
                         <div class="list-group">
                            <div class="list-group-item">
-                              <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(<?php echo end($priceRangs)?>,100000);">
+                              <input class="form-check-input price-range price" type="checkbox" onchange="filterByPrice(<?php echo $lastRange; ?>, <?php echo $max_price; ?>);">
                               <label class="form-check-label">
-                              <span> Greater than Rs <?php echo end($priceRangs)?></span>
-                              </label>                       
+                                 <span> More than Rs <?php echo $lastRange; ?></span>
+                              </label>
                            </div>
                         </div>
-
-                     </div>
-                     <?php } ?>
-
+                        </div>
                      <a class="shop-filter-toogle" href="">
-                     Product Rating
-                     <i class="fi-rs-angle-small-down angle-down"></i>
-                     <i class="fi-rs-angle-small-up angle-up"></i>
+                        Product Rating
+                        <i class="fi-rs-angle-small-down angle-down"></i>
+                        <i class="fi-rs-angle-small-up angle-up"></i>
                      </a>
                      <div class="shop-product-fillter-header">
                         <div class="list-group">
                            <div class="list-group-item">
                               <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox" onchange="filterByRating(5)">
                               <label class="form-check-label" for="exampleCheckbox-che-5">
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              </label>                        
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                              </label>
                            </div>
                         </div>
                         <div class="list-group">
                            <div class="list-group-item ">
                               <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox" onchange="filterByRating(4)">
                               <label class="form-check-label" for="exampleCheckbox-che-5">
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              </label>                        
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                              </label>
                            </div>
                         </div>
                         <div class="list-group">
                            <div class="list-group-item ">
                               <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox" onchange="filterByRating(3)">
                               <label class="form-check-label" for="exampleCheckbox-che-5">
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              </label>                        
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                              </label>
                            </div>
                         </div>
                         <div class="list-group">
                            <div class="list-group-item ">
                               <input class="form-check-input product-rating-filter class-rating-desk5" type="checkbox" onchange="filterByRating(2)">
                               <label class="form-check-label" for="exampleCheckbox-che-5">
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              <span class="material-symbols-outlined fill_star">star</span>
-                              </label>                        
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                                 <span class="material-symbols-outlined fill_star">star</span>
+                              </label>
                            </div>
                         </div>
                      </div>
                      <a class="shop-filter-toogle d-none" href="">
-                     Brands
-                     <i class="fi-rs-angle-small-down angle-down"></i>
-                     <i class="fi-rs-angle-small-up angle-up"></i>
+                        Brands
+                        <i class="fi-rs-angle-small-down angle-down"></i>
+                        <i class="fi-rs-angle-small-up angle-up"></i>
                      </a>
                      <div class="shop-product-fillter-header d-none">
                         <div class="list-group">
@@ -402,8 +378,8 @@
                            <div class="list-group-item">
                               <input class="form-check-input price-range class-price-desk0" type="checkbox">
                               <label class="form-check-label">
-                              <span> Amar</span>
-                              </label>                       
+                                 <span> Amar</span>
+                              </label>
                            </div>
                         </div>
                         <!--list-group end-->
@@ -411,8 +387,8 @@
                            <div class="list-group-item">
                               <input class="form-check-input price-range class-price-desk0" type="checkbox">
                               <label class="form-check-label">
-                              <span> Amar</span>
-                              </label>                       
+                                 <span> Amar</span>
+                              </label>
                            </div>
                         </div>
                         <!--list-group end-->
@@ -420,8 +396,8 @@
                            <div class="list-group-item">
                               <input class="form-check-input price-range class-price-desk0" type="checkbox">
                               <label class="form-check-label">
-                              <span> Amar</span>
-                              </label>                       
+                                 <span> Amar</span>
+                              </label>
                            </div>
                         </div>
                         <!--list-group end-->
@@ -429,8 +405,8 @@
                            <div class="list-group-item">
                               <input class="form-check-input price-range class-price-desk0" type="checkbox">
                               <label class="form-check-label">
-                              <span> Amar</span>
-                              </label>                       
+                                 <span> Amar</span>
+                              </label>
                            </div>
                         </div>
                         <!--list-group end-->
@@ -438,8 +414,8 @@
                            <div class="list-group-item">
                               <input class="form-check-input price-range class-price-desk0" type="checkbox">
                               <label class="form-check-label">
-                              <span> Amar</span>
-                              </label>                       
+                                 <span> Amar</span>
+                              </label>
                            </div>
                         </div>
                         <!--list-group end-->
@@ -450,57 +426,67 @@
          </div>
       </div>
    </div>
+
+
 </main>
-<?php $this->load->view('frontend/footer'); ?>
+<?php
+$this->load->view('frontend/footer'); 
+
+?>
 <script>
-   $(document).on('click', '.price', function() {      
-    $('.price').not(this).prop('checked', false);      
+   $(document).on('click', '.price', function() {
+      $('.price').not(this).prop('checked', false);
    });
 
-   $(document).on('click', '.product-rating-filter', function() {      
-    $('.product-rating-filter').not(this).prop('checked', false);      
+   $(document).on('click', '.product-rating-filter', function() {
+      $('.product-rating-filter').not(this).prop('checked', false);
    });
 
-var formData = new FormData();
+   var formData = new FormData();
+   formData.append('slug1', '<?php echo $this->uri->segment(2);?>');
+   formData.append('slug2', '<?php echo $this->uri->segment(3);?>');
+   formData.append('slug3', '<?php echo $this->uri->segment(4);?>');
 
-function searchBySelection(){
-   formData.append("searchbyselect", $('select[name="searchbyselect"] option:selected').val());
-   search();
-}
-function filterByRating(rating){
-   formData.append("rating", rating);
-   search();
-}
-function filterByPrice(min_price,max_price){
-   //alert(min_price+' , '+max_price);
-  formData.append("min_price", min_price);
-  formData.append("max_price", max_price);
+   function searchBySelection() {
+      formData.append("searchbyselect", $('select[name="searchbyselect"] option:selected').val());
+      search();
+   }
 
-  search();
-} 
+   function filterByRating(rating) {
+      formData.append("rating", rating);
+      search();
+   }
 
-function search(){
- 
+   function filterByPrice(min_price, max_price) {
+      //alert(min_price+' , '+max_price);
+      formData.append("min_price", min_price);
+      formData.append("max_price", max_price);
+
+      search();
+   }
+
+   function search() {
+      // alert(base_url);
       $.ajax({
          type: 'post',
-         url: '<?php echo base_url('product-filter');?>',
+         url: '<?php echo base_url('product-filter'); ?>',
          data: formData,
          dataType: "json",
          processData: false,
          contentType: false,
-         beforeSend: function() {
-         },
+         beforeSend: function() {},
          success: function(res) {
             $('#productList').html(res.data);
          },
-       complete: function() {
+         complete: function() {
             //$.unblockUI();
-         // $('#btn1').css('display', 'block');
-         // $('#btn2').css('display', 'none');
-       },
-       error: function(xhr, status, error) {
-         console.log(error);
-       },
-     });
-}  
+            // $('#btn1').css('display', 'block');
+            // $('#btn2').css('display', 'none');
+         },
+         error: function(xhr, status, error) {
+            console.log(error);
+         },
+      });
+   }
 </script>
+

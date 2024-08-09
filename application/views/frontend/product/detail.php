@@ -2,12 +2,11 @@
 
   $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
 
-         $firstItem=isset($items[0]) ? $items[0] : array();  
-  //print_r($items);
+         $firstItem=isset($items[0]) ? $items[0] : array();
 
 ?>
 <?php
-// print_r($pdetail);
+// print_r($reviews);
 // exit();
 ?>
 <?php $this->load->view('frontend/header'); ?>
@@ -176,11 +175,14 @@
                         <div class="detail-extralink mb-50">
                            <div class="product-extra-link2">
                               <div class="updd475" style="width: 100%;">
-                                 <button class="btn product_details_qty_btn w-100  uptos475 hover-up add-to-cart-button" id="addtobtn<?php echo $pdetail['product_id']; ?>"  onclick="addToCart(<?php echo $pdetail['product_id']; ?>);return false;" >Add to basket</button>
-                                 <div class="quantity-controls w-100 hover-up width100 common-button css-inc475" id="aquantitycontrols<?php echo $pdetail['product_id']?>">
-                                    <button class="quantity-decrease qtymode"  onclick="itemtIncreament(<?php echo $pdetail['product_id']; ?>,1);"><span class="material-symbols-outlined">remove</span></button>
-                                    <input type="text" class="quantity-input" id="qty<?php echo $pdetail['product_id']; ?>" value="1">
-                                    <button class="quantity-increase qtymode" onclick="itemtIncreament(<?php echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
+                                 <!-- <div class="quantity-controls w-100 hover-up width100 common-button css-inc475" id="aquantitycontrols<?php //echo $pdetail['product_id']?>" style="display: inline-flex;;">
+                                    <button class="quantity-decrease qtymode"  onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,1);"><span class="material-symbols-outlined">remove</span></button>
+                                    <input type="text" class="quantity-input" id="qty<?php //echo $pdetail['product_id']; ?>" value="1">
+                                    <button class="quantity-increase qtymode" onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
+                                 </div> -->
+                                 <div>
+                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity3 :</strong></label>
+                                    <input type="number" class="quantity-input" name="qty" id="qty<?php echo $pdetail['product_id']; ?>" value="1" min="1" max="99" style="display:inline-block;">
                                  </div>
                               </div>
                               <a href="javascript:void(0);" title="Wishlist" class="wish-div product_save_for_later_btn" data-id="NDc1" onclick="saveToLaterpdp(<?php echo $pdetail['product_id'];?>);">
@@ -192,13 +194,27 @@
                            <?php
                            $checkout_url = base_url('checkout') . '?product_id=' . $pdetail['product_id'];
                            ?>
-                           <a href="<?php echo $checkout_url; ?>">
-                           <div class="grid_offer_ad mt-20">
-                              <div class="ad_btn" style="width: 470px;">
-                                 <h4>Buy Now <span class="material-symbols-outlined"></span></h4>
+                       
+                           <!-- <div class="grid_offer_ad mt-20"> -->
+                              <div class="row mt-20">
+                                 <div class="col-md-6">
+                                    <button class="btn w-100  uptos475 hover-up add-to-cart-button" id="addtobtn<?php echo $pdetail['product_id']; ?>"  onclick="addToCartFromProduct(<?php echo $pdetail['product_id']; ?>);return false;">Add to basket</button>
+                                 </div>
+                                 <div class="col-md-6">
+                                
+                                    <!-- <h4>Buy Now <span class="material-symbols-outlined"></span></h4> -->
+                                     <?php if(isset($isCustomerLogin) && $isCustomerLogin==1) { ?>
+                                          <button class="btn w-100  uptos475 hover-up"  onclick="buyNow(<?php echo $pdetail['product_id']; ?>);return false;">Buy Now</button>
+                                     <?php } else{ 
+                                      
+                                       ?> <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal-user" class="btn w-100">Buy Now
+                                           </a>
+                                    <?php }?>    
+                                
+                                 </div>
                               </div>
-                           </div>
-                           </a>
+                           <!-- </div> -->
+                        
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
 
@@ -434,40 +450,34 @@
                      <div class="col-md-8">
                         <div class="review_sec_right_sec">
                            <h3>Product Reviews</h3>
-                           <div class="rating_review_details_list">
-                              <div class="mt-10">
-                                 <div class="grid_product_rating">
-                                    <p>3 <i class="material-symbols-outlined">star</i></p>
-                                 </div>
-                                 <h4>The product is good but the quantity is very less compared to offline product available in the retail market. Totally upset after receiving the product.</h4>
-                                 <div class="rating_review_author d-flex justify-content-between">
-                                    <p class="text-muted">Joydeep Ghosh, (a year ago)</p>
-                                    <div class="thumb_icon">
-                                       3
-                                       <span class="material-symbols-outlined">thumb_up</span>
-                                       3
-                                       <span class="material-symbols-outlined">personal_places</span>
+                            <?php if (!empty($reviews)): ?>
+                                <?php foreach ($reviews as $review): ?>
+                                    <div class="rating_review_details_list">
+                                        <div class="mt-10">
+                                            <div class="grid_product_rating">
+                                                <p><?php echo $review['cust_rate']; ?> <i class="material-symbols-outlined">star</i></p>
+                                            </div>
+                                            <h4><?php echo $review['comment']; ?></h4>
+                                            <div class="rating_review_author d-flex justify-content-between">
+                                             <p class="text-muted">
+                                                <?php echo $review['customer_name']; ?>, 
+                                                (<?php echo $this->common_model->dateDifference($review['add_date']); ?> ago)
+                                                
+                                             </p>
+                                                <div class="thumb_icon">
+                                                    <?php echo $review['thumbs_up']; ?>
+                                                    <span class="material-symbols-outlined">thumb_up</span>
+                                                    <?php echo $review['thumbs_down']; ?>
+                                                    <span class="material-symbols-outlined">thumb_down</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="rating_review_details_list">
-                              <div class="mt-10">
-                                 <div class="grid_product_rating">
-                                    <p>3 <i class="material-symbols-outlined">star</i></p>
-                                 </div>
-                                 <h4>The product is good but the quantity is very less compared to offline product available in the retail market. Totally upset after receiving the product.</h4>
-                                 <div class="rating_review_author d-flex justify-content-between">
-                                    <p class="text-muted">Joydeep Ghosh, (a year ago)</p>
-                                    <div class="thumb_icon">
-                                       <span class="material-symbols-outlined">thumb_up</span>
-                                       2
-                                       <span class="material-symbols-outlined">personal_places</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                              <p>No reviews yet. Be the first to review this product!</p>
+                            <?php endif; ?>
+                            <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
                         </div>
                      </div>
                   </div>
@@ -650,5 +660,40 @@ $(document).ready(function() {
     });
 });
 
+function countIncreament(product_id,type){
+   var productItemId=$('#productItemId'+product_id).val();
+    var qty=$('#qty'+product_id).val();
+    
+    if(type==2){
+      qty=parseInt(qty)+1;
+    }
+    else if(type==1){
+      if(parseInt(qty) >1){
+        qty=parseInt(qty)-1;
+      }else{
+        $('#addtobtn'+product_id).css('display','inline-block');
+        $('#aquantitycontrols'+product_id).hide();
+      }
 
+    }
+    
+    $('#qty'+product_id).val(qty);
+}
+
+function buyNow(product_id){
+
+   let base_url='<?php echo base_url('setbuynowdetail')?>';
+   var qty=$('#qty'+product_id).val();
+   let varient_id=$('#productItemId' + product_id).val();
+   
+   $.ajax({
+      url: base_url,
+      type: 'POST',
+      dataType: 'JSON',
+      data: ({ 'product_id': product_id ,'varient_id':varient_id,'qty':qty}),
+      success: function (res) {
+         window.location='<?php echo base_url('checkout')?>';
+      }
+   });
+}
 </script>

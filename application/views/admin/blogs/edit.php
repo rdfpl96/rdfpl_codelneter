@@ -129,22 +129,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
                             <textarea class="form-control" name="blog_description" id="blog_description"><?php echo (!empty($blog['blog_description']) ? $blog['blog_description'] : '') ?></textarea>
 
-                            <!-- <div class="col-md-12">
-                                         <label class="form-label">Product Description</label>
-                                           <div id="editor">
-                                              <h4>Enter Product Description Here</h4>
-                                         </div>
-                                         </div> -->
-
-
-
-                            <!--  <div class="col-md-12">
-                                       <label for="Tags" class="form-label">Tags(Optional)</label>
-                                          <input type="text" class="form-control" id="blog_tag_field" name="blog_tag_field" data-role="tagsinput" style="display: none;" value="<?php //echo ($product_list!=0)? $product_list[0]->blog_tag_field :'';
-                                                                                                                                                                                ?>">        
-                                     </div> -->
-                                     
-
                                      <div class="col-md-12">
                                         <label for="Tags" class="form-label">Image<span style="color: red;">*</span> </label>
                                         <input type="file" class="form-control" id="blog_image" name="blog_image" required>
@@ -158,8 +142,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             $imgFile = base_url() . 'include/assets/default_product_image.png';
                                         }
                                         ?>
-
-
 
                                         <img src="<?php echo $imgFile; ?>" style="width:40px; height:40px;border:1px solid grey;">
 
@@ -202,6 +184,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
    $(document).ready(function() {
     $('.Update-blog').on('click', function() {
         var isValid = true;
@@ -300,5 +283,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         }
     });
 });
+
 
 </script>
