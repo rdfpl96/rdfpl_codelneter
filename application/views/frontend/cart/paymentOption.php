@@ -204,7 +204,7 @@ label.btn.inverse.active {
                             <div class="third_sec_summary mb-10 mt-10">
                                <div class="first_div_total">
                                   <p><b>Total Amount Payable</b></p>
-                                  <p><b>₹<?php echo isset($orderSummery['totalSellingPrice']) ? $orderSummery['totalSellingPrice'] : 0;?></b></p>
+                                  <p><b>₹<?php echo isset($orderSummery['totalPayAmout']) ? $orderSummery['totalPayAmout'] : 0;?></b></p>
                                </div>
                             </div>
                             <div class="fourth_sec_summary total_summary mb-10 mt-10">
@@ -288,8 +288,7 @@ label.btn.inverse.active {
                 data:({couponcode:couponcode}),
                 success: function(result){
                   if(result.status==1){
-                     window.location=reload();
-                  //$('.total-items').text(result.total_items);
+                     location.reload();
                   }else{
                      $('#coupon_err_msg').text(result.message);
                   }
