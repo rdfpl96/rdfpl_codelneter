@@ -215,13 +215,10 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                                 
                                  </div>
                               </div>
-<<<<<<< HEAD
                            </div>
                            </a>  
-=======
                            <!-- </div> -->
                         
->>>>>>> pramod
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
 
