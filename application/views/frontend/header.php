@@ -181,17 +181,17 @@
                      <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                         <nav>
                            <ul class="category-menu">
-                              <li class="hot-deals"><a href="<?php echo base_url('pc/beauty-hygiene')?>">Beauty & Hygiene</a></li>
+                              <li class="hot-deals"><a href="<?php echo base_url('shop/beauty-hygiene')?>">Beauty & Hygiene</a></li>
                               <li><a href="<?php echo base_url('shop');?>">Shop</a></li>
-                              <li><a href="<?php echo base_url('pc/foodgrains-oils')?>">Foodgrains &amp; Oils</a></li>
-                              <li><a href="<?php echo base_url('pc/dry-fruits-nuts')?>">Dry Fruits &amp; Nuts</a></li>
+                              <li><a href="<?php echo base_url('shop/foodgrains-oils')?>">Foodgrains &amp; Oils</a></li>
+                              <li><a href="<?php echo base_url('shop/dry-fruits-nuts')?>">Dry Fruits &amp; Nuts</a></li>
                               <li class="more-categories">
                                  <a class="active" href="#">&gt;&gt;</a>
                                  <ul class="sub-menu">
                                     <?php 
                                           if(count($tcategories)>0){
                                              foreach($tcategories as $record){
-                                                echo ' <li><a href="'.base_url('pc/'.$record['slug']).'">'.$record['category'].'</a></li>';
+                                                echo ' <li><a href="'.base_url('shop/'.$record['slug']).'">'.$record['category'].'</a></li>';
                                              }
                                           }
                                     ?>

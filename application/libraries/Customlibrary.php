@@ -564,7 +564,7 @@ class Customlibrary
 
                                 $active = ($key==0) ? 'active':'';
                                 
-                                $html.='<li class="ct"><a href="'.base_url('pc/'.$topcategory['slug']).'" id="cat-i" class="link-filter  '.$active.'" style="color:white;" onmouseover="onHoverTopCat(this,'.$topcategory['cat_id'].')">'.$topcategory['category'].'</a></li>'; 
+                                $html.='<li class="ct"><a href="'.base_url('shop/'.$topcategory['slug']).'" id="cat-i" class="link-filter  '.$active.'" style="color:white;" onmouseover="onHoverTopCat(this,'.$topcategory['cat_id'].')">'.$topcategory['category'].'</a></li>'; 
                             
                                 }
                              }
@@ -583,7 +583,7 @@ class Customlibrary
                                 foreach($subcategories as $subcategory) {
                                     $childCategories[]=$this->getChilCategory($subcategory['cat_id'],$subcategory['sub_cat_id']);
                                      $actve= $sn==0 ? 'active':'';
-                                     $html.='<li><a href="'.base_url('pc/'.$subcategory['top_cat_slug'].'/'.$subcategory['slug']).'"class="link-filter-sub '.$actve.'" onmouseover="onHoverSubCat(this,'.$subcategory['cat_id'].','.$subcategory['sub_cat_id'].')">'.$subcategory['subCat_name'].'</a></li>';
+                                     $html.='<li><a href="'.base_url('shop/'.$subcategory['top_cat_slug'].'/'.$subcategory['slug']).'"class="link-filter-sub '.$actve.'" onmouseover="onHoverSubCat(this,'.$subcategory['cat_id'].','.$subcategory['sub_cat_id'].')">'.$subcategory['subCat_name'].'</a></li>';
                                   $sn++;
                                   }
                               }
@@ -596,7 +596,7 @@ class Customlibrary
                        <ul id="child-cat">';
                           if(isset($childCategories) && count($childCategories)>0 ){
                                foreach ($childCategories[0] as $childCategory) {
-                                  $html.='<li><a href="'.base_url('pc/'.$childCategory['top_cat_slug'].'/'.$childCategory['sub_cat_slug']).'/'.$childCategory['slug'].'" id="chi-sub-i" class="link-filter-child">'.$childCategory['childCat_name'].'</a></li>';
+                                  $html.='<li><a href="'.base_url('shop/'.$childCategory['top_cat_slug'].'/'.$childCategory['sub_cat_slug']).'/'.$childCategory['slug'].'" id="chi-sub-i" class="link-filter-child">'.$childCategory['childCat_name'].'</a></li>';
                               }
                            }
                         

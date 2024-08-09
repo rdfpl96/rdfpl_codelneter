@@ -38,9 +38,9 @@ class Product extends CI_Controller
 
       if ($slug1 != "" && $slug2 != "" && $slug3 != "") {
 
-        $breadcrum = '<span></span><a href="/shop/' . $topDetail['slug'] . '">' . $topDetail['category'] . '</a>';
+        $breadcrum = '<span></span><a href='.base_url('shop/') . $topDetail['slug'] . '>' . $topDetail['category'] . '</a>';
 
-        $breadcrum .= '<span></span><a href="/shop/' . $topDetail['slug'] . '/' . $subDetail['slug'] . '">' . $subDetail['subCat_name'] . '</a>';
+        $breadcrum .= '<span></span><a href='.base_url('shop/') . $topDetail['slug'] . '/' . $subDetail['slug'] . '>' . $subDetail['subCat_name'] . '</a>';
 
         $breadcrum .= '<span></span>' . $childDetail['childCat_name'];
 
@@ -52,7 +52,7 @@ class Product extends CI_Controller
         $categoryName = $this->customlibrary->SubCatName($products[0]['sub_cat_id']);
         $sidecategories = $this->customlibrary->getChilCategory($products[0]['cat_id'], $products[0]['sub_cat_id']);
 
-        $breadcrum = '<span></span><a href="/shop/' . $topDetail['slug'] . '">' . $topDetail['category'] . '</a>';
+        $breadcrum = '<span></span><a href='.base_url('shop/') . $topDetail['slug'] . '>' . $topDetail['category'] . '</a>';
 
         $breadcrum .= '<span></span>' . $subDetail['subCat_name'];
       } else if ($slug1 != "" && $slug2 == "") {

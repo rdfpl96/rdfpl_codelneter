@@ -263,11 +263,11 @@ $lastRange = round($end);
                                     <?php
                                     foreach ($sidecategories as $scategory) {
                                        if (isset($categoryLevel) && $categoryLevel == 1) {
-                                          echo ' <li><a href="' . base_url('pc/' . $scategory['top_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['subCat_name'] . '</span></a></li>';
+                                          echo ' <li><a href="' . base_url('shop/' . $scategory['top_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['subCat_name'] . '</span></a></li>';
                                        } else if (isset($categoryLevel) && $categoryLevel == 2) {
-                                          echo ' <li><a href="' . base_url('pc/' . $scategory['top_cat_slug'] . '/' . $scategory['sub_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['childCat_name'] . '</span></a></li>';
+                                          echo ' <li><a href="' . base_url('shop/' . $scategory['top_cat_slug'] . '/' . $scategory['sub_cat_slug'] . '/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['childCat_name'] . '</span></a></li>';
                                        } else {
-                                          echo '<li><a href="' . base_url('pc/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['category'] . '</span></a></li>';
+                                          echo '<li><a href="' . base_url('shop/' . $scategory['slug']) . '" class="filterCategory"><span>' . $scategory['category'] . '</span></a></li>';
                                        }
                                     ?>
 
