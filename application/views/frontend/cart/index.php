@@ -136,6 +136,7 @@
             <div class="co-12">
                 <div class="row related-products">
                     <?php echo $this->load->view("frontend/component/productItem", array('productItems' => $saveProducts), true); ?>
+                    
                 </div>
             </div>
             <div class="custom_hr"></div>

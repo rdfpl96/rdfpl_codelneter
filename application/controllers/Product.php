@@ -116,6 +116,7 @@ public function shop($slug1=null, $slug2=null, $slug3=null)
     $data['bread'] = 'Shop';
     $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products,"productRatings" =>$productRatings, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
     $data['price_range'] = $this->productObj->getPriceRange();
+  
     $this->load->view("frontend/product/index", $data);
 }
 
@@ -128,7 +129,7 @@ public function Price_range() {
 
 public function detail($pslug)
   {
-
+    $userCookies = getCookies('customer');
     $pdetail = $this->productObj->getProductDetailBySlug($pslug);
 
     $simillerProduct = array();
@@ -143,8 +144,16 @@ public function detail($pslug)
 
     //$this->load->view("frontend/product/detail", array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct));
 
+<<<<<<< HEAD
     $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'productRate' =>$productRate));
 }
+=======
+    $isCustomerLogin=isset($userCookies['isCustomerLogin']) ? $userCookies['isCustomerLogin'] : 0 ;
+  
+
+    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'isCustomerLogin'=>$isCustomerLogin));
+  }
+>>>>>>> pramod
 
   public function search()
   {

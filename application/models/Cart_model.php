@@ -102,7 +102,25 @@ public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
     return $array_data;
   }
 
+  public function getProductBy($customer_id,$product_id,$variant_id,$qty){
+      $array_data=array();
+      $this->db->select('P.product_id,P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock,PV.variant_id');
+      $this->db->from('tbl_product AS P');
+      $this->db->where('PV.variants_product_id',$product_id);
+      $this->db->where('PV.variant_id',$variant_id);
+      $this->db->join('tbl_product_variants AS PV', 'PV.variants_product_id = P.product_id');
+      $query=$this->db->get();
+      if($query->num_rows()>0){
+        $array_data=$query->row_array();
+        $array_data['cart_qty']=$qty;
+        return array($array_data);
+      }
+    
+    return $array_data;
+  }
+
   public function getCartList($customer_id){
+    
     $array_data=array();
     $this->db->select('P.product_id,P.product_name,P.feature_img,PV.pack_size,PV.units,PV.price,PV.before_off_price,stock,C.qty as cart_qty,C.cart_id,C.variant_id');
     $this->db->from('tbl_cartmanager AS C');

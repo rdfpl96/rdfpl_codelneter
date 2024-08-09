@@ -18,6 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         if($this->input->is_ajax_request()){
         $userCookies=getCookies('customer');
+        $buyTypeCookies=getCookies('buynowDetail');
+        $buyType=$buyTypeCookies['buytype'];
         $customer_id = $userCookies['customer_id'];
 
         $address_id=isset($_POST['address_id']) & $_POST['address_id']!='' ? $_POST['address_id'] : '';
@@ -43,8 +45,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 );
 
-                    $products= $this->cartObj->getCartList($customer_id);
-
+                    if($buyType==1){
+                        $products = $this->cartObj->getProductBy($customer_id,$buyTypeCookies['product_id'],$buyTypeCookies['variant_id'],$buyTypeCookies['qty']);
+                    }else{
+                        $products = $this->cartObj->getCartList($customer_id);
+                    }
+                    
                     if($this->paymentObj->orderSave($orderData,$products)){
                         unset($_SESSION["coupon_id"]);
                         $data['status']=0;

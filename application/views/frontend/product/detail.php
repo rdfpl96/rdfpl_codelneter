@@ -183,7 +183,7 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                                     <button class="quantity-increase qtymode" onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
                                  </div> -->
                                  <div>
-                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity :</strong></label>
+                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity3 :</strong></label>
                                     <input type="number" class="quantity-input" name="qty" id="qty<?php echo $pdetail['product_id']; ?>" value="1" min="1" max="99" style="display:inline-block;">
                                  </div>
                               </div>
@@ -196,21 +196,32 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                            <?php
                            $checkout_url = base_url('checkout') . '?product_id=' . $pdetail['product_id'];
                            ?>
-                           <a href="javascript:void(0)">
-                           <div class="grid_offer_ad mt-20">
-                              <div class="row">
+                       
+                           <!-- <div class="grid_offer_ad mt-20"> -->
+                              <div class="row mt-20">
                                  <div class="col-md-6">
                                     <button class="btn w-100  uptos475 hover-up add-to-cart-button" id="addtobtn<?php echo $pdetail['product_id']; ?>"  onclick="addToCartFromProduct(<?php echo $pdetail['product_id']; ?>);return false;">Add to basket</button>
                                  </div>
                                  <div class="col-md-6">
-                                 <div class="ad_btn" style="">
+                                
                                     <!-- <h4>Buy Now <span class="material-symbols-outlined"></span></h4> -->
-                                    <button class="btn w-100  uptos475 hover-up"  onclick="buyNow(<?php echo $pdetail['product_id']; ?>);return false;">Buy Now</button>
-                                 </div>
+                                     <?php if(isset($isCustomerLogin) && $isCustomerLogin==1) { ?>
+                                          <button class="btn w-100  uptos475 hover-up"  onclick="buyNow(<?php echo $pdetail['product_id']; ?>);return false;">Buy Now</button>
+                                     <?php } else{ 
+                                      
+                                       ?> <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal-user" class="btn w-100">Buy Now
+                                           </a>
+                                    <?php }?>    
+                                
                                  </div>
                               </div>
+<<<<<<< HEAD
                            </div>
                            </a>  
+=======
+                           <!-- </div> -->
+                        
+>>>>>>> pramod
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
 
@@ -665,9 +676,19 @@ function countIncreament(product_id,type){
 }
 
 function buyNow(product_id){
+
+   let base_url='<?php echo base_url('setbuynowdetail')?>';
    var qty=$('#qty'+product_id).val();
-   let base_url='<?php echo base_url('checkout')?>?product_id='+product_id+'&qty='+qty;
-  // alert(base_url);
-   window.location=base_url;
+   let varient_id=$('#productItemId' + product_id).val();
+   
+   $.ajax({
+      url: base_url,
+      type: 'POST',
+      dataType: 'JSON',
+      data: ({ 'product_id': product_id ,'varient_id':varient_id,'qty':qty}),
+      success: function (res) {
+         window.location='<?php echo base_url('checkout')?>';
+      }
+   });
 }
 </script>

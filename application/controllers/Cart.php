@@ -15,31 +15,15 @@ class Cart extends CI_Controller {
   public function index(){
 
     $userCookies=getCookies('customer');
-
-    // $orderSumery=$this->customlibrary->getCartSummery();
-
-    // print_r($orderSumery);
-
-    // exit();
-
-     // $cartItems= $this->cart->contents();
-     // echo'<pre>';
-     // print_r($cartItems);
-     // exit();
-     // $rowRecord=getCookiesRowId($cartItems,2,3);
-
-     // print_r($rowRecord);
-      //exit();
-
-   // $this->load->view("frontend/cart/cart");  
+  
+    setCookies("buynowDetail",array('buytype'=>0));
 
     if(isset($userCookies['isCustomerLogin']) && $userCookies['isCustomerLogin']==1){
 
         $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
 
         $data['saveProducts'] = $this->cartObj->getSaveLaterProducts($userCookies['customer_id']);
-
-
+        
         $data['beforeCheckProducts'] = $this->cartObj->getBeforeCheckout();
 
         $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($this->customlibrary->getDefaultAddressPincode());
@@ -209,7 +193,7 @@ public function deliveryAddress(){
     $userCookies=getCookies('customer');
     $customer_id = $userCookies['customer_id'];
     $data['addressList']=$this->customlibrary->getAllCustomerList($userCookies['customer_id']);
-    $data['orderSumery']=$this->customlibrary->getCartSummery($customer_id);
+    $data['orderSumery']=$this->orderSummeryForCart();
     $data['customer_id']=$userCookies['customer_id'];
     $this->load->view("frontend/cart/address",$data); 
 }
@@ -217,109 +201,83 @@ public function deliveryAddress(){
 // Delevery Option
 //  
 //previous code without buy now
-// public function checkout(){
+public function checkout(){
+
+    // print_r(getCookies('buynowDetail'));
+    // exit();
     
-//     $userCookies=getCookies('customer');
+    $userCookies=getCookies('customer');
   
-//     $customer_id = $userCookies['customer_id'];
-    
-//     $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
-
-//     if(count($data['products'])>0){
-
-//         $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
-
-//         $data['orderSumery']=$this->customlibrary->getCartSummery();
-
-//         $data['timeSlot'] = $this->cartObj->getTimeSlot();
-
-//         $data['customer_id']=$customer_id;
-
-//         $this->load->view("frontend/cart/delivery_option",$data);
-//     }else{
-//              return redirect('cart');    
-//     }
-// }
-
-public function checkout() {
-    $userCookies = getCookies('customer');
     $customer_id = $userCookies['customer_id'];
-    $data['products'] = $this->cartObj->getCartList($customer_id);
-    $product_id = $this->input->get('product_id');
+    
+    $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
 
-    if ($product_id) {
-        $items = $this->customlibrary->getProductItemByproductId($product_id);
-        $firstItem = isset($items[0]) ? $items[0] : array();
-        $data['products'] = array($firstItem);
-        $data['orderSumery'] = array(
-            'totalSellingPrice' => $firstItem['price'],
-            'totalSave' => 0
-        );
-        //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
-        //$this->session->set_userdata('buy_now_product', $firstItem);
-    } else {
-        if (count($data['products']) > 0) {
-            $data['orderSumery'] = $this->customlibrary->getCartSummery($customer_id);
-        } else {
-            return redirect('cart');
-        }
+    if(count($data['products'])>0){
+
+        $data['address_id'] = $this->customlibrary->getDefaultAddressId($userCookies['customer_id']);
+
+        $data['orderSumery']=$this->orderSummeryForCart();  //$this->customlibrary->getCartSummery($customer_id);
+       
+        $data['timeSlot'] = $this->cartObj->getTimeSlot();
+
+        $data['customer_id']=$customer_id;
+
+        $this->load->view("frontend/cart/delivery_option",$data);
+    }else{
+        return redirect('cart');    
     }
-
-    $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
-    $data['timeSlot'] = $this->cartObj->getTimeSlot();
-    $data['customer_id'] = $customer_id;
-    $this->load->view("frontend/cart/delivery_option", $data);
 }
+
+// public function checkout() {
+//     $userCookies = getCookies('customer');
+//     $customer_id = $userCookies['customer_id'];
+//     $data['products'] = $this->cartObj->getCartList($customer_id);
+//     $product_id = $this->input->get('product_id');
+
+//     if ($product_id) {
+//         $items = $this->customlibrary->getProductItemByproductId($product_id);
+//         $firstItem = isset($items[0]) ? $items[0] : array();
+//         $data['products'] = array($firstItem);
+//         $data['orderSumery'] = array(
+//             'totalSellingPrice' => $firstItem['price'],
+//             'totalSave' => 0
+//         );
+//         //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
+//         //$this->session->set_userdata('buy_now_product', $firstItem);
+//     } else {
+//         if (count($data['products']) > 0) {
+//             $data['orderSumery'] = $this->customlibrary->getCartSummery($customer_id);
+//         } else {
+//             return redirect('cart');
+//         }
+//     }
+
+//     $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
+//     $data['timeSlot'] = $this->cartObj->getTimeSlot();
+//     $data['customer_id'] = $customer_id;
+   
+//     $this->load->view("frontend/cart/delivery_option", $data);
+// }
 
 
 //previous function without buy now option
-// public function paymentOption(){
-//     $userCookies=getCookies('customer');
+public function paymentOption(){
+    $userCookies=getCookies('customer');
     
-//     $customer_id = $userCookies['customer_id'];
-//     $data['customer_id']=$customer_id;
-
-//     $products = $this->cartObj->getCartList($userCookies['customer_id']);
-//     if(count($products)>0){
-//         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();
-//         $data['order_no']='ORD'.date('Ymdhis');
-//         $data['couponList']=$this->cartObj->getCouponList();
-//         $data['orderSummery']=$this->orderSummeryForCart();
-//         $this->load->view("frontend/cart/paymentOption",$data);
-//     }else{
-//         return redirect('cart');  
-//     } 
-// }
-
-public function paymentOption() {
-    $userCookies = getCookies('customer');
     $customer_id = $userCookies['customer_id'];
-    $data['customer_id'] = $customer_id;
-    $buy_now_product = $this->session->userdata('buy_now_product');
-    if ($buy_now_product) {
-        $data['products'] = array($buy_now_product);
-        $data['orderSummery'] = array(
-            'totalSellingPrice' => $buy_now_product['price'],
-            'totalSave' => 0
-        );
-        $this->session->unset_userdata('buy_now_product');
-    } else {
-        $products = $this->cartObj->getCartList($customer_id);
-        if (count($products) > 0) {
-            $data['products'] = $products;
-            $data['orderSummery'] = $this->orderSummeryForCart($customer_id);
-        } else {
-            return redirect('cart');
-        }
-    }
-    $data['gstDetail'] = $this->customlibrary->getCustomerGstDetailId();
-    $data['order_no'] = 'ORD' . date('Ymdhis');
-    $data['couponList'] = $this->cartObj->getCouponList();
-    $this->load->view("frontend/cart/paymentOption", $data);
+    $data['customer_id']=$customer_id;
+
+    $products = $this->cartObj->getCartList($userCookies['customer_id']);
+    if(count($products)>0){
+        $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();
+        $data['order_no']='ORD'.date('Ymdhis');
+        $data['couponList']=$this->cartObj->getCouponList();
+        $data['orderSummery']=$this->orderSummeryForCart();
+        $this->load->view("frontend/cart/paymentOption",$data);
+    }else{
+        return redirect('cart');  
+    } 
 }
-
-
-
 
 
 //
@@ -466,16 +424,26 @@ public function applyCouponCode(){
 
 public function orderSummeryForCart(){
    $userCookies=getCookies('customer');
+
+   $buyTypeCookies=getCookies('buynowDetail');
+   $buyType=$buyTypeCookies['buytype'];
+
    $customer_id = $userCookies['customer_id'];
     
-   $shipingCharg=30;
+   $shipingCharg=0;
     $totalSellingPrice=0;
     $totalMrpPrice=0;
     $totalSave=0;
     $totalPayAmout=0;
+    $totalDisc=0;
     $couponDisc=isset($_SESSION['couponDisc']) ? $_SESSION['couponDisc'] : 0;
 
-    $cartProduct = $this->cartObj->getCartList($customer_id);
+    if($buyType==1){
+        $cartProduct = $this->cartObj->getProductBy($customer_id,$buyTypeCookies['product_id'],$buyTypeCookies['variant_id'],$buyTypeCookies['qty']);
+    }else{
+        $cartProduct = $this->cartObj->getCartList($customer_id);
+    }
+    
 
     if(count($cartProduct)){
          foreach($cartProduct as $record){
@@ -483,20 +451,22 @@ public function orderSummeryForCart(){
                 // print_r($record);
                 // echo'</pre>';
 
-                if($record['before_off_price']>$record['price']){
-
-                   $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
-                   
-                    $totalMrpPrice=$totalMrpPrice+($record['before_off_price']*$record['cart_qty']);
-
+                if($record['before_off_price']==0){
+                 
+                $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
+                $totalDisc=$totalDisc+ ($totalMrpPrice-0);    
                 }else{
-                  $totalSellingPrice=$totalSellingPrice+$record['price']*$record['cart_qty'];  
+                    $totalMrpPrice=$totalMrpPrice+($record['price']*$record['cart_qty']);
+                   
+                    $totalSellingPrice=$totalSellingPrice+($record['before_off_price']*$record['cart_qty']);
+                    
+                    $totalDisc=$totalDisc+ ($totalMrpPrice-$totalSellingPrice);  
                 }
 
                
             }
 
-            $totalSave=$totalMrpPrice-$totalSellingPrice;
+            $totalSave=$totalDisc;
 
             $totalPayAmout=$totalSellingPrice+$shipingCharg -$couponDisc;
 
@@ -525,6 +495,8 @@ public function orderSummeryForCart(){
     }
     
     public function buyNow() {
+
+        print_r(getCookies('buynowDetail'));
     // echo "step1";
     // exit();
     $userCookies = getCookies('customer');
@@ -596,9 +568,24 @@ public function update_address() {
         $this->session->set_flashdata('error', 'Failed to update address.');
         redirect('delivery-address'); 
     }
+    
 }
 
+    public function setBuynowDetail(){
+        if($this->input->is_ajax_request()) {
+           $data = array(
+            'buytype'       =>1,
+            'product_id'    => $this->input->post('product_id'),
+            'variant_id'    => $this->input->post('varient_id'),
+            'qty'           => $this->input->post('qty'),     
+            );
 
+            setCookies("buynowDetail",$data);
+            echo json_encode(['status' => 1]);
+        }else{
+             echo json_encode(['status' => 0]);
+        }
+    }
 
 }
 ?>

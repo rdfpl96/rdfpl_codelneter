@@ -178,7 +178,7 @@
                               <div class="third_sec_summary mb-10 mt-10">
                                  <div class="first_div_total">
                                     <p><b>Total Amount Payable</b></p>
-                                    <p><b>₹<?php echo isset($orderSumery['totalSellingPrice']) ? $orderSumery['totalSellingPrice'] : 0;?></b></p>
+                                    <p><b>₹<?php echo isset($orderSumery['totalPayAmout']) ? $orderSumery['totalPayAmout'] : 0;?></b></p>
                                  </div>
                               </div>
                               <div class="fourth_sec_summary total_summary mb-10 mt-10">
