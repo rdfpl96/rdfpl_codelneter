@@ -616,7 +616,7 @@ class Customlibrary
                                 foreach($subcategories as $subcategory) {
                                     $childCategories[]=$this->getChilCategory($subcategory['cat_id'],$subcategory['sub_cat_id']);
                                      $actve= $sn==0 ? 'active':'';
-                                     $html.='<li><a href="'.base_url('shop/'.$subcategory['top_cat_slug'].'/'.$subcategory['slug']).'"class="link-filter-sub '.$actve.'" onmouseover="onHoverSubCat(this,'.$subcategory['cat_id'].','.$subcategory['sub_cat_id'].')">'.$subcategory['subCat_name'].'</a></li>';
+                                     $html.='<li><a href="'.base_url('shop/'.$subcategory['top_cat_slug'].'/'.$subcategory['slug']).'" class="link-filter-sub '.$actve.'" onmouseover="onHoverSubCat(this,'.$subcategory['cat_id'].','.$subcategory['sub_cat_id'].')">'.$subcategory['subCat_name'].'</a></li>';
                                   $sn++;
                                   }
                               }
