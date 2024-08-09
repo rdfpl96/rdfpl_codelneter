@@ -1250,7 +1250,38 @@ public function rating_review_submit() {
     }
 }
 
-
+public function newletter(){
+    $email = $this->input->post('email');
+    $postarr = array(
+        'email'=>$email
+    );
+        $insert=$this->sqlQuery_model->sql_insert('tbl_newsletter',$postarr);
+        if($insert){
+              $mail = $this->phpmailer_lib->load();
+              $config['mailUsername']=$this->config->item('mailUsername');
+              $config['mailPassword']=$this->config->item('mailPassword');
+              $config['setFrom']=$this->config->item('setFrom');
+              $config['addCC']=$this->config->item('setFrom');
+              // Add a recipient
+              // $config['addAddress']=trim($email);
+              $config['title']='Royal Dryfruit';
+              $config['subject']='Royal Dryfruit Subscribing customer';
+              $config['mailContent']='<div>Email : '.$email.'</div>';
+              if(smtpSend($mail,$config)){
+                 $data['status']=1;
+                 $data['message']="Thank you for subscribing";
+                 $data['url']=base_url();
+                 echo json_encode($data);
+                  exit;
+              }
+          
+        }else{
+           $data['status']=0;
+           $data['message']="Failed to subscribe";
+           echo json_encode($data);
+           exit;
+         }
+}
 
 public function rating_review_details(){
     $data['content']='frontend/component/rating_review_details';

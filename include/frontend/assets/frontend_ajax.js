@@ -903,7 +903,58 @@ $(document).on('click','.billing-address-save',function(){
                   }
             })
      }
+})
 
-   
+$(document).on('click','.newletter',function(){
+    var email = $('#newsletter-email').val();
+      var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+       if(email=="" || email==null){
+         $('#newsletter-email').css('border','1px solid red');
+        return false;
+      }else if(!email.match(regexEmail)){
+        $('#newsletter-email').css('border','1px solid red');
+        return false;
+      }else{
+      $('#newsletter-email').css('border','1px solid #CCCCCC');
+        status=1;
+    }
+
+ if(status==1){
+         // loading('loaderdiv-subs','block');
+         // $('.btn-dis').removeClass('newletter');
+      $.ajax({
+              url:base_url+'Common/newletter',
+              type:'POST',
+              dataType:'JSON',
+              data:({email:email}),
+              success:function(data){
+                console.log('check=>', data);
+
+                if(data.status==1){
+
+                      var x = document.getElementById("snackbar");
+                      x.className = "show";
+                      var message=data.message;
+                      document.getElementById('snackbar').innerText=message;
+                      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+                    }else{
+                        
+                        var x = document.getElementById("snackbar");
+                          x.className = "show";
+                          var message=data.message;
+                          document.getElementById('snackbar').innerText=message;
+                          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                          $('#snackbar').addClass('errrol');
+                      }
+
+                      $('.btn-dis').addClass('newletter');
+                   loading('loaderdiv-subs','none');
+                }
+
+            });
+
+   }
+
 
 })

@@ -26,15 +26,17 @@ error_reporting(1);
 */
 // $config['base_url'] = 'http://localhost:8081/royalDryfruit/';
 
-//$config['base_url'] = 'http://localhost/newrdpl/rdfpl/';
+//$config['base_url'] = 'http://localhost/rdfpl/';
 $config['base_url'] = 'https://site.rdfpl.com/';
 
-$config['mailUsername']='krishna009300@gmail.com';
+//$config['mailUsername']='krishna009300@gmail.com';
+//$config['mailPassword']='bcsi ktsf hflg vogf';
+
+$config['mailUsername']='aarti25695@gmail.com';
 $config['mailPassword']='bcsi ktsf hflg vogf';
 
-
-
-$config['setFrom']='krishna009300@gmail.com';
+// $config['setFrom']='krishna009300@gmail.com';
+$config['setFrom']='divyakelji28@gmail.com'; // Ricever mail Id
 $config['setFrom_bcc']='';
 
 
