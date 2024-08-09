@@ -144,16 +144,11 @@ public function detail($pslug)
 
     //$this->load->view("frontend/product/detail", array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct));
 
-<<<<<<< HEAD
-    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'productRate' =>$productRate));
-}
-=======
     $isCustomerLogin=isset($userCookies['isCustomerLogin']) ? $userCookies['isCustomerLogin'] : 0 ;
   
 
     $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'isCustomerLogin'=>$isCustomerLogin));
   }
->>>>>>> pramod
 
   public function search()
   {
