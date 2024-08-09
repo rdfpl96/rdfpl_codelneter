@@ -22,14 +22,23 @@ class Cart extends CI_Controller {
 
         $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
 
-        $data['saveProducts'] = $this->cartObj->getSaveLaterProducts($userCookies['customer_id']);
+        $data['cartviews'] = $this->load->view("frontend/component/cart",$data,true);
         
-        $data['beforeCheckProducts'] = $this->cartObj->getBeforeCheckout();
+        if ($this->input->is_ajax_request()) {
 
-        $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($this->customlibrary->getDefaultAddressPincode());
+            echo json_encode(array("product"=>$data['cartviews']));
+            exit();
+           
+        }else{
 
-        $this->load->view("frontend/cart/index",$data);
+            $data['saveProducts'] = $this->cartObj->getSaveLaterProducts($userCookies['customer_id']);
+        
+            $data['beforeCheckProducts'] = $this->cartObj->getBeforeCheckout();
 
+            $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($this->customlibrary->getDefaultAddressPincode());
+
+            $this->load->view("frontend/cart/index",$data);
+        }
     }else{
         $this->load->view("frontend/notlogin");  
     }
@@ -228,36 +237,6 @@ public function checkout(){
     }
 }
 
-// public function checkout() {
-//     $userCookies = getCookies('customer');
-//     $customer_id = $userCookies['customer_id'];
-//     $data['products'] = $this->cartObj->getCartList($customer_id);
-//     $product_id = $this->input->get('product_id');
-
-//     if ($product_id) {
-//         $items = $this->customlibrary->getProductItemByproductId($product_id);
-//         $firstItem = isset($items[0]) ? $items[0] : array();
-//         $data['products'] = array($firstItem);
-//         $data['orderSumery'] = array(
-//             'totalSellingPrice' => $firstItem['price'],
-//             'totalSave' => 0
-//         );
-//         //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
-//         //$this->session->set_userdata('buy_now_product', $firstItem);
-//     } else {
-//         if (count($data['products']) > 0) {
-//             $data['orderSumery'] = $this->customlibrary->getCartSummery($customer_id);
-//         } else {
-//             return redirect('cart');
-//         }
-//     }
-
-//     $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
-//     $data['timeSlot'] = $this->cartObj->getTimeSlot();
-//     $data['customer_id'] = $customer_id;
-   
-//     $this->load->view("frontend/cart/delivery_option", $data);
-// }
 
 
 //previous function without buy now option

@@ -183,7 +183,7 @@
                <input type="hidden" class="quantity-input" id="productItemId<?php echo $record['product_id']; ?>" value="<?php echo isset($firstItem['variant_id']) ? $firstItem['variant_id'] : 0 ?>" >
                <?php if(isset($firstItem['stock']) && $firstItem['stock'] >0){ ?>
                   
-                  <button class="btn w-100 width-set  uptos475tab-slide hover-up" id="addtobtn<?php echo $record['product_id']; ?>"  onclick="addToCartBeforCheckout(<?php echo $record['product_id']; ?>);return false;">Add</button>
+                  <button class="btn w-100 width-set  uptos475tab-slide hover-up" id="addtobtn<?php echo $record['product_id']; ?>"  onclick="addToCartFromCart(<?php echo $record['product_id']; ?>);return false;">Add</button>
 
                   <div class="quantity-controls w-100 hover-up width100 common-button css-inc475tab-slide" id="aquantitycontrols<?php echo $record['product_id']?>">
                         <button class="quantity-decrease qtymode"  tabindex="0" onclick="itemtIncreament(<?php echo $record['product_id']; ?>,1);"><span class="material-symbols-outlined">-</span></button>

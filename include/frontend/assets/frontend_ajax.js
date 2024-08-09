@@ -231,7 +231,7 @@ function onHoverTopCat(thisobj, tocat_id) {
                         getChildDataBySubCatId(tocat_id, element.sub_cat_id);
                         active = 'active';
                     }
-                    html += '<li><a href="' + base_url + 'pc/' + element.top_cat_slug + '/' + element.slug + '" id="sub-i" class="link-filter-sub ' + active + '">' + element.subCat_name + '</a></li>'
+                    html += '<li><a href="' + base_url + 'shop/' + element.top_cat_slug + '/' + element.slug + '" id="sub-i" class="link-filter-sub ' + active + '">' + element.subCat_name + '</a></li>'
                 });
             }
             $('#sub-cat').html(html);
@@ -257,7 +257,7 @@ function getChildDataBySubCatId(tocat_id, sub_cat_id) {
             if (res?.chilcategories.length > 0) {
                 res.chilcategories.forEach((element, index) => {
 
-                    html1 += '<li><a href="' + base_url + 'pc/' + element.top_cat_slug + '/' + element.sub_cat_slug + '/' + element.slug + '" id="chi-sub-i" class="link-filter-child">' + element.childCat_name + '</a></li>';
+                    html1 += '<li><a href="' + base_url + 'shop/' + element.top_cat_slug + '/' + element.sub_cat_slug + '/' + element.slug + '" id="chi-sub-i" class="link-filter-child">' + element.childCat_name + '</a></li>';
                 });
             }
             $('#child-cat').html(html1);
@@ -360,12 +360,20 @@ function addToCartFromProduct(product_id) {
     saveCart(product_id, productItemId, qty, 2)
 }
 
+function addToCartFromCart(product_id) {
+    var productItemId = $('#productItemId' + product_id).val();
+    var qty = $('#qty' + product_id).val();
+
+    saveCart(product_id, productItemId, qty, 2)
+
+}
+
 function addToCart(product_id) {
     var productItemId = $('#productItemId' + product_id).val();
     $('#addtobtn' + product_id).hide();
     $('#aquantitycontrols' + product_id).css('display', 'flex');
 
-    saveCart(product_id, productItemId, 1, 2)
+    saveCart(product_id, productItemId, 1, 2);
 }
 
 function itemtIncreament(product_id, type) {
@@ -389,37 +397,6 @@ function itemtIncreament(product_id, type) {
     saveCart(product_id, productItemId, 1, type)
 }
 
-// function itemtIncreamentFromCart(product_id,type,price,mrp,cart_id){
-//     var productItemId=$('#productItemId'+product_id).val();
-//     var qty=$('#qty'+product_id).val();
-
-//     if(type==2){
-//       qty=parseInt(qty)+1;
-//     }
-//     else if(type==1){
-
-//       if(parseInt(qty) >1){
-
-//         qty=parseInt(qty)-1;
-//       }else{
-
-//        deleteItem(cart_id)
-//       }
-
-//     }
-
-//     let subprice=parseInt(qty)*parseInt(price);
-//     let subprice1=parseInt(qty)*parseInt(price);
-//     let savePrice=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
-//     let savePrice1=parseInt(qty)*parseInt(mrp)-(parseInt(qty)*parseInt(price));
-//     $('#subprice1'+product_id).text(subprice1);
-//     $('#subprice'+product_id).text(subprice);
-//     $('#savePrice'+product_id).text(savePrice);
-//     $('#savePrice1'+product_id).text(savePrice1);
-
-//     $('#qty'+product_id).val(qty);
-//     saveCart(product_id,productItemId,1,type)
-// }
 
 function itemtIncreamentFromCart(product_id, type, price, mrp, cart_id) {
     var productItemId = $('#productItemId' + product_id).val();
@@ -446,7 +423,8 @@ function itemtIncreamentFromCart(product_id, type, price, mrp, cart_id) {
     saveCart(product_id, productItemId, 1, type);
 
     // Refresh the page after the operations are done
-    location.reload();
+    // location.reload();
+
 }
 
 function saveCart(product_id, variant_id, qty, cartType) {
@@ -460,11 +438,24 @@ function saveCart(product_id, variant_id, qty, cartType) {
             if (result.status == 1) {
                 $('.total-items').text(result.total_items);
             }
+            getCartList();
             var x = document.getElementById("snackbar");
             x.className = "show";
             var message = result.message;
             document.getElementById('snackbar').innerText = message;
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+    });
+}
+
+function getCartList() {
+    $.ajax({
+        type: "POST",
+        dataType: "JSON",
+        url: base_url + 'cart/index',
+        success: function (res) {
+            $('#cartlist').html(res.product);
         }
 
     });

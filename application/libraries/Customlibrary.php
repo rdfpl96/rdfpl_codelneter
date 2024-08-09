@@ -470,7 +470,7 @@ class Customlibrary
         $couponAmt=0;
 
         $cartAmount=$this->getTotalCartAmount($customerId);
-        print_r($cartAmount);
+        //print_r($cartAmount);
 
     }
  
