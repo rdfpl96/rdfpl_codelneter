@@ -135,7 +135,6 @@
                         </div>
                            <div class="header-action-icon-2 login_sign_up_btn">
                               <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { 
-                                 //print_r($custDetail);
                                  ?>
 
                                     <!-- Default dropend button -->

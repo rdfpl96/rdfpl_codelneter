@@ -24,9 +24,7 @@ class Product extends CI_Controller
 
     $breadcrum = "";
     $products = $this->productObj->getProdcutListBySlug($slug1, $slug2, $slug3);
-    // echo'<pre>';
-    // print_r($products);
-    // exit();
+    
 
     if (is_array($products) && count($products) > 0) {
 

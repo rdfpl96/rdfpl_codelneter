@@ -210,7 +210,7 @@ $lastRange = round($end);
                                           </label>
                                        </div>
                                     </div>
-                                    <!--list-group end-->
+                                    
                                     <div class="list-group">
                                        <div class="list-group-item">
                                           <input class="form-check-input price-range class-price-desk0" type="checkbox">

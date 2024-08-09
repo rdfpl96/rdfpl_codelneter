@@ -196,6 +196,7 @@ $route['getSubCategoryTopId/(:num)']='common/getSubCategoryTopId/$1';
 $route['getChildDataBySubCatId/(:num)/(:num)']='common/getChildDataBySubCatId/$1/$2';
 $route['rating-details/(:num)'] = 'common/ratingReviewDetails/$1';
 
+
 //cart
 $route['cart']='cart/index';
 $route['cart/save-to-later']='cart/saveToLater';

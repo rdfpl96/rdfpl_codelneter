@@ -558,8 +558,6 @@ class Customlibrary
                              
                               $subCate=json_encode($this->getAllSubCategory());
 
-                             // print_r($subcategories);
-
                               foreach ($topcategories as $topcategory) {
 
                                 $active = ($key==0) ? 'active':'';
