@@ -205,7 +205,7 @@ class Category_model extends CI_Model
 
 
 
-  public function category_search($searchText = '',) {
+  public function category_search($searchText = '', $limit = 10, $start = 0,) {
     $this->db->select('T1.*');
     $this->db->from('tbl_category AS T1');
     
@@ -213,9 +213,15 @@ class Category_model extends CI_Model
     if (!empty($searchText)) {
         $this->db->like('T1.category', $searchText);
     }
-   
+    
+
+    
+    // Apply limit and offset
+    $this->db->limit($limit, $start);
+    
     $query = $this->db->get();
     return $query->result_array();
 }
+
 
 }
