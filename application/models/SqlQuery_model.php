@@ -21,6 +21,9 @@ class SqlQuery_model extends CI_Model
         tbl_address.country,
         tbl_product.product_name,
         tbl_product.feature_img,
+        tbl_customer.registration_no,
+        tbl_customer.company_name,
+        tbl_customer.company_address,
         SUM(tbl_order_item.price) as order_amount
     ');
     $this->db->from('tbl_order');

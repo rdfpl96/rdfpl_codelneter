@@ -10,77 +10,7 @@
 
             foreach($order_details as $value){
 
-
-
-                // echo "<pre>";
-                // print_r($value);
-                // die();
-                    // print_r($getMinVa);
-                    //                   print_r($value->shiprocket_shipment_id);
-                    //                   echo "</pre>";
-
-                        //  $getArr=array(
-                        //                'address1' =>$value->order_address,
-                        //                'country' =>$value->order_country,
-                        //                'apartment'=>$value->order_alt_address,
-                        //                'landmark'=>$value->order_landmark,
-                        //                'area'=>$value->order_area,
-                        //                'city'   =>$value->order_city,
-                        //                'state'  =>$value->order_state,
-                        //                'pincode' =>$value->order_pincode) ;
-
-                        //  $importValue=implode(', ', array_filter($getArr));
-                         
-                        //  $getShipAddr=(($value->order_type_of_address !="") ? (($value->order_type_of_address=='Others') ? $value->order_type_of_address_others_value : $value->order_type_of_address).' - ' :'').$importValue;
-                     
-
-                        //    $getArr_bill=array(
-                        //                'address1' =>$value->bill_order_address,
-                        //                'country' =>$value->bill_order_country,
-                        //                'apartment'=>$value->bill_order_alt_address,
-                        //                'landmark'=>$value->bill_order_landmark,
-                        //                'area'=>$value->bill_order_area,
-                        //                'city'   =>$value->bill_order_city,
-                        //                'state'  =>$value->bill_order_state,
-                        //                'pincode' =>$value->bill_order_pincode) ;
-                        //         $importValue_bill=implode(', ', array_filter($getArr_bill));
-
-                       
-                        //         $getShipAddr_bill=(($value->bill_order_type_of_address !="") ? (($value->bill_order_type_of_address=='Others') ? $value->bill_order_type_of_address_others_value : $value->bill_order_type_of_address).' - ' :'').$importValue_bill;
-              
-                    
-
-
-                       // $lable=downloadWareIQShipLabel($value->courier_unique_id);
-                       // $wareIq_invoice=downloadWareIQinvoice($value->courier_unique_id);
-                       // $wareIq_pickList=downloadWareIQPickList($value->courier_unique_id);
-                       // $wareIq_packList=downloadWareIQPackList($value->courier_unique_id);
-                       // $wareIq_Manifest=downloadWareIQManifest($value->courier_unique_id);
-
-  
-
-                       // $pickuppoint=pickupPointDetails();
-                      
-
-                    //     $order_payment=$value->order_payment;
-                    //      if($value->order_payment=='Success payment'){
-                    //         $style='style="background-color:#33cc33;color:white;border:white;"';
-                    //      }else if($value->order_payment=='Pending payment'){
-                    //        $style='style="background-color:#F49832;color:white;border:white;"';
-                    //      }else{
-                    //        $style='style="background-color:#ff3300;color:white;border:white;"';
-                    //      }
-
-                       
-                    //   if($value->payment_mode=='Instamojo'){
-                    //       $payment_id=$value->instamojo_payment_id;
-                    //   }else if($value->payment_mode=='Razorpay'){
-                    //      $payment_id=$value->razorpay_payment_id;
-                    //   }
                 ?>
-
-
-
                <div class="body d-flex py-3">  
                 <div class="container-xxl"> 
                     <input type="hidden" name="order_id" id="order-id" value="<?php echo $value->order_id;?>">
@@ -315,33 +245,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                          <div class="row">
-                            <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                                    <h6 class="mb-0 fw-bold ">GST details</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row g-3">
-                                        <div class="col-12">
-                                            <label class="form-label col-6 col-sm-6">Registration No:</label>
-                                            <span><?php echo ($value->registration!="") ? $value->registration :'<span style="color:red;">Not Mension</span>';?></span>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label col-6 col-sm-6">Reg. Company Name :</label>
-                                            <span><?php echo ($value->company_name!="") ? $value->company_name :'<span style="color:red;">Not Mension</span>';?></span>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label col-6 col-sm-6">Reg. Company Address :</label>
-                                            <span><?php echo ($value->company_address!="") ? $value->company_address :'<span style="color:red;">Not Mension</span>';?></span>
-                                        </div>
-
-                                    </div>
-                                </div>
+                      
+                        <?php 
+foreach ($order_details as $Gstdetails) {
+?>
+    <div class="col">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
+                        <h6 class="mb-0 fw-bold">GST details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label col-6 col-sm-6">Registration No:</label>
+                                <span><?php echo (!empty($Gstdetails['registration_no'])) ? $Gstdetails['registration_no'] : '<span style="color:red;">Not Mentioned</span>'; ?></span>
                             </div>
+                            <div class="col-12">
+                                <label class="form-label col-6 col-sm-6">Reg. Company Name:</label>
+                                <span><?php echo (!empty($Gstdetails['company_name'])) ? $Gstdetails['company_name'] : '<span style="color:red;">Not Mentioned</span>'; ?></span>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label col-6 col-sm-6">Reg. Company Address :</label>
+                                <span><?php echo (!empty($Gstdetails['company_address'])) ? $Gstdetails['company_address'] : '<span style="color:red;">Not Mentioned</span>'; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php 
+}
+?>
 
-                          </div>
 
                            <div class="col-sm-12">
                             <p>&nbsp;</p>
@@ -423,9 +361,9 @@
                                                         <button type="button" class="btn btn-danger und-ot cancel-shipment" style="color:white;" data-id="<?php echo $value->courier_awb_code;?>" data-value="<?php echo $value->shiprocket_shipment_id;?>">Cancel Shipment</button>
                                                         <?php }  ?>
 
-
-                                                        <!-- <button type="button" class="btn btn-danger und-ot-c cancel-order" style="color:white;background-color: #dc3545 !important;" data-id="<?php //echo $value->shiprocket_order_id;?>">Cancel Order</button>
-                                                -->
+<!-- 
+                                                        <button type="button" class="btn btn-danger und-ot-c cancel-order" style="color:white;background-color: #dc3545 !important;" data-id="<?php //echo $value->shiprocket_order_id;?>">Cancel Order</button> -->
+                                               
                                                 <?php } ?>
                                          
                                         </div>
@@ -657,23 +595,3 @@
         }
   
      ?>
-
-
-     <!-- add_courier_details_modal.php -->
-        
-        <style type="text/css">
-          .input-group-text{
-            background-color:initial !important;
-            border-color:initial !important;
-            /*color:white !important;*/
-            border:initial !important;
-          }
-          .input-group-prepend .kg{
-
-            background-color:#e9ecef !important;
-            /*border-color:1px solid #ced4da !important;*/
-            /*color:white !important;*/
-            border:1px solid #ced4da !important;
-
-          }
-        </style>
