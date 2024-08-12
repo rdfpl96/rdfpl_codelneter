@@ -87,7 +87,7 @@ class Category_model extends CI_Model
 
 
     $this->db->limit($records_per_page, $start);
-    $this->db->order_by("add_date", "desc");
+    
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
 
@@ -205,18 +205,17 @@ class Category_model extends CI_Model
 
 
 
-  public function category_search($searchText = '')
-  {
-    // print_r($searchText);
-    // die();
+  public function category_search($searchText = '',) {
     $this->db->select('T1.*');
     $this->db->from('tbl_category AS T1');
-
+    
     // Check if the search term is not empty
     if (!empty($searchText)) {
-      $this->db->like('T1.category', $searchText);
+        $this->db->like('T1.category', $searchText);
     }
+   
     $query = $this->db->get();
     return $query->result_array();
-  }
+}
+
 }

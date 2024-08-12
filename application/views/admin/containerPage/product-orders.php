@@ -87,13 +87,11 @@
                                                 <td><?php echo $order['customer_name']; ?></td>
                                                 <td><?php echo $order['location']; ?></td>
                                                 <td><?php echo $order['order_amount']; ?></td>
-                                                
-                                                <td  style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
-                                                
+                                                <td style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['order_status']) ? $order['order_status'] : 'Pending'; ?></td>
                                                 <td style="background-color:#F49832;color:white;border:white;"><?php echo !empty($order['pay_status']) ? $order['pay_status'] : 'Pending'; ?></td>
                                                 <td><?php echo $order['order_date']; ?></td>
-                                                 <td><a href="<?php echo base_url('admin/order_details/' . $order['order_no']); 
-                                               ?>" class="btn btn-primary">View Details</a></td>
+                                                <td><a href="<?php echo base_url('admin/order_details/' . $order['order_no']);
+                                                                ?>" class="btn btn-primary">View Details</a></td>
                                             </tr>
                                         <?php }
                                     } else { ?>
@@ -117,51 +115,45 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#search-orders').keyup(function() {
 
+            // var searchText = $(this).val();
 
-$(document).ready(function() {
-    $('#search-orders').keyup(function() {
+            $.ajax({
+                url: "<?php echo base_url('admin/search_order_list') ?>",
+                type: 'POST',
+                data: {
+                    searchText: $('#search-orders').val(),
+                    fromDate: $('#fromDate').val(),
+                    toDate: $('#toDate').val()
+                },
+                success: function(response) {
+                    $('#trRow').html(response);
+                }
+            });
 
-        // var searchText = $(this).val();
-
-        $.ajax({
-            url: "<?php echo base_url('admin/search_order_list')?>",
-            type: 'POST',
-            data: {
-                searchText:$('#search-orders').val(),
-                fromDate: $('#fromDate').val(),
-                toDate: $('#toDate').val()
-                  },
-            success: function(response) {
-                $('#trRow').html(response);
-            }
         });
-
     });
-});
 
-$(document).ready(function() {
-    $('.searchDate').on('change' , function() {
+    $(document).ready(function() {
+        $('.searchDate').on('change', function() {
 
-        // var searchText = $(this).val();
+            // var searchText = $(this).val();
 
-        $.ajax({
-            url: "<?php echo base_url('admin/search_order_list')?>",
-            type: 'POST',
-            data: {
-                searchText:$('#search-orders').val(),
-                fromDate: $('#fromDate').val(),
-                toDate: $('#toDate').val()
-                  },
-            success: function(response) {
-                $('#trRow').html(response);
-            }
+            $.ajax({
+                url: "<?php echo base_url('admin/search_order_list') ?>",
+                type: 'POST',
+                data: {
+                    searchText: $('#search-orders').val(),
+                    fromDate: $('#fromDate').val(),
+                    toDate: $('#toDate').val()
+                },
+                success: function(response) {
+                    $('#trRow').html(response);
+                }
+            });
+
         });
-
     });
-});
-
-
 </script>
-
-

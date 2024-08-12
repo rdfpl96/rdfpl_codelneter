@@ -134,38 +134,32 @@ class Category extends CI_Controller
         exit();
     }
     
-    
     public function SearchCategory() {
-                    
         $searchText = $this->input->post('searchText');
-       
-        $Cat_Html = $this->category->category_search($searchText);
-      
-        $html.='';
+    
+        
+        $Cat_Html = $this->category->category_search($searchText,);
+        
+        $html = '';
         foreach ($Cat_Html as $val) {
             $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-            $html.='<tr>
-                <td>'.$val['cat_id'].'</td>
-                <td>'.$val['category'].'</td>
-                <td>'.$val['slug'].'</td>
-                <td>'.$status.'</td>
-                <td>'.$val['add_date'].'</td>
-                <td>'.$val['action'].'</td>
-                <td><a href="' . base_url() .'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
-              <a href="javascript:deleteRowtablecat('.$val['cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i> Delete</a>
-              </td>
+            $html .= '<tr>
+                <td>' . $val['cat_id'] . '</td>
+                <td>' . $val['category'] . '</td>
+                <td>' . $val['slug'] . '</td>
+                <td>' . $status . '</td>
+                <td>' . date('d-m-Y', strtotime($val['add_date'])) . '</td>
+                <td>
+                    <a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a>
+                    <a href="javascript:deleteRowtablecat(' . $val['cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                </td>
             </tr>';
         }
-
-
-        // $data['categories']
-
+        
         print_r($html);
         die();
-    
-        // $data['content'] = 'admin/containerPage/index';
-        // $this->load->view('admin/template', $data);
     }
+    
 
 
 

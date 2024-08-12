@@ -2013,8 +2013,10 @@ class Admin extends CI_Controller
     // $sql_limit = 'LIMIT ' . $page * $limit_per_page . ',' . $limit_per_page;
     $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id);
 
+    // echo '<pre>';
     // print_r($data['order_list'] );
     // die();
+
     $data["links"] = $this->pagination->create_links();
 
     //$data['order_amount'] = $this->sqlQuery_model->getOrderAmount();  // Assuming this method returns the total amount

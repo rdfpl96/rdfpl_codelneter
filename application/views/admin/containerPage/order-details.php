@@ -2,6 +2,10 @@
             <?php
 
            $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
+
+
+
+
            if($order_details!=0){
 
             foreach($order_details as $value){
@@ -156,8 +160,8 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="fa fa-user fa-lg" aria-hidden="true"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Name</div><?php echo $value['customer_name'];?>
-                                        <span class="small"><?php echo $value?></span>
+                                        <div class="h6 mb-0">Name</div> <?php echo $value['customer_name'];?>
+                                        <span class="small"><?php //echo $value?></span>
                                     </div>
                                 </div>
                             </div>
@@ -238,13 +242,11 @@
                                                 ?>
                                                 </span>
                                         </div>
-
-                                        <div class="col-12">
-                                            <label class="form-label col-6 col-sm-6">Email:</label>
-                                              <span><?php echo ($value->order_email!="") ? $value->order_email :'<span style="color:red;">Not Mension</span>';?></span>
-                                        </div>
-
-                                       <!--  <div class="col-12">
+                                            <div class="col-12">
+                                                <label class="form-label col-6 col-sm-6">Email:</label>
+                                                <span><?php echo (!empty($value['email'])) ? $value['email'] : '<span style="color:red;">Not Mentioned</span>'; ?></span>
+                                            </div>
+                                                                <!--  <div class="col-12">
                                             <label class="form-label col-6 col-sm-6">Landmark:</label>
                                               <span><?php //echo ($value->order_landmark!="") ? $value->order_landmark :'<span style="color:red;">Not Mension</span>';?></span>
                                         </div> -->
@@ -297,7 +299,7 @@
 
                                         <div class="col-12">
                                             <label class="form-label col-6 col-sm-6">Email:</label><br>
-                                            <span><?php echo ($value->bill_order_email!="") ? $value->bill_order_email :'<span style="color:red;">Not Mension</span>';?></span>
+                                            <span><?php echo ($value->email!="") ? $value->email :'<span style="color:red;">Not Mension</span>';?></span>
                                         </div>
 
                                        <!--  <div class="col-12">
@@ -318,8 +320,7 @@
                             <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                                    <h6 class="mb-0 fw-bold ">GST Deatil</h6>
-                                   
+                                    <h6 class="mb-0 fw-bold ">GST details</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="row g-3">
@@ -423,8 +424,8 @@
                                                         <?php }  ?>
 
 
-                                                        <button type="button" class="btn btn-danger und-ot-c cancel-order" style="color:white;background-color: #dc3545 !important;" data-id="<?php echo $value->shiprocket_order_id;?>">Cancel Order</button>
-                                               
+                                                        <!-- <button type="button" class="btn btn-danger und-ot-c cancel-order" style="color:white;background-color: #dc3545 !important;" data-id="<?php //echo $value->shiprocket_order_id;?>">Cancel Order</button>
+                                                -->
                                                 <?php } ?>
                                          
                                         </div>
@@ -470,86 +471,78 @@
                                 <div class="card-body">
 
                               
-                                    <div class="product-cart" style="overflow-y: scroll;height: 500px;">
-                                        <div class="checkout-table table-responsive">
-                                            <table id="myCartTable" class="table display dataTable table-hover align-middle" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="">Product Image</th>
-                                                        <th>Product Name</th>
-                                                        <th class="">Quantity</th>
-                                                        <th class="">Price</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                         <div class="product-cart" style="overflow-y: scroll; height: 500px;">
+                        <div class="checkout-table table-responsive">
+                            <table id="myCartTable" class="table display dataTable table-hover align-middle" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="">Product Image</th>
+                                        <th>Product Name</th>
+                                        <th class="">Quantity</th>
+                                        <th class="">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $totalPrice = 0; 
+                                    
+                                    if ($order_details != 0) {
+                                        foreach ($order_details as $pvalue) {
+                                            $productPrice = $pvalue['order_amount'];
 
-                                                    <?php
-                                                    if($order_product_details!=0){
+                                            $quantity = $pvalue['qty'];
 
-                                                        foreach($order_product_details as $pvalue){
-                                                            // echo "<pre>";
-                                                            // print_r($pvalue);
-                                                            // echo "</pre>";
-                                                            ?>
+                                            $totalPrice += $productPrice * $quantity; 
 
-                                                            <tr>
-                                                                <td>
-                                                                    <img src="<?php echo base_url('uploads/'.$pvalue->pro_product_img);?>" class="avatar rounded lg" alt="Product">
-                                                                </td>
-                                                                <td>
-                                                                    <span style="font-weight: bold;"><?php echo $pvalue->pro_cat_name;?></span>
-                                                                    <h5 class=""><?php echo $pvalue->pro_product_name;?></h5>
-                                                                    <span><?php echo $pvalue->packsize;?> <?php echo $pvalue->units;?></span>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo $pvalue->pro_product_qty;?>
-                                                                </td>
-                                                                <td>
-                                                                  <?php $offerValue=($pvalue->pro_offer_status=='offer-product') ?' <span class="offer-idv">Free Offer</span>' :'';?>
-                                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $pvalue->pro_subtotal;?>  <?php echo $offerValue;?></p>
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <img src="<?php echo base_url('uploads/' . $pvalue['feature_img']); ?>" class="avatar rounded lg" alt="Product">
+                                                </td>
+                                                <td>
+                                                    <span style="font-weight: bold;"><?php echo $pvalue->pro_cat_name; ?></span>
+                                                    <h5><?php echo $pvalue['product_name']; ?></h5>
+                                                </td>
+                                                <td>
+                                                    <span><?php echo $pvalue['qty']; ?></span>
+                                                </td>
+                                                <td>
+                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $pvalue['order_amount']; ?></p>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="checkout-coupon-total checkout-coupon-total-2 d-flex flex-wrap justify-content-end">
+                            <div class="checkout-total">
+                                <div class="single-total">
+                                    <p class="value">Total Price:</p>
+                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $totalPrice; ?></p>
+                                </div>
 
-                                                                </td>
-                                                            </tr>
+                                <?php if ($value->order_coupon_offer_amt > 0) { ?>
+                                    <div class="single-total">
+                                        <p class="value">Coupon Value:</p>
+                                        <p class="price"><i class="fa fa-inr" aria-hidden="true"></i><?php echo $value->order_coupon_offer_amt; ?></p>
+                                    </div>
+                                <?php } ?>
 
-
-                                                            
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="checkout-coupon-total checkout-coupon-total-2 d-flex flex-wrap justify-content-end">
-                                            <div class="checkout-total">
-                                                <div class="single-total">
-                                                    <p class="value">Total Price:</p>
-                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $value->order_total_purchase_amount;?></p>
-                                                </div>
-
-                                                <?php if($value->order_coupon_offer_amt > 0){?>
-
-                                                        <div class="single-total">
-                                                            <p class="value">Coupon Value:</p>
-                                                            <p class="price"><i class="fa fa-inr" aria-hidden="true"></i><?php echo $value->order_coupon_offer_amt;?></p>
-                                                        </div>
-                                                <?php } ?> 
-
-                                                <div class="single-total">
-                                                    <p class="value">Shipping Charge:</p>
-                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $value->order_shipping_charges;?></p>
-                                                </div>
-                                               
+                                <div class="single-total">
+                                    <p class="value">Shipping Charge:</p>
+                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $value->order_shipping_charges; ?></p>
+                                </div>
                                                 <div class="single-total total-payable">
-                                                    <p class="value">Total Payable: 
-
-                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $value->order_total_final_amt;?></p>
+                                                    <p class="value">Total Payable:</p>
+                                                    <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $value->order_total_final_amt; ?></p>
                                                 </div>
-
                                             </div>
                                         </div>
-                                    </div>     
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

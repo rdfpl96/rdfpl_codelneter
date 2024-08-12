@@ -87,7 +87,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>Slug</th>
                                         <th>Status</th>
                                         <th>Date</th>
-                                        <th>Image</th>
+                                        <!-- <th>Image</th> -->
                                         <th>Action</th>
                                     </tr>
                                 </thead>
