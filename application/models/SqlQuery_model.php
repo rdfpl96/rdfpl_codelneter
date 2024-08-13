@@ -6,7 +6,38 @@ class SqlQuery_model extends CI_Model
 
    public function sql_select_where_orderdetails($getOrderId)
 {
-    $this->db->select('
+   //  $this->db->select('
+   //      tbl_order.order_no as order_no,
+   //      tbl_address.fname as customer_name,
+   //      tbl_order.order_date,
+   //      tbl_order_item.qty,
+   //      tbl_address.address1,
+   //      tbl_address.address2,
+   //      tbl_address.area,
+   //      tbl_address.pincode,
+   //      tbl_address.city,
+   //      tbl_address.email,
+   //      tbl_address.state,
+   //      tbl_address.country,
+   //      tbl_product.product_name,
+   //      tbl_product.feature_img,
+   //      tbl_customer.registration_no,
+   //      tbl_customer.company_name,
+   //      tbl_customer.company_address,
+   //      SUM(tbl_order_item.price) as order_amount
+   //  ');
+   //  $this->db->from('tbl_order');
+   //  $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+   //  $this->db->join('tbl_product', 'tbl_product.product_id = tbl_order_item.product_id', 'left');
+   //  $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+   //  $this->db->join('tbl_address', 'tbl_order.customer_id = tbl_address.customer_id', 'left');
+   //  $this->db->group_by('tbl_order.order_no, tbl_customer.c_fname, tbl_order.order_date, tbl_order_item.qty, tbl_address.address1, tbl_address.address2, tbl_address.area, tbl_address.pincode, tbl_address.city, tbl_address.email, tbl_address.state, tbl_address.country, tbl_product.product_name, tbl_product.feature_img');
+   //  $this->db->where_in('tbl_order.order_no', $getOrderId);
+
+   //  $query = $this->db->get();
+   //  return $query->result_array();
+
+   $this->db->select('
         tbl_order.order_no as order_no,
         tbl_address.fname as customer_name,
         tbl_order.order_date,
