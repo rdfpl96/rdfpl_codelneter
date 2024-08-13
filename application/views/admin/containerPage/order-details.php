@@ -26,36 +26,36 @@ if ($order_details != 0) {
                             </div>
 
                             <h4 class="fw-bold mb-0 custom-order-details">Order Details: #<?php echo $order_details[0]['order_no']; ?>
-                                <span class="badge custom-order-css" <?php echo $style; ?>><?php echo $order_payment; ?></span>
+                                <span class="badge custom-order-css" <?php //echo $style; ?>><?php //echo $order_payment; ?></span>
                                 
-                                <a href="<?php echo base_url('admin/product_order'); ?>"><button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" style="margin-left: 300px;">Back</button></a>
+                                <a href="<?php echo base_url('admin/product_order'); ?>"><button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" style="margin-left: 300px;">Back</button></a>
 
                                 <?php if ($value->order_status == 'Delivered' || $value->order_status == 'Ready to ship' || $value->order_status == 'Shipped') { ?>
-                                    <a href="<?php echo base_url('admin/download-invoice-admin?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Invoice</span></a>
+                                    <!-- <a href="<?php echo base_url('admin/download-invoice-admin?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Invoice</span></a> -->
                                 <?php } ?>
 
                                 <?php if ($value->order_status == 'Delivered' || $value->order_status == 'Ready to ship' || $value->order_status == 'Shipped') { ?>
-                                    <a href="<?php echo base_url('admin/packing_slip?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Packing Slip</span></a>
+                                    <!-- <a href="<?php //echo base_url('admin/packing_slip?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Packing Slip</span></a> -->
                                 <?php } ?>
 
                                 <?php if ($value->order_status == 'Delivered' || $value->order_status == 'Ready to ship' || $value->order_status == 'Shipped') { ?>
-                                    <a href="<?php echo base_url('admin/shipping_label?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Shipping Label</span></a>
+                                    <!-- <a href="<?php echo base_url('admin/shipping_label?d=' . $value->order_generated_order_id); ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">Shipping Label</span></a> -->
                                 <?php } ?>
 
-                                <a href="<?php //echo $lable->url;
-                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Shipping Label</span></a>   
-
+                                <!-- <a href="<?php
+                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Shipping Label</span></a>    -->
+<!-- 
                                 <a href="<?php //echo $wareIq_invoice->url;
-                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Invoice</span></a>   
+                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Invoice</span></a>    -->
 
-                                <a href="<?php //echo $wareIq_pickList->url;
-                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ PickList</span></a>   
-
+                                <!-- <a href="<?php //echo $wareIq_pickList->url;
+                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ PickList</span></a>    -->
+<!-- 
                                 <a href="<?php //echo $wareIq_packList->url;
-                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ PackList</span></a>   
-
+                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ PackList</span></a>    -->
+<!-- 
                                 <a href="<?php //echo $wareIq_Manifest->url;
-                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Manifest</span></a>   
+                                ?>"><span class="badge" style="background-color:#689F39;color:white;border:white;font-size: 15px;">WareIQ Manifest</span></a>    -->
                             </h4>
                         </div>
                     </div>
@@ -72,9 +72,7 @@ if ($order_details != 0) {
                             <span class="small">
                                 <?php echo date('d M, l h:i a', strtotime($order_details[0]['order_date'])); ?>
                             </span>
-                        </div>
-
-
+                         </div>
                             </div>
                         </div>
                     </div>

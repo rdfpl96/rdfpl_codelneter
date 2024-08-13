@@ -31,10 +31,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="filter-search">
-                                    <!-- <form action="#" id="search-form" method="post" enctype="multipart/form-data">
+                                    <form action="#" id="search-form" method="post" enctype="multipart/form-data">
                                         <label class="form-label">Search Childcategory</label>
-                                        <input type="text" placeholder="" class="form-control" name="search-cat" id="search-cat">
-                                    </form> -->
+                                        <input type="text" placeholder="Search Childcategory......" class="form-control" name="search-cat" id="search-cat">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -64,9 +64,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($childcatdetails)): ?>
+                                        <?php $sn = $start_number;  ?>
                                         <?php foreach ($childcatdetails as $index => $detail): ?>
                                             <tr>
-                                                <td><?php echo $index + 1; ?></td>
+                                            <td><?php echo $sn++; ?></td>
                                                 <td><?php echo htmlspecialchars($detail['category']); ?></td>
                                                 <td><?php echo htmlspecialchars($detail['subCat_name']); ?></td>
                                                 <td><?php echo htmlspecialchars($detail['childCat_name']); ?></td>
@@ -146,13 +147,13 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 location.reload();
                             });
                         }
-                        //  else {
-                        //     Swal.fire(
-                        //         'Failed!',
-                        //         'Failed to delete subcategory.',
-                        //         'error'
-                        //     );
-                        // }
+                         else {
+                            Swal.fire(
+                                'Failed!',
+                                'Failed to delete subcategory.',
+                                'error'
+                            );
+                        }
                     },
                     // error: function() {
                     //     Swal.fire(
@@ -176,8 +177,13 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 searchText: $('#search-cat').val(),
             },
             success: function(response) {
-                $('#datalist').html(response);
+                //$('#datalist').html(response);
+                alert('Search Subcategory');
             }
         });
     });
+
+
+
+
 </script>

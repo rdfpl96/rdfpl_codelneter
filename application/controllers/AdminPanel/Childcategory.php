@@ -10,6 +10,8 @@ class Childcategory extends CI_Controller
 
         parent::__construct();
         $this->load->library('my_libraries');
+
+
         $this->load->library('pagination');
 
         $this->load->model('admin/Child_category_model', 'Child_category_model');
@@ -27,48 +29,43 @@ class Childcategory extends CI_Controller
     
 
     public function index()
-{   
+    {
+        $config['base_url'] = base_url() . "admin/childcategory";
+        $config['total_rows'] = $this->Child_category_model->Child_category_count_all(); 
+        $config['per_page'] = 10; 
+        $config['uri_segment'] = 3; // Adjust if necessary based on your URL structure
     
+     
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = 'First';
+        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['first_tag_close'] = '</a></li>';
+        $config['last_link'] = 'Last';
+        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['last_tag_close'] = '</a></li>';
+        $config['next_link'] = 'Next';
+        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['next_tag_close'] = '</a></li>';
+        $config['prev_link'] = 'Previous';
+        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+        $config['prev_tag_close'] = '</a></li>';
+        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+        $config['num_tag_close'] = '</li>';
    
-    $config['base_url'] = base_url() . "admin/childcategory";
-    $config['total_rows'] = $this->Child_category_model->Child_category_count_all(); 
-    $config['per_page'] = 10; 
-    $config['uri_segment'] = 2; 
-      $config['full_tag_open'] = '<ul class="pagination">';
-      $config['full_tag_close'] = '</ul>';
-      $config['first_link'] = 'First';
-      $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-      $config['first_tag_close'] = '</a></li>';
-      $config['last_link'] = 'Last';
-      $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-      $config['last_tag_close'] = '</a></li>';
-      $config['next_link'] = 'Next';
-      $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-      $config['next_tag_close'] = '</a></li>';
-      $config['prev_link'] = 'Previous';
-      $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-      $config['prev_tag_close'] = '</a></li>';
-      $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
-      $config['cur_tag_close'] = '</a></li>';
-      $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
-      $config['num_tag_close'] = '</li>';
-    $this->pagination->initialize($config);
-    $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
-    $data['pagination_links'] = $this->pagination->create_links();
+        $this->pagination->initialize($config);
     
-    $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
-
-   $output=array(
-     'pagination_links' => $data['pagination_links'],
-     'childcatdetails' => $data['childcatdetails'],
-   );
-
-//    echo "<pre>";
-//    print_r($output);
-//    die();
-
-    $this->load->view('admin/childcatgory/index', $output);
-}
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+    
+        $data['pagination_links'] = $this->pagination->create_links();
+        $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
+    
+        // Pass data to the view
+        $this->load->view('admin/childcatgory/index', $data);
+    }
+    
 
 
 
