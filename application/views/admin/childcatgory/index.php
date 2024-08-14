@@ -16,9 +16,8 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                     </div>
                     <h3 class="fw-bold mb-0">Child category List</h3>
-                   
                     <a href="<?php echo base_url('admin/childcategory/create'); ?>">
-                        <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase">Add Childcategory</button>
+                        <button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase">Add Childcategory</button>
                     </a>
                 </div>
             </div>
@@ -43,7 +42,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 </div>
             </div>
         </div>
-        <!-- filters end -->
 
         <div class="row g-3 mb-3">
             <div class="col-md-12">
@@ -62,20 +60,19 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="childcat-tbody">
                                     <?php if (!empty($childcatdetails)): ?>
-                                        <?php $sn = $start_number;  ?>
+                                       <?php  $serial_number = 1;?>
                                         <?php foreach ($childcatdetails as $index => $detail): ?>
                                             <tr>
-                                            <td><?php echo $sn++; ?></td>
+                                                <td><?php echo $serial_number++; ?></td>
                                                 <td><?php echo htmlspecialchars($detail['category']); ?></td>
                                                 <td><?php echo htmlspecialchars($detail['subCat_name']); ?></td>
                                                 <td><?php echo htmlspecialchars($detail['childCat_name']); ?></td>
                                                 <td><?php echo ($detail['status'] == 1) ? 'Active' : 'Inactive'; ?></td>
                                                 <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($detail['update_date']))); ?></td>
                                                 <td>
-                                                   
-                                                    <button type="button"class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase " onclick="deleteRowtablesub(<?php echo $detail['child_cat_id']; ?>)">Delete</button>
+                                                    <button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" onclick="deleteRowtablesub(<?php echo $detail['child_cat_id']; ?>)">Delete</button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -146,44 +143,29 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             ).then(() => {
                                 location.reload();
                             });
-                        }
-                         else {
+                        } else {
                             Swal.fire(
                                 'Failed!',
                                 'Failed to delete subcategory.',
                                 'error'
                             );
                         }
-                    },
-                    // error: function() {
-                    //     Swal.fire(
-                    //         'Error!',
-                    //         'Error deleting subcategory.',
-                    //         'error'
-                    //     );
-                    // }
+                    }
                 });
             }
         });
     }
 
-
-
     $('#search-cat').keyup(function() {
         $.ajax({
-            url: "<?php echo base_url('AdminPanel/Subcategory/search_subcat_list')?>",
+            url: "<?php echo base_url('AdminPanel/Childcategory/search_Child_list')?>",
             type: 'POST',
             data: {
                 searchText: $('#search-cat').val(),
             },
             success: function(response) {
-                //$('#datalist').html(response);
-                alert('Search Subcategory');
+                $('#childcat-tbody').html(response);
             }
         });
     });
-
-
-
-
 </script>
