@@ -12,15 +12,15 @@ class Payment extends REST_Controller{
         $this->load->model('payment_model','paymentObj');  
         $this->load->model('cart_model','cartObj');
 
-       // $validation=$this->authorization_token->validateToken();
+       $validation=$this->authorization_token->validateToken();
     
-        // if($validation['status']!=0){
+        if($validation['status']!=0){
 
-        // $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
         
-        // echo json_encode($res);
-        // exit();
-        // }  
+        echo json_encode($res);
+        exit();
+        }  
     }
    
     public function index(){
@@ -46,7 +46,7 @@ class Payment extends REST_Controller{
             if(!$this->paymentObj->orderExist($order_no)){
 
                 $orderData=array(
-                "customer_id"=>1,
+                "customer_id"=>$customer_id,
                 "order_no"=>$order_no,
                 "address_id"=>$address_id,
                 "gst_id"=>$gst_id,
@@ -56,7 +56,7 @@ class Payment extends REST_Controller{
                 "coupon_id"=>$couponId,
 
                 );
-                $products = $this->cartObj->getCartList(1);
+                $products = $this->cartObj->getCartList($customer_id);
 
                     if($this->paymentObj->orderSave($orderData,$products)){
                         
