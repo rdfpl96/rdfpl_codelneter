@@ -278,8 +278,10 @@ $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
   $route['api/wishlist/delete/(:num)']='Api/wishlist/delteWishItem/$1';
 
   //order
-  $route['api/coupon/list']='Api/order/getCouponList';
-  $route['api/coupon/apply-code']='Api/order/applyCouponCode';
+  $route['api/cart/checkout']='Api/cart/checkout';
+  $route['api/payment/place-order']='Api/payment/placeOrder';
+  $route['api/coupon/list']='Api/cart/getCouponList';
+  $route['api/coupon/apply-code']='Api/cart/applyCouponCode';
 
   //Customer
   $route['api/customer/address-list']='Api/customeraddress/index';

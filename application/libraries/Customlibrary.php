@@ -463,23 +463,15 @@ class Customlibrary
         return $return_amt;
     }
 
-    public function getCheckoutSummery($customerId){
-        $totalSellingPrice=0;
-        $totalMrpPrice=0;
-        $totalSave=0;
-        $couponAmt=0;
-
-        $cartAmount=$this->getTotalCartAmount($customerId);
-        //print_r($cartAmount);
-
-    }
+   
  
-    public function getCartSummery($customerId){
+    public function getCartSummery($customerId,$couponDisc=0){
         $array_data=array();
         $totalSellingPrice=0;
         $totalMrpPrice=0;
         $totalSave=0;
-        $couponAmt=0;
+        $shipingCharg=0;
+       
         $this->CI->db->select('P.product_id,PV.price,PV.before_off_price,C.qty as cart_qty,C.cart_id,C.variant_id');
         $this->CI->db->from('tbl_cartmanager AS C');
         $this->CI->db->where('user_id',$customerId);
@@ -490,29 +482,25 @@ class Customlibrary
         if($query->num_rows()>0){
            
             foreach($query->result_array() as $record){
-                // echo'<pre>';
-                // print_r($record);
-                // echo'</pre>';
-
-                if($record['before_off_price']>$record['price']){
-
-                   $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
+                if($record['before_off_price']==0){
+                 
+                $totalMrpPrice=$totalMrpPrice+($record['price']*$record['cart_qty']);
+                $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
+                
+                }else{
+                    $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
                    
                     $totalMrpPrice=$totalMrpPrice+($record['before_off_price']*$record['cart_qty']);
-
-                }else{
-                  $totalSellingPrice=$totalSellingPrice+$record['price']*$record['cart_qty'];  
                 }
-
-               
             }
 
             $totalSave=$totalMrpPrice-$totalSellingPrice;
 
+            $totalPayAmout=$totalSellingPrice+$shipingCharg -$couponDisc;
 
         }
         
-        return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave,'couponAmt'=>$couponAmt);
+        return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave,'totalPayAmout'=>$totalPayAmout,'shipingcharge'=>$shipingCharg,'couponDisc'=>$couponDisc);
 
     }
 

@@ -4,13 +4,12 @@ require(APPPATH.'/libraries/REST_Controller.php');
  
 class Cart extends REST_Controller{
 
-
-
-  public function __construct() {
+   public function __construct() {
     parent::__construct();
     
         $this->load->model('api/product_model','productObj');
         $this->load->model('cart_model','cartObj');
+        $this->load->model('api/order_model','orderObj');
     
         $validation=$this->authorization_token->validateToken();
     
@@ -162,7 +161,7 @@ class Cart extends REST_Controller{
             
             $itemDetail = $this->cartObj->getCartDetailByCartId($customer_id, $cart_id);
             if($itemDetail){
-                 if($this->cartObj->deleteItemByCartId($customer_id,$cart_id)){
+                if($this->cartObj->deleteItemByCartId($customer_id,$cart_id)){
               $this->response(array('error' =>0,'msg'=>'Removed Item from cart.'));  
               }else{
                  $this->response(array('error' =>1,'msg'=>'Not delted item')); 
@@ -252,6 +251,71 @@ class Cart extends REST_Controller{
              $this->response(array('error' =>1,'msg'=>'Some parameter missing'));
         }
     }
+    
+    public function checkout_get(){
+
+        $customer_id=$this->authorization_token->userData()->customer_id;
+
+        $products = $this->cartObj->getCartList(1);
+        if(count($products)>0){
+            $cartSummery=$this->customlibrary->getCartSummery(1);
+            $this->response(array('error' =>0,'msg'=>'Success',"data"=>$cartSummery));
+        }else{
+            $this->response(array('error' =>1,'msg'=>'Cart empty'));
+        }
+    }
+
+
+    public function getCouponList_get(){
+    
+        $orders = $this->orderObj->getCouponList();
+        
+        $this->response(array('error' =>0,'msg'=>'Success',"data"=>$orders));
+    }
+    
+    public function applyCouponCode_post(){
+        $currentDate=date('Y-m-d');
+        $customer_id=$this->authorization_token->userData()->customer_id;
+        //
+        $post = json_decode($this->input->raw_input_stream, true);
+        //
+       
+        $couponCode=isset($post['coupon_code']) ? $post['coupon_code'] : "" ;
+      
+        if($couponCode!=""){
+
+            $couponCodeDetail=$this->cartObj->getCouponCodeDetail($couponCode);
+            if(count($couponCodeDetail) > 0){
+                if($currentDate > $couponCodeDetail['start_date'] && $currentDate < $couponCodeDetail['end_date']){
+                    $AmountDetail=$this->customlibrary->getTotalCartAmount($customer_id);
+
+                    if($AmountDetail['totalPrice'] > $couponCodeDetail['min_purch_amt']){
+
+                        $couponDiscoutAmt=$this->customlibrary->getCouponDiscount($AmountDetail['totalPrice'],$coupon_code);
+                        
+                        $cartSummery=$this->customlibrary->getCartSummery($customer_id,$couponDiscoutAmt);
+                        
+                        $this->response(array('error' =>0,'msg'=>'Success',"data"=>$cartSummery));
+
+                    }else{
+                        $this->response(array('error' =>1,'msg'=>"Coupon not applicable for this anount"));
+                    }
+
+                }else{
+                    $this->response(array('error' =>1,'msg'=>"Coupon Code expired"));
+                }
+
+        
+        }else{
+           $this->response(array('error' =>1,'msg'=>"Entered code is invalid"));
+        }
+      
+      }else{
+        $this->response(array('error' =>1,'msg'=>'Please enter coupon code'));
+      }
+    }
+
+
 
 }
 
