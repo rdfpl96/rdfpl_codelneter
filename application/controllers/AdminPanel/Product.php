@@ -15,6 +15,7 @@ class Product extends CI_Controller
         $this->load->library('my_libraries');
         $this->load->model('admin/product_model', 'product');
         $session = $this->session->userdata('admin');
+        $this->load->helper(array('form', 'url'));
 
         $_SERVER['REQUEST_URI'] = "admin";
 
@@ -170,35 +171,60 @@ class Product extends CI_Controller
 
 
     public function save()
-    {
-        if ($this->input->is_ajax_request()) {
+{
+    if ($this->input->is_ajax_request()) {
 
-            $otherInfo = array();
-            $session = $this->session->userdata('admin');
-            $productName = isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "";
-            $productSlug = isset($_POST['slug']) ? addslashes($_POST['slug']) : "";
-            $hsn_code = isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "";
-            $igst = isset($_POST['igst']) ? addslashes($_POST['igst']) : 0;
-            $cgst = isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
-            $sgst = isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0;
-            $headingArray = isset($_POST['heading']) && count($_POST['heading']) > 0 ? $_POST['heading'] : array();
-            $descriptionArray = isset($_POST['description']) && count($_POST['description']) > 0 ? $_POST['description'] : array();
+        $otherInfo = array();
+        $session = $this->session->userdata('admin');
+        $productName = isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "";
+        $productSlug = isset($_POST['slug']) ? addslashes($_POST['slug']) : "";
+        $hsn_code = isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "";
+        $igst = isset($_POST['igst']) ? addslashes($_POST['igst']) : 0;
+        $cgst = isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
+        $sgst = isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0;
+        $headingArray = isset($_POST['heading']) && count($_POST['heading']) > 0 ? $_POST['heading'] : array();
+        $descriptionArray = isset($_POST['description']) && count($_POST['description']) > 0 ? $_POST['description'] : array();
 
-            if ($this->product->chkUniqueProductName($productName)) {
-                $error = 1;
-                $err_msg = "Product already exist";
-            } else if ($this->product->chkUniqueProductURL($productSlug)) {
-                $error = 1;
-                $err_msg = "Product slug already exist";
-            } else {
-                if (count($headingArray) > 0) {
-                    for ($i = 0; $i < count($headingArray); $i++) {
-                        $otherInfo[] = array(
-                            'heading' => isset($headingArray[$i]) ? $headingArray[$i] : "",
-                            'description' => isset($descriptionArray[$i]) ? $descriptionArray[$i] : "",
-                        );
-                    }
+        if ($this->product->chkUniqueProductName($productName)) {
+            $error = 1;
+            $err_msg = "Product already exists";
+        } else if ($this->product->chkUniqueProductURL($productSlug)) {
+            $error = 1;
+            $err_msg = "Product slug already exists";
+        } else {
+            if (count($headingArray) > 0) {
+                for ($i = 0; $i < count($headingArray); $i++) {
+                    $otherInfo[] = array(
+                        'heading' => isset($headingArray[$i]) ? $headingArray[$i] : "",
+                        'description' => isset($descriptionArray[$i]) ? $descriptionArray[$i] : "",
+                    );
                 }
+            }
+
+            $imagePaths = array();
+            for ($i = 1; $i <= 6; $i++) {
+                $imageField = 'image' . $i;
+                if (isset($_FILES[$imageField]) && $_FILES[$imageField]['size'] > 0) {
+                    $config['upload_path'] = './uploads/';
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                    $config['file_name'] = $productSlug . '_img' . $i;
+
+                    $this->load->library('upload', $config);
+
+                    if ($this->upload->do_upload($imageField)) {
+                        $uploadData = $this->upload->data();
+                        $imagePaths[$imageField] = $uploadData['file_name'];
+                    } else {
+                        $error = 1;
+                        $err_msg = $this->upload->display_errors();
+                        break;
+                    }
+                } else {
+                    $imagePaths[$imageField] = isset($_POST['image_path' . $i]) ? $_POST['image_path' . $i] : '';
+                }
+            }
+
+            if (!isset($error)) {
                 $array_data = array(
                     'product_name' => $productName,
                     'slug' => $productSlug,
@@ -207,31 +233,33 @@ class Product extends CI_Controller
                     'igst' => $igst,
                     'sgst' => $sgst,
                     'other_info' => serialize($otherInfo),
+                    'image1' => $imagePaths['image1'],
+                    'image2' => $imagePaths['image2'],
+                    'image3' => $imagePaths['image3'],
+                    'image4' => $imagePaths['image4'],
+                    'image5' => $imagePaths['image5'],
+                    'image6' => $imagePaths['image6'],
                     'updated_by' => $session['admin_name']
                 );
 
-
-         echo "<pre>"; print_r($array_data);
-         die();
-
-
                 if ($this->product->add($array_data)) {
                     $error = 0;
-                    $err_msg = "Data insert succesfully";
+                    $err_msg = "Data inserted successfully";
                 } else {
-                    $error = 0;
-                    $err_msg = "There are some problem try again";
+                    $error = 1;
+                    $err_msg = "There was a problem. Please try again.";
                 }
             }
-        } else {
-            $error = 1;
-            $err_msg = "No direct script access allowed";
         }
-
-        $response = array('error' => $error, 'err_msg' => $err_msg);
-        echo json_encode($response);
-        exit();
+    } else {
+        $error = 1;
+        $err_msg = "No direct script access allowed";
     }
+
+    $response = array('error' => $error, 'err_msg' => $err_msg);
+    echo json_encode($response);
+    exit();
+}
 
 
 
