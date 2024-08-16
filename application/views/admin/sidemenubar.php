@@ -73,7 +73,7 @@
                    <li>
                       <!-- <a class="m-link " href="https://uat.rdfpl.com/admin/ads_banner"><i class="icofont-chart-flow"></i> <span>Ads Banner List</span> </a> -->
 
-                      <a class="m-link" href="<?php echo base_url('admin/ads_banner'); ?>"><i class="icofont-chart-flow"></i> <span>Ads Banner List</span></a>
+                      <!-- <a class="m-link" href="<?php // echo base_url('admin/ads_banner'); ?>"><i class="icofont-chart-flow"></i> <span>Ads Banner List</span></a> -->
                    </li>
                    <li>
                       <a class="m-link " href="<?php echo base_url('admin/shipping-policy')?>"><i class="icofont-chart-flow"></i> <span>Shipping Policy</span> </a>

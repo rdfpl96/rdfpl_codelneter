@@ -35,7 +35,11 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                 <!-- <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
                                 
-                                <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
+
+                                <!-- <div class="col-md-6" style="margin-left: 900px;">
+                                    <a href="<?php //echo base_url('admin/banner');?>"><button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
+                                </div> -->
+                                <a <button type="submit" href="<?php echo base_url('admin/product');?>" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
                             </div>
                         </div>
                     </div>   
@@ -297,15 +301,13 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                     </div> 
                                   </div>
 
-
                            </div>
-
-
                       </div>
                         <!-- <div class="ship_ad_btn_css">
                             <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                             <div class="loaderdiv"></div>
                         </div> -->
+                        <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                        </form>
                   </div>
             </div>

@@ -17,14 +17,20 @@ $this->load->view('admin/headheader');
 <div class="body d-flex py-3">
     <div class="container-xxl">
         <div class="row align-items-center">
+        
             <div class="border-0">
                 <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
                     <div class="mob_back_btn">
                         <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                     </div>
                     <h3 class="fw-bold mb-0">Add Banner</h3>
+                    <div class="col-md-6" style="margin-left: 900px;">
+                                    <a href="<?php echo base_url('admin/banner');?>"><button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
+                                </div>
                 </div>
+                
             </div>
+            
         </div> 
         <div class="row g-3 mb-3">
             <div class="col-md-12">

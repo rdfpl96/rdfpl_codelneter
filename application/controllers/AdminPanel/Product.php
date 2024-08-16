@@ -215,8 +215,6 @@ class Product extends CI_Controller
          die();
 
 
-
-
                 if ($this->product->add($array_data)) {
                     $error = 0;
                     $err_msg = "Data insert succesfully";
