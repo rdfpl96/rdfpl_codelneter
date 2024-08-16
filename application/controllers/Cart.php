@@ -367,11 +367,10 @@ public function applyCouponCode(){
                     $couponDiscoutAmt=$this->customlibrary->getCouponDiscount($AmountDetail['totalPrice'],$coupon_code);
 
                     //$cardSummery=$this->customlibrary->getCartSummery($customer_id);
-
-                    $cardSummery=$this->orderSummeryForCart($couponDiscoutAmt);
-
                     $_SESSION['couponDisc']=$couponDiscoutAmt;
                     $_SESSION['coupon_id']=$couponCodeDetail['coupon_id'];
+
+                    $cardSummery=$this->orderSummeryForCart();
 
                     $data['orderSummery']=$cardSummery;
                     $data['status']=1;
@@ -409,7 +408,7 @@ public function orderSummeryForCart(){
 
    $customer_id = $userCookies['customer_id'];
     
-   $shipingCharg=0;
+    $shipingCharg=0;
     $totalSellingPrice=0;
     $totalMrpPrice=0;
     $totalSave=0;
@@ -426,10 +425,7 @@ public function orderSummeryForCart(){
 
     if(count($cartProduct)){
          foreach($cartProduct as $record){
-                // echo'<pre>';
-                // print_r($record);
-                // echo'</pre>';
-
+               
                 if($record['before_off_price']==0){
                  
                 $totalSellingPrice=$totalSellingPrice+($record['price']*$record['cart_qty']);
@@ -441,8 +437,6 @@ public function orderSummeryForCart(){
                     
                     $totalDisc=$totalDisc+ ($totalMrpPrice-$totalSellingPrice);  
                 }
-
-               
             }
 
             $totalSave=$totalDisc;
