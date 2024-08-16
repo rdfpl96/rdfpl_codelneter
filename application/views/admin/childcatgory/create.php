@@ -64,9 +64,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <div class="col-md-6">
                                             <label class="form-label">Subcategory Name<span style="color:red;">*</span></label>
                                             <select name="Subcategory"  id="Subcategory" class="form-control" required>
-                                             
-                                            
-                                             
                                             </select>
                                         </div>
 
@@ -103,7 +100,7 @@ $(document).ready(function() {
     $('#cat_id').change(function() {
         var cat_id = $('#cat_id').val();
         $.ajax({
-            url: "<?php echo base_url('AdminPanel/ChildCategory/get_subcategories')?>",
+            url: "<?php echo base_url('AdminPanel/childcatgory/get_subcategories')?>",
             type: "POST",
             data: {
                 cat_id: cat_id
@@ -116,8 +113,14 @@ $(document).ready(function() {
 });
 
 
-
-
+$(document).ready(function (){
+    $("#ChildcategoryName").keyup(function() {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
+        $("#slug").val(Text);        
+    });
+});
 
 $(document).ready(function() {
     $('form').on('submit', function(event) {

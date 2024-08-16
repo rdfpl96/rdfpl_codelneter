@@ -168,23 +168,19 @@ class Product extends CI_Controller
         $this->load->view('admin/product/create', $data);
     }
 
+
     public function save()
     {
-
         if ($this->input->is_ajax_request()) {
 
             $otherInfo = array();
-
             $session = $this->session->userdata('admin');
-
             $productName = isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "";
             $productSlug = isset($_POST['slug']) ? addslashes($_POST['slug']) : "";
             $hsn_code = isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "";
-
             $igst = isset($_POST['igst']) ? addslashes($_POST['igst']) : 0;
             $cgst = isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
             $sgst = isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0;
-
             $headingArray = isset($_POST['heading']) && count($_POST['heading']) > 0 ? $_POST['heading'] : array();
             $descriptionArray = isset($_POST['description']) && count($_POST['description']) > 0 ? $_POST['description'] : array();
 
@@ -196,7 +192,6 @@ class Product extends CI_Controller
                 $err_msg = "Product slug already exist";
             } else {
                 if (count($headingArray) > 0) {
-
                     for ($i = 0; $i < count($headingArray); $i++) {
                         $otherInfo[] = array(
                             'heading' => isset($headingArray[$i]) ? $headingArray[$i] : "",
@@ -204,7 +199,6 @@ class Product extends CI_Controller
                         );
                     }
                 }
-
                 $array_data = array(
                     'product_name' => $productName,
                     'slug' => $productSlug,
@@ -215,6 +209,13 @@ class Product extends CI_Controller
                     'other_info' => serialize($otherInfo),
                     'updated_by' => $session['admin_name']
                 );
+
+
+         echo "<pre>"; print_r($array_data);
+         die();
+
+
+
 
                 if ($this->product->add($array_data)) {
                     $error = 0;
@@ -233,6 +234,15 @@ class Product extends CI_Controller
         echo json_encode($response);
         exit();
     }
+
+
+
+
+
+
+
+
+
 
     public function edit($id)
     {

@@ -20,9 +20,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   </div>
   
     <h3 class="fw-bold mb-0">Product List</h3>
-     <?php if(in_array('add',$getAccess['inputAction']) || $session['admin_type']=='A'){ ?>
+     <?php //if(in_array('add',$getAccess['inputAction']) || $session['admin_type']=='A'){ ?>
     <a href="<?php echo base_url('admin/product/create');?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i> Add Product</a>
-  <?php } ?>
+  <?php // } ?>
 
       <!-- ===== -->
 
@@ -57,7 +57,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
             <?php if(in_array('import',$actAcx) || $session['admin_type']=='A'){ ?>
 
             <div class="col-md-1 width_20 d-none">
-                  <form action="<?php //echo base_url('admin/importSVC');?>" method="post" class="fordi" id="my-form-import" enctype="multipart/form-data">
+                  <form action="<?php  //echo base_url('admin/importSVC');?>" method="post" class="fordi" id="my-form-import" enctype="multipart/form-data">
                         <label class="form-label mt-30 btn btn-sm btn-secondary btn-upload" for="inputImage" title="Upload image file">
                         <input type="file" class="sr-only" id="inputImage" name="fileupload" accept="csv/*">
                         <span class="docs-tooltip" data-toggle="tooltip" title="" data-bs-original-title="Import image with Blob URLs">Import </span>
@@ -77,19 +77,13 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                         <a href="<?php echo base_url('exportCSV');?>" style="color:white;"><span class="docs-tooltip" data-toggle="tooltip" title="" data-bs-original-title="Import image with Blob URLs">Export</span></a>
                        </label>
                 </div>
-           <?php } ?>
 
-          
-           
+           <?php } ?>
         </div>
         <br>
-      
-
     </div>
-
-</div>
-
-</div>
+   </div>
+  </div>
 </div>    
 
 
@@ -99,7 +93,6 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 <div class="col-md-12">
 <div class="card">
     <div class="card-body">
-
         <div class="table-responsive">
         <table class="table mb-0" style="width: 100%;">
             <thead>
@@ -114,16 +107,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                     <th>Action</th>
                 </tr>
             </thead>
-            
              <tbody id="datalist"><?php  echo isset($array_data) ? $array_data : "";?></tbody>
-           
         </table>
-          <div id="pg"><?php  echo isset($pagination) ? $pagination : ''?></div> 
-
-
-        
+          <div id="pg"><?php  echo isset($pagination) ? $pagination : ''?></div>  
         </div>
-        
     </div>
 </div>
 </div>
