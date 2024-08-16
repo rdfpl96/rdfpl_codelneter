@@ -100,7 +100,7 @@ $(document).ready(function() {
     $('#cat_id').change(function() {
         var cat_id = $('#cat_id').val();
         $.ajax({
-            url: "<?php echo base_url('AdminPanel/childcatgory/get_subcategories')?>",
+            url: "<?php echo base_url('AdminPanel/Childcategory/get_subcategories')?>",
             type: "POST",
             data: {
                 cat_id: cat_id
