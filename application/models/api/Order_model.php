@@ -7,7 +7,7 @@ class Order_model extends CI_Model{
   }
    public function getProductItemByproductId($order_id){
     $array_data=array();
-    $this->db->select('OI.*,CONCAT("'.base_url("uploads/").'",OI.cat_image) as imagepath');
+    $this->db->select('OI.*,CONCAT("'.base_url("uploads/").'",OI.img) as imagepath');
     $this->db->from('tbl_order_item As OI');
     $this->db->where('order_id',$order_id);
     $query=$this->db->get();
