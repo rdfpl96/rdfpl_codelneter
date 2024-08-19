@@ -258,8 +258,10 @@ $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
   
   $route['api/auth/login-with-mobile']='Api/login/loginWithMobile';
   $route['api/auth/otp-verity-by-mobile']='Api/login/verifyOtpByMobile';
+  $route['api/auth/resend-on-mobile']='Api/login/resendOtpOnMobile';
   $route['api/auth/login-with-email']='Api/login/loginWithEmail';
   $route['api/auth/otp-verity-by-email']='Api/login/verifyOtpByEmail';
+  $route['api/auth/resend-on-email']='Api/login/resendOtpOnEmail';
 
   //Home
   $route['api/home']='Api/home/index';

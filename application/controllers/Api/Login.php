@@ -113,6 +113,49 @@ class Login extends REST_Controller{
             $this->response(array('error' =>1,'msg'=>'Some parameter missing'));
         }
     }
+    
+     public function resendOtpOnMobile_post(){
+
+        // print_r($this->request->getPost());
+
+        $post = json_decode($this->input->raw_input_stream, true);
+
+        $mobile=isset($post['mobile']) ? $post['mobile'] : "" ; 
+
+        if($mobile!=''){
+
+            if(validateMobile($mobile)){
+
+                $otp = sprintf("%06d", mt_rand(1, 999999));
+               
+                $this->session->set_userdata(array('time'=>$_SERVER["REQUEST_TIME"]));
+                
+                if($this->login->chkMobileExist($mobile)){
+
+                    $array_data=array('is_otp_verify'=>0,'otp'=>$otp);
+
+                    if($this->login->updateOpt(array('colname'=>"mobile","value"=>$mobile),$array_data)){
+
+                       $this->emaillibrary->sendOtpOnMobile($mobile,$otp);
+
+                       $this->response(array('error' =>0,'msg'=>'Otp send on registered mobile number')); 
+
+                    }else{
+
+                        $this->response(array('error' =>1,'msg'=>'something wrong'));   
+                    }
+
+                }else{
+                   $this->response(array('error' =>1,'msg'=>'Enter mobile not exist')); 
+                }
+            }else{
+                $this->response(array('error' =>1,'msg'=>'Enter valid mobile number'));
+            }    
+        }else{
+            $this->response(array('error' =>1,'msg'=>'Parameter value is blank'));
+        }
+    }
+
 
     //
     //Login with email Id
@@ -222,6 +265,50 @@ class Login extends REST_Controller{
             $this->response(array('error' =>1,'msg'=>'Some parameter missing'));
         }
     }
+
+    //
+    // ressend otp by email
+    //
+    public function resendOtpOnEmail_post(){
+
+        $post = json_decode($this->input->raw_input_stream, true);
+
+        $email=isset($post['email']) ? $post['email'] : "" ; 
+
+        if($email!='' ){
+
+            if(validateEmail($email)){
+
+                $otp = sprintf("%06d", mt_rand(1, 999999));
+               
+                $this->session->set_userdata(array('time'=>$_SERVER["REQUEST_TIME"]));
+
+                if($this->login->chkEmailExist($email)){ 
+
+                    $array_data=array('is_otp_verify'=>0,'otp'=>$otp);
+
+                    if($this->login->updateOpt(array('colname'=>"email","value"=>$email),$array_data)){
+
+                       $this->emaillibrary->sendOtpMail($email,$otp);
+
+                       $this->response(array('error' =>0,'msg'=>'Otp send on registered email id')); 
+
+                    }else{
+
+                        $this->response(array('error' =>1,'msg'=>'something wrong'));   
+                    }
+
+                }else{
+                  $this->response(array('error' =>1,'msg'=>'Enter email id not exist')); 
+                }
+            }else{
+                $this->response(array('error' =>1,'msg'=>'Enter valid Email Id'));
+            }    
+        }else{
+            $this->response(array('error' =>1,'msg'=>'parameter value is blank'));
+        }
+    }
+
     
   
      
