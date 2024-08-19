@@ -64,6 +64,8 @@ class Payment extends REST_Controller{
                         $date['message']="Order Placed succesfully";
                         $data['order_no']=$order_no;
 
+                         $this->response(array('error' =>0,'msg'=>'Success',"data"=>$data));
+
                     }else{
                        
                         $this->response(array('error' =>1,'msg'=>'Something wrong try again'));
