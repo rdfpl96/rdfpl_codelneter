@@ -170,6 +170,8 @@ class CustomerAddress extends REST_Controller{
 
         $post = json_decode($this->input->raw_input_stream, true);
         $error=0;
+        //
+        
         $nv = array(
            
             'customer_id'           => $customer_id,
@@ -215,19 +217,21 @@ class CustomerAddress extends REST_Controller{
             $error=1;
             $this->response(array('error' =>1,'msg'=>'Please enter fssai no')); 
         }else{
+
              if($this->addObj->chkGSTPresent($customer_id)){
 
                 $this->addObj->updateCustomerGst($nv);
+                $gst_id=$this->addObj->chkGSTPresent($customer_id);
                 $error=0;
                 $msg="GST detail save";
 
             }else{
 
-                $this->addObj->saveCustomerGst($nv);
+                $gst_id=$this->addObj->saveCustomerGst($nv);
                 $msg="GST detail save";
             }
 
-            $this->response(array('error' =>0,'msg'=>$msg)); 
+            $this->response(array('error' =>0,'msg'=>$msg,'gst_id'=>$gst_id)); 
         }
     }
     public function sloteList_get(){
