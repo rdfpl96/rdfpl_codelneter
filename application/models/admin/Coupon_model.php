@@ -186,7 +186,7 @@ public function getCouponSearchDetails($keywords  = '',)
         $this->db->like('coupon_code', $keywords);
         $this->db->or_like('disc_type', $keywords);
     }
-    $this->db->limit(4, 0);
+    $this->db->limit(10, 0);
     $query = $this->db->get();
     return $query->result();
 }
