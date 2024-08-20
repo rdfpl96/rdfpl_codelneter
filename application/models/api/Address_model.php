@@ -25,8 +25,10 @@ public function chkGSTPresent($customer_id){
   $this->db->from('tbl_gst');
   $this->db->where('customer_id',$customer_id);
   $query=$this->db->get() ;
-  if($query->num_rows()>0){ 
-   return true;
+  if($query->num_rows()>0){
+    $row=$query->row_array();
+
+   return $row['id'];
   }else{
     return false;
   }
