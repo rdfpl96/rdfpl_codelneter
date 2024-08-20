@@ -2087,12 +2087,18 @@ class Admin extends CI_Controller
     // Get date parameters from input (assuming you're using GET method)
     $fromDate = $this->input->post('fromDate');
     $toDate = $this->input->post('toDate');
+    $orderNumber = $this->input->post('getKeywords');
 
-    $order_list = $this->sqlQuery_model->getOrderDetailsByDate($fromDate, $toDate);
+    // echo "<pre>";
+    // print_r($orderNumber);
+    
+ 
+    // die();
+
+    $order_list = $this->sqlQuery_model->getOrderDetailsByDateOrOrderNumber($fromDate, $toDate, $orderNumber);
 
     // Uncomment the following line for debugging
-    // print_r($order_list);
-    // die();
+  
 
     // Set headers to force download the CSV file
     header('Content-Type: text/csv');
@@ -2151,6 +2157,9 @@ class Admin extends CI_Controller
     fclose($file);
     exit;
   }
+
+
+
 
 
   public function customer_list()

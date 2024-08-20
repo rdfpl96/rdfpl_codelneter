@@ -139,7 +139,7 @@ $(document).ready(function() {
                 }).then((result) => {
                     if (result.isConfirmed) {
                      
-                        window.location.href = "<?php echo base_url('AdminPanel/ChildCategory'); ?>";
+                        window.location.href = "<?php echo base_url('admin/childcategory'); ?>";
                     }
                 });
             },

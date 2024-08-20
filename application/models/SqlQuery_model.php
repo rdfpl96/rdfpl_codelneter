@@ -533,7 +533,59 @@ public function update_banner($banner_id, $data) {
       // Return the result as an array
       return $query->result_array();
   }
+
+
+
   
+
+
+
+
+
+
+
+  public function getOrderDetailsByDateOrOrderNumber($fromDate, $toDate, $orderNumber) {
+
+  
+   $this->db->select('
+       tbl_order.order_no as order_no,
+       tbl_customer.c_fname as customer_name,
+       tbl_address.landmark as location,
+       SUM(tbl_order_item.mrp_price) as order_amount,
+       tbl_order.order_date
+   ');
+
+   // From and joins
+   $this->db->from('tbl_order');
+   $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+   $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+   $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+
+
+   if (isset($orderNumber) && !empty($orderNumber)) {
+   
+       $this->db->where('tbl_order.order_no', $orderNumber);
+   }
+    else {
+       // Where condition for date range
+       if (isset($fromDate) && !empty($fromDate)) {
+           $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
+       }
+       if (isset($toDate) && !empty($toDate)) {
+           $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
+       }
+   }
+
+   // Group and order by
+   $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+   $this->db->order_by('tbl_order.order_date', 'DESC');
+
+   // Execute the query
+   $query = $this->db->get();
+
+   // Return the result as an array
+   return $query->result_array();
+}
 
 
 
