@@ -277,7 +277,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                             <div class="loaderdiv"></div>
                         </div> -->
-          <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
+          <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase " onsubmit="addProductInfo()">Save</button>
     </form>
   </div>
 </div>
@@ -334,6 +334,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
  
 
 function addProductInfo() {
+ 
     var formData = new FormData($('#form_product')[0]);
     var fileInput = $('#form_product input[type="file"]');
     var valid = true;

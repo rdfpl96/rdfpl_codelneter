@@ -99,11 +99,11 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                 <tr>
                     <th>S.N.</th>
                     <th>Product Name</th>
-                    <th>HSN Code</th>
-                    <th>Status</th>
                     <!-- <th>HSN Code</th> -->
+                    <th>Status</th>
+                  
                     <th>Date</th>
-                    <th>Image</th>
+                    <!-- <th>Image</th> -->
                     <th>Action</th>
                 </tr>
             </thead>

@@ -18,6 +18,11 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 //    }
 // Categories
 
+// echo "<pre>";
+
+// print_r(unserialize($tdata['other_info']));
+// die();
+
 ?>
 
  <!-- Body: Body --> 
@@ -35,7 +40,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
 
                                 <!-- <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
                                 
-                                <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
+
+                                <a <button type="submit" href="<?php echo base_url('admin/product'); ?>" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
                             </div>
                         </div>
                     </div>   
@@ -52,16 +58,16 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                
                                                 <div class="col-md-6">
                                                     <label  class="form-label">Product name <span style="color:red;">*</span></label>
-                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo isset($tdata['product_name']) && $tdata['product_name']!='' ? stripslashes($tdata['product_name']) : '' ?>" required placeholder="Please product name" readonly>
+                                                    <input type="text" class="form-control pname" id="product-name" name="product_name" value="<?php echo isset($tdata['product_name']) && $tdata['product_name']!='' ? stripslashes($tdata['product_name']) : '' ?>" required placeholder="Please product name" >
                                                 </div>
 
 
                                                  <div class="col-md-6">
                                                     <label  class="form-label">Product Slug <span style="color:red;">*</span></label>
-                                                    <input type="text" class="form-control url" id="slug" name="slug" value="<?php echo isset($tdata['slug']) && $tdata['slug']!='' ? stripslashes($tdata['slug']) : '' ?>" required placeholder="Please enter slug">
+                                                    <input type="text" class="form-control url" id="slug" name="slug" value="<?php echo isset($tdata['slug']) && $tdata['slug']!='' ? stripslashes($tdata['slug']) : '' ?>" required placeholder="Please enter slug" readonly>
                                                 </div>
                                         </div>
-
+<!-- 
                                         <div class="row g-3 align-items-center">
                                                <div class="col-md-2">
                                                     <label for="hsn-code" class="form-label">HSN Code <span style="color:red;">*</span></label>
@@ -84,7 +90,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                       <label for="sgst" class="form-label">SGST <span style="color:red;">*</span></label>
                                                      <input type="number" class="form-control" name="sgst" id="sgst" value="<?php echo isset($tdata['sgst']) && $tdata['sgst']!='' ? stripslashes($tdata['sgst']) : '' ?>" required oninput="validateSgst()" / readonly>
                                                    </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -163,10 +169,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                           </div>
                         
                           </div>
-                        <!-- <div class="ship_ad_btn_css">
-                            <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
-                            <div class="loaderdiv"></div>
-                        </div> -->
+                     
+                        <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
                        </form>
                   </div>
             </div>
@@ -186,6 +190,9 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
           $("#slug").val(Text);        
     });
 });
+
+
+
 
       function addProductInfo(){
         var formData = new FormData($('#form_product')[0]);
@@ -212,7 +219,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                        Swal.fire({
                           icon: 'error',
                           title: 'Oops...',
-                          text: 'Something went wrong!',
+                          text: 'already exists!',
                         })
                     }
                 },
@@ -226,4 +233,45 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                 },
               });
       }
+
+      function addProductInfo() {
+    var formData = new FormData($('#form_product')[0]);
+
+    $.ajax({
+        type: 'post',
+        url: $('#form_product').attr('action'),
+        data: formData,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+            // Optional: Add any pre-request actions here
+        },
+        success: function(res) {
+            if (res.error == 0) {
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Product updated successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "<?php echo base_url('AdminPanel/product'); ?>";
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'already exists!',
+                });
+            }
+        },
+ 
+        error: function(xhr, status, error) {
+            console.log(error);
+        },
+    });
+}
+
   </script>

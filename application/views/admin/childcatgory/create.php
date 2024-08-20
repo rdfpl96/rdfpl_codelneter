@@ -127,7 +127,7 @@ $(document).ready(function() {
         event.preventDefault(); 
         
         $.ajax({
-            url: "<?php echo base_url('AdminPanel/ChildCategory/store'); ?>",
+            url: "<?php echo base_url('AdminPanel/Childcategory/store'); ?>",
             type: 'POST',
             data: $(this).serialize(), 
             success: function(response) {

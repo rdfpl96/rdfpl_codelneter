@@ -125,7 +125,6 @@ class Product extends CI_Controller
                 $option .= '<tr> 
 	                            <td>' . $i . '</td>
 	                            <td>' . $record['product_name'] . '</td>
-	                            <td>' . $record['hsn_code'] . '</td>
 	                            <td>' . $status . '</td>
 	                            <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
 	                            <td></td>
@@ -242,6 +241,9 @@ class Product extends CI_Controller
                     'updated_by' => $session['admin_name']
                 );
 
+
+                // echo "<pre>"; print_r($array_data);  die();"</pre>";
+
                 if ($this->product->add($array_data)) {
                     $error = 0;
                     $err_msg = "Data inserted successfully";
@@ -276,6 +278,8 @@ class Product extends CI_Controller
         $form_data['tdata'] = $detail;
         $this->load->view('admin/product/edit', $form_data);
     }
+
+
 
     public function update($id)
     {

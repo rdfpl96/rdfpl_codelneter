@@ -67,6 +67,7 @@ $route['admin/product/create']='AdminPanel/product/create';
 $route['admin/product/save']='AdminPanel/product/save';
 $route['admin/other-product/edit/(:num)']='Admin/Edit_other_product/$1';
 
+$route['admin/product/edit/(:num)']='AdminPanel/Product/edit/$1';
 $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 $route['admin/productItem']='AdminPanel/product/productitem';
 $route['admin/productItem/(:num)']='AdminPanel/product/productitem/$1';
