@@ -13102,7 +13102,19 @@ footer{background: #101010;}
 }
 
 /*Tablet*/
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+.order_details_flow .dotted-line {
+    width: 90px;
+    border-top: 2px dashed #949494;
+  }
+}
+
+/*(min-width: 768px) and (max-width: 991px)*/
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .order_details_flow .dotted-line {
+    width: 50px;
+    border-top: 2px dashed #949494;
+  }
   .header-action .header-action-icon {
     margin-right: 33px;
   }
@@ -13896,3 +13908,4 @@ footer{background: #101010;}
   }
 }
 /*# sourceMappingURL=main.css.map */
+
