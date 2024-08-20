@@ -2089,13 +2089,20 @@ class Admin extends CI_Controller
     $toDate = $this->input->post('toDate');
     $orderNumber = $this->input->post('getKeywords');
 
+
+
+
     // echo "<pre>";
     // print_r($orderNumber);
     
  
     // die();
 
-    $order_list = $this->sqlQuery_model->getOrderDetailsByDateOrOrderNumber($fromDate, $toDate, $orderNumber);
+    $order_list = $this->sqlQuery_model->getOrderSearchDetails($orderNumber, $fromDate, $toDate);
+    // echo '<pre>';
+    // print_r($order_list);
+    // die();
+    // $order_list = $this->sqlQuery_model->getOrderDetailsByDateOrOrderNumber($fromDate, $toDate, $orderNumber);
 
     // Uncomment the following line for debugging
   
