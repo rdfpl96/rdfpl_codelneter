@@ -2,7 +2,7 @@
 var base_url = "https://site.rdfpl.com/";
 
 // Pramod
-//var base_url = "http://local-rdfpl.com/";
+//var base_url = "http://localhost/rdfpl";
 
 // function showLogin(){
 //     alert('hi');
@@ -28,19 +28,23 @@ function searchProduct() {
 }
 
 $(document).on('click', '.shipping-address-save', function (e) {
+    //alert('Hii');
     e.preventDefault();
+    
+    // Get values from form
     let fname = $('#fname').val().trim();
     let lname = $('#lname').val().trim();
     let mobile = $('#mobile').val().trim();
-    let apart_house = $('#apart_house').val().trim();
-    let apart_name = $('#apart_name').val().trim();
+    let address1 = $('#apart_house').val().trim();
+    let address2 = $('#apart_name').val().trim();
     let area = $('#area').val().trim();
-    let street_landmark = $('#street_landmark').val().trim();
+    let landmark = $('#street_landmark').val().trim();
     let state = $('#state').val().trim();
     let city = $('#city').val().trim();
     let pincode = $('#pincode').val().trim();
-    let loc_type = $('input[name="loc_type"]:checked').val();
-    let other_loc = $('#other_loc').val().trim();
+    let address_type = $('input[name="loc_type"]:checked').val();
+    // let other_loc = $('#other_loc').val().trim();
+    let other_loc = $('input[name="type"]:checked').val();
 
     // Validation
     let isValid = true;
@@ -55,6 +59,7 @@ $(document).on('click', '.shipping-address-save', function (e) {
         }
     }
 
+    // Validate fields
     validateField('#fname', fname === "");
     validateField('#lname', lname === "");
     validateField('#mobile', mobile === "" || !pattern.test(mobile));
@@ -63,53 +68,91 @@ $(document).on('click', '.shipping-address-save', function (e) {
     validateField('#area', area === "");
     validateField('#street_landmark', street_landmark === "");
     validateField('.select2-selection-state', state === "");
-    //validateField('.select2-selection-city', city === "");
     validateField('#pincode', pincode === "");
-    validateField('#errf', loc_type === "");
+    validateField('#loc_type', address_type === "");
 
-    if (loc_type === "Other") {
+    if (address_type === "Other") {
         validateField('#other_loc', other_loc === "");
     }
 
+    // If validation fails, stop the process
     if (!isValid) {
         return false;
     }
 
     // Prepare form data
-    let formData = {
+    var formData = {
         fname: fname,
         lname: lname,
         mobile: mobile,
-        apart_house: apart_house,
-        apart_name: apart_name,
+        address1: address1,
+        address2: address2,
         area: area,
-        street_landmark: street_landmark,
+        landmark: landmark,
         state: state,
         city: city,
         pincode: pincode,
-        loc_type: loc_type,
+        address_type: address_type,
         other_loc: other_loc
     };
 
-    // AJAX request
-    $.ajax({
-        url: base_url + 'common/shipping_address_save',
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-            let res = JSON.parse(response);
-            if (res.status === 'success') {
-                alert('Address saved successfully');
-                window.location.reload();
-            } else {
-                alert(res.message || 'Failed to save address');
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText); // Log the full error response
-            alert('Error in saving address');
-        }
-    });
+    console.log('Form Data:', formData); 
+    // $.ajax({
+    //     url: base_url + 'common/shipping_address_save',
+    //     dataType : 'JSON',
+    //     type: 'POST',
+    //     data: formData,
+    //     success: function (response) {
+    //         let res = JSON.parse(response);
+    //         if (res.status === 'success') {
+    //             alert('Address saved successfully');
+    //             window.location.reload();
+    //         } else {
+    //             alert(res.message || 'Failed to save address');
+    //         }
+    //     },
+        
+    //     error: function (xhr, status, error) {
+    //         console.log('AJAX Error:', error);
+    //         console.log('Response Text:', xhr.responseText); 
+    //         alert('Error in saving address. Please check the console for details.');
+    //     }
+    // });
+
+
+
+$.ajax({
+    type: "POST",
+    dataType: "JSON",
+    url: base_url + '/common/shipping_address_save',
+    data: formData,
+    success: function (result) {
+        console.log('xxxxx=> ', result);
+    let res = JSON.parse(response);
+    if (res.status === 'success') {
+    alert('Address saved successfully');
+    window.location.reload();
+    } else {
+    alert(res.message || 'Failed to save address');
+    }
+
+    },
+    error: function (xhr, status, error) {
+        console.log('AJAX Error:', error);
+        console.log('Response Text:', xhr.responseText); 
+        alert('Error in saving address. Please check the console for details.');
+    }
+})
+
+
+
+
+
+
+
+
+
+
 });
 //
 // Add To WishList

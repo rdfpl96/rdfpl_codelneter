@@ -234,6 +234,14 @@ public function get_product_slug_by_id($product_id) {
     return $result ? $result->slug : null;
 }
 
+public function insert_billingaddress($data) {
+        return $this->db->insert('tbl_address', $data);
+    }
+
+public function update_billingaddress($id, $data) {
+        $this->db->where('addr_id', $id);
+        return $this->db->update('tbl_address', $data);
+    }
 
   
 }

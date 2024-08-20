@@ -16,15 +16,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
 public function shipping_address_save() {
+   
     $customer = $this->my_libraries->mh_getCookies('customer');
     $customer_id = $customer['customer_id'];
- 
+
+    // Log the retrieved customer ID
+    log_message('debug', 'Customer ID: ' . print_r($customer_id, true));
+
     // Check if customer ID is being retrieved correctly
     if (empty($customer_id)) {
         echo json_encode(array('status' => 'fail', 'message' => 'Customer ID not found'));
         return;
     }
- 
+
+    $address_type = 'shippingAddress';
     $data = array(
         'customer_id' => $customer_id,
         'fname' => $this->input->post('fname'),
@@ -37,22 +42,28 @@ public function shipping_address_save() {
         'state' => $this->input->post('state'),
         'city' => $this->input->post('city'),
         'pincode' => $this->input->post('pincode'),
-        'address_type' => $this->input->post('loc_type'),
+        'address_type' => $address_type,
         'others' => $this->input->post('other_loc')
     );
- 
-    // Log data for debugging
-    log_message('debug', 'Shipping address data: ' . print_r($data, true));
- 
+
+    // print_r($data);
+    // exit();
+    // Log incoming data for debugging
+    log_message('debug', 'Incoming address data: ' . print_r($data, true));
+
+    // Insert data into the database
     $insert = $this->common_model->insert_address($data);
- 
+
+    // Check insert result
     if ($insert) {
-        $response = array('status' => 'success');
+        $result = array('status' => 'success');
     } else {
-        $response = array('status' => 'fail', 'message' => 'Database insert failed');
+        // Log the error if insert fails
+        log_message('error', 'Database insert failed: ' . $this->db->last_query());
+        $result = array('status' => 'fail', 'message' => 'Database insert failed');
     }
- 
-    echo json_encode($response);
+
+    echo json_encode($result);
 }
 
   public function getSubCategoryTopId($top_cat_id=""){
@@ -444,7 +455,9 @@ public function my_address(){
        
        $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
-
+// echo '<pre>';
+// print_r($data);
+// die(); 
          $shipAddr=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id));
          $where['status']=1;
          $where['customer_id']=$customer_id;
@@ -519,7 +532,7 @@ public function my_address(){
 
         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();  
         $data['cusotmer_details']=$this->sqlQuery_model->sql_select_where('tbl_customer',array('customer_id' => $customer_id));
-         //print_r($data); 
+
         $data['content']='frontend/component/my_address';
         $this->load->view('frontend/template',$data);
 
@@ -620,9 +633,7 @@ public function billing_address(){
       
        $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
-       // echo "<pre>";
-       // print_r($data['billingAddress']);
-       // echo "<pre>";
+       
 
        if($data['billingAddress']!=0){
 
@@ -649,15 +660,60 @@ public function billing_address(){
             $data['delnames']='';
           }
     
-    
+    // echo "<pre>";
+    // print_r($data['getAddr']);
+    // echo "<pre>";
     $data['pageType']='billing-address';
-    $data['content']='frontend/component/billing_address';
+    $data['content']='frontend/component/billing_address_form';
     $this->load->view('frontend/template',$data);
 
     }else{
         redirect(base_url(), 'refresh');
     }
 }
+
+public function add_or_update_address() {
+    $user = $this->my_libraries->mh_getCookies('customer'); 
+    $customer_id = $user['customer_id'];
+    $fname = $this->input->post('fname');
+    $lname = $this->input->post('lname');
+    $mobile = $this->input->post('mobile');
+    $apart_house = $this->input->post('apart_house');
+    $apart_name = $this->input->post('apart_name');
+    $area = $this->input->post('area');
+    $street_landmark = $this->input->post('street_landmark');
+    $city = $this->input->post('city');
+    $state = $this->input->post('state');
+    $address_type = 'billingAddress';
+    // $city = 'pune';
+    // $state = 'MH';
+    $pincode = $this->input->post('pincode');
+    $data = array(
+        'fname' => $fname,
+        'lname' => $lname,
+        'mobile' => $mobile,
+        'address1' => $apart_house,
+        'address2' => $apart_name,
+        'area' => $area,
+        'landmark' => $street_landmark,
+        'state' => $state,
+        'city' => $city,
+        'pincode' => $pincode,
+        'customer_id' =>$customer_id,
+        'address_type' =>$address_type
+    );
+
+    if ($this->input->post('addr_id')) {
+        $this->common_model->update_billingaddress($this->input->post('addr_id'), $data);
+        $response = ['error' => 0];
+    } else {
+        $this->common_model->insert_billingaddress($data);
+        $response = ['error' => 0];
+    }
+    echo json_encode($response);
+}
+
+
 
 public function add_billingaddress(){        
     $user=$this->my_libraries->mh_getCookies('customer');
