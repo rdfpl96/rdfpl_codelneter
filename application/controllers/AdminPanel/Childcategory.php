@@ -24,42 +24,93 @@ class Childcategory extends CI_Controller
     //     $this->load->view('admin/childcatgory/index', $data);
     // }
 
-
-
+    // public function index()
+    // {
+    //     $config['base_url'] = base_url() . "admin/childcategory";
+    //     $config['total_rows'] = $this->Child_category_model->Child_category_count_all(); 
+    //     $config['per_page'] = 20; 
+    //     $config['uri_segment'] = 3; // Adjust if necessary based on your URL structure
+    //     $config['full_tag_open'] = '<ul class="pagination">';
+    //     $config['full_tag_close'] = '</ul>';
+    //     $config['first_link'] = 'First';
+    //     $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['first_tag_close'] = '</a></li>';
+    //     $config['last_link'] = 'Last';
+    //     $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['last_tag_close'] = '</a></li>';
+    //     $config['next_link'] = 'Next';
+    //     $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['next_tag_close'] = '</a></li>';
+    //     $config['prev_link'] = 'Previous';
+    //     $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['prev_tag_close'] = '</a></li>';
+    //     $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+    //     $config['cur_tag_close'] = '</a></li>';
+    //     $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+    //     $config['num_tag_close'] = '</li>';
+    //     $this->pagination->initialize($config);
+    //     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+    //     $data['pagination_links'] = $this->pagination->create_links();
+    //     $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
+    //     // Pass data to the view
+    //     $this->load->view('admin/childcatgory/index', $data);
+    // }
     
 
     public function index()
-    {
-        $config['base_url'] = base_url() . "admin/childcategory";
-        $config['total_rows'] = $this->Child_category_model->Child_category_count_all(); 
-        $config['per_page'] = 20; 
-        $config['uri_segment'] = 3; // Adjust if necessary based on your URL structure
-        $config['full_tag_open'] = '<ul class="pagination">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-        $config['first_tag_close'] = '</a></li>';
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-        $config['last_tag_close'] = '</a></li>';
-        $config['next_link'] = 'Next';
-        $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-        $config['next_tag_close'] = '</a></li>';
-        $config['prev_link'] = 'Previous';
-        $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
-        $config['prev_tag_close'] = '</a></li>';
-        $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
-        $config['num_tag_close'] = '</li>';
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['pagination_links'] = $this->pagination->create_links();
-        $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
-        // Pass data to the view
-        $this->load->view('admin/childcatgory/index', $data);
-    }
-    
+{
+    $config['base_url'] = base_url('admin/childcategory');
+    $config['total_rows'] = $this->Child_category_model->Child_category_count_all();
+    $config['per_page'] = 20;
+    $config['uri_segment'] = 3;
+
+    // Pagination markup configuration
+    $config['full_tag_open'] = '<ul class="pagination">';
+    $config['full_tag_close'] = '</ul>';
+    $config['first_link'] = 'First';
+    $config['first_tag_open'] = '<li class="paginate_button page-item page-link">';
+    $config['first_tag_close'] = '</li>';
+    $config['last_link'] = 'Last';
+    $config['last_tag_open'] = '<li class="paginate_button page-item page-link">';
+    $config['last_tag_close'] = '</li>';
+    $config['next_link'] = 'Next';
+    $config['next_tag_open'] = '<li class="paginate_button page-item page-link">';
+    $config['next_tag_close'] = '</li>';
+    $config['prev_link'] = 'Previous';
+    $config['prev_tag_open'] = '<li class="paginate_button page-item page-link">';
+    $config['prev_tag_close'] = '</li>';
+    $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+    $config['num_tag_close'] = '</li>';
+
+    // Initialize pagination
+    $this->pagination->initialize($config);
+
+    $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+
+
+
+    // Fetch data
+    $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
+    $data['pagination_links'] = $this->pagination->create_links();
+
+    // Load view
+    $this->load->view('admin/childcatgory/index', $data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function search_Child_list() {
         
@@ -126,6 +177,7 @@ class Childcategory extends CI_Controller
         $this->Child_category_model->insertChildCategory($data);
        redirect('admin/childcategory');
     }
+    
 
     public function get_subcategories()
     {

@@ -2992,12 +2992,14 @@ class Admin extends CI_Controller
     exit();
   }
 
+
   public  function banner_edit_action($banner_id)
   {
     $data['banner'] = $this->sqlQuery_model->get_banner_by_id($banner_id);
     $this->load->view('admin/containerPage/edit_banner', $data);
   }
 
+  
   public function updatebannerStatus()
   {
     $banner_id = $this->input->post('banner_id');

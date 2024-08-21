@@ -7,6 +7,8 @@ $this->load->view('admin/headheader');
 $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array();
 ?>
 
+
+
 <div class="body d-flex py-3">
     <div class="container-xxl">
         <div class="row align-items-center">
@@ -60,7 +62,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="childcat-tbody">
+                                <!-- <tbody id="childcat-tbody">
                                     <?php if (!empty($childcatdetails)): ?>
                                        <?php  $serial_number = 1;?>
                                         <?php foreach ($childcatdetails as $index => $detail): ?>
@@ -82,7 +84,36 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             <td colspan="7" class="text-center">No data available</td>
                                         </tr>
                                     <?php endif; ?>
-                                </tbody>
+
+
+
+                                </tbody> -->
+
+                    <tbody id="childcat-tbody">
+                        <?php if (!empty($childcatdetails)): ?>
+                            <?php
+                            $serial_number = $page + 1; 
+                            ?>
+                            <?php foreach ($childcatdetails as $detail): ?>
+                                <tr>
+                                    <td><?php echo $serial_number++; ?></td>
+                                    <td><?php echo htmlspecialchars($detail['category']); ?></td>
+                                    <td><?php echo htmlspecialchars($detail['subCat_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($detail['childCat_name']); ?></td>
+                                    <td><?php echo ($detail['status'] == 1) ? 'Active' : 'Inactive'; ?></td>
+                                    <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($detail['update_date']))); ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" onclick="deleteRowtablesub(<?php echo $detail['child_cat_id']; ?>)">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="text-center">No data available</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+
                             </table>
                             <!-- Pagination -->
                             <div class="pagination-links">

@@ -116,8 +116,6 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                 <?php echo $pagination; ?>
             </div>
 
-
-        
         </div>
         
     </div>

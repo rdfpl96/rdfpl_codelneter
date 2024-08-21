@@ -14,6 +14,7 @@ class Subcategory extends CI_Controller{
 		  $this->load->model('admin/category_model','category');
           $this->load->model('admin/subcategory_model','subcategory');
 		  $session=$this->session->userdata('admin');
+          $this->load->helper(array('form', 'url'));
           $this->load->library('pagination');
 		  $_SERVER['REQUEST_URI']="admin";
 
@@ -26,12 +27,6 @@ class Subcategory extends CI_Controller{
   
   	}
 
-    // function index(){
-            
-    //      $this->load->view('admin/category/index');
-             
-
-   	// }
 
        public function index($page='') {
 
@@ -77,12 +72,6 @@ class Subcategory extends CI_Controller{
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
     
-
-
-
-
-
-        
         $array_data = $this->subcategory->get_subcategories($page, $config["per_page"], $name);
       
         // echo '<pre>';
@@ -92,27 +81,36 @@ class Subcategory extends CI_Controller{
 
         $option = '';
         $i =1;
-        if (is_array($array_data) && count($array_data) > 0) {
-            foreach ($array_data as $record) {
-                $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-        
-                $option .= '<tr> 
-                                <td>' . ($i+$page) . '</td>
-                                <td>' . $record['category'] . '</td>
-                                <td>' . $record['subCat_name'] . '</td>  
-                                <td>' . $status . '</td>
-                                <td>' . date('d-m-Y', strtotime($record['update_date'])) . '</td>
-                                <td></td>
-                                <td>
-                                    <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
-                                    <a href="javascript:deleteRowtablesub('.$record['sub_cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title=""  title="Delete"><i class="fa fa-trash"></i> Delete</a>
-                                </td>
-                        </tr>';
-                $i++;
-            }
-        } else {
-            $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
-        }
+
+       if (is_array($array_data) && count($array_data) > 0) {
+    foreach ($array_data as $record) {
+        $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+
+        $option .= '<tr> 
+                        <td>' . ($i + $page) . '</td>
+                        <td>' . $record['category'] . '</td>
+                        <td>' . $record['subCat_name'] . '</td>  
+                        <td>' . $status . '</td>
+                        <td>' . date('d-m-Y', strtotime($record['update_date'])) . '</td>';
+
+                        if (!empty($record['subcat_image'])) {                                    
+                            $option .= '<td><img src="' . base_url() . 'uploads/category/' . $record['subcat_image'] . '" style="width:47px;height: 47px;"></td>';
+                        } else {
+                            $option .= '<td >No image found</td>';
+                        }
+
+                        $option .= '<td>
+                        <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
+                        <a href="javascript:deleteRowtablesub(' . $record['sub_cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i> Delete</a>
+                    </td>
+                </tr>';
+        $i++;
+    }
+} else {
+    $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+}
+
+
         
         $output = array('array_data' => $option, 'page_menu_id' => $page_menu_id, 'getAccess' => $getAccess, 'pagination' => $data['pagination']);
         if ($this->input->post('method') == "changepage") {
@@ -208,22 +206,45 @@ class Subcategory extends CI_Controller{
         $this->load->view('admin/subcategory/create', $data);
     }
 
+
+
+
     public function store() {
-        $data = array(
+        
+        $upload_path = realpath(APPPATH . '../uploads/category/');
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE);
+        }
+                $config['upload_path'] = $upload_path;  
+                $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+                $config['max_size'] = 2048;
+                $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('cat_image')) {
+                $error = $this->upload->display_errors();
+                echo json_encode(['status' => 'error', 'message' => $error]);
+                return;
+            }
+
+           $upload_data = $this->upload->data();
+         $data = array(
             'cat_id' => $this->input->post('cat_id'),
             'subCat_name' => $this->input->post('subcategory_name'),
-            'slug' => $this->input->post('slug')
+            'slug' => $this->input->post('slug'),
+            'subcat_image' => $upload_data['file_name']
         );
 
-        // Insert data into the database
+      
+      
         if ($this->subcategory->insert_subcategory($data)) {
             $this->session->set_flashdata('success_message', 'Data Inserted Successfully!');
         } else {
             $this->session->set_flashdata('error_message', 'Failed to insert data!');
         }
+    
         redirect('admin/subcategory');
     }
-
+      
 
 public function edit($id) {
         $data['subcategory'] = $this->subcategory->get_subcategory($id);
@@ -245,17 +266,44 @@ public function edit($id) {
         $this->load->view('admin/subcategory/edit', $data);
     }
 
+
+    
     public function update($id) {
+        $upload_path = realpath(APPPATH . '../uploads/category/');
+        if (!is_dir($upload_path)) {
+            mkdir($upload_path, 0777, TRUE);
+        }
+        $config['upload_path'] = $upload_path;  
+        $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+        $config['max_size'] = 2048;
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('cat_image')) {
+            $error = $this->upload->display_errors();
+            echo json_encode(['status' => 'error', 'message' => $error]);
+            return;
+        }
         $data = array(
             'cat_id' => $this->input->post('cat_id'),
             'subCat_name' => $this->input->post('subcategory_name'),
             'slug' => $this->input->post('slug'),
+            'subcat_image' => $upload_data['file_name']
         );
+          echo "<pre>"; print_r($data); die();"</pre>";
         $this->subcategory->update_subcategory($id, $data);
         $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
         redirect('admin/subcategory');
     }
 
 
+
+
+
+    
+
+
+
+
 }
+
 ?>

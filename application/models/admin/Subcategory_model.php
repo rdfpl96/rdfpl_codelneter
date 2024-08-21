@@ -101,6 +101,7 @@ class Subcategory_model extends CI_Model{
             $this->db->like('tbl_sub_category.subCat_name', $name);
         }
         $this->db->limit($limit, $start);
+        $this->db->order_by('tbl_sub_category.update_date', 'DESC');
         $query = $this->db->get();
         //die($this->db->last_query());
         return $query->result_array(); // Ensuring the result is returned as an arra

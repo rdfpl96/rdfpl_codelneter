@@ -30,7 +30,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
 <div class="body d-flex py-3">
     <div class="container-xxl">
-        <form action="<?php echo base_url('admin/subcategory/update/'.$subcategory['sub_cat_id']); ?>" method="post">
+        <form action="<?php echo base_url('admin/subcategory/update/'.$subcategory['sub_cat_id']); ?>" method="post"  enctype="multipart/form-data">
             <input type="hidden" name="sub_cat_id" value="<?php echo $subcategory['sub_cat_id']; ?>">
             <div class="row align-items-center">
                 <div class="border-0 mb-4">
@@ -79,6 +79,14 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             <label class="form-label">Subcategory Slug <span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" id="slug" name="slug" value="<?php echo $subcategory['slug']; ?>" required placeholder="Please enter slug">
                                         </div>
+                                        
+                                    <div class="col-md-6">
+                                        <label class="form-label">Category Image <span style="color:red;">*</span></label>
+                                        <input type="file" class="form-control url" id="cat_image" name="cat_image" required>
+                                        <?php if (!empty($subcategory['subcat_image'])): ?>
+                                            <img src="<?php echo base_url('uploads/category/') . $subcategory['subcat_image']; ?>" style="width:50px; margin-top:10px;">
+                                        <?php endif; ?>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

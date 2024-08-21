@@ -34,7 +34,8 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
  <!-- Body: Body --> 
             <div class="body d-flex py-3">
                 <div class="container-xxl">
-                 <form action="<?php echo base_url('admin/subcategory/store'); ?>" method="post">
+                <form action="<?php echo base_url('admin/subcategory/store'); ?>" method="post" enctype="multipart/form-data">
+                    
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
@@ -87,10 +88,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                             <input type="text" class="form-control url" id="slug" name="slug" value="" required placeholder="Please enter slug">
                                         </div>
 
-                                                <!-- <div class="col-md-6">
+                                                <div class="col-md-6">
                                                     <label  class="form-label">Category Image <span style="color:red;">*</span></label>
                                                     <input type="file" class="form-control url" id="cat_image" name="cat_image" value="" required placeholder="">
-                                                </div> -->
+                                                </div>
                                         </div>
 
                                     </div>
