@@ -175,7 +175,7 @@ class Subcategory extends CI_Controller{
            <td>'.$val['category'].'</td>
             <td>'.$val['subCat_name'].'</td>
             <td>'.$status.'</td>
-            <td>'.$val['update_date'].'</td>
+             <td>' . htmlspecialchars(date('d-m-Y', strtotime($val['update_date']))) . '</td>
             <td>'.$val['action'].'</td>
             <td><a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
             <td><a href="javascript:deleteRowtablesub('.$val['sub_cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Delete</a></td>
