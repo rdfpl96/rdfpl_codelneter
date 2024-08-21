@@ -182,7 +182,7 @@ class Product_model extends CI_Model{
          
             $record=$query->row_array();
             $record['items']=$this->customlibrary->getProductItemByproductId($record['product_id']);
-            $array_data[]=$record;
+            $array_data=$record;
           
          
       }
