@@ -25,7 +25,7 @@ class Product extends REST_Controller{
   }  
   public function index_post(){
 
-       $post = json_decode($this->input->raw_input_stream, true);
+      $post = json_decode($this->input->raw_input_stream, true);
 
       $records_per_page =25;
       $page = (int)(isset($post['page']) ? $post['page'] : 1);
@@ -79,6 +79,7 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
     $simillerProduct=array();
 
     if(count($pdetail)>0){
+      $pdetail['other_info']=unserialize($pdetail['other_info']);
       $ratingReview=$this->product->getRatingReviewByProdID($id);
       $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id,$search_key="");
     }
