@@ -179,10 +179,11 @@ class Product_model extends CI_Model{
       $this->db->limit(1);
       $query=$this->db->get();
       if($query->num_rows()>0){
-          foreach($query->result_array() as $record){
+         
+            $record=$query->row_array();
             $record['items']=$this->customlibrary->getProductItemByproductId($record['product_id']);
             $array_data[]=$record;
-          }
+          
          
       }
     return $array_data;
