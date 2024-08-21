@@ -182,6 +182,47 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   </div>  -->
   <?php $this->load->view('admin/footer'); ?>
   <script>
+
+$(document).on('click', '.add-more', function() {
+    var increment = $('#increment').val();
+    increment++;
+    $('#increment').val(increment);
+    var html = '<tr class="add-tr' + increment + '">' +
+      '<td class="tbl-td">' +
+      '<div class="row">' +
+      '<div class="col-sm-11">' +
+      '<input type="hidden" id="disc-id' + increment + '" name="input_disc_id[]" value="">' +
+      '<input type="text" class="form-control" id="heading' + increment + '" placeholder="Heading" name="heading[]">' +
+      '</div>' +
+      '<div class="col-sm-1">' +
+      '<button type="button" class="btn btn-danger remove-btn" data-id="' + increment + '">-</button>' +
+      '</div>' +
+      '</div>' +
+      '<textarea class="form-control" id="description' + increment + '" name="description[]" placeholder="Description" style="margin-bottom: 6px;"></textarea>' +
+      '</td>' +
+      '</tr>';
+    $('.add-tr').before(html);
+
+    // alert('hiiii');
+  })
+
+
+
+
+  $(document).on('click', '.remove-btn', function() {
+    var rowId = $(this).data('id');
+    $('.add-tr' + rowId).remove();
+  });
+
+
+
+
+
+
+
+
+
+
     $(document).ready(function (){
        $(".pname").keyup(function() {
           var Text = $(this).val();
@@ -273,5 +314,6 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
         },
     });
 }
+
 
   </script>
