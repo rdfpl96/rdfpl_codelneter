@@ -71,6 +71,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                                 <td><?php echo htmlspecialchars($detail['childCat_name']); ?></td>
                                                 <td><?php echo ($detail['status'] == 1) ? 'Active' : 'Inactive'; ?></td>
                                                 <td><?php echo htmlspecialchars(date('d-m-Y', strtotime($detail['update_date']))); ?></td>
+
                                                 <td>
                                                     <button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" onclick="deleteRowtablesub(<?php echo $detail['child_cat_id']; ?>)">Delete</button>
                                                 </td>

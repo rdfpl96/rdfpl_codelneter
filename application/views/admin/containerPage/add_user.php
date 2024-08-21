@@ -62,8 +62,8 @@ if (!empty($user_id)) {
                                 <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                             </div>
                             <h3 class="fw-bold mb-0"><?php echo empty($user_id) ? 'Add' : 'Edit'; ?> User</h3>
-                         
-                            <a href="<?= base_url('admin/user_list') ?>" class="btn btn-primary" style="margin-left: 600px;">Back</a>
+
+                            <a href="<?= base_url('admin/user_list') ?>" class="btn btn-primary" style="margin-left: 720px;">Back</a>
                             <button type="submit" class="btn btn-primary" id="update_user">Save</button>
                         </div>
                     </div>
@@ -120,18 +120,22 @@ if (!empty($user_id)) {
                                             </div>
                                             <span style="color:red;font-size: 13px;">Image dimension should be 300 X 300 Px.</span>
                                         </div>
-                                        
+
 
                                         <!-- <div class="col-md-4">
                                             <label class="form-label">Status</label>
                                             <label class="switch">
                                                 <input 
                                                     type="checkbox" 
-                                                    id="Status<?php // echo htmlspecialchars($user_details->admin_id); ?>"  
+                                                    id="Status<?php // echo htmlspecialchars($user_details->admin_id); 
+                                                                ?>"  
                                                     name="Status[]" 
-                                                    value="<?php ///echo $user_details->status; ?>"  
-                                                    onclick="UpdateUserStatus(<?php// echo htmlspecialchars($user_details->admin_id); ?>)"
-                                                    <?php //echo ($user_details->status == 1) ? 'checked' : ''; ?>>
+                                                    value="<?php ///echo $user_details->status; 
+                                                            ?>"  
+                                                    onclick="UpdateUserStatus(<? php // echo htmlspecialchars($user_details->admin_id); 
+                                                                                ?>)"
+                                                    <?php //echo ($user_details->status == 1) ? 'checked' : ''; 
+                                                    ?>>
                                                 <span class="slider round"></span>
                                             </label>
                                         </div> -->
@@ -149,7 +153,6 @@ if (!empty($user_id)) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
     $(document).ready(function() {
         $('form').on('submit', function(event) {
             var formdata = new FormData($('#Userformdata')[0]);
@@ -179,7 +182,7 @@ if (!empty($user_id)) {
 
 
                     if (response.success) {
-                        
+
                         Swal.fire({
                             title: 'Success!',
                             text: response.message,
@@ -188,8 +191,7 @@ if (!empty($user_id)) {
                         }).then(function() {
                             window.location.href = "<?php echo base_url('admin/user_list'); ?>";
                         });
-                    } 
-                    else {
+                    } else {
                         Swal.fire({
                             title: 'Error!',
                             text: response.errors,
@@ -206,44 +208,41 @@ if (!empty($user_id)) {
 
 
 
-    function UpdateUserStatus(id){
-    
-    var status = $('#Status' + id).val();
-    $.ajax({
-        url: "<?php echo base_url('Admin/updateuserStatus'); ?>",
-        type: "POST",
-        data: { user_id: id, status: status },
-        dataType: "json",
-        success: function(response) {
-            if (response == 'True') {
-                Swal.fire(
-                    'Updated!',
-                    'user status has been updated.',
-                    'success'
-                ).then(() => {
-                    location.reload();
-                });
-            } 
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Failed to update user status.',
-                    'error'
-                );
-            }
-        },
-        // error: function() {
-        //     Swal.fire(
-        //         'Error!',
-        //         'Error updating user status.',
-        //         'error'
-        //     );
-        // }
-    });
-}
+    function UpdateUserStatus(id) {
 
-
-
-
-
+        var status = $('#Status' + id).val();
+        $.ajax({
+            url: "<?php echo base_url('Admin/updateuserStatus'); ?>",
+            type: "POST",
+            data: {
+                user_id: id,
+                status: status
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response == 'True') {
+                    Swal.fire(
+                        'Updated!',
+                        'user status has been updated.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire(
+                        'Failed!',
+                        'Failed to update user status.',
+                        'error'
+                    );
+                }
+            },
+            // error: function() {
+            //     Swal.fire(
+            //         'Error!',
+            //         'Error updating user status.',
+            //         'error'
+            //     );
+            // }
+        });
+    }
 </script>

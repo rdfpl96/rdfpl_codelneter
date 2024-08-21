@@ -86,10 +86,12 @@ class Coupon_model extends CI_Model{
 
 
     public function get_all_coupons($limit, $start) {
-        $this->db->limit($limit, $start);
-        $query = $this->db->get('tbl_coupon');
-        return $query->result();
-    }
+      $this->db->limit($limit, $start);
+      $this->db->order_by('add_date', 'DESC'); 
+      $query = $this->db->get('tbl_coupon');
+      return $query->result();
+  }
+  
 
     public function CheckCouponsPresentInOrderTable($coupon_id) {
       $this->db->where('coupon_id', $coupon_id);
@@ -105,8 +107,6 @@ class Coupon_model extends CI_Model{
 
 
     public function store($data) {
-      // print_r($data);
-      // die();
         return $this->db->insert('tbl_coupon', $data);
     }
 
@@ -186,7 +186,9 @@ public function getCouponSearchDetails($keywords  = '',)
         $this->db->like('coupon_code', $keywords);
         $this->db->or_like('disc_type', $keywords);
     }
+
     $this->db->limit(10, 0);
+    $this->db->order_by('add_date', 'DESC');
     $query = $this->db->get();
     return $query->result();
 }

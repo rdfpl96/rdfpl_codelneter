@@ -27,14 +27,13 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                         </h2>
                     </div>
                     <h3 class="fw-bold mb-0">Banner List</h3>
-                
-                        <a href="<?php echo base_url('admin/add_banner_list'); ?>">
-                            <button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Banner</button>
-                        </a>
-                    
+
+                    <a href="<?php echo base_url('admin/add_banner_list'); ?>">
+                        <button type="button" class="btn btn-primary py-2 px-5 text-uppercase btn-set-task w-sm-100">Add Banner</button>
+                    </a>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="row g-3 mb-3">
             <div class="col-md-12">
                 <div class="card category_list_css">
@@ -58,7 +57,7 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                                     <?php
                                     if (!empty($banner_list)) {
                                         $index = 0;
-                                        foreach (array_reverse($banner_list) as $key => $value) {
+                                        foreach ($banner_list as $key => $value) {
                                             $index++;
                                             $filePath = ($value->desk_image) ? './uploads/banner/' . $value->desk_image : '';
                                             $imgFile = (file_exists($filePath)) ? base_url() . 'uploads/banner/' . $value->desk_image : base_url() . 'include/assets/default_product_image.png';
@@ -72,30 +71,26 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                                                     <img src="<?php echo $imgFile; ?>" style="width:40px; height:40px; border:1px solid grey;">
                                                 </td>
                                                 <td style="text-align:center;"><?php echo htmlspecialchars($value->updated_by); ?></td>
-                                                
-                                                    <td>
-                                                <label class="switch">
-                                                <input 
-                                                    type="checkbox" 
-                                                    id="Status<?php echo htmlspecialchars($value->banner_id); ?>"  
-                                                    name="Status[]" 
-                                                    value="<?php echo $value->status; ?>"  
-                                                    onclick="UpdateBannerStatus(<?php echo htmlspecialchars($value->banner_id); ?>)"
-                                                    <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
-                                                <span class="slider round"></span>
-                                            </label>
-                                                    </td>
 
-                                               
-
-                                            
+                                                <td>
+                                                    <label class="switch">
+                                                        <input
+                                                            type="checkbox"
+                                                            id="Status<?php echo htmlspecialchars($value->banner_id); ?>"
+                                                            name="Status[]"
+                                                            value="<?php echo $value->status; ?>"
+                                                            onclick="UpdateBannerStatus(<?php echo htmlspecialchars($value->banner_id); ?>)"
+                                                            <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </td>
                                                 <td><?php echo date('d-m-Y', strtotime($value->add_date)); ?></td>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic outlined example" style="float: right;">
                                                         <a href="<?php echo base_url('admin/edit_banner/' . $value->banner_id); ?>" class="btn btn-outline-secondary">
                                                             <i class="icofont-edit text-success"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-outline-secondary deleteRowBtn" id="deleteRow" data-id="<?php echo $value->banner_id; ?>"> 
+                                                        <button type="button" class="btn btn-outline-secondary deleteRowBtn" id="deleteRow" data-id="<?php echo $value->banner_id; ?>">
                                                             <i class="icofont-ui-delete text-danger"></i>
                                                         </button>
                                                     </div>
@@ -122,7 +117,6 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     var base_url = "<?php echo base_url(); ?>";
-
     $('.deleteRowBtn').click(function() {
         var value = $(this).data('id');
 
@@ -131,7 +125,9 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
                 url: base_url + 'admin/banner_Delete',
                 type: 'POST',
                 dataType: 'JSON',
-                data: { value: value },
+                data: {
+                    value: value
+                },
                 success: function(data) {
                     if (data == 1) {
                         Swal.fire({
@@ -162,49 +158,40 @@ $actAcx = (!empty($getAccess['inputAction'])) ? $getAccess['inputAction'] : arra
         }
     });
 
-
-
-
-
-    function UpdateBannerStatus(id){
-    var status = $('#Status' + id).val();
-    $.ajax({
-        url: "<?php echo base_url('Admin/updatebannerStatus'); ?>",
-        type: "POST",
-        data: { banner_id: id, status: status },
-        dataType: "json",
-        success: function(response) {
-            if (response == 'True') {
-                Swal.fire(
-                    'Updated!',
-                    'banner status has been updated.',
-                    'success'
-                ).then(() => {
-                    location.reload();
-                });
-            } 
-            else {
-                Swal.fire(
-                    'Failed!',
-                    'Failed to update user status.',
-                    'error'
-                );
-            }
-        },
-        // error: function() {
-        //     Swal.fire(
-        //         'Error!',
-        //         'Error updating user status.',
-        //         'error'
-        //     );
-        // }
-    });
-}
-
-
-
-
-
-
-
+    function UpdateBannerStatus(id) {
+        var status = $('#Status' + id).val();
+        $.ajax({
+            url: "<?php echo base_url('Admin/updatebannerStatus'); ?>",
+            type: "POST",
+            data: {
+                banner_id: id,
+                status: status
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response == 'True') {
+                    Swal.fire(
+                        'Updated!',
+                        'banner status has been updated.',
+                        'success'
+                    ).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire(
+                        'Failed!',
+                        'Failed to update user status.',
+                        'error'
+                    );
+                }
+            },
+            // error: function() {
+            //     Swal.fire(
+            //         'Error!',
+            //         'Error updating user status.',
+            //         'error'
+            //     );
+            // }
+        });
+    }
 </script>

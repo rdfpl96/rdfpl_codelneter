@@ -61,10 +61,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
             <?php
 
-// echo "<pre>";
+                // echo "<pre>";
 
-//  print_r($coupon);
-//  die();
+                // print_r($coupon);
+                // die();
             ?>
 
 
@@ -85,25 +85,27 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Type<span style="color:red;">*</span></label>
-                                           <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
+                                            <select class="form-control" id="disc_type" name="disc_type" required onchange="toggleDiscountInputs()">
                                                 <option value="fixed_amt" <?php echo ($coupon['disc_type'] == 'fixed_amt') ? 'selected' : ''; ?>>Fixed Amount</option>
-                                                <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : ''; ?>>Percentage</option>
+                                                <option value="percentage" <?php echo ($coupon['disc_type'] == 'percentage') ? 'selected' : '0.00'; ?>>Percentage</option>
                                             </select>
-
                                         </div>
+
                                         <div class="col-md-6">
                                             <label class="form-label">Discount per <span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control" id="disc_per" name="disc_per" value="<?php echo $coupon['disc_per']; ?>" required placeholder="Please enter Percentage">
+                                            <input type="text" class="form-control" id="disc_per" name="disc_per" value="<?php echo  ($coupon['disc_type'] == 'percentage') ? $coupon['disc_amt'] :'0.00'; ?>" required placeholder="Please enter Percentage">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label class="form-label">Discount Amount <span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control" id="disc_amt" name="disc_amt" value="<?php echo $coupon['disc_amt']; ?>" required placeholder="Please enter Amount">
+                                            <input type="text" class="form-control" id="disc_amt" name="disc_amt" value="<?php echo  ($coupon['disc_type'] == 'fixed_amt') ? $coupon['disc_amt'] :''; ?>" required placeholder="Please enter Amount">
                                         </div>
+
                                         <div class="col-md-6">
                                             <label class="form-label">Start Date<span style="color:red;">*</span></label>
                                             <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo $coupon['start_date']; ?>" required>
                                         </div>
+
                                         <div class="col-md-6">
                                             <label class="form-label">End Date<span style="color:red;">*</span></label>
                                             <input type="date" class="form-control" id="end_date" name="end_date" value="<?php echo $coupon['end_date']; ?>" required>
@@ -112,7 +114,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             <label class="form-label">Coupon Code Status<span style="color:red;">*</span></label>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <input type="radio" name="coupon_status" value="1" <?php echo ($coupon['coupons_status'] == '1') ? 'checked' : ''; ?> required><span style="padding-left:10px">Active</span>
+                                                    <input type="radio" name="coupon_status" value="1" <?php echo ($coupon['status'] == '1') ? 'checked' : ''; ?> required><span style="padding-left:10px">Active</span>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input type="radio" name="coupon_status" value="0" <?php echo ($coupon['coupons_status'] == '0') ? 'checked' : ''; ?>><span style="padding-left:10px">Inactive</span>
@@ -194,12 +196,12 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
         if (discType === 'fixed_amt') {
             $('#disc_amt').parent().show();
             $('#disc_per').parent().hide();
-            $('#disc_per').val('0.00'); 
+            // $('#disc_per').val('0.00'); 
             
         } else if (discType === 'percentage') {
             $('#disc_amt').parent().hide(); 
             $('#disc_per').parent().show(); 
-            $('#disc_amt').val('0.00');
+            // $('#disc_amt').val('0.00');
             
         }
     }

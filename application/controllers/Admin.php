@@ -32,7 +32,7 @@ class Admin extends CI_Controller
   public function index()
   {
     $session = $this->session->userdata('admin');
-    
+
     if ($session == "") {
       $this->load->view('admin/index');
     } else {
@@ -224,61 +224,61 @@ class Admin extends CI_Controller
   //new code
   public function add_user()
   {
-    
-      if ($this->input->is_ajax_request()) {
-       
-          $email = $this->input->post('email');
-          $existing_user = $this->sqlQuery_model->get_user_by_email($email);
-          if ($existing_user) {
-              $response = array('success' => false, 'errors' => 'This email already exists.');
-              echo json_encode($response);
-              return;
-          }
-  
-          $upload_path = realpath(APPPATH . '../uploads');
-          if (!is_dir($upload_path)) {
-              mkdir($upload_path, 0777, TRUE);
-          }
-  
-          $config['upload_path'] = $upload_path;
-          $config['allowed_types'] = 'gif|jpg|jpeg|png';
-          $config['max_size'] = 2048;
-          $this->load->library('upload', $config);
-          if (!$this->upload->do_upload('image')) {
-              $error = $this->upload->display_errors();
-              $response = array('success' => false, 'errors' => $error);
-              echo json_encode($response);
-              return;
-          } else {
-              // Get the uploaded file data
-              $upload_data = $this->upload->data();
-              $user_data = array(
-                  'admin_name' => $this->input->post('c_fname'),
-                  'admin_username' => $this->input->post('username'),
-                  'admin_mobile' => $this->input->post('mobile'),
-                  'admin_email' => $this->input->post('email'),
-                  'admin_designation' => $this->input->post('designation'),
-                  'admin_password' => md5($this->input->post('password')),
-                  'admin_image' => $upload_data['file_name']
-              );
 
-              // echo "<pre>"; print_r($user_data); die();"</pre>";
+    if ($this->input->is_ajax_request()) {
 
-              $insert = $this->user_model->insert_user($user_data);
-              if ($insert) {
-                  $response = array('success' => true, 'message' => 'User added successfully');
-                  echo json_encode($response);
-              } else {
-                  $response = array('success' => false, 'message' => 'Failed to add user');
-                  echo json_encode($response);
-              }
-          }
-      } else {
-          $data['content'] = 'admin/containerPage/add_user';
-          $this->load->view('admin/template', $data);
+      $email = $this->input->post('email');
+      $existing_user = $this->sqlQuery_model->get_user_by_email($email);
+      if ($existing_user) {
+        $response = array('success' => false, 'errors' => 'This email already exists.');
+        echo json_encode($response);
+        return;
       }
+
+      $upload_path = realpath(APPPATH . '../uploads');
+      if (!is_dir($upload_path)) {
+        mkdir($upload_path, 0777, TRUE);
+      }
+
+      $config['upload_path'] = $upload_path;
+      $config['allowed_types'] = 'gif|jpg|jpeg|png';
+      $config['max_size'] = 2048;
+      $this->load->library('upload', $config);
+      if (!$this->upload->do_upload('image')) {
+        $error = $this->upload->display_errors();
+        $response = array('success' => false, 'errors' => $error);
+        echo json_encode($response);
+        return;
+      } else {
+        // Get the uploaded file data
+        $upload_data = $this->upload->data();
+        $user_data = array(
+          'admin_name' => $this->input->post('c_fname'),
+          'admin_username' => $this->input->post('username'),
+          'admin_mobile' => $this->input->post('mobile'),
+          'admin_email' => $this->input->post('email'),
+          'admin_designation' => $this->input->post('designation'),
+          'admin_password' => md5($this->input->post('password')),
+          'admin_image' => $upload_data['file_name']
+        );
+
+        // echo "<pre>"; print_r($user_data); die();"</pre>";
+
+        $insert = $this->user_model->insert_user($user_data);
+        if ($insert) {
+          $response = array('success' => true, 'message' => 'User added successfully');
+          echo json_encode($response);
+        } else {
+          $response = array('success' => false, 'message' => 'Failed to add user');
+          echo json_encode($response);
+        }
+      }
+    } else {
+      $data['content'] = 'admin/containerPage/add_user';
+      $this->load->view('admin/template', $data);
+    }
   }
-  
+
 
 
   public function update_user()
@@ -286,17 +286,17 @@ class Admin extends CI_Controller
     $user_id = $this->input->post('editv');
     $email = $this->input->post('email');
     $Old_email = $this->input->post('oldemail');
-    
+
     if ($email != $Old_email) {
 
       $existing_user = $this->sqlQuery_model->get_user_by_email($email);
       if ($existing_user) {
-          $response = array('success' => false, 'errors' => 'This email already exists.');
-          echo json_encode($response);
-          return;
+        $response = array('success' => false, 'errors' => 'This email already exists.');
+        echo json_encode($response);
+        return;
       }
     }
-  
+
     $user_data = array(
       'admin_name' => $this->input->post('c_fname'),
       'admin_username' => $this->input->post('username'),
@@ -2094,8 +2094,8 @@ class Admin extends CI_Controller
 
     // echo "<pre>";
     // print_r($orderNumber);
-    
- 
+
+
     // die();
 
     $order_list = $this->sqlQuery_model->getOrderSearchDetails($orderNumber, $fromDate, $toDate);
@@ -2105,7 +2105,7 @@ class Admin extends CI_Controller
     // $order_list = $this->sqlQuery_model->getOrderDetailsByDateOrOrderNumber($fromDate, $toDate, $orderNumber);
 
     // Uncomment the following line for debugging
-  
+
 
     // Set headers to force download the CSV file
     header('Content-Type: text/csv');
@@ -2957,11 +2957,6 @@ class Admin extends CI_Controller
     $this->pagination->initialize($config);
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
     $data['banner_list'] = $this->sqlQuery_model->get_users_banner_list($config["per_page"], $page);
-
-    // echo "<pre>";
-    // print_r($data['banner_list']);
-    // die();
-    
     $data['pagination'] = $this->pagination->create_links();
     $data['content'] = 'admin/containerPage/banner';
     $data['page'] = (!empty($page) ? ($page + 1) : '1');
@@ -3003,7 +2998,8 @@ class Admin extends CI_Controller
     $this->load->view('admin/containerPage/edit_banner', $data);
   }
 
-  public function updatebannerStatus(){
+  public function updatebannerStatus()
+  {
     $banner_id = $this->input->post('banner_id');
     $status = $this->input->post('status');
     $updateStatus = $this->sqlQuery_model->toggle_banner_status($banner_id, $status);
@@ -3014,7 +3010,7 @@ class Admin extends CI_Controller
       echo json_encode('False');
     }
   }
-  
+
 
 
 
@@ -3046,7 +3042,7 @@ class Admin extends CI_Controller
       'desk_image' => $desk_image,
       'status' => $status
     );
-    
+
     if ($this->sqlQuery_model->update_banner($banner_id, $update_data)) {
       $response['success'] = true;
       $response['message'] = 'Banner updated successfully';
@@ -3072,8 +3068,8 @@ class Admin extends CI_Controller
     $this->load->view('admin/containerPage/add_banner_list');
   }
 
-public function banner_add_action()
-{
+  public function banner_add_action()
+  {
     // Retrieve POST data
     $header = $this->input->post('header');
     $description = $this->input->post('description');
@@ -3099,8 +3095,8 @@ public function banner_add_action()
       'description' => $description,
       'button_link' => $link,
       'desk_image' => $image,
-      'add_date' =>date('Y-m-d H:i:s'),
-      'type'=>'banner'
+      'add_date' => date('Y-m-d H:i:s'),
+      'type' => 'banner'
     );
 
     // Insert data into database

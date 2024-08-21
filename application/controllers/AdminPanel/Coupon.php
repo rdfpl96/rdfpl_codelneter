@@ -171,14 +171,13 @@ class Coupon extends CI_Controller
         $data = array(
             'coupon_code' => $this->input->post('coupon_code'),
             'disc_type' => $this->input->post('disc_type'),
-            'disc_amt' => $this->input->post('disc_amt'),
-            'disc_per' => $this->input->post('disc_per'),
+            // 'disc_amt' => $this->input->post('disc_amt'),
+            'disc_amt' => ($this->input->post('disc_type')=='fixed_amt') ? $this->input->post('disc_amt') : $this->input->post('disc_per'),
             'start_date' => $this->input->post('start_date'),
             'end_date' => $this->input->post('end_date'),
-            'coupons_status' => $this->input->post('coupon_status'),
-            'coupon_time_uses' => $this->input->post('coupon_time_uses')
+            'status' => $this->input->post('coupon_status'),
+            //'coupon_time_uses' => $this->input->post('coupon_time_uses')
         );
-
 
 
         // echo "<pre>";
@@ -219,12 +218,11 @@ class Coupon extends CI_Controller
         $coupon_data = array(
             'coupon_code' => $this->input->post('coupon_code'),
             'disc_type' => $this->input->post('disc_type'),
-            'disc_per' => $this->input->post('disc_per'),
-            'disc_amt' => $this->input->post('disc_amt'),
+            'disc_amt' => ($this->input->post('disc_type')=='fixed_amt') ? $this->input->post('disc_amt') : $this->input->post('disc_per'),
             'start_date' => $this->input->post('start_date'),
             'end_date' => $this->input->post('end_date'),
-            'coupons_status' => $this->input->post('coupon_status'),
-            'coupon_time_uses' => $this->input->post('coupon_time_uses'),
+            'status' => $this->input->post('coupon_status'),
+            //'coupon_time_uses' => $this->input->post('coupon_time_uses'),
             'updated_by' => $this->session->userdata('admin_id')
         );
 
