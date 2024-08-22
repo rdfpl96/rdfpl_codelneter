@@ -45,7 +45,6 @@ class Subcategory extends CI_Controller
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $page_menu_id = $menuIdAsKey;
 
-
         $config = array();
         $config["base_url"] = base_url() . "admin/subcategory";
         $config["total_rows"] = $this->subcategory->get_user_count_subcategory($name);
@@ -100,18 +99,16 @@ class Subcategory extends CI_Controller
                         <td>' . $record['subCat_name'] . '</td>  
                         <td>' . $status . '</td>
                         <td>' . date('d-m-Y', strtotime($record['update_date'])) . '</td>';
-
                 if (!empty($record['subcat_image'])) {
                     $option .= '<td><img src="' . base_url() . 'uploads/category/' . $record['subcat_image'] . '" style="width:47px;height: 47px;"></td>';
                 } else {
                     $option .= '<td >No image found</td>';
                 }
-
                 $option .= '<td>
-                        <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a>
-                        <a href="javascript:deleteRowtablesub(' . $record['sub_cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i> Delete</a>
-                    </td>
-                </tr>';
+                            <a href="' . base_url() . 'admin/subcategory/edit/' . $record['sub_cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                            <a href="javascript:deleteRowtablesub(' . $record['sub_cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>&nbsp;&nbsp; Delete</a>
+                        </td>
+                    </tr>';
                 $i++;
             }
         } else {
@@ -130,59 +127,54 @@ class Subcategory extends CI_Controller
     }
 
 
-            public function deleteSubcategory()
-            {
-                $menuIdAsKey = 34;
-                $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
-                $data['page_menu_id'] = $menuIdAsKey;
+    public function search_subcat_list()
+    {
+        $keywords = $this->input->post('searchText');
+        $Cat_Html = $this->subcategory->SearchCategory($keywords);
+        $counter = 1;
+        $html = '';
 
-                $sub_cat_id = $this->input->post('sub_cat_id');
-                $response = $this->sqlQuery_model->sql_delete('tbl_sub_category', array('sub_cat_id' => $sub_cat_id));
-
-                if ($response == '1') {
-                    $Flag = 'True';
-                } else {
-                    $Flag = 'False';
-                }
-
-                echo json_encode($Flag);
-                exit();
-            }
-
-
-
-
-            public function search_subcat_list()
-            {
-                $keywords = $this->input->post('searchText');
-                $Cat_Html = $this->subcategory->SearchCategory($keywords);
-                $counter = 1;
-                $html = '';
-
-                foreach ($Cat_Html as $val) {
-                    $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
-                    $html .= '<tr>
+        foreach ($Cat_Html as $val) {
+            $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+            $html .= '<tr>
                             <td>' . $counter++ . '</td>
                             <td>' . $val['category'] . '</td>
                             <td>' . $val['subCat_name'] . '</td>
                             <td>' . $status . '</td>
                             <td>' . date('d-m-Y', strtotime($val['update_date'])) . '</td>';
-                    if (!empty($val['subcat_image'])) {
-                        $html .= '<td><img src="' . base_url() . 'uploads/category/' . $val['subcat_image'] . '" style="width:47px;height: 47px;"></td>';
-                    } else {
-                        $html .= '<td >No image found</td>';
-                    }
-                    $html .= '<td>' . $val['action'] . '</td>
-                            <td><a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                            <td><a href="javascript:deleteRowtablesub(' . $val['sub_cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
-                        </tr>';
-                }
-                // $data['categories']
-                print_r($html);
-                die();
+            if (!empty($val['subcat_image'])) {
+                $html .= '<td><img src="' . base_url() . 'uploads/category/' . $val['subcat_image'] . '" style="width:47px;height: 47px;"></td>';
+            } else {
+                $html .= '<td >No image found</td>';
             }
+            $html .= 
+                            '<td><a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit</a>
+                            <a href="javascript:deleteRowtablesub(' . $val['sub_cat_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>&nbsp;&nbsp;Delete</a></td>
+                        </tr>';
+        }
+        // $data['categories']
+        print_r($html);
+        die();
+    }
 
+    public function deleteSubcategory()
+    {
+        $menuIdAsKey = 34;
+        $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+        $data['page_menu_id'] = $menuIdAsKey;
 
+        $sub_cat_id = $this->input->post('sub_cat_id');
+        $response = $this->sqlQuery_model->sql_delete('tbl_sub_category', array('sub_cat_id' => $sub_cat_id));
+
+        if ($response == '1') {
+            $Flag = 'True';
+        } else {
+            $Flag = 'False';
+        }
+
+        echo json_encode($Flag);
+        exit();
+    }
 
 
 
@@ -195,8 +187,6 @@ class Subcategory extends CI_Controller
         // exit;
         $this->load->view('admin/subcategory/create', $data);
     }
-
-
 
 
     public function store()
@@ -249,7 +239,7 @@ class Subcategory extends CI_Controller
         $this->load->view('admin/subcategory/edit', $data);
     }
 
- 
+
 
 
     public function update($id)
@@ -285,9 +275,6 @@ class Subcategory extends CI_Controller
             'slug' => $this->input->post('slug'),
             'subcat_image' => $desk_image
         );
-
-
-
         $this->subcategory->update_subcategory($id, $data);
         $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
         // Redirect to the subcategory list page

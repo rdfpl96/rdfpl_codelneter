@@ -62,9 +62,16 @@ if (!empty($user_id)) {
                                 <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                             </div>
                             <h3 class="fw-bold mb-0"><?php echo empty($user_id) ? 'Add' : 'Edit'; ?> User</h3>
-
-                            <a href="<?= base_url('admin/user_list') ?>" class="btn btn-primary" style="margin-left: 720px;">Back</a>
-                            <button type="submit" class="btn btn-primary" id="update_user">Save</button>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="<?= base_url('admin/user_list') ?>"><button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Back</button></a>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase " id="update_user">Save</button>
+                                </div>
+                            </div>
+                            <!-- <a href="<?= base_url('admin/user_list') ?>" class="btn btn-primary" style="margin-left: 720px;">Back</a>
+                            <button type="submit" class="btn btn-primary" id="update_user">Save</button> -->
                         </div>
                     </div>
                     <td>
