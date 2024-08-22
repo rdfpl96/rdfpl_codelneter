@@ -27,6 +27,12 @@ class Subcategory extends CI_Controller{
   
   	}
 
+    // function index(){
+            
+    //      $this->load->view('admin/category/index');
+             
+
+   	// }
 
        public function index($page='') {
 
@@ -175,7 +181,7 @@ class Subcategory extends CI_Controller{
            <td>'.$val['category'].'</td>
             <td>'.$val['subCat_name'].'</td>
             <td>'.$status.'</td>
-             <td>' . htmlspecialchars(date('d-m-Y', strtotime($val['update_date']))) . '</td>
+            <td>'.$val['update_date'].'</td>
             <td>'.$val['action'].'</td>
             <td><a href="' . base_url() . 'admin/category/edit/' . $val['cat_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
             <td><a href="javascript:deleteRowtablesub('.$val['sub_cat_id'].')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Delete</a></td>
@@ -234,7 +240,7 @@ class Subcategory extends CI_Controller{
             'subcat_image' => $upload_data['file_name']
         );
 
-      
+        // echo "<pre>"; print_r($data); die();"</pre>";
       
         if ($this->subcategory->insert_subcategory($data)) {
             $this->session->set_flashdata('success_message', 'Data Inserted Successfully!');
@@ -244,7 +250,11 @@ class Subcategory extends CI_Controller{
     
         redirect('admin/subcategory');
     }
-      
+    
+
+
+
+  
 
 public function edit($id) {
         $data['subcategory'] = $this->subcategory->get_subcategory($id);
@@ -266,40 +276,66 @@ public function edit($id) {
         $this->load->view('admin/subcategory/edit', $data);
     }
 
+    // public function update($id) {
+        
+    //     $data = array(
+    //         'cat_id' => $this->input->post('cat_id'),
+    //         'subCat_name' => $this->input->post('subcategory_name'),
+    //         'slug' => $this->input->post('slug'),
+    //     );
+    //     $this->subcategory->update_subcategory($id, $data);
+    //     $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
+    //     redirect('admin/subcategory');
+    // }
 
     
     public function update($id) {
+
         $upload_path = realpath(APPPATH . '../uploads/category/');
-        if (!is_dir($upload_path)) {
-            mkdir($upload_path, 0777, TRUE);
-        }
-        $config['upload_path'] = $upload_path;  
-        $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-        $config['max_size'] = 2048;
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('cat_image')) {
-            $error = $this->upload->display_errors();
-            echo json_encode(['status' => 'error', 'message' => $error]);
-            return;
-        }
-        $data = array(
-            'cat_id' => $this->input->post('cat_id'),
-            'subCat_name' => $this->input->post('subcategory_name'),
-            'slug' => $this->input->post('slug'),
-            'subcat_image' => $upload_data['file_name']
-        );
-          echo "<pre>"; print_r($data); die();"</pre>";
-        $this->subcategory->update_subcategory($id, $data);
-        $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
-        redirect('admin/subcategory');
-    }
-
-
-
-
-
     
+            // Create the directory if it doesn't exist
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, TRUE);
+            }
+    
+            // Configure the upload settings
+            $config['upload_path'] = $upload_path;  
+            $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+            $config['max_size'] = 2048;
+            $this->load->library('upload', $config);
+    
+            // Fetch the existing subcategory image
+            $existing_subcat = $this->subcategory->get_Sub_Cat_Id($id);
+           
+            $desk_image = $existing_subcat ? $existing_subcat->subcat_image : '';
+           
+            // Handle image upload
+            if ($this->upload->do_upload('cat_image')) {
+                $upload_data = $this->upload->data();
+                $desk_image = $upload_data['file_name'];
+            }
+            // Prepare data for updating
+            $data = array(
+                'cat_id' => $this->input->post('cat_id'),
+                'subCat_name' => $this->input->post('subcategory_name'),
+                'slug' => $this->input->post('slug'),
+                'subcat_image' => $desk_image
+            );
+
+           
+
+            $this->subcategory->update_subcategory($id, $data);
+            $this->session->set_flashdata('success_message', 'Subcategory updated successfully');
+            // Redirect to the subcategory list page
+            redirect('admin/subcategory');
+        }
+        
+
+
+
+
+
+
 
 
 

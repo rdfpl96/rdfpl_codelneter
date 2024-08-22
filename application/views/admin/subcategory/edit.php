@@ -82,11 +82,17 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                         
                                     <div class="col-md-6">
                                         <label class="form-label">Category Image <span style="color:red;">*</span></label>
-                                        <input type="file" class="form-control url" id="cat_image" name="cat_image" required>
-                                        <?php if (!empty($subcategory['subcat_image'])): ?>
-                                            <img src="<?php echo base_url('uploads/category/') . $subcategory['subcat_image']; ?>" style="width:50px; margin-top:10px;">
-                                        <?php endif; ?>
+                                        <input type="file" class="form-control url" id="cat_image" name="cat_image"> 
+                                     <img src="<?php echo base_url('uploads/category/') . $subcategory['subcat_image']; ?>" style="width:50px; margin-top:10px;">
+                                      
                                     </div>
+
+                                                <!-- <div class="mb-3">
+                                            <label for="desk_image" class="form-label">Image</label>
+                                            <input type="file" class="form-control" id="desk_image" name="desk_image">
+                                            <img src="<?php //echo base_url('uploads/banner/' . $banner->desk_image); ?>" style="width:100px; margin-top:10px;">
+                                        </div> -->
+
                                     </div>
                                 </div>
                             </div>

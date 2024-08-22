@@ -39,6 +39,14 @@ class Subcategory_model extends CI_Model{
       
   }
 
+
+  public function get_Sub_Cat_Id($id) {
+    $query = $this->db->get_where('tbl_sub_category', array('sub_cat_id' => $id));
+    return $query->row(); 
+ }
+
+ 
+
   public function chkUniqueCategoryURL($slug,$id=""){
       $this->db->select('*');
       $this->db->from('tbl_category');
@@ -140,7 +148,7 @@ public function get_subcategory($id) {
         return $query->row_array();
     }   
 
-public function update_subcategory($id, $data) {
+  public function update_subcategory($id, $data) {
         $this->db->where('sub_cat_id', $id);
         $this->db->update('tbl_sub_category', $data);
     }     
@@ -154,26 +162,6 @@ public function update_category($id, $data) {
         }
     }
 
-  // public function Edit($id,$array_data){
-
-  //   $this->db->trans_begin(); 
-
-  //   $this->db->where('cat_id', $id);     
-  //   $this->db->update('tbl_category', $array_data);
-
-  //   if($this->db->trans_status() === FALSE){
-  //     $this->db->trans_rollback();
-  //     return false;
-  //   }else{
-  //     $this->db->trans_commit();
-  //     return true;
-  //    
-  // } 
-
-  /*public function get_user_count_subcategory() {
-  
-    return $this->db->count_all("tbl_sub_category");
-  }*/
    
   public function get_users_category($limit, $start) {
     $this->db->limit($limit, $start);
