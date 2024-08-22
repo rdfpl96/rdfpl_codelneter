@@ -191,14 +191,17 @@
                 <div class="home_cat_heading">
                     <h3>Top Offers</h3>
                 </div>
-                <div class="row">
-                    <?php for ($i=0; $i < 4 ; $i++) { ?>
+                <!--<div class="row">
+                    <?php //for ($i=0; $i < 4 ; $i++) { ?>
                         <div class="col-md-3">
                           <div class="hoem_cat_img">
-                              <a href=""><img src="<?php echo base_url();?>include/frontend/assets/imgs/category/top_offers.webp" alt="" /></a>
+                              <a href=""><img src="<?php //echo base_url();?>include/frontend/assets/imgs/category/top_offers.webp" alt="" /></a>
                           </div>
                       </div>
-                    <?php } ?>                      
+                    <?php //} ?>                      
+                </div> -->
+                <div class="row">
+                <?php echo $this->load->view('frontend/component/productItem', array("productItems"=>$getmaxvalueoffers,'pcol'=>5), TRUE); ?>
                 </div>
             </div>
           </div>

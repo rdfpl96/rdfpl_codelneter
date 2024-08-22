@@ -41,7 +41,7 @@ class Home extends CI_Controller {
 
      // $data['newProduct']=$this->home->getNewProduct();
 
-
+      $data['getmaxvalueoffers']=$this->home->getTopSellingProduct();
       $data['sliders']=$this->home->getSliderbanner();
 
      

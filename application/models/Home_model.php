@@ -35,7 +35,7 @@ public function getProductType($product_type_id){
         $array_data=$query->result_array();
     }
     return $array_data;
-  } 
+} 
 
   public function getTopSellingProduct(){
     $array_data=array();
@@ -64,6 +64,31 @@ public function getProductType($product_type_id){
   } 
 
 
+public function get_max_value_offers(){
+// SELECT p.* FROM tbl_product p
+// JOIN (SELECT product_id, offer_amount
+// FROM offers ORDER BY offer_amount DESC
+// LIMIT 5) o ON p.product_id = o.product_id;
+
+$this->db->select('product_id, offer_amount');
+$this->db->from('offers');
+$this->db->order_by('offer_amount', 'DESC');
+$this->db->limit(5);
+$subquery = $this->db->get_compiled_select();
+$this->db->select('p.*');
+$this->db->from('tbl_product AS p');
+$this->db->join("($subquery) AS o", 'p.product_id = o.product_id');
+$query = $this->db->get();
+ if($query->num_rows()>0){
+        $array_data=$query->result_array();
+    }
+    return $array_data;
+// $result = $query->result();
+// print_r($this->db->last_query());
+// die();  // Stop execution to view the query
+
+
+} 
          
   
 }
