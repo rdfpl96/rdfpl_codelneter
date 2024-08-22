@@ -3761,9 +3761,7 @@ class Admin extends CI_Controller
     $menuIdAsKey = 41;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
-
     $querys = "SELECT * FROM tbl_delivery_pincode WHERE courier_type ='dtdc'";
-
     $pr_list_count = $this->sqlQuery_model->sql_query($querys);
     $url_link = base_url('admin/pincode');
     $limit_per_page = 10;
@@ -3778,15 +3776,9 @@ class Admin extends CI_Controller
     $querys = "SELECT * FROM tbl_delivery_pincode WHERE courier_type ='dtdc' ORDER BY pincode_id DESC $sql_limit";
     $data['pincode_list'] = $this->sqlQuery_model->sql_query($querys);
     $data["links"] = $this->pagination->create_links();
-
-
     $data['werehouse_list'] = $this->sqlQuery_model->sql_select_where('tbl_werehouse', array('status' => 1));
-
     $data['ActiveInactive_ActionArr'] = array('table' => 'tbl_delivery_pincode', 'primary_key' => 'pincode_id', 'update_target_column' => 'status');
-
     $data['deleteActionArr'] = array('table' => 'tbl_delivery_pincode', 'primary_key' => 'pincode_id');
-
-
     $data['content'] = 'admin/containerPage/pincode';
     $this->load->view('admin/template', $data);
   }
@@ -3798,22 +3790,13 @@ class Admin extends CI_Controller
     $menuIdAsKey = 41;
     $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
     $data['page_menu_id'] = $menuIdAsKey;
-
-
     $getPinId = $this->uri->segment(3);
     $data['pin_detaials'] = 0;
     if ($getPinId != "") {
       $data['pin_detaials'] = $this->sqlQuery_model->sql_select_where('tbl_delivery_pincode', array('pincode_id' => $getPinId));
     }
-
-
     $data['werehouse_list'] = $this->sqlQuery_model->sql_select_where('tbl_werehouse', array('status' => 1));
     $data['courier_type'] = $this->sqlQuery_model->sql_select_where('courier_type', array('status' => 1));
-
-
-
-
-
     $data['content'] = 'admin/containerPage/add_pincode';
     $this->load->view('admin/template', $data);
   }
@@ -3851,7 +3834,6 @@ class Admin extends CI_Controller
     while (ob_get_level()) {
       ob_end_clean();
     }
-
     $file = fopen('php://output', 'w');
     // file name
     $filename = 'pincode_' . date('Y-m-d_h-i') . '.csv';
@@ -3940,21 +3922,14 @@ class Admin extends CI_Controller
 
           $counter++;
           if ($counter != 1) {
-
-
             $whcode_field3 = explode(',', $filedata[3]);
             $diffValue =  array_diff(array_map('trim', $whcode_field3), $whcode);
-
-
-
             if ($diffValue != array()) {
               $data['status'] = 0;
               $data['response'] = 'Invalid werehouse code. Pincode ID : ' . $filedata[0];
               echo json_encode($data);
               exit;
             }
-
-
             $arr['pincode_id'] = $filedata[0];
             $arr['pincode'] = trim($filedata[1]);
             $arr['delivery_city'] = trim($filedata[2]);
@@ -4013,6 +3988,7 @@ class Admin extends CI_Controller
 
 
   //Mamange Other Product
+
 
   public function otherProduct()
   {

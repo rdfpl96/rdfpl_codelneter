@@ -94,7 +94,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                             <?php
                             $serial_number = $page + 1; 
                             ?>
-                            <?php foreach ($childcatdetails as $detail): ?>
+                            <?php foreach ($childcatdetails as $key => $detail): ?>
                                 <tr>
                                     <td><?php echo $serial_number++; ?></td>
                                     <td><?php echo htmlspecialchars($detail['category']); ?></td>
