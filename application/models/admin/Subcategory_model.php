@@ -122,6 +122,8 @@ class Subcategory_model extends CI_Model{
       $this->db->join('tbl_category', 'tbl_sub_category.cat_id = tbl_category.cat_id');
       $this->db->like('tbl_sub_category.subCat_name', $category);
       $this->db->or_like('tbl_category.category', $category);
+      $this->db->order_by('tbl_sub_category.update_date', 'DESC');
+      $this->db->limit(20,0);
       $query = $this->db->get();
       $result_array = $query->result_array(); 
       return  $result_array;
