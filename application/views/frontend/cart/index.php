@@ -36,7 +36,7 @@
             </div>
             <div class="co-12">
                 <div class="row related-products">
-                    <?php echo $this->load->view("frontend/component/productItem_checkout", array('productItems' => $beforeCheckProducts), true); ?>
+                    <?php echo $this->load->view("frontend/component/productItem_checkout", array('productItems' => $beforeCheckProducts,'pcol'=>5), true); ?>
                 </div>
             </div>
         </div>
