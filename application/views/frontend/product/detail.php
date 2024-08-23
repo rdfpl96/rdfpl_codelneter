@@ -183,7 +183,7 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                                     <button class="quantity-increase qtymode" onclick="countIncreament(<?php //echo $pdetail['product_id']; ?>,2);"><span class="material-symbols-outlined">add</span></button>
                                  </div> -->
                                  <div>
-                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity3 :</strong></label>
+                                    <label style="display: inline-block; margin-right: 10px;"><strong>Quantity :</strong></label>
                                     <input type="number" class="quantity-input" name="qty" id="qty<?php echo $pdetail['product_id']; ?>" value="1" min="1" max="99" style="display:inline-block;">
                                  </div>
                               </div>
