@@ -256,9 +256,9 @@ class Cart extends REST_Controller{
 
         $customer_id=$this->authorization_token->userData()->customer_id;
 
-        $products = $this->cartObj->getCartList(1);
+        $products = $this->cartObj->getCartList($customer_id);
         if(count($products)>0){
-            $cartSummery=$this->customlibrary->getCartSummery(1);
+            $cartSummery=$this->customlibrary->getCartSummery($customer_id);
             $this->response(array('error' =>0,'msg'=>'Success',"data"=>$cartSummery));
         }else{
             $this->response(array('error' =>1,'msg'=>'Cart empty'));

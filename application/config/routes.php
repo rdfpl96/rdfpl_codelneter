@@ -313,7 +313,9 @@ $route['admin/add_banner_list']='Admin/create';
 $route['customer_list']='AdminPanel/Customer/customer_list';
 $route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
 // ===================End API===================================
-  
+
+// ==================SAP API========================================
+// ==================END API========================================  
 
 
 //$route['default_controller'] = 'frontend';

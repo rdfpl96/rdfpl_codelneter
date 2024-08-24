@@ -15,9 +15,14 @@ class Home extends CI_Controller {
   public function index(){
 
 
-     // $this->sapapi->getProductItemList();
+     //$products=$this->sapapi->getProductItemList();
 
-     // exit();
+     $products=$this->sapapi->getProductItemList();
+     echo count($products);
+     echo'<pre>';
+     print_r($products);
+      echo'<pre>';
+     exit();
 
      $userCookies=getCookies('customer');
 
