@@ -16,9 +16,9 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                <a href="<?php echo base_url();?>" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                <span></span>
                <a href="<?php echo base_url('shop');?>">Shop</a><span></span>
-               <a href="<?php echo base_url('pc/'.$pdetail['top_cat_slug']);?>"><?php echo isset($pdetail['top_cat_name']) ? $pdetail['top_cat_name'] : '' ;?></a><span></span>
-               <a href="<?php echo base_url('pc/'.$pdetail['top_cat_slug'].'/'.$pdetail['sub_cat_slug']);?>"><?php echo isset($pdetail['sub_cat_name']) ? $pdetail['sub_cat_name'] : '' ;?></a>
-               <a href="<?php echo base_url('pc/'.$pdetail['top_cat_slug'].'/'.$pdetail['sub_cat_slug'].'/'.$pdetail['child_cat_slug']);?>"><?php echo isset($pdetail['child_cat_name']) ? $pdetail['child_cat_name'] : '' ;?></a>
+               <a href="<?php echo base_url('shop/'.$pdetail['top_cat_slug']);?>"><?php echo isset($pdetail['top_cat_name']) ? $pdetail['top_cat_name'] : '' ;?></a><span></span>
+               <a href="<?php echo base_url('shop/'.$pdetail['top_cat_slug'].'/'.$pdetail['sub_cat_slug']);?>"><?php echo isset($pdetail['sub_cat_name']) ? $pdetail['sub_cat_name'] : '' ;?></a><span></span>
+               <a href="<?php echo base_url('shop/'.$pdetail['top_cat_slug'].'/'.$pdetail['sub_cat_slug'].'/'.$pdetail['child_cat_slug']);?>"><?php echo isset($pdetail['child_cat_name']) ? $pdetail['child_cat_name'] : '' ;?></a>
                <span></span><?php echo isset($pdetail['product_name']) ? $pdetail['product_name'] : '' ;?>               
             </div>
             <div class="mobile-social-icon d-flex align-items-center">
