@@ -34,10 +34,10 @@ class Sapapi{
         $client = new Client();
 
         try {
-            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1=&P2=JOD');
+            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1=&P2=Vki');
             $res = $client->sendAsync($request)->wait();
 
-            //$res->getStatusCode();
+            $res->getStatusCode();
 
            $responseBody=$res->getBody()->getContents();
             return json_decode($responseBody, true); 

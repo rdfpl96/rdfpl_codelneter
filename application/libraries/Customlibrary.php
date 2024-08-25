@@ -70,6 +70,20 @@ class Customlibrary
        return $return;
     }
 
+    public function getAddresDetailByAddressById($customer_id,$addre_id){
+       $return=array();
+       $this->CI->db->select('addr_id,city,address1 as room_no, address2 as apartment,area,pincode,landmark,fname,lname,mobile,email,others,address_type,other_loc');
+       $this->CI->db->from('tbl_address');
+       $this->CI->db->where('status',1);
+       $this->CI->db->where('addr_id',$addre_id);
+       $this->CI->db->where('customer_id',$customer_id);
+       $query=$this->CI->db->get() ; 
+       if($query->num_rows()>0){
+            $return=$query->row_array();
+            // $return=$details['address1']." ".$details['address2']." ".$details['area']." ".$details['city']." ".$details['state']." ".$details['pincode'];
+        }
+       return $return;
+    }
 
     public function getCustomerCurrentAddress($customer_id){
        $return="";

@@ -18,7 +18,7 @@ class Order_model extends CI_Model{
 
    }
 
-   public function getAllOrder($start,$records_per_page,$customerId){
+  public function getAllOrder($start,$records_per_page,$customerId){
     $array_data=array();
     $this->db->select('*');
     $this->db->from('tbl_order AS O');
@@ -26,11 +26,7 @@ class Order_model extends CI_Model{
     $this->db->limit($records_per_page,$start);
     $query=$this->db->get();
     if($query->num_rows()>0){
-        foreach($query->result_array() as $record){
-          $record['order_items']=$this->getProductItemByproductId($record['id']);
-          $array_data[]=$record;
-        }
-       
+      $array_data=$query->result_array();
     }
     return $array_data;
    }

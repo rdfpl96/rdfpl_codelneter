@@ -24,20 +24,57 @@ class Order extends REST_Controller{
     }
 
     public function index_get(){
-        $cartProduct=array();
-        $saveProduct=array();
-        $total_save=0;
+        $arrayOrder=array();
+        //
         $customer_id=$this->authorization_token->userData()->customer_id;
-
+        // 
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
+        if(count($orders)>0){
+            foreach($orders as $record){
+                $record['order_items']=$this->orderObj->getProductItemByproductId($record['id']);
+                //
+                $record['address']=$this->customlibrary->getAddresDetailByAddressById($record['customer_id'],$record['address_id']);
+                //
+                $record['orderSummery']=$this->getOrderSummery($record,$record['order_items']);
+                //
+                $arrayOrder[]=$record;
+            }
+
+        }
+        $this->response(array('error' =>0,'msg'=>'Success',"data"=>array('order'=>$arrayOrder)));
+    }
+
+
+public function getOrderSummery($order,$orderItem){
+    $totalSellingPrice=0;
+    $totalMrpPrice=0;
+    $totalSave=0;
+    $shipingCharg=0;
+    $couponDisc=0;
+    foreach($orderItem as $record){
         
-       $this->response(array('error' =>0,'msg'=>'Success',"data"=>array('order'=>$orders)));
-        
+        if($record['mrp_price']==0){
+             
+            $totalMrpPrice=$totalMrpPrice+($record['price']*$record['qty']);
+             $totalSellingPrice=$totalSellingPrice+($record['price']*$record['qty']);
+           
+            }else{
+               
+            $totalSellingPrice=$totalSellingPrice+($record['price']*$record['qty']);
+           
+            $totalMrpPrice=$totalMrpPrice+($record['mrp_price']*$record['qty']);
+        }
+    }
+    
+      
+        $totalSave=$totalMrpPrice-$totalSellingPrice;
+
+        $totalPayAmout=$totalSellingPrice+$shipingCharg-$couponDisc;
+
+        return array('totalSellingPrice'=>$totalSellingPrice,'totalMrpPrice'=>$totalMrpPrice,'totalSave'=>$totalSave,'totalPayAmout'=>$totalPayAmout,'shipingcharge'=>$shipingCharg,'couponDisc'=>$couponDisc);
+
     }  
 
-
-    
-  
 
 }
 
