@@ -18,11 +18,11 @@ class Home extends CI_Controller {
      //$products=$this->sapapi->getProductItemList();
 
      $products=$this->sapapi->getProductItemList();
-     echo count($products);
-     echo'<pre>';
-     print_r($products);
-      echo'<pre>';
-     exit();
+     // echo count($products);
+     // echo'<pre>';
+     // print_r($products);
+     //  echo'<pre>';
+     // exit();
 
      $userCookies=getCookies('customer');
 

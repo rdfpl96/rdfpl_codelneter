@@ -31,6 +31,34 @@ class Order_model extends CI_Model{
     return $array_data;
    }
 
+   public function getAllOrder($start,$records_per_page,$customerId){
+      $array_data=array();
+      $this->db->select('*');
+      $this->db->from('tbl_order AS O');
+      $this->db->where('customer_id',$customerId);
+      $this->db->limit($records_per_page,$start);
+      $query=$this->db->get();
+      if($query->num_rows()>0){
+        $array_data=$query->result_array();
+      }
+      return $array_data;
+   }
+
+
+  public function getOrderItemByOrderId($order_id){
+    $return=array();     
+    $this->CI->db->select('OI.*,P.product_name');
+    $this->CI->db->from('tbl_order_item AS OI');
+    $this->CI->db->join('tbl_product AS P','OI.product_id=P.product_id');
+    $this->CI->db->where('OI.order_id',$order_id);
+    $this->CI->db->order_by('price','ASC');
+    $query=$this->CI->db->get() ; 
+    if($query->num_rows()>0) { 
+      $return=$query->result_array();
+    }
+    return $return;   
+   }  
+  }
 
   public function getCouponList(){
 

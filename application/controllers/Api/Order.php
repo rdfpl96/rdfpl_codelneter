@@ -31,7 +31,7 @@ class Order extends REST_Controller{
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
         if(count($orders)>0){
             foreach($orders as $record){
-                $record['order_items']=$this->orderObj->getProductItemByproductId($record['id']);
+                $record['order_items']=$this->orderObj->getOrderItemByOrderId($record['id']);
                 //
                 $record['address']=$this->customlibrary->getAddresDetailByAddressById($record['customer_id'],$record['address_id']);
                 //
