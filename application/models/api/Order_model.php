@@ -58,7 +58,7 @@ class Order_model extends CI_Model{
     }
     return $return;   
    }  
-  }
+  
 
   public function getCouponList(){
 
