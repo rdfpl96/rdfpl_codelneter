@@ -33,7 +33,7 @@ class Order_model extends CI_Model{
 
   public function getOrderItemByOrderId($order_id){
     $return=array();     
-    $this->db->select('OI.*,P.product_name');
+    $this->db->select('OI.*,CONCAT("'.base_url("uploads/").'",OI.img) as imagepath,P.product_name');
     $this->db->from('tbl_order_item AS OI');
     $this->db->join('tbl_product AS P','OI.product_id=P.product_id');
     $this->db->where('OI.order_id',$order_id);
