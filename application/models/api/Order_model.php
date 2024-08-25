@@ -51,7 +51,7 @@ class Order_model extends CI_Model{
     $this->CI->db->from('tbl_order_item AS OI');
     $this->CI->db->join('tbl_product AS P','OI.product_id=P.product_id');
     $this->CI->db->where('OI.order_id',$order_id);
-    $this->CI->db->order_by('price','ASC');
+    $this->CI->db->order_by('OI.price','ASC');
     $query=$this->CI->db->get() ; 
     if($query->num_rows()>0) { 
       $return=$query->result_array();
