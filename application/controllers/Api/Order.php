@@ -38,7 +38,7 @@ class Order extends REST_Controller{
                 //
                 $record['orderSummery']=$this->getOrderSummery($record,$record['order_items']);
                 //
-                $record['delivery_steps']=array([]);
+                $record['delivery_steps']=array(array());
                 
                 $arrayOrder[]=$record;
             }
