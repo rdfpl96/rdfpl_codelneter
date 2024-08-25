@@ -31,12 +31,15 @@ class Order extends REST_Controller{
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
         if(count($orders)>0){
             foreach($orders as $record){
+                $record['order_payment_status']="Not Paid";
                 $record['order_items']=$this->orderObj->getOrderItemByOrderId($record['id']);
                 //
                 $record['address']=$this->customlibrary->getAddresDetailByAddressById($record['customer_id'],$record['address_id']);
                 //
                 $record['orderSummery']=$this->getOrderSummery($record,$record['order_items']);
                 //
+                $record['delivery_steps']=array([]);
+                
                 $arrayOrder[]=$record;
             }
 
