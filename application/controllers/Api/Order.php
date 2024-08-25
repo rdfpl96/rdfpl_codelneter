@@ -27,8 +27,10 @@ class Order extends REST_Controller{
         $arrayOrder=array();
         //
         $customer_id=$this->authorization_token->userData()->customer_id;
+
         // 
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
+       
         if(count($orders)>0){
             foreach($orders as $record){
                 $record['order_payment_status']="Not Paid";
@@ -38,7 +40,7 @@ class Order extends REST_Controller{
                 //
                 $record['orderSummery']=$this->getOrderSummery($record,$record['order_items']);
                 //
-                $record['delivery_steps']=array(array());
+                $record['delivery_steps']=array();
                 
                 $arrayOrder[]=$record;
             }
