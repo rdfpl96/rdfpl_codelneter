@@ -471,7 +471,6 @@ public function get_users_banner_list($limit, $start) {
       return $this->db->delete('tbl_customer');
    }
 
-
    public function getOrderDetails($customer_id, $limit, $offset)
    {
        $this->db->select('
@@ -488,7 +487,7 @@ public function get_users_banner_list($limit, $start) {
        $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
    
        if (!empty($customer_id)) {
-           $this->db->where_in('tbl_order.customer_id', $customer_id);
+           $this->db->where('tbl_order.customer_id', $customer_id);
        }
    
        $this->db->order_by('tbl_order.order_date', 'DESC');
@@ -497,6 +496,7 @@ public function get_users_banner_list($limit, $start) {
        $query = $this->db->get();
        return $query->result_array();
    }
+   
    
    
 

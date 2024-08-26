@@ -48,7 +48,7 @@ public function category_search($searchText = '') {
       $this->db->group_end();
   }
   $this->db->limit(20);
-
+  $this->db->order_by('tbl_child_category.update_date', 'DESC');
   $query = $this->db->get();
   return $query->result_array();
 }
@@ -123,6 +123,7 @@ public function category_search($searchText = '') {
       // $this->db->join('tbl_sub_category', 'tbl_sub_category.sub_cat_id = tbl_sub_category.sub_cat_id');
       $this->db->join('tbl_category', 'tbl_child_category.cat_id = tbl_category.cat_id');
       $this->db->join('tbl_sub_category', 'tbl_child_category.sub_cat_id = tbl_sub_category.sub_cat_id');
+     $this->db->order_by('tbl_child_category.update_date', 'DESC');
       $this->db->limit(20);
       $query = $this->db->get();
       return $query->result_array();

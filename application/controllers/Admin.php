@@ -1995,45 +1995,46 @@ class Admin extends CI_Controller
 
 
 
-public function product_order()
-{
-    $customer_id = $this->input->get('custo');
-
-    // Set pagination configuration
-    $config["base_url"] = base_url("admin/product_order");
-    $config["total_rows"] = $this->sqlQuery_model->getOrderCount($customer_id); // Ensure getOrderCount method exists in your model
-    $config["per_page"] = 15; // Set to 15 records per page
-    $config["uri_segment"] = 3;
-
-    // Customizing pagination links
-    $config['full_tag_open'] = '<ul class="pagination">';
-    $config['full_tag_close'] = '</ul>';
-    $config['first_link'] = 'First';
-    $config['first_tag_open'] = '<li class="paginate_button page-item page-link">';
-    $config['first_tag_close'] = '</li>';
-    $config['last_link'] = 'Last';
-    $config['last_tag_open'] = '<li class="paginate_button page-item page-link">';
-    $config['last_tag_close'] = '</li>';
-    $config['next_link'] = 'Next';
-    $config['next_tag_open'] = '<li class="paginate_button page-item page-link">';
-    $config['next_tag_close'] = '</li>';
-    $config['prev_link'] = 'Previous';
-    $config['prev_tag_open'] = '<li class="paginate_button page-item page-link">';
-    $config['prev_tag_close'] = '</li>';
-    $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
-    $config['cur_tag_close'] = '</a></li>';
-    $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
-    $config['num_tag_close'] = '</li>';
-
-    $this->pagination->initialize($config);
-
-    // Get orders with pagination
-    $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-    $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id, $config["per_page"], $page);
-    $data['pagination'] = $this->pagination->create_links();
-    $data['content'] = 'admin/containerPage/product-orders';
-    $this->load->view('admin/template', $data);
-}
+  public function product_order()
+  {
+      $customer_id = $this->input->get('custo');
+  
+      // Set pagination configuration
+      $config["base_url"] = base_url("admin/product_order");
+      $config["total_rows"] = $this->sqlQuery_model->getOrderCount($customer_id); // Ensure getOrderCount method exists in your model
+      $config["per_page"] = 15; // Set to 15 records per page
+      $config["uri_segment"] = 3;
+  
+      // Customizing pagination links
+      $config['full_tag_open'] = '<ul class="pagination">';
+      $config['full_tag_close'] = '</ul>';
+      $config['first_link'] = 'First';
+      $config['first_tag_open'] = '<li class="paginate_button page-item page-link">';
+      $config['first_tag_close'] = '</li>';
+      $config['last_link'] = 'Last';
+      $config['last_tag_open'] = '<li class="paginate_button page-item page-link">';
+      $config['last_tag_close'] = '</li>';
+      $config['next_link'] = 'Next';
+      $config['next_tag_open'] = '<li class="paginate_button page-item page-link">';
+      $config['next_tag_close'] = '</li>';
+      $config['prev_link'] = 'Previous';
+      $config['prev_tag_open'] = '<li class="paginate_button page-item page-link">';
+      $config['prev_tag_close'] = '</li>';
+      $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+      $config['cur_tag_close'] = '</a></li>';
+      $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+      $config['num_tag_close'] = '</li>';
+  
+      $this->pagination->initialize($config);
+  
+      // Get orders with pagination
+      $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+      $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id, $config["per_page"], $page); // Pass all three arguments
+      $data['pagination'] = $this->pagination->create_links();
+      $data['content'] = 'admin/containerPage/product-orders';
+      $this->load->view('admin/template', $data);
+  }
+  
 
 
 

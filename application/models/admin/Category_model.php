@@ -69,32 +69,65 @@ class Category_model extends CI_Model
   }
 
 
+  // public function getList($start, $records_per_page, $name, $searchText = '')
+  // {
+  //   $array_record = array();
+  //   $this->db->select('P.*');
+  //   $this->db->from('tbl_category AS P');
+  //   if ($name != '') {
+  //     $this->db->like('P.category', $name);
+  //   }
+  //   // Check if the search term is not empty
+  //   if (!empty($searchText)) {
+  //     $this->db->like('P.category', $searchText);
+  //   }plase add this also ORDER BY `tbl_category`.`add_date` DESC
+
+
+
+  //   $this->db->limit($records_per_page, $start);
+    
+  //   $query = $this->db->get();
+  //   if ($query->num_rows() > 0) {
+
+  //     $array_record = $query->result_array();
+  //   }
+  //   return $array_record;
+  // }
+
+
+
+
+
   public function getList($start, $records_per_page, $name, $searchText = '')
-  {
+{
     $array_record = array();
     $this->db->select('P.*');
     $this->db->from('tbl_category AS P');
+   
+    // Filter by name if provided
     if ($name != '') {
-      $this->db->like('P.category', $name);
+        $this->db->like('P.category', $name);
     }
-
-
-    // Check if the search term is not empty
+    
+    // Search by searchText if provided
     if (!empty($searchText)) {
-      $this->db->like('P.category', $searchText);
+        $this->db->like('P.category', $searchText);
     }
-
-
-
+    
+    // Order by add_date in descending order
+    $this->db->order_by('P.add_date', 'DESC');
+    
+    // Limit and offset for pagination
     $this->db->limit($records_per_page, $start);
     
     $query = $this->db->get();
+    
     if ($query->num_rows() > 0) {
-
-      $array_record = $query->result_array();
+        $array_record = $query->result_array();
     }
+    
     return $array_record;
-  }
+}
 
 
 
@@ -214,7 +247,9 @@ class Category_model extends CI_Model
         $this->db->like('T1.category', $searchText);
     }
     
-
+    
+  // Order by add_date in descending order
+  $this->db->order_by('T1.add_date', 'DESC');
     
     // Apply limit and offset
     $this->db->limit($limit, $start);

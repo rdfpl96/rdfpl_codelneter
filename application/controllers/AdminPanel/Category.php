@@ -140,11 +140,12 @@ class Category extends CI_Controller
         
         $Cat_Html = $this->category->category_search($searchText,);
         
+        $counter=1;
         $html = '';
         foreach ($Cat_Html as $val) {
             $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
             $html .= '<tr>
-                <td>' . $val['cat_id'] . '</td>
+                <td>' . $counter++ . '</td>
                 <td>' . $val['category'] . '</td>
                 <td>' . $val['slug'] . '</td>
                 <td>' . $status . '</td>
