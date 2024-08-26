@@ -97,7 +97,9 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         q: $('#Search-coupon').val(),
                     },
                     success: function(response) {
+                        console.log('response=>',response);
                         const r = JSON.parse(response);
+                        console.log('r=>',r);
                         $('#datalist').html('').html(r.array_data);
                         $('#pl').html('').html(r.pagination);
                     }
