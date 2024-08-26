@@ -42,14 +42,15 @@ class Blogs extends CI_Controller{
     public function index() {
         // Load pagination library
         $this->load->library('pagination');
-        
+        $query = $this->input->get('q');
+        $ajaxFlag = $this->input->request_headers()['X-Ajax'];
         // Pagination configuration
         $config = array();
+        $config['reuse_query_string'] = TRUE;
         $config["base_url"] = base_url() . "admin/blogs";
-        $config["total_rows"] = $this->blogs->get_blog_count_category(); // Assuming this method returns the total count of blogs
+        $config["total_rows"] = $this->blogs->get_blog_count_category(); 
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
-    
         // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
@@ -73,7 +74,11 @@ class Blogs extends CI_Controller{
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
     
-        $array_data = $this->blogs->get_users_blogs($config["per_page"], $page);
+        $array_data = $this->blogs->get_users_blogs($config["per_page"], $page,$query);
+
+        // echo "<pre>";
+        // print_r($array_data);
+        // die();
     
         $option = '';
         $i = 1;
@@ -81,7 +86,7 @@ class Blogs extends CI_Controller{
             foreach ($array_data as $record) {
                 $checked = ($record->blog_status == 1) ? 'checked' : '';
                 $option .= '<tr> 
-                                <td>' . $i . '</td>
+                                <td>' . ($page+$i) . '</td>
                                 <td>' . $record->blog_header . '</td>
                                 <td>' . $record->category . '</td>';
                 if (!empty($record->blog_image)) {                                    
@@ -114,67 +119,14 @@ class Blogs extends CI_Controller{
             'pagination' => $this->pagination->create_links()
         );
 
-        // echo "<pre>";
-        // print_r($output);
-        // die();
-
-        $this->load->view('admin/blogs/index', $output);
+        if(isset($ajaxFlag)){
+            echo json_encode($output);
+        } else {
+            $this->load->view('admin/blogs/index', $output);
+        }        
+  
     }
     
-
-    
-
-
-    
-    public function searchBlog() {
-        // Get the search keywords from the POST request
-        $keywords = $this->input->post('searchText');
-        $Cat_Html  = $this->blogs->getBlogSearchDetails($keywords);
-        $html = '';
-        $counter = 0;
-    
-        foreach ($Cat_Html as $val) {
-            $counter++;
-            $checked = ($val['blog_status'] == 1) ? 'checked' : '';
-            $imgHtml = '';
-    
-            if (!empty($val['blog_image'])) {                                    
-                $imgHtml = '<td><img src="' . base_url() . 'uploads/blogs_image/' . $val['blog_image'] . '" style="width:50px;height:50px;"></td>';
-            } else {
-                $imgHtml = '<td>No Image found</td>';
-            }
-            $html .= '<tr>
-                <td>' . $counter . '</td>
-                <td>' . $val['blog_header'] . '</td>
-                <td>' . $val['category'] . '</td>
-                ' . $imgHtml . '
-                <td>' . $val['updated_by'] . '</td>
-                <td>' . date('d-m-Y', strtotime($val['blog_add_date'])) . '</td>
-                <td>
-                    <a href="javascript:void(0)">
-                        <label class="switch">
-                            <input type="checkbox" id="Status' . $val['blog_id'] . '" name="Status[]" value="' . $val['blog_status'] . '" onclick="UpdateBlogStatus(' . $val['blog_id'] . ')" ' . $checked . '>
-                            <span class="slider round"></span>
-                        </label>
-                    </a>
-                </td>
-                <td>' . $val['action'] . '</td>
-                <td><a href="' . base_url() . 'admin/blogs/edit/' . $val['blog_id'] . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i> Edit</a></td>
-                <td><a href="javascript:deleteRowtablesub(' . $val['blog_id'] . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>
-            </tr>';
-        }
-    
-        print_r($html);
-        die();
-    
-        // Load the view with the data
-        $this->load->view('admin/blogs/index', ['html' => $html]);
-    }
-    
-    
-
-
-
 
 
 
@@ -348,10 +300,13 @@ public function create()
 
     
     
+    
     public function updateBlogStatus(){
         $status = $this->input->post('status');
         $blog_id = $this->input->post('blog_id');
+        
         $updateStatus = $this->blogs->updateBlogStatus($blog_id, $status);
+     
         if ($updateStatus) {
             echo json_encode('True');
         } else {

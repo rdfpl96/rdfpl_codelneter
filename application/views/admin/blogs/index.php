@@ -37,7 +37,7 @@ $actAcx = isset($getAccess['inputAction']) ? $getAccess['inputAction'] : array()
                 <div class="filter-search">
                     <form action="#" id="search-form" method="post" enctype="multipart/form-data">
                         <label class="form-label">Search blog</label>
-                        <input type="text" placeholder="Search blog......" class="form-control" name="search-blog" id="search-blog">
+                        <input type="text" placeholder="Search blog......" class="form-control" name="search-blog" id="search-blog" value="<?php echo $_GET['q']; ?> ">
                     </form>
                 </div>
             </div>
@@ -69,7 +69,7 @@ $actAcx = isset($getAccess['inputAction']) ? $getAccess['inputAction'] : array()
                 <tbody id="datalist"><?php echo isset($array_data) ? $array_data : "<tr><td colspan='8' style='text-align: center;'>No records found</td></tr>"; ?></tbody>
             </table>
 
-            <div class="pagination-links">
+            <div class="pagination-links" id="pl">
                 <?php echo isset($pagination) ? $pagination : ''; ?>
             </div>
             
@@ -104,15 +104,53 @@ if (success === 'true') {
 $(document).ready(function() {
     $('#search-blog').keyup(function() {
         $.ajax({
-            url: "<?php echo base_url('AdminPanel/Blogs/searchBlog') ?>",
-            type: 'POST',
-            data: { searchText: $('#search-blog').val() },
-            success: function(response) {
-                $('#datalist').html(response);
-            }
+            url: "<?php echo base_url('AdminPanel/Blogs') ?>",
+            headers: {
+                        "X-Ajax": "Yes"
+                    },
+                    type: 'GET',
+        
+            data: {
+                        q: $('#search-blog').val(),
+                    },
+            
+                    success: function(response) {
+                        const r = JSON.parse(response);
+                        $('#datalist').html('').html(r.array_data);
+                        $('#pl').html('').html(r.pagination);
+                    }
+
         });
     });
 });
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+            $('#Search-coupon').keyup(function() {
+                $.ajax({
+                    url: "<?php echo base_url('admin/coupon') ?>",
+                    headers: {
+                        "X-Ajax": "Yes"
+                    },
+                    type: 'GET',
+                    data: {
+                        q: $('#Search-coupon').val(),
+                    },
+                    success: function(response) {
+                        const r = JSON.parse(response);
+                        $('#datalist').html('').html(r.array_data);
+                        $('#pl').html('').html(r.pagination);
+                    }
+                });
+
+            });
+        });
 
 function deleteRowtablesub(blog_id) {
     Swal.fire({
@@ -161,13 +199,14 @@ function deleteRowtablesub(blog_id) {
 
 function UpdateBlogStatus(id){
     var status = $('#Status' + id).is(':checked') ? 1 : 0;
-
+  
     $.ajax({
         url: "<?php echo base_url('AdminPanel/Blogs/updateBlogStatus'); ?>",
         type: "POST",
         data: { blog_id: id, status: status },
         dataType: "json",
         success: function(response) {
+            console.log('aaaa=>', response);
             if (response === 'True') {
                 Swal.fire(
                     'Updated!',
@@ -184,7 +223,8 @@ function UpdateBlogStatus(id){
                     'error'
                 );
             }
-        },
+        }
+        ,
         error: function() {
             Swal.fire(
                 'Error!',
@@ -194,4 +234,6 @@ function UpdateBlogStatus(id){
         }
     });
 }
+
+
 </script>

@@ -1,4 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+use PhpParser\Node\Expr\Print_;
+
+ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Blogs_model extends CI_Model{
   function __construct(){
@@ -42,20 +46,6 @@ class Blogs_model extends CI_Model{
 
 
 
-  // public function get_blog_count_category($name = '') {
-  
-  //   //return $this->db->count_all("tbl_blog");
-  //   $this->db->select('tbl_blog.*, tbl_category.category');
-  //   $this->db->from('tbl_blog');
-  //   $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
-  //   if ($name) {
-  //     $this->db->like('tbl_blog.blog_cat_name', $name);
-  //   }
-  //   $query = $this->db->get();    
-  //   return count($query->result_array());
-  // }
-
-
   public function get_blog_count_category() {
     $this->db->select('COUNT(*) as blog_count');
     $this->db->from('tbl_blog');
@@ -70,21 +60,22 @@ class Blogs_model extends CI_Model{
 
 
 
-// public function get_users_blogs($limit, $start) {
-//   $this->db->limit($limit, $start);
-//   $query = $this->db->get("tbl_blog");
- 
-//   if ($query->num_rows() > 0) {
-//       return $query->result();
-//   }
-//   return false;
-// }
 
 
-public function get_users_blogs($limit, $start) {
+
+public function get_users_blogs($limit, $start, $keywords = '') {
+  $this->db->select('tbl_blog.*,tbl_category.category');
+  $this->db->from('tbl_blog');
+  $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
+
+  if (!empty($keywords)) {
+      $this->db->like('tbl_blog.blog_header', $keywords);
+      //$this->db->or_like('tbl_blog.category', $keywords);
+      $this->db->or_like('tbl_category.category', $keywords);
+  }
+  $this->db->order_by('tbl_blog.blog_id', 'DESC');
   $this->db->limit($limit, $start);
-  $this->db->order_by('blog_add_date', 'DESC'); 
-  $query = $this->db->get("tbl_blog");
+  $query = $this->db->get();
   return $query->result();
 }
 
@@ -110,13 +101,7 @@ public function get_users_blogs($limit, $start) {
   }
 
 
-  //  public function record_count($name) {
 
-  //   if($name!=''){
-  //      $this->db->like('category',$name);
-  //   }
-  //   return $this->db->from("tbl_category")->count_all_results();    
-  // } 
 
   public function record_count($name) {
         $this->db->select('tbl_blog.blog_id');
@@ -127,43 +112,6 @@ public function get_users_blogs($limit, $start) {
         return $this->db->count_all_results();
     }
 
-            
-  // public function getList($start,$records_per_page,$name){
-  //   $array_record=array();     
-  //   $this->db->select('P.*');
-  //   $this->db->from('tbl_category AS P');
-  //   if($name!=''){
-  //      $this->db->like('P.category',$name);
-  //   }
-   
-  //   $this->db->limit($records_per_page,$start);
-  //   $this->db->order_by("add_date", "desc");
-  //   $query=$this->db->get() ; 
-  //   if($query->num_rows()>0){
-    
-  //       $array_record=$query->result_array();
-      
-  //   }
-  //   return $array_record;    
-  // }
-
-//   public function get_blogs($start, $limit, $name) {
-//     $this->db->select('tbl_blog.*, tbl_category.category');
-//     $this->db->from('tbl_blog');
-//     $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
-//     if ($name) {
-//         $this->db->like('tbl_blog.blog_cat_name', $name);
-//     }
-//     $this->db->order_by('tbl_blog.blog_add_date', 'DESC'); // Adding order by clause
-//     $this->db->limit($limit, $start);
-//     $query = $this->db->get();
-//     // $this->db->last_query();
-//     // echo '<pre>';
-//     // print_r($this->db->last_query());
-//     // die();
- 
-//     return $query->result_array(); 
-// }
 
 
 
@@ -185,10 +133,6 @@ public function get_blogs()
 }
 
 
-
-
-
-
     public function blog_get_categories() {
       $this->db->select('tbl_category.*'); // Select only the 'category' column
       $query = $this->db->get('tbl_category'); // Fetch all records from tbl_category
@@ -196,26 +140,6 @@ public function get_blogs()
   }
   
     
-
-
-
-
-    public function getBlogSearchDetails($search) {
-
-      $this->db->select('tbl_blog.*, tbl_category.category');
-      $this->db->from('tbl_blog');
-      $this->db->join('tbl_category', 'tbl_blog.blog_category = tbl_category.cat_id');
-      $this->db->like('tbl_blog.blog_header', $search);
-      $this->db->or_like('tbl_category.category', $search);
-      $this->db->order_by('tbl_blog.blog_id', 'DESC');
-      $this->db->limit(10, 0);
-      $query = $this->db->get();
-      return $query->result_array(); 
-    
-    }
-    
-
-
 
 
     
@@ -274,37 +198,17 @@ public function deleteblog($id ) {
 
 
 
-
-
-  // public function Edit($id,$array_data){
-
-  //   $this->db->trans_begin(); 
-
-  //   $this->db->where('cat_id', $id);     
-  //   $this->db->update('tbl_category', $array_data);
-
-  //   if($this->db->trans_status() === FALSE){
-  //     $this->db->trans_rollback();
-  //     return false;
-  //   }else{
-  //     $this->db->trans_commit();
-  //     return true;
-  //   } 
-  // } 
-
-
-  public function updateBlogStatus() {
-    $blog_id = $this->input->post('blog_id');
-    $current_status = $this->input->post('status');
-  
-    $new_status = ($current_status == 1) ? 0 : 1;
+  public function updateBlogStatus($blog_id, $current_status) {
+    $new_status = ($current_status == 0) ? 0 : 1;
   
     $data = array(
         'blog_status' => $new_status
     );
   
     $this->db->where('blog_id', $blog_id);
-    if ($this->db->update('tbl_blog', $data)) {
+    $this->db->update('tbl_blog', $data);
+    // if ($this->db->update('tbl_blog', $data)) {
+    if ($this->db->affected_rows() > 0) {
         return true;
     } else {
         return false; 
