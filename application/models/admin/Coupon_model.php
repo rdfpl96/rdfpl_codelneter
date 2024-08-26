@@ -55,11 +55,15 @@ class Coupon_model extends CI_Model{
       }
   }
 
-    public function record_count() {
+    public function record_count($keywords='') {
 
     //  if($name!=''){
     //    $this->db->like('coupon_code',$name);
     //  }
+    if (!empty($keywords)) {
+      $this->db->like('coupon_code', $keywords);
+      $this->db->or_like('disc_type', $keywords);
+    }
      return $this->db->from("tbl_coupon")->count_all_results();    
    }
    
@@ -85,10 +89,14 @@ class Coupon_model extends CI_Model{
 
 
 
-    public function get_all_coupons($limit, $start) {
+    public function get_all_coupons($limit, $start, $keywords='') {
+      if (!empty($keywords)) {
+        $this->db->like('coupon_code', $keywords);
+        $this->db->or_like('disc_type', $keywords);
+      }
       $this->db->limit($limit, $start);
       $this->db->order_by('add_date', 'DESC'); 
-      $query = $this->db->get('tbl_coupon');
+      $query = $this->db->get('tbl_coupon');      
       return $query->result();
   }
   
@@ -178,20 +186,20 @@ public function deletecoupon($id){
 
 }
   
-public function getCouponSearchDetails($keywords  = '',)
-{
-    $this->db->select('*');
-    $this->db->from('tbl_coupon');
-    if (!empty($keywords)) {
-        $this->db->like('coupon_code', $keywords);
-        $this->db->or_like('disc_type', $keywords);
-    }
+// public function getCouponSearchDetails($keywords  = '',)
+// {
+//     $this->db->select('*');
+//     $this->db->from('tbl_coupon');
+//     if (!empty($keywords)) {
+//         $this->db->like('coupon_code', $keywords);
+//         $this->db->or_like('disc_type', $keywords);
+//     }
 
-    $this->db->limit(10, 0);
-    $this->db->order_by('add_date', 'DESC');
-    $query = $this->db->get();
-    return $query->result();
-}
+//     $this->db->limit(10, 0);
+//     $this->db->order_by('add_date', 'DESC');
+//     $query = $this->db->get();
+//     return $query->result();
+// }
 
 
 

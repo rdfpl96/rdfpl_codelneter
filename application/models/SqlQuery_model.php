@@ -472,29 +472,33 @@ public function get_users_banner_list($limit, $start) {
    }
 
 
-   public function getOrderDetails($customer_id)
+   public function getOrderDetails($customer_id, $limit, $offset)
    {
-
-      $this->db->select('
-         tbl_order.order_no as order_no,
-         tbl_address.fname as customer_name,
-         tbl_address.landmark as location,
-         SUM(tbl_order_item.price) as order_amount,
-         tbl_order.order_date
-   ');
-      $this->db->from('tbl_order');
-      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-      if (!empty($customer_id)) {
-         $this->db->where_in('tbl_order.customer_id', $customer_id);
-      }
-      $this->db->order_by('tbl_order.order_date', 'DESC');
-      $query = $this->db->get();
-      return $query->result_array();
+       $this->db->select('
+           tbl_order.order_no as order_no,
+           tbl_address.fname as customer_name,
+           tbl_address.landmark as location,
+           SUM(tbl_order_item.price) as order_amount,
+           tbl_order.order_date
+       ');
+       $this->db->from('tbl_order');
+       $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+       $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+       $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+       $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+   
+       if (!empty($customer_id)) {
+           $this->db->where_in('tbl_order.customer_id', $customer_id);
+       }
+   
+       $this->db->order_by('tbl_order.order_date', 'DESC');
+       $this->db->limit($limit, $offset); // Add limit and offset for pagination
+   
+       $query = $this->db->get();
+       return $query->result_array();
    }
-
+   
+   
 
 
 //      public function getOrderDetailsByDate($fromDate, $toDate) {
@@ -589,44 +593,54 @@ public function get_users_banner_list($limit, $start) {
 
 
 
+public function getOrderCount(){
+
+   $this->db->select('COUNT(*) as total_orders');
+   $this->db->from('tbl_order');
+   $query = $this->db->get();
+   return $query->row_array()['total_orders'];
+
+}
 
 
 
-  public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
-  {
-      $this->db->select('
-              tbl_order.order_no as order_no,
-              tbl_address.fname as customer_name,
-              tbl_address.landmark as location,
-              SUM(tbl_order_item.price) as order_amount,
-              tbl_order.order_date
-          ');
-      $this->db->from('tbl_order');
-      $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
-      $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
-      $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
-  
-      if (!empty($searchTerm)) {
-          $this->db->group_start(); // Opens a grouping for the OR conditions
-          $this->db->like('tbl_order.order_no', $searchTerm);
-          $this->db->or_like('tbl_address.fname', $searchTerm);
-          $this->db->or_like('tbl_address.landmark', $searchTerm);
-          $this->db->group_end();
-      }
-  
-      if (!empty($fromDate)) {
-          $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
-      }
-      if (!empty($toDate)) {
-          $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
-      }
-  
-      $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
-      $this->db->order_by('tbl_order.order_date', 'DESC');
-  
-      $query = $this->db->get();
-      return $query->result_array();
-  }
+
+
+   public function getOrderSearchDetails($searchTerm = '', $fromDate = '', $toDate = '')
+   {
+         $this->db->select('
+               tbl_order.order_no as order_no,
+               tbl_address.fname as customer_name,
+               tbl_address.landmark as location,
+               SUM(tbl_order_item.price) as order_amount,
+               tbl_order.order_date
+            ');
+         $this->db->from('tbl_order');
+         $this->db->join('tbl_customer', 'tbl_order.customer_id = tbl_customer.customer_id', 'left');
+         $this->db->join('tbl_address', 'tbl_order.address_id = tbl_address.addr_id', 'left');
+         $this->db->join('tbl_order_item', 'tbl_order.id = tbl_order_item.order_id', 'left');
+   
+         if (!empty($searchTerm)) {
+            $this->db->group_start(); // Opens a grouping for the OR conditions
+            $this->db->like('tbl_order.order_no', $searchTerm);
+            $this->db->or_like('tbl_address.fname', $searchTerm);
+            $this->db->or_like('tbl_address.landmark', $searchTerm);
+            $this->db->group_end();
+         }
+   
+         if (!empty($fromDate)) {
+            $this->db->where('tbl_order.order_date >=', $fromDate . ' 00:00:00');
+         }
+         if (!empty($toDate)) {
+            $this->db->where('tbl_order.order_date <=', $toDate . ' 23:59:59');
+         }
+   
+         $this->db->group_by('tbl_order.id, tbl_customer.c_fname, tbl_address.landmark, tbl_order.order_date, tbl_order.order_no');
+         $this->db->order_by('tbl_order.order_date', 'DESC');
+   
+         $query = $this->db->get();
+         return $query->result_array();
+   }
   
 
 
@@ -635,23 +649,7 @@ public function get_users_banner_list($limit, $start) {
 
    public function update_banner_Status1($bannnerId, $status){
 
-   
-    
-      // print_r($status);
-      
-      // print_r($bannnerId);
-      // die();
-      // print_r($current_status);
-      // die();
-      
-      $status = ($status == 1) ? 0 : 1;
-    
-
-      //  print_r('new status=>',$new_status);
-
-      // die();
-
-
+       $status = ($status == 1) ? 0 : 1;
       $data = array(
          'status' => $status
       );

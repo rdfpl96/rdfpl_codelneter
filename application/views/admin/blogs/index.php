@@ -2,10 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $session = $this->session->userdata('admin');
-
 $this->load->view('admin/headheader');
 
-$actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array();
+$actAcx = isset($getAccess['inputAction']) ? $getAccess['inputAction'] : array();
 ?>
 
 <!-- Body: Body -->
@@ -19,14 +18,11 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     </div>
               
     <h3 class="fw-bold mb-0">Blogs List</h3>
-    <?php if (in_array('add', $getAccess['inputAction']) || $session['admin_type'] == 'A') { ?>
+    <?php //if (in_array('add', $actAcx) || $session['admin_type'] == 'A') { ?>
         <a href="<?php echo base_url('admin/blogs/create'); ?>" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100">
             <i class="icofont-plus-circle me-2 fs-6"></i> Add
         </a>
-    <?php } ?>
-    <a href="<?php echo base_url('admin/blogs/create'); ?>">
-        <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase">Add Blogs</button>
-    </a>
+    <?php //} ?>
 </div>
 </div>
 </div> <!-- Row end -->
@@ -62,7 +58,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                     <tr>
                         <th>S.N.</th>
                         <th>HEADER NAME</th>
-                        <th>CATEGORIE</th>
+                        <th>CATEGORY</th>
                         <th>IMAGE</th>
                         <th>UPDATED BY</th>
                         <th>DATE</th>
@@ -70,11 +66,11 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                         <th>ACTION</th>
                     </tr>
                 </thead>
-                <tbody id="datalist"><?php echo isset($array_data) ? $array_data : ""; ?></tbody>
+                <tbody id="datalist"><?php echo isset($array_data) ? $array_data : "<tr><td colspan='8' style='text-align: center;'>No records found</td></tr>"; ?></tbody>
             </table>
 
             <div class="pagination-links">
-                <?php echo $pagination; ?>
+                <?php echo isset($pagination) ? $pagination : ''; ?>
             </div>
             
         </div>
@@ -118,8 +114,6 @@ $(document).ready(function() {
     });
 });
 
-
-
 function deleteRowtablesub(blog_id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -137,7 +131,7 @@ function deleteRowtablesub(blog_id) {
                 data: { blog_id: blog_id },
                 dataType: "json",
                 success: function(response) {
-                    if (response == 'True') {
+                    if (response === 'True') {
                         Swal.fire(
                             'Deleted!',
                             'Blog has been deleted.',
@@ -165,11 +159,8 @@ function deleteRowtablesub(blog_id) {
     });
 }
 
-
-
-
 function UpdateBlogStatus(id){
-    var status = $('#Status' + id).val();
+    var status = $('#Status' + id).is(':checked') ? 1 : 0;
 
     $.ajax({
         url: "<?php echo base_url('AdminPanel/Blogs/updateBlogStatus'); ?>",
@@ -177,7 +168,7 @@ function UpdateBlogStatus(id){
         data: { blog_id: id, status: status },
         dataType: "json",
         success: function(response) {
-            if (response == 'True') {
+            if (response === 'True') {
                 Swal.fire(
                     'Updated!',
                     'Blog status has been updated.',
@@ -203,6 +194,4 @@ function UpdateBlogStatus(id){
         }
     });
 }
-
-
 </script>

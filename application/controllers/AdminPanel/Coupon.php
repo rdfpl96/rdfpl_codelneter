@@ -33,19 +33,103 @@ class Coupon extends CI_Controller
 
 
 
-    public function index()
-    {
+    // public function index1()
+    // {
+    //     $menuIdAsKey = 2;
+    //     $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    //     $page_menu_id = $menuIdAsKey;
+    
+    //     $config = array();
+    //     $config["base_url"] = base_url() . "admin/coupon";
+    //     $config["total_rows"] = $this->coupon->record_count();
+    //     $config["per_page"] = 10;
+    //     $config["uri_segment"] = 3;
+    
+    //     // Customizing pagination
+    //     $config['full_tag_open'] = '<ul class="pagination">';
+    //     $config['full_tag_close'] = '</ul>';
+    //     $config['first_link'] = 'First';
+    //     $config['first_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['first_tag_close'] = '</a></li>';
+    //     $config['last_link'] = 'Last';
+    //     $config['last_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['last_tag_close'] = '</a></li>';
+    //     $config['next_link'] = 'Next';
+    //     $config['next_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['next_tag_close'] = '</a></li>';
+    //     $config['prev_link'] = 'Previous';
+    //     $config['prev_tag_open'] = '<li class="paginate_button page-item page-link"><a href="#">';
+    //     $config['prev_tag_close'] = '</a></li>';
+    //     $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
+    //     $config['cur_tag_close'] = '</a></li>';
+    //     $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
+    //     $config['num_tag_close'] = '</li>';
+    
+    //     $this->pagination->initialize($config);
+    //     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+    //     $data['copun_list'] = $this->coupon->get_all_coupons($config["per_page"], $page);
+    //     $data['pagination'] = $this->pagination->create_links();
+    
+    //     $start = $page;
+    //     $array_data = $this->coupon->get_all_coupons($config["per_page"], $start);
+        
+    //     $i = $page + 1;
+    
+    //     $option = '';
+    
+    //     if (is_array($array_data) && count($array_data) > 0) {
+    //         foreach ($array_data as $keyval) {
+    //             // Convert disc_type to human-readable format
+    //      $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
+    //                                  (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
+                
+    //             $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
+    //             $coupon_flag =$this->coupon->CheckCouponsPresentInOrderTable($keyval->coupon_id);
+    //             $option .= '<tr> 
+    //                     <td>' . $i++ . '</td>
+    //                     <td>' . $keyval->coupon_code . '</td>
+    //                     <td>' . $disc_type_display . '</td>
+    //                     <td>' . $discountVal . '</td>';
+    //                     if($coupon_flag == 1){
+    //                         $option .= '<td></td>
+    //                         <td></td>';
+    //                     }else{
+    //                         $option .= '<td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+    //                         <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>';
+    //                     }
+    //                 $option .= '</tr>';
+    //         }
+    //     } else {
+    //         $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
+    //     }
+    
+    //     $output = array(
+    //         'array_data' => $option,
+    //         'page_menu_id' => $page_menu_id,
+    //         'getAccess' => $getAccess,
+    //         'pagination' => $data['pagination']
+    //     );
+    
+    //     if ($this->input->post('method') == "changepage") {
+    //         echo json_encode($output);
+    //         exit();
+    //     } else {
+    //         $this->load->view('admin/coupon/index', $output);
+    //     }
+    // }
+    
+
+    public function index() {
+        $query = $this->input->get('q');
+        $ajaxFlag = $this->input->request_headers()['X-Ajax'];
         $menuIdAsKey = 2;
         $getAccess = $this->my_libraries->userAthorizetion($menuIdAsKey);
-        $page_menu_id = $menuIdAsKey;
-    
         $config = array();
+        $config['reuse_query_string'] = TRUE;
         $config["base_url"] = base_url() . "admin/coupon";
-        $config["total_rows"] = $this->coupon->record_count();
+        $config["total_rows"] = $this->coupon->record_count($query);
         $config["per_page"] = 10;
         $config["uri_segment"] = 3;
-    
-        // Customizing pagination
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
         $config['first_link'] = 'First';
@@ -63,99 +147,53 @@ class Coupon extends CI_Controller
         $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link">';
         $config['cur_tag_close'] = '</a></li>';
         $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
-        $config['num_tag_close'] = '</li>';
-    
+        $config['num_tag_close'] = '</li>';    
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data['copun_list'] = $this->coupon->get_all_coupons($config["per_page"], $page);
-        $data['pagination'] = $this->pagination->create_links();
-    
-        $start = $page;
-        $array_data = $this->coupon->get_all_coupons($config["per_page"], $start);
-        
+        $coupons = $this->coupon->get_all_coupons($config["per_page"], $page, $query);
         $i = $page + 1;
-    
         $option = '';
-    
-        if (is_array($array_data) && count($array_data) > 0) {
-            foreach ($array_data as $keyval) {
+        if (is_array($coupons) && count($coupons) > 0) {
+            foreach ($coupons as $keyval) {
                 // Convert disc_type to human-readable format
-         $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
-                                     (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
-                
+                $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
+                                     (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');                
                 $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
-                $coupon_flag =$this->coupon->CheckCouponsPresentInOrderTable($keyval->coupon_id);
+                $coupon_flag = $this->coupon->CheckCouponsPresentInOrderTable($keyval->coupon_id);
+
                 $option .= '<tr> 
                         <td>' . $i++ . '</td>
                         <td>' . $keyval->coupon_code . '</td>
                         <td>' . $disc_type_display . '</td>
                         <td>' . $discountVal . '</td>';
-                        if($coupon_flag == 1){
-                            $option .= '<td></td>
-                            <td></td>';
-                        }else{
-                            $option .= '<td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                            <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>';
-                        }
-                    $option .= '</tr>';
+                if($coupon_flag == 1){
+                    $option .= '<td></td>
+                    <td></td>';
+                }else{
+                    $option .= '<td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" data-original-title="edit"><i class="fa fa-pencil"></i>Edit</a></td>
+                    <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>';
+                }
+                $option .= '</tr>';
             }
         } else {
             $option .= '<tr><td colspan="7" style="color:red;text-align:center">No record</td></tr>';
         }
-    
-        $output = array(
-            'array_data' => $option,
-            'page_menu_id' => $page_menu_id,
+
+        $output = [
             'getAccess' => $getAccess,
-            'pagination' => $data['pagination']
-        );
-    
-        if ($this->input->post('method') == "changepage") {
+            'array_data' => $option,
+            'pagination' => $this->pagination->create_links(),
+        ];
+
+        if(isset($ajaxFlag)){
             echo json_encode($output);
-            exit();
         } else {
-            $this->load->view('admin/coupon/index', $output);
-        }
+            $this->load->view('admin/coupon/list', $output);    
+        }        
     }
-    
 
 
-    public function searchCoupon()
-    {
-        $keywords = $this->input->post('searchText');
-        $Cat_Html = $this->coupon->getCouponSearchDetails($keywords);
-        $counter = 0;
-        $option = '';
-        
-        foreach ($Cat_Html as $keyval) {
-            // Convert disc_type to human-readable format
-            $disc_type_display = ($keyval->disc_type === 'fixed_amt') ? 'Fixed Amount' : 
-                                 (($keyval->disc_type === 'percentage') ? 'Percentage' : 'Unknown');
-    
-            $discountVal = ($keyval->disc_amt == '0.00') ? $keyval->disc_per : $keyval->disc_amt;
-            $coupon_flag = $this->coupon->CheckCouponsPresentInOrderTable($keyval->coupon_id);
-            $counter++;
-    
-            $option .= '<tr> 
-                <td>' . $counter . '</td>
-                <td>' . $keyval->coupon_code . '</td>
-                <td>' . $disc_type_display . '</td>
-                <td>' . $discountVal . '</td>';
-    
-            if ($coupon_flag == 1) {
-                $option .= '<td></td>
-                            <td></td>';
-            } else {
-                $option .= '<td><a href="' . base_url() . 'admin/coupon/edit/' . $keyval->coupon_id . '" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i>Edit</a></td>
-                            <td><a href="javascript:deleteRowtablesub(' . $keyval->coupon_id . ')" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i>Delete</a></td>';
-            }
-            
-            $option .= '</tr>';
-        }
-    
-        echo $option;
-        die();
-    }
+ 
     
 
 

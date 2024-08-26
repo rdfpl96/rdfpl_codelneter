@@ -104,9 +104,10 @@
                             </table>
                         </div>
                         <br>
-                        <div id="pagint-div" style="float: right;">
-                            <?php echo $links; ?>
-                        </div>
+                     
+                        <div class="pagination-links">
+                                <?php echo $pagination; ?>
+                            </div>
                     </div>
                 </div>
             </div>
