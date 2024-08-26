@@ -185,11 +185,9 @@ class Coupon extends CI_Controller
             'pagination' => $this->pagination->create_links(),
         ];
 
-        if (isset($ajaxFlag)) {
-            header('Content-Type: application/json');
+        if(isset($ajaxFlag)){
             echo json_encode($output);
-        }
-         else {
+        } else {
             $this->load->view('admin/coupon/list', $output);    
         }        
     }

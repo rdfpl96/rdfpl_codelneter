@@ -85,54 +85,30 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     </div>
     <?php $this->load->view('admin/footer'); ?>
     <script>
-        // $(document).ready(function() {
-        //     $('#Search-coupon').keyup(function() {
-        //         $.ajax({
-        //             url: "<?php echo base_url('admin/coupon') ?>",
-        //             headers: {
-        //                 "X-Ajax": "Yes"
-        //             },
-        //             type: 'GET',
-        //             data: {
-        //                 q: $('#Search-coupon').val(),
-        //             },
-        //             success: function(response) {
-        //                 console.log('response=>',response);
-        //                 const r = JSON.parse(response);
-        //                 console.log('r=>',r);
-        //                 $('#datalist').html('').html(r.array_data);
-        //                 $('#pl').html('').html(r.pagination);
-        //             }
-        //         });
+        $(document).ready(function() {
+            $('#Search-coupon').keyup(function() {
+                $.ajax({
+                    url: "<?php echo base_url('admin/coupon') ?>",
+                    headers: {
+                        "X-Ajax": "Yes"
+                    },
+                    type: 'GET',
+                    data: {
+                        q: $('#Search-coupon').val(),
+                    },
+                    success: function(response) {
+                        console.log('response=>',response);
+                        const r = JSON.parse(response);
+                        console.log('r=>',r);
+                        $('#datalist').html('').html(r.array_data);
+                        $('#pl').html('').html(r.pagination);
+                    }
+                });
 
-        //     });
-        // });
+            });
+        });
 
-  $.ajax({
-    url: "<?php echo base_url('admin/coupon') ?>",
-    headers: {
-        "X-Ajax": "Yes"
-    },
-    type: 'GET',
-    data: {
-        q: $('#Search-coupon').val(),
-    },
-    success: function(response) {
-        try {
-            const r = JSON.parse(response);
-            $('#datalist').html('').html(r.array_data);
-            $('#pl').html('').html(r.pagination);
-        } catch (e) {
-            console.error('JSON parsing error:', e);
-            console.error('Response received:', response);
-        }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.error('AJAX error:', textStatus, errorThrown);
-        console.error('Response:', jqXHR.responseText);
-    }
-});
-
+        
 
         function deleteRowtablesub(coupon_id) {
 
