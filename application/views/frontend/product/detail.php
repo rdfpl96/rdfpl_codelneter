@@ -77,10 +77,11 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                         <h2 class="title-detail"><?php echo isset($pdetail['product_name']) ? $pdetail['product_name'] : '' ;?></h2>
                         <div class="grid_product_rating mt-10">
                           <?php
-                              $average_rating = number_format($productRate['average_rating'], 1);
-                              $total_ratings = $productRate['total_ratings'];
-                              $total_reviews = $productRate['total_reviews'];
-                              //print_r($average_rating);
+                              $productRatings = $this->customlibrary->getProductRatingSummary($pdetail['product_id']);
+                              $average_rating = number_format($productRatings['average_rating'], 1);
+                              $total_ratings = $productRatings['total_ratings'];
+                              $total_reviews = $productRatings['total_reviews'];
+                              //$rati=$this->customlibrary->getProductRatingSummary($pdetail['product_id']);
 
                           ?>
                           <p><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></p>
@@ -307,92 +308,28 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                   <div class="product_details_main_heading">
                      <h3><?php echo isset($pdetail['product_name']) ? $pdetail['product_name'] : '' ;?></h3>
                   </div>
+                  <?php
+                     $serializedData = $pdetail['other_info'];
+                     $other_info = unserialize($serializedData);
+                     //print_r($other_info);
+                     ?>
                   <div class="accordion" id="accordionExample">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                           From the Brand
-                           </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                           <div class="accordion-body">
-                              <p>Sugar, Interesterified Vegetable Fat, Refined Wheat Flour (Maida), Milk Solids, Starch, Cocoa Solids (5%*), Palmolein, Emulsifiers (442, 322, 476), Iodised Salt, Yeast, Flavours (Natural, Natural Identical and Artificial (Caramel and Vanilla) Flavouring Substances), Raising Agent (500(ii)), Improver (1101(i)).</p>
+                   <?php foreach ($other_info as $index => $item): ?>
+                       <div class="accordion-item">
+                           <h2 class="accordion-header">
+                               <button class="accordion-button <?= $index === 0 ? '' : 'collapsed' ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $index ?>" aria-expanded="<?= $index === 0 ? 'true' : 'false' ?>" aria-controls="collapse<?= $index ?>">
+                                   <?= htmlspecialchars($item['heading']) ?>
+                               </button>
+                           </h2>
+                           <div id="collapse<?= $index ?>" class="accordion-collapse collapse <?= $index === 0 ? 'show' : '' ?>" data-bs-parent="#accordionExample">
+                               <div class="accordion-body">
+                                   <p><?= htmlspecialchars($item['description']) ?></p>
+                               </div>
                            </div>
-                        </div>
-                     </div>
-                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                           Ingredients
-                           </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                           <div class="accordion-body">
-                              <p><strong>This is the second item's accordion body.</strong> It is hidden by default, until the
-                                 collapse plugin adds the appropriate classes that we use to style each element. These classes
-                                 control the overall appearance, as well as the showing and hiding via CSS transitions. You can
-                                 modify any of this with custom CSS or overriding our default variables. It's also worth noting that
-                                 just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit
-                                 overflow.
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                           Nutritional Facts
-                           </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                           <div class="accordion-body">
-                              <ul>
-                                 <li>Energy: 514 kcal</li>
-                                 <li>Protein: 3.4 g</li>
-                                 <li>Carbohydrate: 69.1 g</li>
-                                 <li>Total Sugars: 46.1 g</li>
-                                 <li>Added Sugars: 46 g</li>
-                                 <li>Total Fat: 25.3 g</li>
-                                 <li>Saturated Fat: 20 g</li>
-                                 <li>Trans Fat: 0.2 g</li>
-                                 <li>Cholesterol: 2.7 mg</li>
-                                 <li>Sodium: 62 mg</li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                           How to Use
-                           </button>
-                        </h2>
-                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                           <div class="accordion-body">
-                              <p>Perfect for kids and those young at heart!</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                           Other Product Info
-                           </button>
-                        </h2>
-                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                           <div class="accordion-body">
-                              <p>EAN Code: 1215895</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                       </div>
+                   <?php endforeach; ?>
+               </div>
+
                </div>
                <!-- ---------------product details accordin end------------ -->
                <!-- --------------product details rating reviews---------------- -->
@@ -404,8 +341,8 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                      <div class="col-md-4">
                         <div class="review_sec_left_sec">
                            <div class="total_reviews icon_fill">
-                              <h3 class="text-brand">4.2 <i class="material-symbols-outlined">star</i></h3>
-                              <p class="text-muted">5180 ratings &amp; 70 reviews</p>
+                              <h3 class="text-brand"><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></h3>
+                              <p class="text-muted"><?php echo $total_ratings; ?> ratings &amp; <?php echo $total_reviews; ?> reviews</p>
                               <div class="progress mt-30">
                                  <span>5 star</span>
                                  <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
@@ -428,7 +365,7 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                               </div>
                            </div>
                            <div class="custom_hr"></div>
-                           <h4 class="text-center mt-30 mb-20">Highlights</h4>
+                           <!-- <h4 class="text-center mt-30 mb-20">Highlights</h4>
                            <div class="circle_progress_bar d-flex">
                               <div class="progress_circle text-center">
                                  <svg viewBox="0 0 86 86">
@@ -448,13 +385,13 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                                  <h4>Texture</h4>
                                  <p class="text-muted">115 Rating</p>
                               </div>
-                           </div>
+                           </div> -->
                         </div>
                      </div>
                      <div class="col-md-8">
                         <div class="review_sec_right_sec">
                            <h3>Product Reviews</h3>
-                            <?php if (!empty($reviews)): ?>
+                               <?php if (!empty($reviews)): ?>
                                 <?php foreach ($reviews as $review): ?>
                                     <div class="rating_review_details_list">
                                         <div class="mt-10">
