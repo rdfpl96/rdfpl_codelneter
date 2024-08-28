@@ -12,15 +12,15 @@ class Product extends REST_Controller{
     $this->load->model('api/product_model','product');
     $this->load->model('common_model','common');
     
-      // $validation=$this->authorization_token->validateToken();
+      $validation=$this->authorization_token->validateToken();
     
-      //   if($validation['status']!=0){
+        if($validation['status']!=0){
 
-      //   $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
         
-      //   echo json_encode($res);
-      //   exit();
-      //   }    
+        echo json_encode($res);
+        exit();
+        }    
     
   }  
   public function index_post(){
@@ -75,11 +75,15 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
 
     $pdetail=$this->product->getProductDetailById($id,$top_cat_id,$sub_id,$child_cat_id);
 
+     $customer_id=$this->authorization_token->userData()->customer_id;
 
     $simillerProduct=array();
 
     if(count($pdetail)>0){
       $pdetail['other_info']=unserialize($pdetail['other_info']);
+      //
+      $pdetail['is_wishlist']=$this->customlibrary->chkProductInWishList($pdetail['product_id'],$customer_id);
+      //
       $ratingReview=$this->product->getRatingReviewByProdID($id);
       $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id,$search_key="");
     }
@@ -94,7 +98,7 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
 //
 public function rateAndReview_post(){
 
-  $customer_id=2; //$this->authorization_token->userData()->customer_id;
+  $customer_id=$this->authorization_token->userData()->customer_id;
 
   $post = json_decode($this->input->raw_input_stream, true);
 

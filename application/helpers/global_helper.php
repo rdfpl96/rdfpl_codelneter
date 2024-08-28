@@ -1,5 +1,28 @@
 <?php
 
+
+function generateSlugByName($str) { 
+    
+    // Convert string to lowercase 
+    $str = strtolower($str); 
+    
+    // Replace the spaces with hyphens 
+    $str = str_replace(' ', '-', $str); 
+    
+    // Remove the special characters 
+    $str = preg_replace('/[^a-z0-9\-]/', '', $str); 
+    
+    // Remove the consecutive hyphens 
+    $str = preg_replace('/-+/', '-', $str); 
+    
+    // Trim hyphens from the beginning 
+    // and ending of String 
+    $str = trim($str, '-'); 
+    
+    return $str; 
+}
+
+
 function sendSMS($massage='',$mobile_to=''){
 
   $response = 1;

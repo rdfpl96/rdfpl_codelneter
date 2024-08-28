@@ -6,6 +6,31 @@ class Product_model extends CI_Model{
     //$this->load->database();
   }
 
+  public function getProductIdByName($name){
+    $this->db->select('product_id');
+    $this->db->from('tbl_product');
+    $this->db->where('product_name',$name);
+    $query=$this->db->get() ; 
+    if($query->num_rows()>0){ 
+       $return=$query->row()->product_id;
+    }else{
+      $return= false; 
+    }
+    return $return;
+  }
+
+  public function checkItemCodeExist($item_code){
+    $this->db->select('*');
+    $this->db->from('tbl_product_variants');
+    $this->db->where('item_code',$item_code);
+    $query=$this->db->get() ; 
+    if($query->num_rows()>0){ 
+       return true;
+    }else{
+      return false; 
+    }
+  }
+
   public function getProductList($per_page,$limit_per_page,$sub_cat_id){
       $array_data=array();
       $this->db->select('P.*,C.cat_id,C.sub_cat_id,C.child_cat_id');
@@ -102,6 +127,37 @@ class Product_model extends CI_Model{
     }
   }
   
+  public function updateItemDetailByItecode($array_data,$item_code){
+    $this->db->trans_begin(); 
+      $this->db->where('item_code', $item_code);     
+      $this->db->update('tbl_product_variants', $array_data);
+      if($this->db->trans_status() === FALSE){
+        $this->db->trans_rollback();
+        return false;
+      }else{
+        $this->db->trans_commit();
+        return true;
+      } 
+    
+  }
+
+
+  public function insertItemDetail($array_data){
+
+    $this->db->trans_begin(); 
+    // product Insert
+    $this->db->insert('tbl_product_variants', $array_data);
+    $last_id= $this->db->insert_id();
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      
+      return $last_id;
+    }
+  }
+
 
   public function Edit($id,$array_data){
     $this->db->trans_begin(); 

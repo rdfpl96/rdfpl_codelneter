@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('Authorization_Token','database','session','cart','form_validation','pagination','phpmailer_lib','customlibrary','emaillibrary','sapapi');
+$autoload['libraries'] = array('Authorization_Token','database','session','cart','form_validation','pagination','phpmailer_lib','customlibrary','emaillibrary','SAP/sapService');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','global_helper','cookie','shiprocket_api','form');
+$autoload['helper'] = array('url','global_helper','cookie','shiprocket_api','form','sapapi');
 
 /*
 | -------------------------------------------------------------------

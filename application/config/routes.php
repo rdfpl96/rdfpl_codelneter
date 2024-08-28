@@ -316,6 +316,10 @@ $route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
 // ===================End API===================================
 
 // ==================SAP API========================================
+$route['sap/product/item-list']='Sap/product/getAllProductItems';
+$route['sap/product/getSingleProductItem']='Sap/product/getSingleProductItem';
+$route['sap/product/getAllStock']='Sap/product/getAllStock';
+$route['sap/product/getSingleStock']='Sap/product/getSingleStock';
 // ==================END API========================================  
 
 

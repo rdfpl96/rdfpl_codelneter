@@ -43,10 +43,10 @@ class login extends CI_Controller {
         $otp = sprintf("%06d", mt_rand(1, 999999));
 
         if (is_array($userDetail) && count($userDetail) > 0) {
-            if ($userDetail['email'] != "") {
+            if ($userDetail['email'] == $email_mobi) {
                 $this->emaillibrary->sendOtpMail($userDetail['email'], $otp);
             }
-            if ($userDetail['mobile'] != "") {
+            else if ($userDetail['mobile'] == $email_mobi) {
                 $this->emaillibrary->sendOtpOnMobile($userDetail['mobile'], $otp);
             }
 
