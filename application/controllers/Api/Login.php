@@ -22,7 +22,7 @@ class Login extends REST_Controller{
 
             if(validateMobile($mobile)){
 
-                if($mobile==81699999257){
+                if($mobile==8169999925){
                     $otp ="121212";
                 }else{
                   $otp = sprintf("%06d", mt_rand(1, 999999));  
