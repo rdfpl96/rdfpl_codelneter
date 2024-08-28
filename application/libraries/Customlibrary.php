@@ -101,11 +101,11 @@ class Customlibrary
        return $return;
     }
 
-    public function chkProductInWishlist($product_id){
+    public function chkProductInWishlist($product_id,$customer_id){
 
         $this->CI->db->select('*');
         $this->CI->db->from('tbl_wishlist');
-        $this->CI->db->where('cust_id',$this->customerId);
+        $this->CI->db->where('cust_id',$customer_id);
         $this->CI->db->where('product_id',$product_id);
         $this->CI->db->where('status',1);
         $query=$this->CI->db->get() ;

@@ -147,16 +147,6 @@ class Product extends CI_Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public function create()
     {
         $menuIdAsKey = 2;
