@@ -84,7 +84,7 @@ $this->load->view('frontend/header');
 
                           ?>
                           <p><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></p>
-                          <a href="<?= base_url('rating-review-details/' . $product->product_id) ?>"><span class="text-muted">&nbsp; <u><?php echo $total_ratings; ?> Ratings &amp; <?php echo $total_reviews; ?> Reviews</u></span></a>
+                          <a href="<?= base_url('rating-review-details/' . $pdetail['product_id']) ?>"><span class="text-muted">&nbsp; <u><?php echo $total_ratings; ?> Ratings &amp; <?php echo $total_reviews; ?> Reviews</u></span></a>
                         </div>
                         <div class="product_details_price mt-20">
                            <p class="text-muted-low"><span>MRP </span><span><strike id="current-mrp">₹<?php echo isset($firstItem['before_off_price']) ? $firstItem['before_off_price'] : '' ?></strike></span></p>

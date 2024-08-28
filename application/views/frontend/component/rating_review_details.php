@@ -109,7 +109,7 @@
 
                             <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
                         </div>
-                        <a href="<?= base_url('rating-review-details/' . $pdetail->product_id) ?>" class="pull-right">View more</a>
+                        
                      </div>
                   </div>
                </div>
