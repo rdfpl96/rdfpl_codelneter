@@ -250,7 +250,7 @@ $route['email-addresses'] = 'common/email_addresses';
 $route['smart-basket'] = 'common/smart_basket';
 $route['save-gst-details']='common/save_gst_details';
 $route['order-details/(:any)'] = 'common/order_details/$1';
-$route['rating-review-details'] = 'common/rating_review_details';
+$route['rating-review-details/(:any)'] = 'common/rating_review_details/$1';
 $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
 // ====================End Fronted ===========================
 

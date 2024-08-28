@@ -1211,11 +1211,13 @@ public function newletter(){
          }
 }
 
-public function rating_review_details(){
+public function rating_review_details($product_id){
+    $userCookies = getCookies('customer');
+    $data['reviews'] = $this->common_model->getReviewsByProductId($product_id);
+    $data['productRate'] = $this->customlibrary->getProductRatingSummary($product_id);
     $data['content']='frontend/component/rating_review_details';
     $this->load->view('frontend/template',$data);
-} 
-    
+}     
 }
 
 ?>

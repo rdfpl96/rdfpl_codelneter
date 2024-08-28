@@ -1,10 +1,9 @@
 <?php 
 $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
 $firstItem=isset($items[0]) ? $items[0] : array();
-?>
-
-<?php $this->load->view('frontend/header'); 
-// print_r($productRate);
+$this->load->view('frontend/header'); 
+// <?php
+// print_r($pdetail['product_id']);
 // exit();
 ?>
 
@@ -222,7 +221,6 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                         
                            <!-- ----------pack sizes start--------- -->
                            <div class="product_details_pack_sizes d-block mt-30">
-
                             <h4>Pack Sizes</h4>
                             <ul class="cust_select_lists">
                                 <?php foreach ($items as $item) { ?>
@@ -262,7 +260,6 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                                 <!-- Add more options here -->
                             </ul>
                         </div>
-
                            <!-- ----------pack sizes end--------- -->
                            <!-- -----------offer ad------------- -->
                            <span id="product_details_offer_ad"></span>
@@ -391,38 +388,46 @@ $firstItem=isset($items[0]) ? $items[0] : array();
                      <div class="col-md-8">
                         <div class="review_sec_right_sec">
                            <h3>Product Reviews</h3>
-                               <?php if (!empty($reviews)): ?>
-                                <?php foreach ($reviews as $review): ?>
-                                    <div class="rating_review_details_list">
-                                        <div class="mt-10">
-                                            <div class="grid_product_rating">
-                                                <p><?php echo $review['cust_rate']; ?> <i class="material-symbols-outlined">star</i></p>
-                                            </div>
-                                            <h4><?php echo $review['comment']; ?></h4>
-                                            <div class="rating_review_author d-flex justify-content-between">
-                                             <p class="text-muted">
-                                                <?php echo $review['customer_name']; ?>, 
-                                                (<?php echo $this->common_model->dateDifference($review['add_date']); ?> ago)
-                                                
-                                             </p>
-                                                <div class="thumb_icon">
-                                                    <?php echo $review['thumbs_up']; ?>
-                                                    <span class="material-symbols-outlined">thumb_up</span>
-                                                    <?php echo $review['thumbs_down']; ?>
-                                                    <span class="material-symbols-outlined">thumb_down</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                              <p>No reviews yet. Be the first to review this product!</p>
-                            <?php endif; ?>
+                               <?php
+                                 // Fetch only the first 2 reviews
+                                 $limited_reviews = array_slice($reviews, 0, 2);
+                                 ?>
+
+                                 <?php if (!empty($limited_reviews)): ?>
+                                     <?php foreach ($limited_reviews as $review): ?>
+                                         <div class="rating_review_details_list">
+                                             <div class="mt-10">
+                                                 <div class="grid_product_rating">
+                                                     <p><?php echo htmlspecialchars($review['cust_rate']); ?> <i class="material-symbols-outlined">star</i></p>
+                                                 </div>
+                                                 <h4><?php echo htmlspecialchars($review['comment']); ?></h4>
+                                                 <div class="rating_review_author d-flex justify-content-between">
+                                                     <p class="text-muted">
+                                                         <?php echo htmlspecialchars($review['customer_name']); ?>, 
+                                                         (<?php echo htmlspecialchars($this->common_model->dateDifference($review['add_date'])); ?> ago)
+                                                     </p>
+                                                     <div class="thumb_icon">
+                                                         <?php echo htmlspecialchars($review['thumbs_up']); ?>
+                                                         <span class="material-symbols-outlined">thumb_up</span>
+                                                         <?php echo htmlspecialchars($review['thumbs_down']); ?>
+                                                         <span class="material-symbols-outlined">thumb_down</span>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     <?php endforeach; ?>
+                                 <?php else: ?>
+                                     <p>No reviews available.</p>
+                                 <?php endif; ?>
+
                             <!-- <h6 class="text-center"><a href="https://uat.rdfpl.com/rating-review-details"><u> View all 70 reviews &gt;</u></a></h6> -->
                         </div>
+
+                        <a href="<?= base_url('rating-review-details/' . $pdetail['product_id']) ?>" class="pull-right">View more</a>
                      </div>
                   </div>
                </div>
+                <?php print_r($pdetail->product_id); ?>
                <!-- --------------product details rating reviews end---------------- -->
                <div class="product-info" style="display:none;">
                   <div class="tab-style3">
