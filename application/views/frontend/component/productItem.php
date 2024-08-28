@@ -114,7 +114,7 @@
                 <!-- Offer section-->  
                <div class="grid_offer_ad">
                   <div class="ad_btn" onclick="ad_btn(<?php echo $record['product_id'];?>)">
-                     <h4>Har Din Sasta! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                     <h4>Aaj Ka Sasta Deal! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
                   </div>
                   <div class="ad_show_sec">
                      <div class="product-category">
