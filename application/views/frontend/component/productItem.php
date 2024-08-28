@@ -4,12 +4,15 @@
 // print_r($products111);
 // exit();
 
+   $custDetail=getCookies('customer');
 
+   $customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
+   
    if(isset($productItems) && is_array($productItems) && count($productItems)>0){ 
 
       foreach($productItems as $record){
             $isProductWishlist=false;
-         if($this->customlibrary->chkProductInWishlist($record['product_id'])){
+         if($this->customlibrary->chkProductInWishlist($record['product_id'],$customerId)){
              $isProductWishlist=true;
          }
 

@@ -1,5 +1,5 @@
 // Pramod
-var base_url = "http://rdfpl.com/";
+var base_url = "https://site.rdfpl.com/";
 
 // Pramod
 //var base_url = "http://localhost/rdfpl";
