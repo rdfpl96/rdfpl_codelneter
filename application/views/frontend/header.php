@@ -116,7 +116,7 @@
                             
                                    </div>
                                 </div>
-                            </div>
+                           </div>
 
                            <div class="header-action-icon-2 header_cart_style">
                             <?php if(isset($custDetail['isCustomerLogin']) && $custDetail['isCustomerLogin']==1) { ?>
@@ -205,8 +205,8 @@
                      <div class="main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                         <nav>
                            <ul class="d-inline-flex">
-                              <li><a href=""><img alt="Smart Basket" src="<?php echo base_url('');?>/include/frontend/assets/imgs/theme/smart_bskt.png"></a></li>
-                              <li><a href=""><img alt="Offers" src="<?php echo base_url('');?>/include/frontend/assets/imgs/theme/offers.png"></a></li>
+                              <li><a href="<?php echo base_url('smart-basket'); ?>"><img alt="Smart Basket" src="<?php echo base_url('');?>/include/frontend/assets/imgs/theme/smart_bskt.png"></a></li>
+                              <li><a href="<?php echo base_url('offers'); ?>"><img alt="Offers" src="<?php echo base_url('');?>/include/frontend/assets/imgs/theme/offers.png"></a></li>
                            </ul>
                         </nav>
                      </div>

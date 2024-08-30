@@ -89,7 +89,20 @@ $query = $this->db->get();
 
 
 } 
-         
+
+public function getoffersModule(){
+    $array_data = array();
+    $this->db->select('O.*, P.*');
+    $this->db->from('offers AS O');
+    $this->db->join('tbl_product AS P', 'O.product_id = P.product_id', 'left');
+    $query = $this->db->get();
+    if($query->num_rows() > 0){
+        $array_data = $query->result_array();
+    }
+    return $array_data;
+}
+ 
+
   
 }
 

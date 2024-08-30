@@ -258,7 +258,18 @@ public function smart_basket(){
         $data['smartBasketProdct'] = $smartBasketProdct;
         $data['content']='frontend/component/smart_basket';
         $this->load->view('frontend/template',$data);
-    }     
+    } 
+
+public function offers_module(){
+        $offers_module=$this->home->getoffersModule(1);
+        //print_r($smartBasketProdct);
+        $data['offers'] = $offers_module;
+        // print_r($data);
+        // exit();
+        $data['content']='frontend/component/offers_module';
+        $this->load->view('frontend/template',$data);
+    } 
+
 public function my_order() {
     $user = $this->my_libraries->mh_getCookies('customer');
     

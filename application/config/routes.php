@@ -252,6 +252,7 @@ $route['save-gst-details']='common/save_gst_details';
 $route['order-details/(:any)'] = 'common/order_details/$1';
 $route['rating-review-details/(:any)'] = 'common/rating_review_details/$1';
 $route['rating-review/(:any)/(:num)'] = 'common/rating_review/$1/$2';
+$route['offers'] = 'common/offers_module';
 // ====================End Fronted ===========================
 
 
