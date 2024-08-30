@@ -242,8 +242,7 @@ class CustomerAddress extends REST_Controller{
         $this->response(array('error' =>0,'msg'=>'Success',"data"=>$slots));
 
     }
-
-
+   
     public function getStatelist_get(){
 
        

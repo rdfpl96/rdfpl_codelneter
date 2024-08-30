@@ -6,6 +6,19 @@ class Customer_model extends CI_Model{
     //$this->load->database();
   }
 
+public function updateProfile($id,$array_data){
+   $this->db->trans_begin(); 
+    $this->db->where('customer_id', $id);     
+    $this->db->update('tbl_customer', $array_data);
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      return true;
+    } 
+
+}
 
 public function getCustomerDetail($customer_id){
     $return_data=array();

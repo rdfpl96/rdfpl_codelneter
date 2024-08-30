@@ -8,7 +8,7 @@ class Customer extends REST_Controller {
         parent::__construct();
 
         $this->load->model('api/customer_model','custObj');
-      
+      $this->load->model('api/login_model','login');
 
        $validation=$this->authorization_token->validateToken();
     
@@ -33,6 +33,69 @@ class Customer extends REST_Controller {
         }else{
             $this->response(array('error' =>1,'msg'=>'Your wishlist is empty',"data"=>[])); 
         }
+    }
+
+
+    public function updateProfile(){
+        $customer_id=$this->authorization_token->userData()->customer_id;
+
+        $detail = $this->custObj->getCustomerDetail($customer_id);
+
+        $post = json_decode($this->input->raw_input_stream, true);
+        //
+        $fname=isset($post['fname']) ? $post['fname'] : "" ; 
+        $email=isset($post['email']) ? $post['email'] : "" ; 
+        $mobile=isset($post['mobile']) ? $post['mobile'] : "" ;
+        $fieldType=isset($post['field_type']) ? $post['field_type'] : "" ;
+        
+        if($fname!="" && $email!="" && $mobile!="" && $fieldType!=""){
+            if($fieldType==1){
+                $this->custObj->updateProfile($customer_id,array('c_fname'=>$fname));
+            }
+            elseif($fieldType==2){
+                if(validateEmail($email)){
+                    if($this->login->chkEmailExist($email)){ 
+                        
+                        $otp = sprintf("%06d", mt_rand(1, 999999));
+
+                        $this->custObj->updateProfile($customer_id,array('email'=>$email,'is_otp_verify'=>0,'otp'=>$otp));
+
+                        $this->emaillibrary->sendOtpMail($email,$otp);
+
+                    }else{
+                        $this->response(array('error' =>1,'msg'=>'Email already exist'));    
+                    }
+                    
+                }else{
+                   $this->response(array('error' =>1,'msg'=>'Invalid email'));  
+                }
+
+                $this->custObj->updateProfile($customer_id,array('email'=>$email));
+            }
+            elseif($fieldType==3){
+                if(validateMobile($mobile)){
+                    if(!$this->login->chkMobileExist($mobile)){
+                        
+                        $otp = sprintf("%06d", mt_rand(1, 999999));
+
+                        $this->custObj->updateProfile($customer_id,array('mobile'=>$mobile,'is_otp_verify'=>0,'otp'=>$otp));
+
+                        $this->emaillibrary->sendOtpOnMobile($mobile,$otp);
+
+                    }else{
+                        $this->response(array('error' =>1,'msg'=>'Mobile number already exist'));    
+                    }
+                    
+                }else{
+                   $this->response(array('error' =>1,'msg'=>'Invalid mobile number'));  
+                }
+                
+            }
+        }else{
+            $this->response(array('error' =>1,'msg'=>'Some parameter or value is missing'));
+        }
+       
+
     }
 
   
