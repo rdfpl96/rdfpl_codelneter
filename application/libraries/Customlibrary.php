@@ -19,7 +19,7 @@ class Customlibrary
       $this->CI->db->select('COUNT(rate_id) as total_ratings, SUM(cust_rate) as total_sum');
       $this->CI->db->from('tbl_rate_and_review');
       $this->CI->db->where('product_id',$id);
-      $query = $this->db->get();
+      $query = $this->CI->db->get();
       if($query->num_rows() > 0) {
         $result = $query->row();
         $total_ratings = $result->total_ratings;
