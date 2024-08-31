@@ -35,7 +35,8 @@ class Product_model extends CI_Model{
     SC.sub_cat_id AS sub_cat_id,
     SC.subCat_name AS sub_cat_name,
     CC.child_cat_id AS child_cat_id,
-    CC.childCat_name AS child_cat_name
+    CC.childCat_name AS child_cat_name,
+    (SELECT price FROM tbl_product_variants WHERE tbl_product_variants.variants_product_id = P.product_id LIMIT 1) as price
     ');
 
     $this->db->from('tbl_product AS P');

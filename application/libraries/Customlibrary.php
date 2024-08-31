@@ -20,13 +20,15 @@ class Customlibrary
       $this->CI->db->from('tbl_rate_and_review');
       $this->CI->db->where('product_id',$id);
       $query = $this->CI->db->get();
+
       if($query->num_rows() > 0) {
         $result = $query->row();
-        $total_ratings = $result->total_ratings;
+        if( $result->total_ratings!=0){
+             $total_ratings = $result->total_ratings;
         $total_sum = $result->total_sum;
-
         $avg_rate=$total_sum/$total_ratings;
-        
+        }
+       
       } 
       return $avg_rate;
     }
