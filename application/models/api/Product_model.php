@@ -61,6 +61,7 @@ class Product_model extends CI_Model{
     }
     if($filterbyPrice!=""){
       $priceArray=explode(',',$filterbyPrice);
+      
       $this->db->where('price >=', $priceArray[0]);
       $this->db->where('price <=', $priceArray[1]);
       $this->db->order_by('price', 'ASC');
