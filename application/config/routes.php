@@ -288,6 +288,8 @@ $route['offers'] = 'common/offers_module';
   $route['api/coupon/apply-code']='Api/cart/applyCouponCode';
 
   //Customer
+  $route['api/customer/updateProfile']='Api/customer/updateProfile';
+
   $route['api/customer/address-list']='Api/customeraddress/index';
   $route['api/customer/address_save']='Api/customeraddress/save';
   $route['api/customer/address_update']='Api/customeraddress/update';

@@ -36,7 +36,7 @@ class Customer extends REST_Controller {
     }
 
 
-    public function updateProfile(){
+    public function updateProfile_post(){
         $customer_id=$this->authorization_token->userData()->customer_id;
 
         $detail = $this->custObj->getCustomerDetail($customer_id);
