@@ -37,9 +37,13 @@ class Product extends REST_Controller{
       $child_cat_id = isset($post['child_cat_id']) ? $post['child_cat_id'] : 1;
 
       $search_key = isset($post['search_key']) ? $post['search_key'] : "";
-      //Sort By
+      //filter
+      $filterbyPrice=isset($post['price']) ? $post['price'] : "";
+      $filterbyRating=isset($post['rating']) ? $post['rating'] : "";
+      //
+      $shortBy=isset($post['short_by']) ? $post['short_by'] : "";
 
-      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key);
+      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy);
      
       $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
         

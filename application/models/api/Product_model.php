@@ -22,7 +22,7 @@ class Product_model extends CI_Model{
 
    }
 
-   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key){
+   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy){
     $array_data=array();
     $this->db->select(
     
@@ -56,6 +56,10 @@ class Product_model extends CI_Model{
     if($search_key!=""){
       $this->db->like('P.product_name',$search_key);
     }
+    if($shortBy!=""){
+      $this->db->order_by('P.price',$shortBy);
+    }
+
     $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
     $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
     $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
