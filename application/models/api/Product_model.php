@@ -57,7 +57,7 @@ class Product_model extends CI_Model{
       $this->db->like('P.product_name',$search_key);
     }
     if($shortBy!=""){
-      $this->db->order_by('P.price',$shortBy);
+      $this->db->order_by('price',$shortBy);
     }
 
     $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
