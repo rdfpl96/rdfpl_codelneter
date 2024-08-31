@@ -15,6 +15,7 @@ class Category extends CI_Controller
         $this->load->library('my_libraries');
         $this->load->model('admin/category_model', 'category');
         $session = $this->session->userdata('admin');
+        $this->load->library('upload');
         $this->load->library('pagination');
         $_SERVER['REQUEST_URI'] = "admin";
         if (basename($_SERVER['REQUEST_URI']) != 'admin') {
@@ -77,15 +78,17 @@ class Category extends CI_Controller
 
         $array_data = $this->category->getList($page, $config["per_page"], $name,$searchText);
 
-
+    
         $option = '';
         if (is_array($array_data) && count($array_data) > 0) {
             foreach ($array_data as $i => $record) {
                 $status = isset($record['status']) && $record['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+                $image_url = base_url('uploads/category/' . $record['cat_image']);
                 $option .= '<tr> 
                                 <td>' . ($i + 1 + $page) . '</td>
                                 <td>' . $record['category'] . '</td>
                                 <td>' . $record['slug'] . '</td>
+                                <td><img src="' . $image_url . '" alt="not found image" style="width:100px; height:auto;"></td>
                                 <td>' . $status . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
@@ -120,10 +123,6 @@ class Category extends CI_Controller
         
         $response = $this->sqlQuery_model->sql_delete('tbl_category', array('cat_id' => $cat_id));
 
-
-        // print_r($response);
-        // die();
-
         if($response=='1'){
             $Flag= 'True';
         }else{
@@ -136,18 +135,18 @@ class Category extends CI_Controller
     
     public function SearchCategory() {
         $searchText = $this->input->post('searchText');
-    
-        
         $Cat_Html = $this->category->category_search($searchText,);
         
         $counter=1;
         $html = '';
         foreach ($Cat_Html as $val) {
             $status = isset($val['status']) && $val['status'] == 1 ? '<span style="color:green">Active</span>' : '<span style="color:red">Inactive</span>';
+            $image_url = base_url('/uploads/category/' . $val['cat_image']);
             $html .= '<tr>
                 <td>' . $counter++ . '</td>
                 <td>' . $val['category'] . '</td>
                 <td>' . $val['slug'] . '</td>
+                <td><img src="' . $image_url . '" alt="not found image" style="width:100px; height:auto;"></td>
                 <td>' . $status . '</td>
                 <td>' . date('d-m-Y', strtotime($val['add_date'])) . '</td>
                 <td>
@@ -227,18 +226,43 @@ class Category extends CI_Controller
 
     public function store()
     {
-        $category_name = $this->input->post('category_name');
-        $category_slug = $this->input->post('slug');
+        $this->load->library('upload');
 
-        // Insert data into the database
-        if ($this->category->insert_category($category_name, $category_slug)) {
-            //echo "Data inserted successfully"; // Display success message
+         // Configuration for file upload
+         $config['upload_path'] = './uploads/category';
+         $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+         $config['max_size'] = 2048; 
+         $config['encrypt_name'] = TRUE;   
+         $this->upload->initialize($config);
+         // Handle file upload
+         if (!$this->upload->do_upload('cat_image')) {
+             $error = $this->upload->display_errors();
+             echo "Failed to upload file: " . $error;
+             return;
+         }
+        $upload_data = $this->upload->data();
+        $file_path = $upload_data['file_name'];
+        $category_name = $this->input->post('category_name');
+        $category_slug = $this->input->post('slug');    
+        if ($this->category->insert_category($category_name, $category_slug,$file_path)) {
             redirect('admin/category?success=true');
         } else {
             echo "Failed to insert data"; // Display error message
         }
     }
 
+
+
+
+
+
+    
+
+
+
+
+
+        
 
     public function edit($id)
     {
@@ -255,25 +279,110 @@ class Category extends CI_Controller
 
 
 
-    public function update($id)
-    {
-        $data = array(
-            'category' => $this->input->post('category'),
-            'slug' => $this->input->post('slug')
-        );
 
-        // Update the category
-        if ($this->category->update_category($id, $data)) {
-            $this->session->set_flashdata('success_message', 'Data Updated Successfully!');
-        } else {
-            $this->session->set_flashdata('error_message', 'Failed to update data!');
-        }
-        redirect('admin/category');
-    }
+  
 
 
 
     
+    public function update111($id)
+{
+ 
+   // Configuration for file upload
+   $config['upload_path'] = './uploads/category';
+   $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+   $config['max_size'] = 2048; 
+   $config['encrypt_name'] = TRUE;   
+   $this->upload->initialize($config);
+   // Handle file upload
+   if (!$this->upload->do_upload('cat_image')) {
+       $error = $this->upload->display_errors();
+       echo "Failed to upload file: " . $error;
+       return;
+   }
+  $upload_data = $this->upload->data();
+     $data = $upload_data['file_name'];
+
+     $existing_category = $this->category->get_category_by_id($id);
+    if ($existing_category) {
+      $desk_image = $existing_category->desk_image; 
+    }
+    if ($this->upload->do_upload('cat_image')) {
+      $upload_data = $this->upload->data();
+      $desk_image = $upload_data['file_name']; 
+    }
+    $data = array(
+        'category' => $this->input->post('category'),
+        'slug' => $this->input->post('slug'),
+        'cat_image' => $desk_image,
+    );
+    if ($this->category->update_category($id, $data)) {
+        $this->session->set_flashdata('success_message', 'Data Updated Successfully!');
+    } else {
+        $this->session->set_flashdata('error_message', 'Failed to update data!');
+    }
+    redirect('admin/category');
+}
+
+
+public function update($id)
+{
+    // Configuration for file upload
+    $config['upload_path'] = './uploads/category';
+    $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+    $config['max_size'] = 2048; 
+    $config['encrypt_name'] = TRUE;   
+    $this->upload->initialize($config);
+
+ 
+    $desk_image = '';
+
+  
+    if ($this->upload->do_upload('cat_image')) {
+        $upload_data = $this->upload->data();
+        $desk_image = $upload_data['file_name'];
+    } else {
+        // If upload fails, get the error and set desk_image to existing file name
+        $error = $this->upload->display_errors();
+        echo "Failed to upload file: " . $error;
+
+        // Get existing category details
+        $existing_category = $this->category->get_category_by_id($id);
+        if ($existing_category) {
+            $desk_image = $existing_category->cat_image; 
+        }
+    }
+
+    $data = array(
+        'category' => $this->input->post('category'),
+        'slug' => $this->input->post('slug'),
+        'cat_image' => $desk_image,
+    );
+
+
+    if ($this->category->update_category($id, $data)) {
+        $this->session->set_flashdata('success_message', 'Data Updated Successfully!');
+    } else {
+        $this->session->set_flashdata('error_message', 'Failed to update data!');
+    }
+
+    // Redirect to category list
+    redirect('admin/category');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -129,7 +129,10 @@ class Category_model extends CI_Model
     return $array_record;
 }
 
-
+public function get_cat_Image_by_id($cat_id) {
+  $query = $this->db->get_where('tbl_category', array('cat_id' => $cat_id));
+  return $query->row(); 
+}
 
   public function get_categories()
   {
@@ -174,12 +177,13 @@ class Category_model extends CI_Model
   //     return $last_id;
   //   }
   // }
-  public function insert_category($category_name, $category_slug)
+  public function insert_category($category_name, $category_slug,$file_path)
   {
 
     $data = array(
       'category' => $category_name,
-      'slug' => $category_slug
+      'slug' => $category_slug,
+      'cat_image'=>$file_path
     );
     //print_r($data);
     if ($this->db->insert('tbl_category', $data)) {

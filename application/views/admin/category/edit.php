@@ -43,7 +43,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
  <!-- Body: Body --> 
             <div class="body d-flex py-3">
                 <div class="container-xxl">
-                 <form action="<?php echo base_url('admin/category/update/'.$category->cat_id); ?>" method="post">
+                 <form action="<?php echo base_url('admin/category/update/'.$category->cat_id); ?>" method="post" enctype="multipart/form-data">
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
@@ -80,9 +80,12 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                     <label  class="form-label">Category Slug <span style="color:red;">*</span></label>
                                                     <input type="text" class="form-control url" id="slug" name="slug" value="<?php echo $category->slug; ?>" required placeholder="Please enter slug">
                                                 </div>
-                                        </div>
-
-                                        
+                                                <div class="col-md-6">
+                                                    <label  class="form-label">Category Image <span style="color:red;">*</span></label>
+                                                    <input type="file" class="form-control url" id="cat_image" name="cat_image">
+                                                    <img src="<?php echo base_url('uploads/category/' . $category->cat_image); ?>" style="width:100px; margin-top:10px;">
+                                            </div> 
+                                        </div>   
                                     </div>
                                 </div>
                             </div>

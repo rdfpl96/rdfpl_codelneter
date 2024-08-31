@@ -32,7 +32,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
  <!-- Body: Body --> 
             <div class="body d-flex py-3">
                 <div class="container-xxl">
-                 <form action="<?php echo base_url('admin/category/store'); ?>" method="post">
+                 <form action="<?php echo base_url('admin/category/store'); ?>" method="post" enctype="multipart/form-data">
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
@@ -40,7 +40,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                    <h2 style="padding-top: 8px;color: #689F39;" onclick="history.go(-1);"><i class="fa fa-chevron-left"></i></h2>
                                 </div>
 
-                                <h3 class="fw-bold mb-0">Add Category</h3>
+                                <h3 class="fw-bold mb-0">Add Category</h3>  
 
                                 <!-- <h3 class="fw-bold mb-0"><?php echo ($this->uri->segment(3)=="") ? 'Add' :'Edit';?> <?php echo ucfirst($this->uri->segment(4));?> Products</h3> -->
                             <div class="row">
@@ -76,11 +76,12 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                     <input type="text" class="form-control url" id="slug" name="slug" value="" required placeholder="Please enter slug">
                                                 </div>
 
-                                                <!-- <div class="col-md-6">
+                                                <div class="col-md-6">
                                                     <label  class="form-label">Category Image <span style="color:red;">*</span></label>
                                                     <input type="file" class="form-control url" id="cat_image" name="cat_image" value="" required placeholder="">
-                                                </div> -->
-                                        </div>
+
+                                            </div> 
+                                            </div>
 
                                     </div>
                                 </div>
