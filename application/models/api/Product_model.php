@@ -22,7 +22,7 @@ class Product_model extends CI_Model{
 
    }
 
-   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy){
+   public function getAllProduct($start,$records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy,$filterbyPrice,$filterbyRating){
     $array_data=array();
     $this->db->select(
     
@@ -58,6 +58,12 @@ class Product_model extends CI_Model{
     }
     if($shortBy!=""){
       $this->db->order_by('price',$shortBy);
+    }
+    if($filterbyPrice!=""){
+      $priceArray=explode(',',$filterbyPrice);
+      $this->db->where('price >=', $priceArray[0]);
+      $this->db->where('price <=', $priceArray[1]);
+      $this->db->order_by('price', 'ASC');
     }
 
     $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');

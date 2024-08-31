@@ -43,7 +43,7 @@ class Product extends REST_Controller{
       //
       $shortBy=isset($post['short_by']) ? $post['short_by'] : "";
 
-      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy);
+      $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key,$shortBy,$filterbyPrice,$filterbyRating);
      
       $res=array("error"=>0,'msg'=>'success','data'=>array('products'=>$product));
         
