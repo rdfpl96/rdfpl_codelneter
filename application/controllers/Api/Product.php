@@ -31,11 +31,13 @@ class Product extends REST_Controller{
       $page = (int)(isset($post['page']) ? $post['page'] : 1);
       $page = ($page == 0 ? 1 : $page);
       $start = ($page-1) * $records_per_page;
+      //
       $top_cat_id = isset($post['top_cat_id']) ? $post['top_cat_id'] : "";
       $sub_id = isset($post['sub_id']) ? $post['sub_id'] : "";
       $child_cat_id = isset($post['child_cat_id']) ? $post['child_cat_id'] : 1;
 
       $search_key = isset($post['search_key']) ? $post['search_key'] : "";
+      //Sort By
 
       $product=$this->product->getAllProduct($start, $records_per_page,$top_cat_id,$sub_id,$child_cat_id,$search_key);
      
@@ -84,11 +86,13 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
       //
       $pdetail['is_wishlist']=$this->customlibrary->chkProductInWishList($pdetail['product_id'],$customer_id);
       //
+      $averageRating=$this->customlibrary->getAvarageRating($id);
+
       $ratingReview=$this->product->getRatingReviewByProdID($id);
       $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id,$search_key="");
     }
 
-    $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct,"ratingReview"=> $ratingReview))); 
+    $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct,"ratingReview"=> $ratingReview,"average_rating"=>$averageRating))); 
   
 }  
 

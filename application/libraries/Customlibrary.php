@@ -4,14 +4,31 @@ class Customlibrary
    var $CI;
     public function __construct($params = array()){
 
-       $this->CI =& get_instance();
+      $this->CI =& get_instance();
 
-       $custDetail=getCookies('customer');
+      $custDetail=getCookies('customer');
 
-       $this->customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
+      $this->customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
 
-       $this->CI->load->model('cart_model','cartObj');
-       $this->CI->load->model('common_model');
+      $this->CI->load->model('cart_model','cartObj');
+      $this->CI->load->model('common_model');
+    }
+
+    public function getAvarageRating($id){
+      $avg_rate=0;
+      $this->CI->db->select('COUNT(rate_id) as total_ratings, SUM(cust_rate) as total_sum');
+      $this->CI->db->from('tbl_rate_and_review');
+      $this->CI->db->where('product_id',$id);
+      $query = $this->db->get();
+      if($query->num_rows() > 0) {
+        $result = $query->row();
+        $total_ratings = $result->total_ratings;
+        $total_sum = $result->total_sum;
+
+        $avg_rate=$total_sum/$total_ratings;
+        
+      } 
+      return $avg_rate;
     }
 
     public function getDefaultAddressId(){
