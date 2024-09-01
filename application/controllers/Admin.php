@@ -281,7 +281,7 @@ class Admin extends CI_Controller
 
 
 
-  public function update_user()
+  public function update_user11111111111()
   {
     $user_id = $this->input->post('editv');
     $email = $this->input->post('email');
@@ -316,6 +316,82 @@ class Admin extends CI_Controller
     echo json_encode($response);
   }
 
+
+  public function update_user()
+  {
+      $user_id = $this->input->post('editv');
+      $email = $this->input->post('email');
+      $Old_email = $this->input->post('oldemail');
+  
+      // Check if email has changed and if the new email already exists
+      if ($email != $Old_email) {
+          $existing_user = $this->sqlQuery_model->get_user_by_email($email);
+          if ($existing_user) {
+              $response = array('success' => false, 'errors' => 'This email already exists.');
+              echo json_encode($response);
+              return;
+          }
+      }
+  
+     
+      $upload_data = [];
+      if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+          // Configure upload settings
+          $config['upload_path'] = './uploads/user/';
+          $config['allowed_types'] = 'jpg|jpeg|png';
+          $config['max_size'] = 2048; 
+          $config['max_width'] = 300;  
+          $config['max_height'] = 300; 
+          $config['encrypt_name'] = TRUE; // Encrypt file name
+  
+          $this->load->library('upload', $config);
+  
+          // Attempt to upload file
+          if (!$this->upload->do_upload('image')) {
+              $response = array('success' => false, 'errors' => $this->upload->display_errors());
+              echo json_encode($response);
+              return;
+          }
+  
+          // Get upload data
+          $upload_data = $this->upload->data();
+      }
+  
+      // Prepare user data for update
+      $user_data = array(
+          'admin_name' => $this->input->post('c_fname'),
+          'admin_username' => $this->input->post('username'),
+          'admin_mobile' => $this->input->post('mobile'),
+          'admin_email' => $this->input->post('email'),
+          'admin_designation' => $this->input->post('designation'),
+          'admin_password' => md5($this->input->post('password'))
+      );
+  
+      // Add image path to user data if image was uploaded
+      if (!empty($upload_data)) {
+          $user_data['admin_image'] = $upload_data['file_name']; // Save the file name in the database
+      }
+  
+      // Update user in the database
+      $where = array('admin_id' => $user_id);
+      $update = $this->sqlQuery_model->sql_update('tbl_admin', $user_data, $where);
+  
+      if ($update) {
+          $response = array('success' => true, 'message' => 'User updated successfully');
+      } else {
+          $response = array('success' => false, 'message' => 'Failed to update user');
+      }
+      echo json_encode($response);
+  }
+  
+
+
+
+
+
+
+
+  
 
   public function updateuserStatus()
   {
@@ -2095,9 +2171,9 @@ class Admin extends CI_Controller
     // die();
     $data['order_details'] = $this->sqlQuery_model->sql_select_where_orderdetails($getOrderId);
 
-    // echo "<pre>";
-    // print_r( $data['order_details'] );
-    // die();
+    //echo "<pre>";
+     //print_r( $data['order_details'] );
+     //die();
 
     //$data['order_product_details'] = $this->sqlQuery_model->sql_select_where('tbl_order_products', array('pro_generated_order_id' => $getOrderId));
 
