@@ -1,6 +1,6 @@
 <?php 
-// print_r($addressDetails);
-// exit();
+// print_r($isdelivered);
+//exit();
 $this->load->view('frontend/header'); 
 ?>
 <style type="text/css">
@@ -14,6 +14,7 @@ $this->load->view('frontend/header');
    }*/
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <main class="main">
    <div class="page-header mb-50">
       <div class="">
@@ -276,10 +277,12 @@ $this->load->view('frontend/header');
 
                         </div>
                         <!-- Select location--->
+                        <form method="post">
                         <div class="section" id="selectLocation" style="display:none;">
                            <div class="card">
-                              <div class="card-body">
-                                 <input id="search-box" type="text" placeholder="Search for places...">
+                              <!-- <div class="card-body">
+                                 <input id="search-box" name="search-box" type="text" placeholder="Search for places..." value="<?php //echo isset($isdelivered) ? $isdelivered : ''; ?>">
+                                 <span id="pincode-message" style="color: red;"></span>
                                  <div id="map" style="height: 500px; width: 100%;"></div>
 
                                  <div class="add_new_header" id="useLocationSection" style="display:none;">
@@ -300,9 +303,38 @@ $this->load->view('frontend/header');
                                     </div>
                                  </div>
 
-                              </div>
+                              </div> -->
+                              <div class="card-body">
+                               <input id="search-box" name="search-box" type="text" placeholder="Search for places..." value="<?php echo isset($isdelivered) ? $isdelivered : ''; ?>">
+                               
+                               <div id="map" style="height: 500px; width: 100%;"></div>
+
+                               <div class="add_new_header" id="useLocationSection" style="display:none;">
+                                   <div class="row">
+                                       <div class="col-md-8">
+                                           <div class="new_add_heading">
+                                               <h5 class="areaName"></h5>
+                                               <p class="fullAdress"></p>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-3">
+                                           <a href="javascript:void(0);" class="change-location" onclick="useLocation();return false;">
+                                               <div class="chag_loc">
+                                                   <p>Use Location</p>
+                                               </div>
+                                           </a>
+                                       </div>
+                                   </div>
+                               </div>
+
+                               <div id="errorMessage" style="color: red; display: none;">
+                                   We do not serve in this area currently. Please select another location.
+                               </div>
+                           </div>
+
                            </div>
                         </div>
+                        </form>
                         <!-- End Select location--->
                      </div>
                   </div>
@@ -575,7 +607,7 @@ function validatePincode(input) {
          geocoder.geocode({ location: latLng }, function (results, status) {
              if (status === 'OK') {
                  if (results[0]) {
-                    // console.log(results[0]);
+                     console.log(results[0]);
                     console.log(results);
 
                     let area=results[0].address_components[1].long_name +' '+ results[0].address_components[2].long_name;
@@ -603,7 +635,11 @@ function validatePincode(input) {
                     $('#city').val(city);
                     $('#state_id').val(state);
                     $('#pincode').val(pincode);
+
+
                     $('#useLocationSection').show();
+
+                    checkPincodeValidationForDelivery(pincode);
                     //alert('Address: ' + results[0].formatted_address);
                  } else {
                      alert('No results found');
@@ -769,6 +805,34 @@ function editAddress(addr_id) {
             } else {
                 alert('Failed to fetch address details.');
             }
+        }
+    });
+}
+</script>
+<script type="text/javascript">
+
+   function checkPincodeValidationForDelivery(pincode) {
+    $.ajax({
+        url: 'cart/deliveryAddress',
+        type: 'POST',
+        data: {
+            'search-box': pincode
+        },
+        success: function(response) {
+            var data = JSON.parse(response);
+            
+            if (data.isdelivered) {
+                $('#errorMessage').hide();
+                $('#useLocationSection').show();
+                $('.areaName').text(data.areaName);
+                $('.fullAdress').text(data.fullAdress);
+            } else {
+                $('#useLocationSection').hide();
+                $('#errorMessage').show();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
         }
     });
 }

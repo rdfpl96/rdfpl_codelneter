@@ -197,16 +197,48 @@ class Cart extends CI_Controller {
  
 //
 // Delevery Address
-//    
-public function deliveryAddress(){
-    $userCookies=getCookies('customer');
+    
+// public function deliveryAddress(){
+//     $userCookies=getCookies('customer');
+//     $customer_id = $userCookies['customer_id'];
+//     $data['addressList']=$this->customlibrary->getAllCustomerList($userCookies['customer_id']);
+//     $data['orderSumery']=$this->orderSummeryForCart();
+//     $data['customer_id']=$userCookies['customer_id'];
+//     $pincodeManual = $this->input->post('search-box');
+
+//     $pincode = (!empty($pincodeManual)) ? $pincodeManual : $this->customlibrary->getDefaultAddressPincode();
+//     $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($pincode);
+//     $this->load->view("frontend/cart/address",$data); 
+// }
+
+public function deliveryAddress() {
+    $pincodeManual = $this->input->post('search-box');
+    $pincode = (!empty($pincodeManual)) ? $pincodeManual : $this->customlibrary->getDefaultAddressPincode();
+    $isDelivered = $this->customlibrary->chkDeliveryLocation($pincode);
+    if ($this->input->is_ajax_request()) {
+        if ($isDelivered) {
+            $response = [
+                'isdelivered' => true,
+                'areaName' => 'Your Area Name',
+                'fullAdress' => 'Full Address fetched based on the pincode'
+            ];
+        } else {
+            $response = ['isdelivered' => false];
+        }
+        echo json_encode($response);
+        return;
+    }
+    $userCookies = getCookies('customer');
     $customer_id = $userCookies['customer_id'];
-    $data['addressList']=$this->customlibrary->getAllCustomerList($userCookies['customer_id']);
-    $data['orderSumery']=$this->orderSummeryForCart();
-    $data['customer_id']=$userCookies['customer_id'];
-    $this->load->view("frontend/cart/address",$data); 
+    $data['addressList'] = $this->customlibrary->getAllCustomerList($customer_id);
+    $data['orderSumery'] = $this->orderSummeryForCart();
+    $data['customer_id'] = $customer_id;
+    $data['isdelivered'] = $isDelivered;
+    $this->load->view("frontend/cart/address", $data);
 }
-//
+
+
+
 // Delevery Option
 //  
 //previous code without buy now
