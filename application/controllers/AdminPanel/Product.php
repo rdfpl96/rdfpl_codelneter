@@ -115,6 +115,8 @@ class Product extends CI_Controller
         }
 
 
+    
+
         $option = '';
         if (is_array($array_data) && count($array_data) > 0) {
 
@@ -271,35 +273,67 @@ class Product extends CI_Controller
 
 
 
-    public function update($id)
-    {
 
+
+
+    public function update($id) {
         if ($this->input->is_ajax_request()) {
-
+            $error = 0;
+            $err_msg = '';
             $otherInfo = array();
-
+    
             $session = $this->session->userdata('admin');
-
+    
             $productName = isset($_POST['product_name']) ? addslashes($_POST['product_name']) : "";
             $productSlug = isset($_POST['slug']) ? addslashes($_POST['slug']) : "";
-            $hsn_code = isset($_POST['hsn_code']) ? addslashes($_POST['hsn_code']) : "";
-
-            $igst = isset($_POST['igst']) ? addslashes($_POST['igst']) : 0;
-            $cgst = isset($_POST['cgst']) ? addslashes($_POST['cgst']) : 0;
-            $sgst = isset($_POST['sgst']) ? addslashes($_POST['sgst']) : 0;
-
             $headingArray = isset($_POST['heading']) && count($_POST['heading']) > 0 ? $_POST['heading'] : array();
             $descriptionArray = isset($_POST['description']) && count($_POST['description']) > 0 ? $_POST['description'] : array();
-
+    
             if ($this->product->chkUniqueProductName($productName, $id)) {
                 $error = 1;
-                $err_msg = "Product already exist";
+                $err_msg = "Product already exists";
             } else if ($this->product->chkUniqueProductURL($productSlug, $id)) {
                 $error = 1;
-                $err_msg = "Product slug already exist";
+                $err_msg = "Product slug already exists";
             } else {
+                $imagePaths = [];
+                $imageFields = ['image1', 'image2', 'image3', 'image4', 'image5', 'image6'];
+    
+                // Fetch current product data to retain existing images if no new image is uploaded
+                $currentProduct = $this->product->getProductById($id);
+                $currentImages = [
+                    'image1' => isset($currentProduct->image1) ? $currentProduct->image1 : '',
+                    'image2' => isset($currentProduct->image2) ? $currentProduct->image2 : '',
+                    'image3' => isset($currentProduct->image3) ? $currentProduct->image3 : '',
+                    'image4' => isset($currentProduct->image4) ? $currentProduct->image4 : '',
+                    'image5' => isset($currentProduct->image5) ? $currentProduct->image5 : '',
+                    'image6' => isset($currentProduct->image6) ? $currentProduct->image6 : '',
+                ];
+    
+                foreach ($imageFields as $field) {
+                    if (!empty($_FILES[$field]['name'])) {
+                        $config['upload_path'] = './uploads/';
+                        $config['allowed_types'] = 'gif|jpg|png';
+                        $config['file_name'] = uniqid() . '_' . $_FILES[$field]['name'];
+    
+                        $this->load->library('upload', $config);
+    
+                        if ($this->upload->do_upload($field)) {
+                            $uploadData = $this->upload->data();
+                            $imagePaths[$field] = $uploadData['file_name'];
+                        } else {
+                            $error = 1;
+                            $err_msg = $this->upload->display_errors();
+                            echo json_encode(array('error' => $error, 'err_msg' => $err_msg));
+                            exit();
+                        }
+                    } else {
+                        // If no new file is uploaded, retain the existing image
+                        $imagePaths[$field] = isset($_POST[$field.'_path']) ? $_POST[$field.'_path'] : $currentImages[$field];
+                    }
+                }
+    
                 if (count($headingArray) > 0) {
-
                     for ($i = 0; $i < count($headingArray); $i++) {
                         $otherInfo[] = array(
                             'heading' => isset($headingArray[$i]) ? $headingArray[$i] : "",
@@ -307,35 +341,41 @@ class Product extends CI_Controller
                         );
                     }
                 }
-
+    
                 $array_data = array(
                     'product_name' => $productName,
                     'slug' => $productSlug,
-                    'hsn_code' => $hsn_code,
-                    'cgst' => $cgst,
-                    'igst' => $igst,
-                    'sgst' => $sgst,
                     'other_info' => serialize($otherInfo),
+                    'image1' => isset($imagePaths['image1']) ? $imagePaths['image1'] : $currentImages['image1'],
+                    'image2' => isset($imagePaths['image2']) ? $imagePaths['image2'] : $currentImages['image2'],
+                    'image3' => isset($imagePaths['image3']) ? $imagePaths['image3'] : $currentImages['image3'],
+                    'image4' => isset($imagePaths['image4']) ? $imagePaths['image4'] : $currentImages['image4'],
+                    'image5' => isset($imagePaths['image5']) ? $imagePaths['image5'] : $currentImages['image5'],
+                    'image6' => isset($imagePaths['image6']) ? $imagePaths['image6'] : $currentImages['image6'],
                     'updated_by' => $session['admin_name']
                 );
-
+    
                 if ($this->product->Edit($id, $array_data)) {
-                    $error = 0;
-                    $err_msg = "Data insert succesfully";
+                    $err_msg = "Data updated successfully";
                 } else {
-                    $error = 0;
-                    $err_msg = "There are some problem try again";
+                    $error = 1;
+                    $err_msg = "There was a problem, try again";
                 }
             }
         } else {
             $error = 1;
             $err_msg = "No direct script access allowed";
         }
-
+    
         $response = array('error' => $error, 'err_msg' => $err_msg);
         echo json_encode($response);
         exit();
     }
+    
+
+
+
+
 
 
 

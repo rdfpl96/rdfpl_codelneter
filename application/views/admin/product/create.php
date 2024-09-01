@@ -212,8 +212,6 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                   </div>
                 </div>
               </div>
-
-
               <div class="col-sm-2">
                 <div class="center" style="text-align: center;">
                   <a href="#" class="close-image" data-id="5"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
@@ -273,10 +271,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
             </div>
           </div>
-          <!-- <div class="ship_ad_btn_css">
-                            <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase ">Save</button>
-                            <div class="loaderdiv"></div>
-                        </div> -->
+        
           <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase " onsubmit="addProductInfo()">Save</button>
     </form>
   </div>
@@ -392,6 +387,17 @@ function addProductInfo() {
         }
     });
 }
+
+$(document).ready(function() {
+ 
+    $(document).on('click', '.close-image', function(e) {
+        e.preventDefault(); 
+        var imageId = $(this).data('id'); 
+        $('#file-ip-' + imageId + '-preview').attr('src', '<?php echo base_url('include/assets/default_product_image.png'); ?>');
+        $('#file-ip-' + imageId).val('');
+        $('#image_path' + imageId).val('');
+    });
+});
 
 
 </script>

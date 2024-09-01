@@ -64,6 +64,17 @@ class Product_model extends CI_Model{
       
   }
 
+
+
+
+
+public function getProductById($id)
+{
+  $query = $this->db->get_where('tbl_product', array('product_id' => $id));
+  return $query->row();
+}
+
+
   public function chkUniqueProductURL($slug,$id=""){
       $this->db->select('*');
       $this->db->from('tbl_product');
@@ -80,6 +91,8 @@ class Product_model extends CI_Model{
       }
   }
 
+
+  
 
    public function record_count($name) {
 
