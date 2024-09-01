@@ -222,44 +222,48 @@ class Category extends CI_Controller
 
 
 
-
-
     public function store()
     {
         $this->load->library('upload');
-
-         // Configuration for file upload
-         $config['upload_path'] = './uploads/category';
-         $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-         $config['max_size'] = 2048; 
-         $config['encrypt_name'] = TRUE;   
-         $this->upload->initialize($config);
-         // Handle file upload
-         if (!$this->upload->do_upload('cat_image')) {
-             $error = $this->upload->display_errors();
-             echo "Failed to upload file: " . $error;
-             return;
-         }
-        $upload_data = $this->upload->data();
-        $file_path = $upload_data['file_name'];
+        
+        // Configuration for file upload
+        $config['upload_path'] = './uploads/category';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
+        $config['max_size'] = 2048; 
+        $config['encrypt_name'] = TRUE;   
+        $this->upload->initialize($config);
+        // Get category data from POST
         $category_name = $this->input->post('category_name');
         $category_slug = $this->input->post('slug');    
-        if ($this->category->insert_category($category_name, $category_slug,$file_path)) {
-            redirect('admin/category?success=true');
+    
+        // Check if the category already exists
+        if ($this->category->category_exists($category_name, $category_slug)) {
+            $this->session->set_flashdata('error_message', 'This category already exists.');
+            redirect('admin/category');
+            return;
+        }
+    
+        // Handle file upload
+        if (!$this->upload->do_upload('cat_image')) {
+            $error = $this->upload->display_errors();
+            $this->session->set_flashdata('error_message', 'Failed to upload file: ' . $error);
+            redirect('admin/category');
+            return;
+        }
+    
+        $upload_data = $this->upload->data();
+        $file_path = $upload_data['file_name'];
+        
+        // Insert category data
+        if ($this->category->insert_category($category_name, $category_slug, $file_path)) {
+            $this->session->set_flashdata('success_message', 'Category added successfully.');
+            redirect('admin/category');
         } else {
-            echo "Failed to insert data"; // Display error message
+            $this->session->set_flashdata('error_message', 'Failed to insert data');
+            redirect('admin/category');
         }
     }
-
-
-
-
-
-
     
-
-
-
 
 
         
@@ -274,55 +278,6 @@ class Category extends CI_Controller
     }
 
 
-    
-
-
-
-
-
-  
-
-
-
-    
-    public function update111($id)
-{
- 
-   // Configuration for file upload
-   $config['upload_path'] = './uploads/category';
-   $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-   $config['max_size'] = 2048; 
-   $config['encrypt_name'] = TRUE;   
-   $this->upload->initialize($config);
-   // Handle file upload
-   if (!$this->upload->do_upload('cat_image')) {
-       $error = $this->upload->display_errors();
-       echo "Failed to upload file: " . $error;
-       return;
-   }
-  $upload_data = $this->upload->data();
-     $data = $upload_data['file_name'];
-
-     $existing_category = $this->category->get_category_by_id($id);
-    if ($existing_category) {
-      $desk_image = $existing_category->desk_image; 
-    }
-    if ($this->upload->do_upload('cat_image')) {
-      $upload_data = $this->upload->data();
-      $desk_image = $upload_data['file_name']; 
-    }
-    $data = array(
-        'category' => $this->input->post('category'),
-        'slug' => $this->input->post('slug'),
-        'cat_image' => $desk_image,
-    );
-    if ($this->category->update_category($id, $data)) {
-        $this->session->set_flashdata('success_message', 'Data Updated Successfully!');
-    } else {
-        $this->session->set_flashdata('error_message', 'Failed to update data!');
-    }
-    redirect('admin/category');
-}
 
 
 public function update($id)
@@ -371,27 +326,7 @@ public function update($id)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 }
-
-
-
-
-
 
 ?>

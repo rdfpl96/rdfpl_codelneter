@@ -226,6 +226,23 @@ public function get_cat_Image_by_id($cat_id) {
   // } 
 
 
+  public function category_exists($name, $slug)
+  {
+      $this->db->where('category', $name);
+      $this->db->or_where('slug', $slug);
+      $query = $this->db->get('tbl_category');
+      
+      return $query->num_rows() > 0;
+  }
+  
+
+
+
+
+
+
+
+
   public function getViewByID($id)
   {
     $array_record = array();

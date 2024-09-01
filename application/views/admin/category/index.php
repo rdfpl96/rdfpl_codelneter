@@ -7,6 +7,8 @@ $this->load->view('admin/headheader');
 $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array();
 ?>
 
+
+
 <!-- Body: Body -->
 <div class="body d-flex py-3">
     <div class="container-xxl">
@@ -223,19 +225,24 @@ $(document).ready(function() {
 </style>
 
 <?php $this->load->view('admin/footer'); ?>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script type="text/javascript">
-    // Check if success parameter is present in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
+<?php if ($this->session->flashdata('success_message')): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+    Swal.fire({
+        icon: 'success',
+        title: '<?php echo $this->session->flashdata('success_message'); ?>',
+        showConfirmButton: false,
+        timer: 1500
+    });
+    </script>
+<?php elseif ($this->session->flashdata('error_message')): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '<?php echo $this->session->flashdata('error_message'); ?>'
+    });
+    </script>
+<?php endif; ?>
 
-    // Display Swal alert if success parameter is true
-    if (success === 'true') {
-        Swal.fire({
-            icon: 'success',
-            title: 'Data Inserted Successfully!',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
-</script>
