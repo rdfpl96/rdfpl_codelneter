@@ -12,15 +12,15 @@ class Product extends REST_Controller{
     $this->load->model('api/product_model','product');
     $this->load->model('common_model','common');
     
-      // $validation=$this->authorization_token->validateToken();
+      $validation=$this->authorization_token->validateToken();
     
-      //   if($validation['status']!=0){
+        if($validation['status']!=0){
 
-      //   $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
         
-      //   echo json_encode($res);
-      //   exit();
-      //   }    
+        echo json_encode($res);
+        exit();
+        }    
     
   }  
   public function index_post(){
