@@ -22,7 +22,7 @@ public function updateProfile($id,$array_data){
 
 public function getCustomerDetail($customer_id){
     $return_data=array();
-    $this->db->select('c_fname as name,email,mobile,profile_picture');
+    $this->db->select('c_fname as name,c_lname as lname,email,mobile,profile_picture');
     $this->db->from('tbl_customer');
     $this->db->where('customer_id',$customer_id);
     $query=$this->db->get() ;
@@ -208,6 +208,21 @@ public function getStateList(){
     }
     
     return $array_data;
+}
+
+public function getCustomerRateReviewList($cust_id){
+  $array_data=array();
+  $this->db->select('P.product_name,P.feature_img,
+    CONCAT("'.base_url("uploads/").'",P.feature_img) as imagepath,RAR.rate_id,RAR.cust_rate,RAR.comment,RAR.add_date,RAR.status');
+  $this->db->from('tbl_rate_and_review AS RAR');
+  $this->db->join('tbl_product AS P','P.product_id=RAR.product_id');
+  $this->db->where('RAR.cust_id',$cust_id);
+  $query=$this->db->get();
+  if($query->num_rows()>0){
+    $array_data=$query->result_array();
+  }
+  return $array_data;
+
 }
 
 }

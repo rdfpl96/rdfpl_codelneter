@@ -127,6 +127,37 @@ public function addNewAddress() {
             'pincode'               => isset($form_detail['pincode']) && $form_detail['pincode'] != '' ? addslashes($form_detail['pincode']) : "",
         );
 
+         $sapAddress='{
+    
+    "BPAddresses": [
+        {   
+            "BPCode":"ECO10006",
+            "AddressName": '.$nv['fname'].',
+            "Street": '.$nv['area'].',
+            "Block": '.$nv['address2'].',
+            "ZipCode": '.$nv['pincode'].',
+            "City": '.$nv['city'].',
+            "Country": "IN",
+            "State": "KT",
+            "FederalTaxID": null,
+            "BuildingFloorRoom": '.$nv['address1'].',
+            "AddressType": "bo_ShipTo",
+            "AddressName2": null,
+            "AddressName3": null,
+            "TypeOfAddress": "Home",
+            "StreetNo": null,
+            "GlobalLocationNumber": null,
+            "GSTIN": "123456789012345",
+            "GstType": "gstRegularTDSISD",
+            "TaasEnabled": "tYES",
+            "U_EmailID": '.$nv['email'].',
+            "U_MobileNo": '.$nv['mobile'].'
+        }
+    ]
+
+    }';
+
+
         // Validation checks
         if ($nv['fname'] == '') {
             $error = '1';
@@ -194,6 +225,8 @@ public function addNewAddress() {
                 if($nv['setAddressDefault']==1){
 
                    $this->custObj->setDefaultAddressByCust($lastId,$userCookies['customer_id']); 
+
+                   $this->sapservice->updateCustomer($sapAddress);
                 }
                 $error = 0;
                 $err_msg = "Address saved successfully";
@@ -486,17 +519,25 @@ public function add_user_details() {
         'c_fname' => $firstname,
         'c_lname' => $lastname,
         'mobile' => $mobilename,
-        'email' => $emailAddress,
-        'password' => (!empty($password)) ? md5($password) : $old_password,
-        'city' => $city,
-        'state' => $state,
-        'country' => $country
+        'email' => $emailAddress
+        // 'password' => (!empty($password)) ? md5($password) : $old_password,
+        // 'city' => $city,
+        // 'state' => $state,
+        // 'country' => $country
     );
 
     $customer_id = $user['customer_id'];
     $post_sql = $this->sqlQuery_model->sql_update('tbl_customer', $postArr, array('customer_id' => $customer_id));
 
     if ($post_sql) {
+        $sapUser=array(
+            "CardCode"=>"ECO10013",
+            "CardName"=>$firstname,
+            "CardType"=>"cCustomer",
+            "Cellular"=>$mobilename,
+            "EmailAddress"=>$emailAddress,
+        );
+        $this->sapservice->updateCustomer($sapUser);
         $data['status'] = 1;
         $data['message'] = "Data updated successfully";
     } else {
@@ -516,9 +557,7 @@ public function billing_address(){
       
        $data['billingAddress']=$this->sqlQuery_model->sql_select_where('tbl_address',array('customer_id' => $customer_id,'address_type'=>'billingAddress'));
 
-       
-
-       if($data['billingAddress']!=0){
+        if($data['billingAddress']!=0){
 
                 foreach($data['billingAddress'] as $value){
 
@@ -586,11 +625,45 @@ public function add_or_update_address() {
         'address_type' =>$address_type
     );
 
+    $sapAddress='{
+    
+    "BPAddresses": [
+        {   
+            "BPCode":"ECO10006",
+            "AddressName": '.$fname.',
+            "Street": '.$area.',
+            "Block": '.$apart_name.',
+            "ZipCode": '.$pincode.',
+            "City": '. $citys.',
+            "Country": "IN",
+            "State": "KT",
+            "FederalTaxID": null,
+            "BuildingFloorRoom": '.$apart_house.',
+            "AddressType": "bo_BillTo",
+            "AddressName2": null,
+            "AddressName3": null,
+            "TypeOfAddress": "Home",
+            "StreetNo": null,
+            "GlobalLocationNumber": null,
+            "GSTIN": "123456789012345",
+            "GstType": "gstRegularTDSISD",
+            "TaasEnabled": "tYES",
+            "U_EmailID": "",
+            "U_MobileNo": '.$mobile.'
+        }
+    ]
+
+    }';
+
     if ($this->input->post('addr_id')) {
         $this->common_model->update_billingaddress($this->input->post('addr_id'), $data);
+        $this->sapservice->updateCustomer($sapAddress);
         $response = ['error' => 0];
     } else {
         $this->common_model->insert_billingaddress($data);
+        //
+        $this->sapservice->updateCustomer($sapAddress);
+        //
         $response = ['error' => 0];
     }
     echo json_encode($response);

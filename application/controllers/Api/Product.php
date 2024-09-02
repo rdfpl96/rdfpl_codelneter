@@ -12,15 +12,15 @@ class Product extends REST_Controller{
     $this->load->model('api/product_model','product');
     $this->load->model('common_model','common');
     
-      // $validation=$this->authorization_token->validateToken();
+      $validation=$this->authorization_token->validateToken();
     
-      //   if($validation['status']!=0){
+        if($validation['status']!=0){
 
-      //   $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
         
-      //   echo json_encode($res);
-      //   exit();
-      //   }    
+        echo json_encode($res);
+        exit();
+        }    
     
   }  
   public function index_post(){
@@ -93,7 +93,7 @@ public function detail_get($id="",$top_cat_id="",$sub_id="",$child_cat_id=""){
       $averageRating=$this->customlibrary->getAvarageRating($id);
 
       $ratingReview=$this->product->getRatingReviewByProdID($id);
-      $simillerProduct=$this->product->getAllProduct(1,10,$top_cat_id,$sub_id,$child_cat_id,$search_key="");
+      $simillerProduct=$this->product->getSimillerProduct(1,10,$top_cat_id,$sub_id,$child_cat_id);
     }
 
     $this->response(array('error' =>0,'msg'=>'Success','data'=>array('pdetail'=>$pdetail,'simillerProduct'=>$simillerProduct,"ratingReview"=> $ratingReview,"average_rating"=>$averageRating))); 

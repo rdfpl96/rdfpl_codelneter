@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Client;
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // A custom helper function
@@ -21,7 +24,7 @@ if (!function_exists('getProductItemList')) {
         //$this->login();
         $client = new Client();
         try {
-            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1=&P2=JOD');
+            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1=&P2=Eco-MIDC');
             $res = $client->sendAsync($request)->wait();
             $responseBody=$res->getBody()->getContents();
             return json_decode($responseBody, true); 
@@ -40,10 +43,10 @@ if (!function_exists('getProductItem')) {
         $client = new Client();
 
         try {
-            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1='.$item_code.'&P2=JOD');
+            $request = new \GuzzleHttp\Psr7\Request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_BARCODE_MASTER_DATA&P1='.$item_code.'&P2=Eco-MIDC');
             $res = $client->sendAsync($request)->wait();
             $responseBody=$res->getBody()->getContents();
-            $body=son_decode($responseBody, true);
+            $body=json_decode($responseBody, true);
             return is_array($body) ? $body[0] : array(); 
               
         } catch (\GuzzleHttp\Exception\RequestException $e) {
@@ -61,7 +64,7 @@ if(!function_exists('getStockList')) {
         $client = new Client();
         try {
             // Send a GET request
-            $response = $client->request('GET', 'http://122.176.162.235:4223/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_ITEM_INVENTORY_DATA&P1=&P2=JOD');
+            $response = $client->request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_ITEM_INVENTORY_DATA&P1=&P2=Eco-MIDC');
             // Get the response body
             $body = $response->getBody();
             return json_decode($body, true);
@@ -80,7 +83,7 @@ if(!function_exists('getSingleStock')) {
         $client = new Client();
         try {
             // Send a GET request
-            $response = $client->request('GET', 'http://122.176.162.235:4223/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_ITEM_INVENTORY_DATA&P1='.$item_code.'&P2=JOD');
+            $response = $client->request('GET', 'http://122.176.162.235:7279/API/SAP/MasterWith_2P?HanaDBName=TEST_20240410&SPName=SCS_ITEM_INVENTORY_DATA&P1='.$item_code.'&P2=Eco-MIDC');
             // Get the response body
             $body=json_decode($response->getBody(), true);
 
@@ -99,7 +102,7 @@ if(!function_exists('getSingleStock')) {
 //
 if(!function_exists('getAllCustomerAdddressList')) {
     function getAllCustomerAdddressList($code){
-        $res=$this->login();
+        $res=login();
         // print_r($res['SessionId']);
         // exit();
         $client = new Client(['verify' => false]);
@@ -121,7 +124,7 @@ if(!function_exists('getAllCustomerAdddressList')) {
 //
 if(!function_exists('getAllCustomerAdddressList')) {
     function getAllCustomerAdddressListByCode($code){
-        $res=$this->login();
+        $res=login();
         // print_r($res['SessionId']);
         // exit();
         $client = new Client(['verify' => false]);
@@ -137,14 +140,60 @@ if(!function_exists('getAllCustomerAdddressList')) {
             echo 'Request failed: ' . $e->getMessage();
         }
     }
-}    
+}  
 
-    //
-    // Add New Address
-    //
+//
+// Create New Customer
+//
+if(!function_exists('createCustomer')) {
+    function createCustomer($body){
+        $res=login();
+        // print_r($res['SessionId']);
+        // exit();
+        $client = new Client(['verify' => false]);
+        try {
+        $headers = ['Content-Type' => 'application/json','Cookie' => 'B1SESSION='.$res['SessionId'].''];
+        //ECO10006;
+       $request = new  \GuzzleHttp\Psr7\Request('POST', 'https://122.176.162.235:50000/b1s/v1/BusinessPartners', $headers, $body);
+        $res = $client->sendAsync($request)->wait();
+        $responseBody=$res->getBody()->getContents();
+        return json_decode($responseBody, true); 
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            // Handle request exceptions
+            echo 'Request failed: ' . $e->getMessage();
+        }
+    }
+}
+//
+// Create New Customer
+//
+if(!function_exists('updateCustomer')) {
+    function updateCustomer($body){
+        $res=login();
+        // print_r($res['SessionId']);
+        // exit();
+        $client = new Client(['verify' => false]);
+        try {
+        $headers = ['Content-Type' => 'application/json','Cookie' => 'B1SESSION='.$res['SessionId'].''];
+        //ECO10006;
+       $request = new  \GuzzleHttp\Psr7\Request('PATCH', 'https://122.176.162.235:50000/b1s/v1/BusinessPartners', $headers, $body);
+        $res = $client->sendAsync($request)->wait();
+        $responseBody=$res->getBody()->getContents();
+        return json_decode($responseBody, true); 
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            // Handle request exceptions
+            echo 'Request failed: ' . $e->getMessage();
+        }
+    }
+}
+
+
+//
+// Add New Address
+//
 if(!function_exists('addNewAddress')) {
     function addNewAddress($code){
-        $res=$this->login();
+        $res=login();
         // print_r($res['SessionId']);
         // exit();
         $client = new Client(['verify' => false]);
@@ -165,15 +214,15 @@ if(!function_exists('addNewAddress')) {
 // Add more Address
 //
 if(!function_exists('addMoreAddress')) {
-    function addMoreAddress($code){
-        $res=$this->login();
+    function addMoreAddress($body){
+        $res=login();
         // print_r($res['SessionId']);
         // exit();
         $client = new Client(['verify' => false]);
         try {
         $headers = ['Content-Type' => 'application/json','Cookie' => 'B1SESSION='.$res['SessionId'].''];
         //ECO10006;
-        $request = new \GuzzleHttp\Psr7\Request('GET', "https://122.176.162.235:50000/b1s/v1/BusinessPartners('".$code."')",$headers);
+        $request = new \GuzzleHttp\Psr7\Request('PATCH', "https://122.176.162.235:50000/b1s/v1/BusinessPartners",$headers);
         $res = $client->sendAsync($request)->wait();
         $responseBody=$res->getBody()->getContents();
         return json_decode($responseBody, true); 
@@ -189,7 +238,7 @@ if(!function_exists('addMoreAddress')) {
 //
 if(!function_exists('addMoreAddress')) {
     function updateAddress($code){
-        $res=$this->login();
+        $res=login();
         // print_r($res['SessionId']);
         // exit();
         $client = new Client(['verify' => false]);

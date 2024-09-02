@@ -2,7 +2,7 @@
 var base_url = "https://site.rdfpl.com/";
 
 // Pramod
-//var base_url = "http://localhost/rdfpl";
+//var base_url = "http://local-rdfpl.com/";
 
 // function showLogin(){
 //     alert('hi');
@@ -30,7 +30,7 @@ function searchProduct() {
 $(document).on('click', '.shipping-address-save', function (e) {
     //alert('Hii');
     e.preventDefault();
-    
+
     // Get values from form
     let fname = $('#fname').val().trim();
     let lname = $('#lname').val().trim();
@@ -96,7 +96,7 @@ $(document).on('click', '.shipping-address-save', function (e) {
         other_loc: other_loc
     };
 
-    console.log('Form Data:', formData); 
+    console.log('Form Data:', formData);
     // $.ajax({
     //     url: base_url + 'common/shipping_address_save',
     //     dataType : 'JSON',
@@ -111,7 +111,7 @@ $(document).on('click', '.shipping-address-save', function (e) {
     //             alert(res.message || 'Failed to save address');
     //         }
     //     },
-        
+
     //     error: function (xhr, status, error) {
     //         console.log('AJAX Error:', error);
     //         console.log('Response Text:', xhr.responseText); 
@@ -121,28 +121,28 @@ $(document).on('click', '.shipping-address-save', function (e) {
 
 
 
-$.ajax({
-    type: "POST",
-    dataType: "JSON",
-    url: base_url + '/common/shipping_address_save',
-    data: formData,
-    success: function (result) {
-        console.log('xxxxx=> ', result);
-    let res = JSON.parse(response);
-    if (res.status === 'success') {
-    alert('Address saved successfully');
-    window.location.reload();
-    } else {
-    alert(res.message || 'Failed to save address');
-    }
+    $.ajax({
+        type: "POST",
+        dataType: "JSON",
+        url: base_url + '/common/shipping_address_save',
+        data: formData,
+        success: function (result) {
+            console.log('xxxxx=> ', result);
+            let res = JSON.parse(response);
+            if (res.status === 'success') {
+                alert('Address saved successfully');
+                window.location.reload();
+            } else {
+                alert(res.message || 'Failed to save address');
+            }
 
-    },
-    error: function (xhr, status, error) {
-        console.log('AJAX Error:', error);
-        console.log('Response Text:', xhr.responseText); 
-        alert('Error in saving address. Please check the console for details.');
-    }
-})
+        },
+        error: function (xhr, status, error) {
+            console.log('AJAX Error:', error);
+            console.log('Response Text:', xhr.responseText);
+            alert('Error in saving address. Please check the console for details.');
+        }
+    })
 
 
 

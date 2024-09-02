@@ -296,7 +296,8 @@ $route['offers'] = 'common/offers_module';
   $route['api/customer/setdefault']='Api/customeraddress/setdefault';   
   $route['api/customer/save-gst']='Api/customeraddress/saveGst';
   $route['api/customer/slote-list']='Api/customeraddress/sloteList'; 
-  $route['api/customer/rate-reviews']='Api/product/rateAndReview'; 
+  $route['api/customer/rate-reviews']='Api/product/rateAndReview';
+   $route['api/customer/rate-review-list']='Api/customer/rateReviewList';  
   $route['api/customer/stateList']='Api/customeraddress/getStatelist';
   $route['api/customer/order-list']='Api/order/index';
   $route['api/customer/detail']='Api/customer/getCustomerDetail';
@@ -320,9 +321,9 @@ $route['admin/category-with-prodct']='AdminPanel/Categoryproduct/index';
 
 // ==================SAP API========================================
 $route['sap/product/item-list']='Sap/product/getAllProductItems';
-$route['sap/product/getSingleProductItem']='Sap/product/getSingleProductItem';
-$route['sap/product/getAllStock']='Sap/product/getAllStock';
-$route['sap/product/getSingleStock']='Sap/product/getSingleStock';
+$route['sap/product/single-item']='Sap/product/getSingleProductItem';
+$route['sap/product/stock-list']='Sap/product/getAllStock';
+$route['sap/product/signle-stock']='Sap/product/getSingleStock';
 // ==================END API========================================  
 
 
