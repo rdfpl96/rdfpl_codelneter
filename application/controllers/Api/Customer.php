@@ -57,7 +57,7 @@ class Customer extends REST_Controller {
             }
             elseif($fieldType==2){
                 if(validateEmail($email)){
-                    if($this->login->chkEmailExist($email)){ 
+                    if(!$this->login->chkEmailExist($email)){ 
                         
                         $otp = sprintf("%06d", mt_rand(1, 999999));
 
