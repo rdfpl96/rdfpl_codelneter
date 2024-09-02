@@ -65,6 +65,7 @@ class CustomerAddress extends REST_Controller{
                 "state_id"=>$state,
                 "city"=>$city,
                 "pincode"=>$pincode,
+                "landmark"=>$street_landmark,
                 "address_type"=>$loc_type,
                 "other_loc"=>$other_loc,
             );  
@@ -122,6 +123,7 @@ class CustomerAddress extends REST_Controller{
                 "state_id"=>$state,
                 "city"=>$city,
                 "pincode"=>$pincode,
+                "landmark"=>$street_l
                 "address_type"=>$loc_type,
                 "other_loc"=>$other_loc,
             );  
