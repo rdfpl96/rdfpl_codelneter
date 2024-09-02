@@ -22,7 +22,7 @@ public function updateProfile($id,$array_data){
 
 public function getCustomerDetail($customer_id){
     $return_data=array();
-    $this->db->select('c_fname as name,email,mobile,profile_picture');
+    $this->db->select('c_fname as name,c_lname as lname,email,mobile,profile_picture');
     $this->db->from('tbl_customer');
     $this->db->where('customer_id',$customer_id);
     $query=$this->db->get() ;
