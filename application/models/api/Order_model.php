@@ -28,7 +28,7 @@ class Order_model extends CI_Model{
     $query=$this->db->get();
     if($query->num_rows()>0){
       $array_data=$query->result_array();
-      print_r($array_data);
+    
     }
     return $array_data;
    }
