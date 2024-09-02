@@ -79,6 +79,8 @@
                                         <!-- <th><span>&nbsp;</span><br>Details</th> -->
                                     </tr>
                                 </thead>
+
+
                                 <tbody id="trRow">
                                     <?php if (!empty($order_list)) {
                                         foreach ($order_list as $order) { ?>

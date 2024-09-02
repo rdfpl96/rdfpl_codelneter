@@ -545,7 +545,7 @@ public function get_users_banner_list($limit, $start) {
            tbl_order.order_no as order_no,
            tbl_address.fname as customer_name,
            tbl_address.landmark as location,
-           SUM(tbl_order_item.price) as order_amount,
+           SUM(tbl_order_item.price*tbl_order_item.qty) as order_amount,
            tbl_order.order_date
        ');
        $this->db->from('tbl_order');

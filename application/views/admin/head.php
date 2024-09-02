@@ -26,6 +26,11 @@
      
      $getFilename=(in_array($fileName,$exportUrl)) ? $fileName:'';
      echo $this->my_libraries->summernoteLibraryCss($getFilename,$fileName);
+     if(empty($this->session->userdata('name'))){
+        redirect('admin/login','refresh');
+        exit();
+    }
+
     ?>     
 
 </head>

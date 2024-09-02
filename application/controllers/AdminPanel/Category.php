@@ -88,7 +88,7 @@ class Category extends CI_Controller
                                 <td>' . ($i + 1 + $page) . '</td>
                                 <td>' . $record['category'] . '</td>
                                 <td>' . $record['slug'] . '</td>
-                                <td><img src="' . $image_url . '" alt="not found image" style="width:100px; height:auto;"></td>
+                                <td><img src="' . $image_url . '" alt="image not found" style="width:100px; height:auto;"></td>
                                 <td>' . $status . '</td>
                                 <td>' . date('d-m-Y', strtotime($record['add_date'])) . '</td>
                                 <td></td>
@@ -146,7 +146,7 @@ class Category extends CI_Controller
                 <td>' . $counter++ . '</td>
                 <td>' . $val['category'] . '</td>
                 <td>' . $val['slug'] . '</td>
-                <td><img src="' . $image_url . '" alt="not found image" style="width:100px; height:auto;"></td>
+                <td><img src="' . $image_url . '" alt="image not found" style="width:100px; height:auto;"></td>
                 <td>' . $status . '</td>
                 <td>' . date('d-m-Y', strtotime($val['add_date'])) . '</td>
                 <td>

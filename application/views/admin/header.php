@@ -1,4 +1,10 @@
-  
+  <?php
+ if(empty($this->session->userdata('name'))){
+    redirect('admin/login','refresh');
+    exit();
+}
+
+  ?>
             <!-- Body: Header -->
             <div class="header">
                 <input type="hidden" value="<?php echo base_url();?>" class="base_url">

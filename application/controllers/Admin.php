@@ -101,9 +101,10 @@ class Admin extends CI_Controller
     $this->load->view('admin/template', $data);
   }
 
+
+
   public function logout()
   {
-
     $session = $this->session->userdata('admin');
     if (isset($session) && $session['is_login'] == 1) {
       $this->session->sess_destroy();
@@ -112,10 +113,7 @@ class Admin extends CI_Controller
   }
 
 
-  // public function add_category(){
-  //        $data['content']='admin/containerPage/add-category';
-  // 	    $this->load->view('admin/template',$data);
-  // }
+
 
 
   public function message()
@@ -2053,7 +2051,8 @@ class Admin extends CI_Controller
   
       // Get orders with pagination
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-      $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id, $config["per_page"], $page); // Pass all three arguments
+      $data['order_list'] = $this->sqlQuery_model->getOrderDetails($customer_id, $config["per_page"], $page);
+      
       $data['pagination'] = $this->pagination->create_links();
       $data['content'] = 'admin/containerPage/product-orders';
       $this->load->view('admin/template', $data);
