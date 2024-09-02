@@ -14,6 +14,20 @@ class Customlibrary
       $this->CI->load->model('common_model');
     }
 
+    public function getStateNameById($id){
+    $name='';     
+    $this->CI->db->select('name');
+    $this->CI->db->from('states');
+    $this->CI->db->where('id',$id);
+    $query=$this->CI->db->get() ; 
+    if($query->num_rows()>0)
+         { 
+         $name= $query->row()->name;
+         }
+     return $name;   
+   } 
+
+
     public function getAvarageRating($id){
       $avg_rate=0;
       $this->CI->db->select('COUNT(rate_id) as total_ratings, SUM(cust_rate) as total_sum');

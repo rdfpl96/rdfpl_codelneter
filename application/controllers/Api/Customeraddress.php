@@ -12,13 +12,13 @@ class CustomerAddress extends REST_Controller{
     
     $validation=$this->authorization_token->validateToken();
     
-    // if($validation['status']!=0){
+    if($validation['status']!=0){
 
-    //     $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
+        $res=array("error"=>$validation['status'],'msg'=>$validation['message']);
         
-    //     echo json_encode($res);
-    //     exit();
-    //     }
+        echo json_encode($res);
+        exit();
+        }
 
     }
 
@@ -63,6 +63,7 @@ class CustomerAddress extends REST_Controller{
                 "address2"=>$apart_name,
                 "area"=>$area,
                 "state_id"=>$state,
+                "state"=>$this->customlibrary->getStateNameById($state),
                 "city"=>$city,
                 "pincode"=>$pincode,
                 "landmark"=>$street_landmark,
@@ -121,9 +122,10 @@ class CustomerAddress extends REST_Controller{
                 "address2"=>$apart_name,
                 "area"=>$area,
                 "state_id"=>$state,
+                "state"=>$this->customlibrary->getStateNameById($state),
                 "city"=>$city,
                 "pincode"=>$pincode,
-                "landmark"=>$street_l
+                "landmark"=>$street_landmark,
                 "address_type"=>$loc_type,
                 "other_loc"=>$other_loc,
             );  
