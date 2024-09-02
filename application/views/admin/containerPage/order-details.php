@@ -27,7 +27,7 @@
                           <h4 class="fw-bold mb-0 custom-order-details">Order Details: #<?php echo $order_details[0]['order_no']; ?>
                               <span class="badge custom-order-css" <?php //echo $style; 
                                                                     ?>><?php //echo $order_payment; 
-                                                                                            ?></span>
+                                                                        ?></span>
 
                               <a href="<?php echo base_url('admin/product_order'); ?>"><button type="button" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase" style="margin-left: 300px;">Back</button></a>
 
@@ -109,11 +109,12 @@
                                   <div class="col-12">
                                       <label class="form-label">Name</label><br>
                                       <span>
-                                          <?php //echo (!empty($order_details[0]['customer_name'])) ? htmlspecialchars($order_details[0]['customer_name']) : '<span style="color:red;">Not Mentioned</span>'; ?>
+                                          <?php //echo (!empty($order_details[0]['customer_name'])) ? htmlspecialchars($order_details[0]['customer_name']) : '<span style="color:red;">Not Mentioned</span>'; 
+                                            ?>
                                           <?php
-                                    $full_name = $order_details[0]['customer_name'] . '  ' . $order_details[0]['customer_lname'];
-                                    echo htmlspecialchars($full_name);
-                                    ?>
+                                            $full_name = $order_details[0]['customer_name'] . '  ' . $order_details[0]['customer_lname'];
+                                            echo htmlspecialchars($full_name);
+                                            ?>
                                       </span>
                                   </div>
 
@@ -333,7 +334,8 @@
                                               <tr>
                                                   <th class="">Product Image</th>
                                                   <th>Product Name</th>
-                                                  <th class="">Quantity</th>
+                                                  <th>Pack Size</th>
+                                                  <th>Quantity</th>
                                                   <th class="">Price</th>
                                               </tr>
                                           </thead>
@@ -345,20 +347,21 @@
                                                     foreach ($order_details as $pvalue) {
                                                         $productPrice = $pvalue['order_amount'];
                                                         $quantity = $pvalue['qty'];
-
-                                                        $totalPrice += $productPrice * $quantity;
+                                                        $RowLevelTotal = $productPrice * $quantity;
+                                                        $totalPrice += $RowLevelTotal;
                                                 ?>
                                                       <tr>
                                                           <td><img src="<?php echo base_url('uploads/' . $pvalue['feature_img']); ?>" class="avatar rounded lg" alt="Product"></td>
 
                                                           <td>
-                                                              <span style="font-weight: bold;"><?php echo $pvalue->pro_cat_name; ?></span>
-                                                              <h5><?php echo $pvalue['product_name']; ?></h5>
+                                                              <span style="font-weight: bold;"><?php echo $pvalue['product_name']; ?></span>
                                                           </td>
+
+                                                          <td><?php echo $pvalue['pack_size']; ?> <?php echo $pvalue['units']; ?></td> <!-- Added Pack Size and Units -->
 
                                                           <td><span><?php echo $pvalue['qty']; ?></span></td>
                                                           <td>
-                                                              <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $pvalue['order_amount']; ?></p>
+                                                              <p class="price"><i class="fa fa-inr" aria-hidden="true"></i> <?php echo $RowLevelTotal; ?></p>
                                                           </td>
                                                       </tr>
                                               <?php
@@ -368,6 +371,7 @@
                                           </tbody>
                                       </table>
                                   </div>
+
                                   <?php //} 
                                     ?>
 
