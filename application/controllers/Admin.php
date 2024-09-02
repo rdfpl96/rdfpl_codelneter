@@ -2074,24 +2074,24 @@ class Admin extends CI_Controller
 
 
 
-  // public function search_order_list()
-  // {
-  //   $menuIdAsKey = 3;
-  //   $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
-  //   $data['page_menu_id'] = $menuIdAsKey;
+  public function search_order_list()
+  {
+    $menuIdAsKey = 3;
+    $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
+    $data['page_menu_id'] = $menuIdAsKey;
 
-  //   $keywords = $this->input->post('searchText');
-  //   $fromDate = $this->input->post('fromDate');
-  //   $toDate = $this->input->post('toDate');
-  //   // Pass the search parameters to the model method
-  //   $data['order_list'] = $this->sqlQuery_model->getOrderSearchDetails($keywords, $fromDate, $toDate);
+    $keywords = $this->input->post('searchText');
+    $fromDate = $this->input->post('fromDate');
+    $toDate = $this->input->post('toDate');
+    // Pass the search parameters to the model method
+    $data['order_list'] = $this->sqlQuery_model->getOrderSearchDetails($keywords, $fromDate, $toDate);
 
-  //   // echo "<pre>";
-  //   // print_r($data['order_list']);
-  //   // die();
+    // echo "<pre>";
+    // print_r($data['order_list']);
+    // die();
 
-  //   $this->load->view('admin/containerPage/product_order_searchlist', $data);
-  // }
+    $this->load->view('admin/containerPage/product_order_searchlist', $data);
+  }
 
 
 
