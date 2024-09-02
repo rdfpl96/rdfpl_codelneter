@@ -7,6 +7,7 @@ class Home extends CI_Controller {
         parent::__construct();
 
           $this->load->model('home_model','home');
+          $this->load->model('admin/user_model');
    }
       
 
@@ -34,7 +35,7 @@ class Home extends CI_Controller {
       $data['Newproduct']=$this->home->getProductType(3);
 
       $data['topsellingProduct']=$this->home->getTopSellingProduct();
-
+      $data['dailyStaples']=$this->home->getProductType(4);
      // $data['newProduct']=$this->home->getNewProduct();
 
       $data['getmaxvalueoffers']=$this->home->getTopSellingProduct();

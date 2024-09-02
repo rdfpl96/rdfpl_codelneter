@@ -1,5 +1,13 @@
 
-<?php $this->load->view('frontend/header'); ?>
+<?php 
+// echo '<pre>';
+// print_r($topsellingProduct);
+// exit();
+// echo '<pre>';
+// print_r($dailyStaples);
+// exit();
+$this->load->view('frontend/header'); 
+?>
 
 <?php if(isset($sliders) && count($sliders)>0){?>
 <section class="home-slider position-relative mb-30">
@@ -213,14 +221,8 @@
                     <h3>Your Daily Staples</h3>
                 </div>
                 <div class="row">
-                    <?php for ($i=0; $i < 4 ; $i++) { ?>
-                        <div class="col-md-3">
-                          <div class="hoem_cat_img">
-                              <a href=""><img src="<?php echo base_url();?>include/frontend/assets/imgs/category/daily_staples.webp" alt="" /></a>
-                          </div>
-                      </div>
-                    <?php } ?>                      
-                </div>
+                <?php echo $this->load->view('frontend/component/productItem', array("productItems"=>$dailyStaples,'pcol'=>5), TRUE); ?>
+            </div>
             </div>
           </div>
       </section>

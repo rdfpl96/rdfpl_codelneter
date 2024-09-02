@@ -4099,6 +4099,8 @@ class Admin extends CI_Controller
               LIMIT $offset, $limit_per_page";
 
     $data['productList'] = $this->sqlQuery_model->sql_query($query);
+    $cat_id = 1; 
+    $data['category_product'] = $this->user_model->getAllProductsByCategory($cat_id);
     $data['pagination'] = $this->pagination->create_links();
     $data['content'] = 'admin/other_product/index';
 
@@ -4106,10 +4108,29 @@ class Admin extends CI_Controller
   }
 
 
+public function fetchProductsByType() {
+  $product_type_id = $this->input->post('product_type_id');
+  if($product_type_id == '4'){
+    $cat_id = 1;
+    $products = $this->user_model->getAllProductsByCategory( $cat_id);
+  }else{
+    $query = "SELECT P.product_id, P.product_name, OP.other_product_id, OP.product_type_id
+              FROM tbl_product AS P
+              INNER JOIN tbl_other_product AS OP ON P.product_id = OP.product_id
+              ORDER BY P.product_id DESC
+              LIMIT $offset, $limit_per_page";
 
+    $products = $this->sqlQuery_model->sql_query($query);
+  }
 
-
-
+  $html='<option value="">select</option>';
+    foreach ($products as $key => $value) {
+      $html.='<option value="'.$value->product_id.'">'.$value->product_name.'</option>';
+    }
+  
+  echo json_encode($html);
+  exit();
+}
 
 
   public function Edit_other_product()

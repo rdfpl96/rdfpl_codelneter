@@ -175,6 +175,29 @@ public function get_users_banner($limit, $start) {
     return $array_record;  
   }
  
- 
+ public function getAllProductsByCategory($cat_id) {
+    // $this->db->select('tbl_product.product_id, tbl_product.product_name, tbl_mapping_category_with_product.mapping_id, tbl_mapping_category_with_product.cat_id, tbl_other_product.other_product_id, tbl_other_product.product_type_id');
+
+    // $this->db->from('tbl_mapping_category_with_product');
+    // $this->db->join('tbl_product', 'tbl_mapping_category_with_product.mapping_product_id = tbl_product.product_id');
+    // $this->db->join('tbl_other_product', 'tbl_product.product_id = tbl_other_product.product_type_id');
+    // $this->db->where('tbl_mapping_category_with_product.cat_id', $cat_id);
+
+
+    $this->db->select(
+      'tbl_mapping_category_with_product.mapping_id,
+      tbl_mapping_category_with_product.cat_id,
+      tbl_product.product_id, 
+      tbl_product.product_name
+      '
+    );
+    $this->db->from('tbl_mapping_category_with_product');
+    $this->db->join('tbl_product', 'tbl_product.product_id = tbl_mapping_category_with_product.mapping_product_id');
+    $this->db->where('tbl_mapping_category_with_product.cat_id', $cat_id);
+    $query = $this->db->get();
+    return $query->result();
+}
+
+
 }
 ?>
