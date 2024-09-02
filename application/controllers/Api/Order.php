@@ -30,8 +30,7 @@ class Order extends REST_Controller{
 
         // 
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
-       print_r($orders);
-       exit();
+      
         if(count($orders)>0){
             foreach($orders as $record){
                 $record['order_payment_status']="Not Paid";
