@@ -101,7 +101,7 @@ class Login extends REST_Controller{
                         $user_token = $this->authorization_token->generateToken($token);
                         
                        
-                        $userDetail['detail']=array('email'=>$detail['email'],"mobile"=>$detail['mobile'],"name"=>$detail['c_fname']);
+                        $userDetail['detail']=array('email'=>$detail['email'],"mobile"=>$detail['mobile'],"name"=>$detail['c_fname'],"lname"=>$detail['c_lname']);
                         $userDetail['token']=$user_token;
                         
                         $this->response(array('error' =>0,'msg'=>'Success','userDetail'=>$userDetail));
@@ -253,7 +253,7 @@ class Login extends REST_Controller{
                         $user_token = $this->authorization_token->generateToken($token);
                         
                        
-                        $userDetail['detail']=array('email'=>$detail['email'],"mobile"=>$detail['mobile'],"name"=>$detail['c_fname']);
+                        $userDetail['detail']=array('email'=>$detail['email'],"mobile"=>$detail['mobile'],"name"=>$detail['c_fname'],"lname"=>$detail['c_lname']);
                         $userDetail['token']=$user_token;
                         
                         $this->response(array('error' =>0,'msg'=>'Success','userDetail'=>$userDetail));
