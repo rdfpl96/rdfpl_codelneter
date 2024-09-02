@@ -119,7 +119,7 @@ class Blogs extends CI_Controller{
             'pagination' => $this->pagination->create_links()
         );
 
-        if(isset($ajaxFlag)){
+        if ($this->input->is_ajax_request()) {
             echo json_encode($output);
         } else {
             $this->load->view('admin/blogs/index', $output);
