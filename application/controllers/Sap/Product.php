@@ -15,7 +15,7 @@ class Product extends CI_Controller {
 public function getAllProductItems(){
    
   
-    $products=$this->sapservice->getProductItemList();
+    $products=$this->sapservice->getProductItemList1();
      
     //  echo'<pre>';
     //  print_r($products);
@@ -66,7 +66,7 @@ public function getAllProductItems(){
 public function getSingleProductItem(){
 
     $item_code="FG000018";
-    $products=$this->sapservice->getProductItem($item_code);
+    $products=$this->sapservice->getProductItem1($item_code);
     //  echo count($products);
     //  echo'<pre>';
     //  print_r($products);

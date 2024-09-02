@@ -61,7 +61,7 @@ class Customer extends REST_Controller {
                         
                         $otp = sprintf("%06d", mt_rand(1, 999999));
 
-                        $this->custObj->updateProfile($customer_id,array('email'=>$email,'is_otp_verify'=>0,'otp'=>$otp));
+                        $this->custObj->updateProfile($customer_id,array('email'=>$email,'c_fname'=>$fname,'c_lname'=>$lname,'is_otp_verify'=>0,'otp'=>$otp));
 
                         $this->emaillibrary->sendOtpMail($email,$otp);
 
@@ -81,7 +81,7 @@ class Customer extends REST_Controller {
                         
                         $otp = sprintf("%06d", mt_rand(1, 999999));
 
-                        $this->custObj->updateProfile($customer_id,array('mobile'=>$mobile,'is_otp_verify'=>0,'otp'=>$otp));
+                        $this->custObj->updateProfile($customer_id,array('mobile'=>$mobile,'c_fname'=>$fname,'c_lname'=>$lname,'is_otp_verify'=>0,'otp'=>$otp));
 
                         $this->emaillibrary->sendOtpOnMobile($mobile,$otp);
 
