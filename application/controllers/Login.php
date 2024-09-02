@@ -59,14 +59,38 @@ class login extends CI_Controller {
             if (checkemail($email_mobi)) {
                 $this->emaillibrary->sendOtpMail($email_mobi, $otp);
                 $arrPost['email'] = trim($email_mobi);
+                //
+                $sapUser=array(
+                    "CardName"=>"",
+                    "CardType"=>"cCustomer",
+                    "Cellular"=>"",
+                    "EmailAddress"=>$email_mobi,
+                    "Series"=>620,
+                );
+
+                
             } else if (preg_match('/^[6-9][0-9]{9}$/', $email_mobi)) {
                 $this->emaillibrary->sendOtpOnMobile($email_mobi, $otp);
                 $arrPost['mobile'] = trim($email_mobi);
+                $sapUser=array(
+                    "CardName"=>"",
+                    "CardType"=>"cCustomer",
+                    "Cellular"=>$email_mobi,
+                    "EmailAddress"=>"",
+                    "Series"=>620,
+                );
+               
             }
             $arrPost['updated_by'] = 'customer';
             $arrPost['registered_type'] = 'Manual';
             $arrPost['otp'] = $otp;
-            $this->loginObj->insertNewUser($arrPost);
+            $lastId=$this->loginObj->insertNewUser($arrPost);
+            if($lastId){
+                $this->sapservice->createCustomer($lastId,$sapUser);
+            }
+            //
+           
+            //
             $data['status'] = 1;
             $data['message'] = 'Your OTP sent successfully.';
             echo json_encode($data);

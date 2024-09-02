@@ -13,19 +13,18 @@ class Product extends CI_Controller {
 
 
 public function getAllProductItems(){
-
+   
   
-    $products=$this->sapapi->getProductItemList();
-    echo count($products);
+    $products=$this->sapservice->getProductItemList();
+     
+    //  echo'<pre>';
+    //  print_r($products);
+    //   echo'<pre>';
+    //  exit();
     
-
-
     if(is_array($products) && count($products)>0){
         foreach ($products as $product){
-            echo'<pre>';
-     print_r($product);
-      echo'<pre>';
-            $productId=$this->productObj->getProductIdByName($product['ProductName']);
+           $productId=$this->productObj->getProductIdByName($product['ProductName']);
             if($productId){
 
             }else{
@@ -48,6 +47,7 @@ public function getAllProductItems(){
                 'stock'=>$stock,
                 'is_new_item'=>0
             );
+           
             if($this->productObj->checkItemCodeExist($product['ItemCode'])){
                 $productId=$this->productObj->updateItemDetailByItecode($itemArray,$product['ItemCode']);
             }else{
@@ -55,6 +55,7 @@ public function getAllProductItems(){
                 $itemArray['is_new_item']=1;
                 $productId=$this->productObj->insertItemDetail($itemArray);
             }
+            
         }
 
     }
@@ -64,33 +65,39 @@ public function getAllProductItems(){
 //
 public function getSingleProductItem(){
 
-    $item_code="123";
-    $products=$this->sapapi->getProductItem($item_code);
-     // echo count($products);
-     // echo'<pre>';
-     // print_r($products);
-     //  echo'<pre>';
-     // exit();
+    $item_code="FG000018";
+    $products=$this->sapservice->getProductItem($item_code);
+    //  echo count($products);
+    //  echo'<pre>';
+    //  print_r($products);
+    //   echo'<pre>';
+    //  exit();
 
 }
 
 public function getAllStock(){
-     $products=$this->sapapi->getStockList($item_code);
-     // echo count($products);
-     // echo'<pre>';
-     // print_r($products);
-     //  echo'<pre>';
-     // exit();
+    
+    $products=$this->sapservice->getStockList();
+        if(is_array($products) && count($products)>0){
+        foreach($products as $product){
+            $itemArray=array('stock'=>$product['InStock']);
+            if($this->productObj->checkItemCodeExist($product['ItemCode'])){
+                $this->productObj->updateItemDetailByItecode($itemArray,$product['ItemCode']);
+            }
+        }
+    }
+   
 
 }
 
 public function getSingleStock($item_code){
-    $itemsStock=$this->sapapi->getSingleStock($item_code);
+   
+    $itemsStock=$this->sapservice->getSingleStock($item_code);
      
-     // echo'<pre>';
-     // print_r($products);
-     //  echo'<pre>';
-     // exit();
+    //  echo'<pre>';
+    //  print_r($itemsStock);
+    //   echo'<pre>';
+    //  exit();
     if(is_array($products) && count($products)>0){
         $return=(int)$itemsStock[0]['InStock'];
     }else{

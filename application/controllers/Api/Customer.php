@@ -8,7 +8,7 @@ class Customer extends REST_Controller {
         parent::__construct();
 
         $this->load->model('api/customer_model','custObj');
-      $this->load->model('api/login_model','login');
+        $this->load->model('api/login_model','login');
 
        $validation=$this->authorization_token->validateToken();
     
@@ -96,6 +96,14 @@ class Customer extends REST_Controller {
         }
        
 
+    }
+
+    public function rateReviewList_get(){
+        
+        $customer_id=$this->authorization_token->userData()->customer_id;
+
+        $list= $this->custObj->getCustomerRateReviewList($customer_id);
+         $this->response(array('error' =>0,'msg'=>'Success',"data"=>$list));
     }
 
   
