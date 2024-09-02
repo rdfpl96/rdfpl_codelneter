@@ -44,13 +44,16 @@ class Customer extends REST_Controller {
         $post = json_decode($this->input->raw_input_stream, true);
         //
         $fname=isset($post['fname']) ? $post['fname'] : "" ; 
+        $lname=isset($post['lname']) ? $post['lname'] : "" ; 
         $email=isset($post['email']) ? $post['email'] : "" ; 
         $mobile=isset($post['mobile']) ? $post['mobile'] : "" ;
         $fieldType=isset($post['field_type']) ? $post['field_type'] : "" ;
         
         if($fname!="" && $email!="" && $mobile!="" && $fieldType!=""){
             if($fieldType==1){
-                $this->custObj->updateProfile($customer_id,array('c_fname'=>$fname));
+                $this->custObj->updateProfile($customer_id,array('c_fname'=>$fname,'c_lname'=>$lname));
+
+                $this->response(array('error' =>0,'msg'=>'Success'));  
             }
             elseif($fieldType==2){
                 if(validateEmail($email)){
@@ -62,6 +65,8 @@ class Customer extends REST_Controller {
 
                         $this->emaillibrary->sendOtpMail($email,$otp);
 
+                        $this->response(array('error' =>0,'msg'=>'Otp Send'));  
+
                     }else{
                         $this->response(array('error' =>1,'msg'=>'Email already exist'));    
                     }
@@ -69,8 +74,6 @@ class Customer extends REST_Controller {
                 }else{
                    $this->response(array('error' =>1,'msg'=>'Invalid email'));  
                 }
-
-                $this->custObj->updateProfile($customer_id,array('email'=>$email));
             }
             elseif($fieldType==3){
                 if(validateMobile($mobile)){
@@ -81,6 +84,8 @@ class Customer extends REST_Controller {
                         $this->custObj->updateProfile($customer_id,array('mobile'=>$mobile,'is_otp_verify'=>0,'otp'=>$otp));
 
                         $this->emaillibrary->sendOtpOnMobile($mobile,$otp);
+
+                         $this->response(array('error' =>0,'msg'=>'Otp Send'));  
 
                     }else{
                         $this->response(array('error' =>1,'msg'=>'Mobile number already exist'));    
