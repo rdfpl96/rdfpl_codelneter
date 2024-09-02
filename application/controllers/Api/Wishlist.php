@@ -79,13 +79,13 @@ public function index_get(){
     }
 
 
-    public function delteWishItem_get($wishlist_id=""){
+    public function delteWishItem_get($product_id=""){
 
         $customer_id=$this->authorization_token->userData()->customer_id;
 
-        if($customer_id!="" && $wishlist_id!="" ){
+        if($customer_id!="" && $product_id!="" ){
             
-            if($this->wishlistObj->deleteItemByWushlistId($customer_id,$wishlist_id)){}
+            if($this->wishlistObj->removeProductFromWilist($customer_id,$product_id)){}
             $this->response(array('error' =>0,'msg'=>'Removed Item from wishlist.'));
 
         }else{

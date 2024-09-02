@@ -51,10 +51,17 @@ class Wishlist_model extends CI_Model{
 
   }
 
+public function removeProductFromWilist($customer_id,$product_id){    // used for api
+    $this->db->where('cust_id', $customer_id);
+     $this->db->where('product_id', $product_id);
+    $this->db->delete('tbl_wishlist');
+    return true;
+}  
+
 public function deleteItemByWushlistId($customer_id,$wish_id){
     $this->db->where('cust_id', $customer_id);
      $this->db->where('wishlist_id', $wish_id);
-    $this->db->delete('tbl_wishlist1');
+    $this->db->delete('tbl_wishlist');
     return true;
 }
 
