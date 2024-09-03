@@ -25,19 +25,14 @@ class Home extends CI_Controller {
       //$data['category_list']=$this->sqlQuery_model->sql_query("SELECT * FROM tbl_category WHERE  status=1 ORDER BY position DESC");
 
       $smartBasketProdct=$this->home->getProductType(1);
-
       $data['smartBasketProdctHtml']= $this->load->view('frontend/component/productItem', array("productItems"=>$smartBasketProdct), TRUE);
-      
-
-
       $data['featureProdct']=$this->home->getProductType(2);
-
       $data['Newproduct']=$this->home->getProductType(3);
-
       $data['topsellingProduct']=$this->home->getTopSellingProduct();
       $data['dailyStaples']=$this->home->getProductType(4);
       $data['Beverage']=$this->home->getProductType(5);
-     // $data['newProduct']=$this->home->getNewProduct();
+      $data['SnacksStore']=$this->home->getProductType(6);
+      // $data['newProduct']=$this->home->getNewProduct();
 
       $data['getmaxvalueoffers']=$this->home->getTopSellingProduct();
       $data['sliders']=$this->home->getSliderbanner();

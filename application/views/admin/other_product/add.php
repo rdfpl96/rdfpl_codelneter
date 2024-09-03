@@ -182,4 +182,31 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#product_type_id').on('change', function() {
+            var product_type_id = $(this).val();
+            if (product_type_id) {
+                $.ajax({
+                    url: "<?php echo base_url('admin/fetchProductsBySnacksType'); ?>",
+                    type: "POST",
+                    data: {product_type_id: product_type_id},
+                    dataType: "json",
+                    success: function(data) {
+                        $('.onchangeDropdown').html('');
+                        $('.onchangeDropdown').append(data);
 
+                        $('.onchangeDropdown').trigger("chosen:updated");
+                        // $.each(data, function(key, value) {
+                        //     $('#product_id').append('<option value="'+ value.product_id +'">'+ value.product_name +'</option>');
+                        // });
+                    }
+                });
+            } else {
+                $('#product_id').empty();
+                $('#product_id').append('<option value="">Select</option>');
+            }
+            return false;
+        });
+    });
+</script>

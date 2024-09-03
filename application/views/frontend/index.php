@@ -233,13 +233,7 @@ $this->load->view('frontend/header');
                     <h3>Snacks Store</h3>
                 </div>
                 <div class="row">
-                    <?php for ($i=0; $i < 6 ; $i++) { ?>
-                        <div class="col-md-2">
-                          <div class="hoem_cat_img">
-                              <a href=""><img src="<?php echo base_url();?>include/frontend/assets/imgs/category/snacks.webp" alt="" /></a>
-                          </div>
-                      </div>
-                    <?php } ?>                      
+                <?php echo $this->load->view('frontend/component/productItem', array("productItems"=>$SnacksStore,'pcol'=>5), TRUE); ?>
                 </div>
             </div>
           </div>
