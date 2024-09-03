@@ -151,7 +151,7 @@ public function check_existing_email($customer_id, $email) {
     }
 
     public function getOrderDetailsFun($order_no) {
-        $this->db->select('o.id, o.order_id, o.product_id, o.price, o.mrp_price, o.qty, p.product_name, p.feature_img, ord.order_no, ord.customer_id, ord.delivery_date');
+        $this->db->select('o.id, o.order_id, o.product_id, o.price,o.pack_size,o.units, o.mrp_price, o.qty, p.product_name, p.feature_img, ord.order_no, ord.customer_id, ord.delivery_date');
         $this->db->from('tbl_order_item o');
         $this->db->join('tbl_product p', 'o.product_id = p.product_id');
         $this->db->join('tbl_order ord', 'o.order_id = ord.id');
