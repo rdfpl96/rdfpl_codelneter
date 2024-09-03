@@ -238,6 +238,13 @@ class CustomerAddress extends REST_Controller{
             $this->response(array('error' =>0,'msg'=>$msg,'gst_id'=>$gst_id)); 
         }
     }
+
+    public function getGST(){
+        $customer_id=$this->authorization_token->userData()->customer_id;
+
+        $gstDetail=$this->addObj->getGSTDetail($customer_id);
+    }
+
     public function sloteList_get(){
 
        

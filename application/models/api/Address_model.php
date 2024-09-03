@@ -83,6 +83,18 @@ public function isGstNumberUnigue($gst_no){
 
  } 
 
+ public function getGSTDetail($customer_id){
+    $return_data=array();
+    $this->db->select('*');
+    $this->db->from('tbl_gst');
+    $this->db->where('customer_id',$customer_id);
+    $query=$this->db->get() ;
+    if($query->num_rows()>0){ 
+     $return_data=$query->row_array();
+    }
+    return $return_data;
+}
+
    public function addressUpdate($id,$array_data){
 
     $this->db->trans_begin(); 

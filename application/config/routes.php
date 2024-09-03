@@ -293,9 +293,11 @@ $route['offers'] = 'common/offers_module';
   $route['api/customer/address-list']='Api/customeraddress/index';
   $route['api/customer/address_save']='Api/customeraddress/save';
   
+  
   $route['api/customer/address_update']='Api/customeraddress/update';
   $route['api/customer/setdefault']='Api/customeraddress/setdefault';   
   $route['api/customer/save-gst']='Api/customeraddress/saveGst';
+  $route['api/customer/gst']='Api/customeraddress/getGST';
   $route['api/customer/slote-list']='Api/customeraddress/sloteList'; 
   $route['api/customer/rate-reviews']='Api/product/rateAndReview';
   $route['api/customer/rate-review-list']='Api/customer/rateReviewList';  
