@@ -111,9 +111,9 @@ $this->load->view('frontend/header');
                                                      
                                                       <div class="check_default_ad<?php echo $record['setAddressDefault']==1 ? "" : 2; ?>">
                                                            <div class="d-flex align-items-center">
-                                                               <span class="material-symbols-outlined text-white">done</span>
-                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="deleteAddress(<?php echo $record['addr_id']; ?>); return false;">delete</span>
-                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="editAddress('<?php echo $record['addr_id']; ?>'); return false;" data-bs-toggle="modal" data-bs-target="#editAddressModal">edit</span>
+                                                               <span class="material-symbols-outlined text-white">done</span>&nbsp;&nbsp;&nbsp;
+                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="deleteAddress(<?php echo $record['addr_id']; ?>); return false;">delete</span>&nbsp;&nbsp;&nbsp;
+                                                               <span class="material-symbols-outlined text-white" style="cursor:pointer;" onclick="editAddress('<?php echo $record['addr_id']; ?>'); return false;" data-bs-toggle="modal" data-bs-target="#editAddressModal">edit</span>&nbsp;&nbsp;&nbsp;
                                                             </div>
                                                             <a href="#" class="apply-addr" onclick="selecAddress(<?php echo $record['addr_id'];?>);return false;">
                                                             <p><?php echo $record['address1']?>, <?php echo $record['address2']?>,<?php echo $record['area']?>
