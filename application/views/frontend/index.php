@@ -13,7 +13,7 @@ $this->load->view('frontend/header');
 <section class="home-slider position-relative mb-30">
   <div class="container">
     <div class="home-slide-cover mt-30">
-      <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="true">
+      <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
         <div class="carousel-indicators" id="carouselIndicators1">
           <!-- Indicators will be generated dynamically here -->
         </div>
