@@ -36,6 +36,7 @@ class Home extends CI_Controller {
 
       $data['topsellingProduct']=$this->home->getTopSellingProduct();
       $data['dailyStaples']=$this->home->getProductType(4);
+      $data['Beverage']=$this->home->getProductType(5);
      // $data['newProduct']=$this->home->getNewProduct();
 
       $data['getmaxvalueoffers']=$this->home->getTopSellingProduct();
