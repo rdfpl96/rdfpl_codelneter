@@ -345,11 +345,10 @@ public function getOrderDetails() {
         foreach ($order_details as $key => $value) {
             $imgFile1 = base_url() . 'uploads/' . $value['feature_img'];
             $total_price = $value['qty'] * $value['price'];
-            $total_packsize = $value['qty'] * $value['pack_size'];
             $html .= '<tr>
                 <td><img src="' . $imgFile1 . '" alt="Product Image" style="width:100px; height:auto;"></td>
                 <td>' . $value['product_name'] . '</td>
-                <td>' . $total_packsize .$value['units']. '</td>
+                <td>' . $value['pack_size'] .$value['units']. '</td>
                 <td>' . $value['qty'] . '</td>
                 <td>' . $value['price'] . '</td>
                 <td>' . $total_price . '</td>
