@@ -239,7 +239,7 @@ class CustomerAddress extends REST_Controller{
         }
     }
 
-    public function getGST(){
+    public function getGST_get(){
         $customer_id=$this->authorization_token->userData()->customer_id;
 
         $gstDetail=$this->addObj->getGSTDetail($customer_id);
