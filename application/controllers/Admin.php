@@ -32,13 +32,13 @@ class Admin extends CI_Controller
   public function index()
   {
     $session = $this->session->userdata('admin');
-
     if ($session == "") {
       $this->load->view('admin/index');
     } else {
       redirect(base_url('admin/dashboard'));
     }
   }
+
 
   public function dashboard()
   {
@@ -215,10 +215,6 @@ class Admin extends CI_Controller
 
 
 
-
-
-
-
   //new code
   public function add_user()
   {
@@ -257,10 +253,11 @@ class Admin extends CI_Controller
           'admin_email' => $this->input->post('email'),
           'admin_designation' => $this->input->post('designation'),
           'admin_password' => md5($this->input->post('password')),
-          'admin_image' => $upload_data['file_name']
+          'admin_image' => $upload_data['file_name'],
+          'admin_type' => implode(',', $this->input->post('role'))// Convert array to comma-separated string
         );
 
-        // echo "<pre>"; print_r($user_data); die();"</pre>";
+        //echo "<pre>"; print_r($user_data); die();"</pre>";
 
         $insert = $this->user_model->insert_user($user_data);
         if ($insert) {
@@ -276,9 +273,6 @@ class Admin extends CI_Controller
       $this->load->view('admin/template', $data);
     }
   }
-
-
-
 
 
   public function update_user()
@@ -316,17 +310,32 @@ class Admin extends CI_Controller
           $upload_data = $this->upload->data();
       }
       // Prepare user data for update
+      
+      $NewPassword = $this->input->post('password');
+      $old_password = $this->input->post('old_password');
+      // if()
+
+      $Password = ($old_password == $NewPassword) ? $old_password : md5($NewPassword);
+
       $user_data = array(
           'admin_name' => $this->input->post('c_fname'),
           'admin_username' => $this->input->post('username'),
           'admin_mobile' => $this->input->post('mobile'),
           'admin_email' => $this->input->post('email'),
           'admin_designation' => $this->input->post('designation'),
-          'admin_password' => md5($this->input->post('password'))
+          'admin_password' => $Password,
+         'admin_type' => $this->input->post('role')// Convert array to comma-separated string
       );
+
+      // echo '<pre>';
+      // print_r($NewPassword);
+      // echo '< / >';
+      // print_r($old_password);
+      // echo '< / >';
+      // print_r($user_data);
+      // die();
   
-    
- 
+
       if (!empty($upload_data)) {
           $user_data['admin_image'] = $upload_data['file_name']; 
       }
@@ -342,8 +351,6 @@ class Admin extends CI_Controller
       echo json_encode($response);
   }
   
-
-
   public function updateuserStatus()
   {
     $status = $this->input->post('status');
