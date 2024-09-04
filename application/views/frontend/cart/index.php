@@ -24,7 +24,7 @@
             </div>
             <div class="co-12">
                 <div class="row related-products">
-                    <?php echo $this->load->view("frontend/component/productItem_checkout", array('productItems' => $saveProducts), true); ?>
+                    <?php echo $this->load->view("frontend/component/productItem_checkout", array('productItems' => $saveProducts,'offer_name' => $offer_name), true); ?>
                     
                 </div>
             </div>
