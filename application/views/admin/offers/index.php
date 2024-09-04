@@ -128,6 +128,7 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
             <thead>
                 <tr>
                     <th>S.N.</th>
+                    <th>Offer Name</th>
                     <th>Offer Type</th>
                     <th>Description</th>
                     <th>Value</th>
@@ -234,13 +235,5 @@ function deleteRowtablesub(id) {
         }
     });
 }
-
-
-
-
-
-
-
-
 
 </script>

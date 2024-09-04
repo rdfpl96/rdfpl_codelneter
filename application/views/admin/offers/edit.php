@@ -60,6 +60,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                 </div>
             <?php endif; ?>
             <?php
+            $offer_name = $offer[0]['offer_name'];
             $description = $offer[0]['description'];
             $value = $offer[0]['value'];
             $offer_type = $offer[0]['offer_type'];
@@ -72,6 +73,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <div class="card-body">
                                     <div class="row g-3 align-items-center mb-3">
                                         <input type="hidden" id="old_product_id" name="old_product_id" value="<?php echo $offer[0]['product_id'];?>">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Offer Name <span style="color:red;">*</span></label>
+                                            <input type="text" class="form-control url" id="offer_name" name="offer_name" value="<?php echo htmlspecialchars($offer_name); ?>" required placeholder="Please enter Offer Name">
+                                        </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Offer Type <span style="color:red;">*</span></label>
                                             <select class="form-control" id="offer_type" name="offer_type" required>

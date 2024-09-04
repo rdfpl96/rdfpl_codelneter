@@ -63,6 +63,10 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 <div class="card-body">
                                     <div class="row g-3 align-items-center mb-3">
                                         <div class="col-md-6">
+                                            <label class="form-label">Offer Name <span style="color:red;">*</span></label>
+                                            <input type="text" class="form-control url" id="offer_name" name="offer_name" value="Prime deals" required placeholder="Please enter Offer Name" readonly>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label">Offer Type<span style="color:red;">*</span></label>
                                             <select class="form-control" id="offer_type" name="offer_type" required>
                                                 <option value="">Please select Offer Type</option>

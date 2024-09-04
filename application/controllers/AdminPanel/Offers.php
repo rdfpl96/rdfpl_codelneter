@@ -81,6 +81,7 @@ class Offers extends CI_Controller
                 $pack_size_units = $keyval['pack_size'] . ' ' . $keyval['units'];
                 $option .= '<tr> 
                                 <td>' . $i . '</td>
+                                <td>' . $keyval['offer_name'] . '</td>
                                 <td>' . $offer_type . '</td>
                                 <td>' . $keyval['description'] . '</td>
                                 <td>' . $keyval['value'] . '</td>
@@ -145,15 +146,6 @@ class Offers extends CI_Controller
 
 
 
-
-
-
-
-
-
-
-
-
     public function create()
     {
         $data['productList'] = $this->offers->getProductList();
@@ -166,6 +158,7 @@ class Offers extends CI_Controller
     {
         $product_variant = $this->input->post('product_variant');
         $offer_data = array(
+            'offer_name' => $this->input->post('offer_name'),
             'offer_type' => $this->input->post('offer_type'),
             'description' => $this->input->post('description'),
             'value' => $this->input->post('value'),
@@ -227,6 +220,7 @@ class Offers extends CI_Controller
 
     public function update()
     {
+        $offer_name = $this->input->post('offer_name');
         $offer_type = $this->input->post('offer_type');
         $description = $this->input->post('description');
         $value = $this->input->post('value');
@@ -237,6 +231,7 @@ class Offers extends CI_Controller
         $product_id_old = $this->input->post('old_product_id');
 
         $offer_data = array(
+            'offer_name' => $offer_name,
             'offer_type' => $offer_type,
             'description' => $description,
             'value' => $value,
