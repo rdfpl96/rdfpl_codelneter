@@ -1,7 +1,7 @@
 
 <?php
 // echo '<pre>';
-// print_r($products111);
+// print_r($offer_name);
 // exit();
 
    $custDetail=getCookies('customer');
@@ -117,7 +117,15 @@
                 <!-- Offer section-->  
                <div class="grid_offer_ad">
                   <div class="ad_btn" onclick="ad_btn(<?php echo $record['product_id'];?>)">
-                     <h4>Aaj Ka Sasta Deal! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                     <?php 
+                     foreach ($offer_name as $item) {
+                     if (!empty($item['offer_name'])) {
+                     ?>
+                     <h4><?php echo ($item['offer_name']); ?><span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                     <?php
+                     }
+                  }
+                     ?>
                   </div>
                   <div class="ad_show_sec">
                      <div class="product-category">
@@ -145,7 +153,16 @@
                      <div class="ad_banner">
                         <div class="ad_percent_strip"><img src="<?php echo base_url();?>/include/frontend/assets/imgs/theme/default_card_tag_icon.webp" alt=""></div>
                         <div class="ad_headline">
-                           <p>Har Din Sasta!</p>
+                           <?php 
+                           foreach ($offer_name as $item) {
+                           if (!empty($item['offer_name'])) {
+                           ?>
+                           <p><?php echo ($item['offer_name']); ?></p>
+                           <?php
+                           }
+                        }
+                           ?>
+                           
                         </div>
                         <div class="ad_offer_percent">
                            <h2>36% Off!</h2>

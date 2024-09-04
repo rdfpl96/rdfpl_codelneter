@@ -240,12 +240,6 @@ class Product_model extends CI_Model
   }
 
 
-
-
-
-
-
-
   public function get_Product_count($slug1 = '', $slug2 = '', $slug3 = '')
   {
     // Build the query
@@ -283,18 +277,22 @@ class Product_model extends CI_Model
   return $query->row_array();
 }
 
+public function get_product_ratings($product_id) {
+    $this->db->select('cust_rate, COUNT(*) as count');
+    $this->db->from('tbl_rate_and_review');
+    $this->db->where('product_id', $product_id);
+    $this->db->group_by('cust_rate');
+    $query = $this->db->get();
+    return $query->result_array();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+public function get_offername() {
+      $this->db->select('offers.offer_name, tbl_product.product_name, tbl_product_variants.pack_size, tbl_product_variants.units');
+      $this->db->from('offers');
+      $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
+      $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
+      $query = $this->db->get();
+      return $query->result_array();
+  }
 
 }

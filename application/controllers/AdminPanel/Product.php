@@ -421,7 +421,7 @@ class Product extends CI_Controller
         // echo "<pre>"; 
         // print_r($array_data);
         // die();
-
+        
         $option = '';
         $i = $page + 1;
         if (is_array($array_data) && count($array_data) > 0) {
