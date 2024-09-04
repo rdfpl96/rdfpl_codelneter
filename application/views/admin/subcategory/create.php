@@ -113,5 +113,12 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
   </div>  -->
   <?php $this->load->view('admin/footer'); ?>
   <script>
-    
+    $(document).ready(function (){
+    $("#subcategory_name").keyup(function() {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
+        $("#slug").val(Text);        
+    });
+});
   </script>

@@ -113,21 +113,21 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 <script>
 
 
-$(document).ready(function() {
-    $('#search-category').keyup(function() {
-        // alert('Please wait');
-        $.ajax({
-            url: "<?php echo base_url('AdminPanel/Category/SearchCategory')?>",
-            type: 'POST',
-            data: {searchText:$('#search-category').val(),},
-            success: function(response) {
-                //console.log(response);
-                $('#datalist').html(response);
-            }
-        });
+// $(document).ready(function() {
+//     $('#search-category').keyup(function() {
+//         // alert('Please wait');
+//         $.ajax({
+            url: "<?php //echo base_url('AdminPanel/Category/SearchCategory')?>",
+//             type: 'POST',
+//             data: {searchText:$('#search-category').val(),},
+//             success: function(response) {
+//                 //console.log(response);
+//                 $('#datalist').html(response);
+//             }
+//         });
 
-    });
-});
+//     });
+// });
 
 
 

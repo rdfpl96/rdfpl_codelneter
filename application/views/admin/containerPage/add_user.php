@@ -63,18 +63,18 @@ $action = !empty($user_id) ? 'update_user' : 'add_user';
                                 <div class="row g-3 align-items-center">
                                     <div class="col-md-3">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" name="c_fname" id="c_fname" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_name) : ''; ?>" oninput="validateCharactersonly(this)" required>
+                                        <input type="text" class="form-control" name="c_fname" id="c_fname" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_name) : ''; ?>"  required>
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label class="form-label">Username</label>
+                                        <label class="form-label">Username </label>
                                         <input type="hidden" class="form-control" name="oldusername" id="oldusername" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_username) : ''; ?>">
-                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_username) : ''; ?>" oninput="validateCharactersonly(this)" required>
+                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_username) : ''; ?>"  required>
                                     </div>
 
                                     <div class="col-md-3">
                                         <label class="form-label">Mobile</label>
-                                        <input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_mobile) : ''; ?>" oninput="validateMobile(this)" required>
+                                        <input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo !empty($user_details) ? htmlspecialchars($user_details->admin_mobile) : ''; ?>" required>
                                     </div>
 
                                     <div class="col-md-3">

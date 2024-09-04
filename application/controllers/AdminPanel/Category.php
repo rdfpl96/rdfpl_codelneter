@@ -229,9 +229,10 @@ class Category extends CI_Controller
         // Configuration for file upload
         $config['upload_path'] = './uploads/category';
         $config['allowed_types'] = 'jpg|jpeg|png|gif'; 
-        $config['max_size'] = 2048; 
-        $config['encrypt_name'] = TRUE;   
+        $config['max_size'] = 2048; // 2MB
+        $config['encrypt_name'] = TRUE; // Encrypt file name to avoid conflicts
         $this->upload->initialize($config);
+        
         // Get category data from POST
         $category_name = $this->input->post('category_name');
         $category_slug = $this->input->post('slug');    
@@ -242,7 +243,7 @@ class Category extends CI_Controller
             redirect('admin/category');
             return;
         }
-    
+        
         // Handle file upload
         if (!$this->upload->do_upload('cat_image')) {
             $error = $this->upload->display_errors();
@@ -251,18 +252,34 @@ class Category extends CI_Controller
             return;
         }
     
+        // Get upload data
         $upload_data = $this->upload->data();
         $file_path = $upload_data['file_name'];
+        $full_path = $upload_data['full_path'];
+    
+        // Validate image dimensions
+        $image_size = getimagesize($full_path);
+        $width = $image_size[0];
+        $height = $image_size[1];
+    
+        if ($width > 256 || $height > 256) {
+            // Delete the uploaded file if dimensions are not valid
+            unlink($full_path);
+            $this->session->set_flashdata('error_message', 'Image dimensions exceed the maximum allowed size of 256x256 pixels.');
+            redirect('admin/category');
+            return;
+        }
         
         // Insert category data
         if ($this->category->insert_category($category_name, $category_slug, $file_path)) {
             $this->session->set_flashdata('success_message', 'Category added successfully.');
             redirect('admin/category');
         } else {
-            $this->session->set_flashdata('error_message', 'Failed to insert data');
+            $this->session->set_flashdata('error_message', 'Failed to insert data.');
             redirect('admin/category');
         }
     }
+    
     
 
 
