@@ -25,9 +25,8 @@ error_reporting(1);
 |
 */
 // $config['base_url'] = 'http://localhost:8081/royalDryfruit/';
-
-//$config['base_url'] = 'http://local-rdfpl.com/';
-$config['base_url'] = 'https://site.rdfpl.com/';
+$config['base_url'] = 'http://localhost/rdfpl/';
+//$config['base_url'] = 'https://site.rdfpl.com/';
 
 $config['mailUsername']='krishna009300@gmail.com';
 $config['mailPassword']='bcsi ktsf hflg vogf';

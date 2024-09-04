@@ -254,7 +254,7 @@ class Admin extends CI_Controller
           'admin_designation' => $this->input->post('designation'),
           'admin_password' => md5($this->input->post('password')),
           'admin_image' => $upload_data['file_name'],
-          'admin_type' => implode(',', $this->input->post('role'))// Convert array to comma-separated string
+          'admin_type' =>  $this->input->post('role')// Convert array to comma-separated string
         );
 
         //echo "<pre>"; print_r($user_data); die();"</pre>";
@@ -273,6 +273,11 @@ class Admin extends CI_Controller
       $this->load->view('admin/template', $data);
     }
   }
+
+
+
+
+
 
 
   public function update_user()

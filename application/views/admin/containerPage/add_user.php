@@ -109,7 +109,7 @@ $action = !empty($user_id) ? 'update_user' : 'add_user';
                                     <div class="col-md-4">
                                         <label class="form-label">User Type</label>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" id="roleSuperAdmin" name="role[]" value="S" <?php echo (!empty($user_details) && in_array('S', explode(',', $user_details->admin_type))) ? 'checked' : ''; ?>>
+                                            <input class="form-check-input" type="radio" id="roleSuperAdmin" name="role" value="S" <?php echo (!empty($user_details) && in_array('S', explode(',', $user_details->admin_type))) ? 'checked' : ''; ?>>
                                             <label class="form-check-label" for="roleSuperAdmin">
                                                 Super Admin
                                             </label>

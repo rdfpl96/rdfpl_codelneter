@@ -81,7 +81,10 @@ $actAcx=($getAccess['inputAction']!="") ? $getAccess['inputAction']:array();
                                                     <input type="text" class="form-control url" id="slug" name="slug" value="<?php echo $category->slug; ?>" required placeholder="Please enter slug">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label  class="form-label">Category Image <span style="color:red;">*</span></label>
+                                                    <label  class="form-label">Category Image  <span style="color:red;">
+                                                    (Allowed extensions: jpg, jpeg, png, gif; Dimensions: 256x256 pixels)
+                                                </span>
+                                                  
                                                     <input type="file" class="form-control url" id="cat_image" name="cat_image">
                                                     <img src="<?php echo base_url('uploads/category/' . $category->cat_image); ?>" style="width:100px; margin-top:10px;">
                                             </div> 
