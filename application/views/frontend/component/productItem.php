@@ -1,9 +1,5 @@
 
 <?php
-// echo '<pre>';
-// print_r($offer_name);
-// exit();
-
    $custDetail=getCookies('customer');
 
    $customerId=isset($custDetail['customer_id']) ? $custDetail['customer_id'] : '' ;
