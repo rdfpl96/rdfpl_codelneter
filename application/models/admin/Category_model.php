@@ -1,3 +1,4 @@
+
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Category_model extends CI_Model
@@ -61,42 +62,11 @@ class Category_model extends CI_Model
 
   public function record_count($name)
   {
-
     if ($name != '') {
       $this->db->like('category', $name);
     }
     return $this->db->from("tbl_category")->count_all_results();
   }
-
-
-  // public function getList($start, $records_per_page, $name, $searchText = '')
-  // {
-  //   $array_record = array();
-  //   $this->db->select('P.*');
-  //   $this->db->from('tbl_category AS P');
-  //   if ($name != '') {
-  //     $this->db->like('P.category', $name);
-  //   }
-  //   // Check if the search term is not empty
-  //   if (!empty($searchText)) {
-  //     $this->db->like('P.category', $searchText);
-  //   }plase add this also ORDER BY `tbl_category`.`add_date` DESC
-
-
-
-  //   $this->db->limit($records_per_page, $start);
-    
-  //   $query = $this->db->get();
-  //   if ($query->num_rows() > 0) {
-
-  //     $array_record = $query->result_array();
-  //   }
-  //   return $array_record;
-  // }
-
-
-
-
 
   public function getList($start, $records_per_page, $name, $searchText = '')
 {
@@ -113,7 +83,7 @@ class Category_model extends CI_Model
     if (!empty($searchText)) {
         $this->db->like('P.category', $searchText);
     }
-    
+    $this->db->where('P.is_deleted', 1);
     // Order by add_date in descending order
     $this->db->order_by('P.add_date', 'DESC');
     
@@ -128,6 +98,16 @@ class Category_model extends CI_Model
     
     return $array_record;
 }
+
+
+
+
+
+
+
+
+
+
 
 public function get_cat_Image_by_id($cat_id) {
   $query = $this->db->get_where('tbl_category', array('cat_id' => $cat_id));
@@ -159,24 +139,7 @@ public function get_cat_Image_by_id($cat_id) {
     return false;
   }
 
-  // public function add($array_data){
-  //   // print_r($array_data);
-  //   // exit;
-  //   $this->db->trans_begin(); 
-  //   // product Insert
-  //   $this->db->insert('tbl_category', $array_data);
-  //   $last_id= $this->db->insert_id();
 
-
-  //   if($this->db->trans_status() === FALSE){
-  //     $this->db->trans_rollback();
-  //     return false;
-  //   }else{
-  //     $this->db->trans_commit();
-
-  //     return $last_id;
-  //   }
-  // }
   public function insert_category($category_name, $category_slug,$file_path)
   {
 
@@ -224,6 +187,25 @@ public function get_cat_Image_by_id($cat_id) {
   //     return true;
   //   } 
   // } 
+
+
+
+  public function cat_Delete($id)
+  {
+      $data = array('is_deleted' => 0);
+      $this->db->where('cat_id', $id);
+      if ($this->db->update('tbl_category', $data)) {
+          return true; 
+      } else {
+          return false; 
+      }
+  }
+  
+
+
+
+
+
 
 
   public function category_exists($name, $slug)

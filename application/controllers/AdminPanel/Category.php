@@ -117,21 +117,19 @@ class Category extends CI_Controller
         $menuIdAsKey = 34;
         $data['getAccess'] = $this->my_libraries->userAthorizetion($menuIdAsKey);
         $data['page_menu_id'] = $menuIdAsKey;
-
         $cat_id = $this->input->post('cat_id');
-
-        
-        $response = $this->sqlQuery_model->sql_delete('tbl_category', array('cat_id' => $cat_id));
-
+        $response = $this->category->cat_Delete($cat_id);
         if($response=='1'){
             $Flag= 'True';
         }else{
             $Flag= 'False';
         }
-
         echo json_encode($Flag);
         exit();
     }
+
+
+    
     
     public function SearchCategory() {
         $searchText = $this->input->post('searchText');
