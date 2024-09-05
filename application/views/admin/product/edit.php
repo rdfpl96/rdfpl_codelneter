@@ -106,6 +106,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             $images = ['image1', 'image2', 'image3', 'image4', 'image5', 'image6'];
                                             foreach ($images as $key => $image_field) {
                                                 $image_path = isset($tdata[$image_field]) ? './uploads/' . $tdata[$image_field] : 'include/assets/default_product_image.png';
+
                                                 $imgFile = file_exists($image_path) ? base_url() . 'uploads/' . $tdata[$image_field] : base_url() . 'include/assets/default_product_image.png';
                                             ?>
                                                 <div class="col-sm-2">
@@ -130,18 +131,12 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                             ?>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
             <button type="submit" class="btn btn-primary pro-ad btn-set-task w-sm-100 py-2 px-5 text-uppercase">Save</button>
         </form>
     </div>
@@ -237,7 +232,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "<?php //echo base_url('AdminPanel/product'); 
+                                    window.location.href = "<?php echo base_url('AdminPanel/product'); 
                                                             ?>";
                                 }
                             });
