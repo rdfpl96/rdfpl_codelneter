@@ -286,13 +286,28 @@ public function get_product_ratings($product_id) {
     return $query->result_array();
 }
 
-public function get_offername() {
-      $this->db->select('offers.offer_name, tbl_product.product_name, tbl_product_variants.pack_size, tbl_product_variants.units');
+public function get_offername($product_id) {
+      $this->db->select('offers.offer_name, tbl_product.product_name, tbl_product.product_id,tbl_product_variants.pack_size, tbl_product_variants.units');
       $this->db->from('offers');
       $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
       $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
+      $this->db->where('offers.product_id', $product_id);
       $query = $this->db->get();
       return $query->result_array();
   }
+
+// public function get_offername($productId) {
+//     $this->db->select('offer_name, product_id, variant_id, offer_type, description, value, offer_amount');
+//     $this->db->from('offers');
+//     $this->db->where('product_id', $productId); // Get offer details for specific product
+//     $query = $this->db->get();
+
+//     if ($query->num_rows() > 0) {
+//         return $query->row_array(); // Return single row if offer exists
+//     } else {
+//         return null; // Return null if no offer is found
+//     }
+// }
+
 
 }

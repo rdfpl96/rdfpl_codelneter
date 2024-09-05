@@ -106,13 +106,14 @@ public function shop($slug1=null, $slug2=null, $slug3=null)
     $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
     // Fetch product list
     $products = $this->productObj->getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $config["per_page"], $page);
+      // $data['offer_name'] = $this->productObj->get_offername();
     $data['pagination_links'] = $this->pagination->create_links();
     $data['productCount'] = $total_rows;
     $data['sidecategories'] = $this->customlibrary->getTopCategory();
     $data['categoryName'] = "";
     $data['categoryLevel'] = "";
     $data['bread'] = 'Shop';
-    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products,"productRatings" =>$productRatings, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
+    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products,"productRatings" =>$productRatings, 'pagination' => $data['pagination_links'],'offer_name' =>$data['offer_name'], 'pcol' => 4), TRUE);
     $data['price_range'] = $this->productObj->getPriceRange();
   
     $this->load->view("frontend/product/index", $data);
