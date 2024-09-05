@@ -130,19 +130,4 @@ public function category_search($searchText = '') {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

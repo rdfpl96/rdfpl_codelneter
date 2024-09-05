@@ -81,11 +81,6 @@ class Subcategory extends CI_Controller
 
         $array_data = $this->subcategory->get_subcategories($page, $config["per_page"], $name);
 
-        // echo '<pre>';
-        // print_r($array_data);
-        // echo '</pre>';
-        // die();
-
         $option = '';
         $i = 1;
 

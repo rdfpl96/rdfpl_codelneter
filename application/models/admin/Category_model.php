@@ -172,21 +172,6 @@ public function get_cat_Image_by_id($cat_id) {
     }
   }
 
-  // public function Edit($id,$array_data){
-
-  //   $this->db->trans_begin(); 
-
-  //   $this->db->where('cat_id', $id);     
-  //   $this->db->update('tbl_category', $array_data);
-
-  //   if($this->db->trans_status() === FALSE){
-  //     $this->db->trans_rollback();
-  //     return false;
-  //   }else{
-  //     $this->db->trans_commit();
-  //     return true;
-  //   } 
-  // } 
 
 
 
@@ -201,13 +186,6 @@ public function get_cat_Image_by_id($cat_id) {
       }
   }
   
-
-
-
-
-
-
-
   public function category_exists($name, $slug)
   {
       $this->db->where('category', $name);

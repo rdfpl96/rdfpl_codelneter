@@ -82,24 +82,7 @@ class Subcategory_model extends CI_Model{
     }
 
             
-  // public function getList($start,$records_per_page,$name){
-  //   $array_record=array();     
-  //   $this->db->select('P.*');
-  //   $this->db->from('tbl_category AS P');
-  //   if($name!=''){
-  //      $this->db->like('P.category',$name);
-  //   }
-   
-  //   $this->db->limit($records_per_page,$start);
-  //   $this->db->order_by("add_date", "desc");
-  //   $query=$this->db->get() ; 
-  //   if($query->num_rows()>0){
-    
-  //       $array_record=$query->result_array();
-      
-  //   }
-  //   return $array_record;    
-  // }
+
 
   public function get_subcategories($start, $limit, $name) {
         $this->db->select('tbl_sub_category.*, tbl_category.category');

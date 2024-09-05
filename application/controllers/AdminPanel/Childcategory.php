@@ -88,8 +88,6 @@ class Childcategory extends CI_Controller
     $this->pagination->initialize($config);
 
     $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-
     $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
     //echo "<pre>"; print_r($data["childcatdetails"]); die();
     $data['pagination_links'] = $this->pagination->create_links();
@@ -98,15 +96,6 @@ class Childcategory extends CI_Controller
     // Load view
     $this->load->view('admin/childcatgory/index', $data);
 }
-
-
-
-
-
-
-
-
-
 
 
 

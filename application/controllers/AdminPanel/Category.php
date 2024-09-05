@@ -127,8 +127,6 @@ class Category extends CI_Controller
         echo json_encode($Flag);
         exit();
     }
-
-
     
     
     public function SearchCategory() {
