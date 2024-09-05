@@ -301,14 +301,27 @@ class Product extends CI_Controller
     
                 // Fetch current product data to retain existing images if no new image is uploaded
                 $currentProduct = $this->product->getProductById($id);
+                // $currentImages = [
+                //     'image1' => isset($currentProduct->image1) ? $currentProduct->image1 : '',
+                //     'image2' => isset($currentProduct->image2) ? $currentProduct->image2 : '',
+                //     'image3' => isset($currentProduct->image3) ? $currentProduct->image3 : '',
+                //     'image4' => isset($currentProduct->image4) ? $currentProduct->image4 : '',
+                //     'image5' => isset($currentProduct->image5) ? $currentProduct->image5 : '',
+                //     'image6' => isset($currentProduct->image6) ? $currentProduct->image6 : '',
+                // ];
+
                 $currentImages = [
-                    'image1' => isset($currentProduct->image1) ? $currentProduct->image1 : '',
-                    'image2' => isset($currentProduct->image2) ? $currentProduct->image2 : '',
-                    'image3' => isset($currentProduct->image3) ? $currentProduct->image3 : '',
-                    'image4' => isset($currentProduct->image4) ? $currentProduct->image4 : '',
-                    'image5' => isset($currentProduct->image5) ? $currentProduct->image5 : '',
-                    'image6' => isset($currentProduct->image6) ? $currentProduct->image6 : '',
+                    'image1' => $_POST['image_path1'],
+                    'image2' => $_POST['image_path2'],
+                    'image3' => $_POST['image_path3'],
+                    'image4' => $_POST['image_path4'],
+                    'image5' => $_POST['image_path5'],
+                    'image6' => $_POST['image_path6'],
                 ];
+
+                // image_path3
+
+                // echo "<pre>"; print_r($currentImages); die();
     
                 foreach ($imageFields as $field) {
                     if (!empty($_FILES[$field]['name'])) {
@@ -354,7 +367,8 @@ class Product extends CI_Controller
                     'image6' => isset($imagePaths['image6']) ? $imagePaths['image6'] : $currentImages['image6'],
                     'updated_by' => $session['admin_name']
                 );
-    
+//echo "<pre>"; print_r($array_data);die();
+   
                 if ($this->product->Edit($id, $array_data)) {
                     $err_msg = "Data updated successfully";
                 } else {

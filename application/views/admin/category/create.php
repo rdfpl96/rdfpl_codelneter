@@ -73,7 +73,7 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
 
                                         <div class="col-md-6">
                                             <label class="form-label">Category Slug <span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control url" id="slug" name="slug" value="" required placeholder="Please enter slug">
+                                            <input type="text" class="form-control url" id="slug" name="slug" value="" required placeholder="Please enter slug" readonly>
                                         </div>
 
                                         <div class="col-md-6">

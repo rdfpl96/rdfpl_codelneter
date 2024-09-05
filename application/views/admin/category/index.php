@@ -109,30 +109,36 @@ $actAcx = ($getAccess['inputAction'] != "") ? $getAccess['inputAction'] : array(
     </div>
 </div>
 
+
+
+<style type="text/css">
+    .modal {
+        z-index: 1055 !important;
+    }
+</style>
+
+<?php if ($this->session->flashdata('success_message')): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+    Swal.fire({
+        icon: 'success',
+        title: '<?php echo $this->session->flashdata('success_message'); ?>',
+        showConfirmButton: false,
+        timer: 1500
+    });
+    </script>
+<?php elseif ($this->session->flashdata('error_message')): ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '<?php echo $this->session->flashdata('error_message'); ?>'
+    });
+    </script>
+<?php endif; ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-
-
-// $(document).ready(function() {
-//     $('#search-category').keyup(function() {
-//         // alert('Please wait');
-//         $.ajax({
-            url: "<?php //echo base_url('AdminPanel/Category/SearchCategory')?>",
-//             type: 'POST',
-//             data: {searchText:$('#search-category').val(),},
-//             success: function(response) {
-//                 //console.log(response);
-//                 $('#datalist').html(response);
-//             }
-//         });
-
-//     });
-// });
-
-
-
-
-
 function deleteRowtablecat(cat_id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -180,13 +186,6 @@ function deleteRowtablecat(cat_id) {
     });
 }
 
-
-
-
-
-
-
-
 $(document).ready(function() {
     $('#search-category').keyup(function() {
         // alert('Please wait');
@@ -202,47 +201,10 @@ $(document).ready(function() {
 
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
-<style type="text/css">
-    .modal {
-        z-index: 1055 !important;
-    }
-</style>
-
 <?php $this->load->view('admin/footer'); ?>
-<?php if ($this->session->flashdata('success_message')): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-    Swal.fire({
-        icon: 'success',
-        title: '<?php echo $this->session->flashdata('success_message'); ?>',
-        showConfirmButton: false,
-        timer: 1500
-    });
-    </script>
-<?php elseif ($this->session->flashdata('error_message')): ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '<?php echo $this->session->flashdata('error_message'); ?>'
-    });
-    </script>
-<?php endif; ?>
+
+
+
 

@@ -4730,7 +4730,7 @@ $(document).on('click','.save-kyf',function(){
 
           //     });
 
-})
+//})
 
 
 $(document).on('click','.save-home-testimonial',function(){
