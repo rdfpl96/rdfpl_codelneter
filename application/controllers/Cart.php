@@ -278,6 +278,9 @@ public function paymentOption(){
     $customer_id = $userCookies['customer_id'];
     $data['customer_id']=$customer_id;
 
+    $this->session->unset_userdata('couponDisc');
+    $this->session->unset_userdata('coupon_id');
+
     $products = $this->cartObj->getCartList($userCookies['customer_id']);
     if(count($products)>0){
         $data['gstDetail']=$this->customlibrary->getCustomerGstDetailId();
@@ -394,7 +397,7 @@ public function applyCouponCode(){
             if($currentDate > $couponCodeDetail['start_date'] && $currentDate < $couponCodeDetail['end_date']){
 
                 $AmountDetail=$this->customlibrary->getTotalCartAmount($userCookies['customer_id']);
-                if($AmountDetail['totalPrice']> $couponCodeDetail['min']){
+                if($AmountDetail['totalPrice']> $couponCodeDetail['min_purch_amt']){
 
                     $couponDiscoutAmt=$this->customlibrary->getCouponDiscount($AmountDetail['totalPrice'],$coupon_code);
 
@@ -498,43 +501,7 @@ public function orderSummeryForCart(){
             echo 'Failed to cancel order';
         }
     }
-    
-    public function buyNow() {
 
-        print_r(getCookies('buynowDetail'));
-    // echo "step1";
-    // exit();
-    $userCookies = getCookies('customer');
-    $customer_id = $userCookies['customer_id'];
-    $product_id = $this->input->get('product_id');
-    
-    if ($product_id) {
-        // echo "step2";
-        // exit();
-         $this->load->view("frontend/cart/buy_nowProducts");
-         exit;
-        $items = $this->customlibrary->getProductItemByproductId($product_id);
-        $firstItem = isset($items[0]) ? $items[0] : array();
-        //$firstItem = array_merge($firstItem, array('product_id' => $product_id));
-        
-        $data['products'] = array($firstItem);
-        // print_r($data);
-        // exit;
-        $data['orderSumery'] = array(
-            'totalSellingPrice' => $firstItem['price'],
-            'totalSave' => 0 
-        );
-
-        $this->session->set_userdata('buy_now_product', $firstItem);
-
-        $data['address_id'] = $this->customlibrary->getDefaultAddressId($customer_id);
-        $data['timeSlot'] = $this->cartObj->getTimeSlot();
-        $data['customer_id'] = $customer_id;
-        $this->load->view("frontend/cart/buy_nowProducts", $data);
-    } else {
-        //return redirect('cart');
-    }
-}
 
 public function get_address_details() {
     $addr_id = $this->input->post('addr_id');

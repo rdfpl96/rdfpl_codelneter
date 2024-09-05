@@ -1,9 +1,9 @@
 // Pramod
-var base_url = "https://site.rdfpl.com/";
+//var base_url = "https://site.rdfpl.com/";
 
 // Pramod
-//var base_url = "http://local-rdfpl.com/";
-
+var base_url = window.location.origin;
+base_url += "/";
 // function showLogin(){
 //     alert('hi');
 //     $('#login-modal-user').modal({ show: true });
