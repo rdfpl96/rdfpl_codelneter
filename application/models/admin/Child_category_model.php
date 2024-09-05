@@ -102,44 +102,29 @@ public function category_search($searchText = '') {
 
 
     public function deleteChildcategory($cat_id) {
+      $data = array('is_deleted' => 0);
       $this->db->where('child_cat_id', $cat_id);
-      $this->db->delete('tbl_child_category', array('child_cat_id' => $cat_id));
-      if ($this->db->affected_rows() > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    
+      if ($this->db->update('tbl_child_category', $data)) {
+        return true; 
+    } else {
+        return false; 
+    }
     }
 
 
 
-
-    public function get_Childcategory_data($limit,$start) {
-      $this->db->limit($limit, $start);
-      $this->db->select('tbl_child_category.*, tbl_category.category,tbl_sub_category.subCat_name');
+    public function get_Childcategory_data($limit, $start) {
+      $this->db->select('tbl_child_category.*, tbl_category.category, tbl_sub_category.subCat_name');
       $this->db->from('tbl_child_category');
-      // $this->db->join('tbl_category', 'tbl_category.cat_id = tbl_child_category.cat_id');
-      // $this->db->join('tbl_sub_category', 'tbl_sub_category.sub_cat_id = tbl_sub_category.sub_cat_id');
       $this->db->join('tbl_category', 'tbl_child_category.cat_id = tbl_category.cat_id');
       $this->db->join('tbl_sub_category', 'tbl_child_category.sub_cat_id = tbl_sub_category.sub_cat_id');
-     $this->db->order_by('tbl_child_category.update_date', 'DESC');
-      $this->db->limit(20);
+      $this->db->where('tbl_child_category.is_deleted', 1);
+      $this->db->limit($limit, $start);
+      $this->db->order_by('tbl_child_category.update_date', 'DESC');
       $query = $this->db->get();
       return $query->result_array();
   }
   
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

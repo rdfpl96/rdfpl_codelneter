@@ -91,6 +91,7 @@ class Childcategory extends CI_Controller
 
 
     $data['childcatdetails'] = $this->Child_category_model->get_Childcategory_data($config['per_page'], $page);
+    //echo "<pre>"; print_r($data["childcatdetails"]); die();
     $data['pagination_links'] = $this->pagination->create_links();
     $data['page'] = $page;
 
