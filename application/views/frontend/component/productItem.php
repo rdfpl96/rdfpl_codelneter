@@ -22,7 +22,7 @@
          $items=$this->customlibrary->getProductItemByproductId($record['product_id'],$min_price,$max_price); 
 
          $firstItem=isset($items[0]) ? $items[0] : array();   
-
+         $this->load->model('product_model', 'productObj');
          $getOfferName=$this->productObj->get_offername($record['product_id']);    
     ?>
    <div class="col-lg-1-<?php echo isset($pcol) ? $pcol : 4; ?> col-md-4 col-12 col-sm-6">
@@ -220,12 +220,3 @@
    </div>';
 } 
 ?>
-<script type="text/javascript">
-   function toggleOfferSection(productId) {
-      //alert('djshfjkd');
-    var offerSection = document.getElementById('offer-section-' + productId);
-    if (offerSection) {
-        offerSection.style.display = offerSection.style.display === 'none' ? 'block' : 'none';
-    }
-}
-</script>

@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 
           $this->load->model('home_model','home');
           $this->load->model('admin/user_model');
+          $this->load->model('product_model', 'productObj');
    }
       
 

@@ -20,7 +20,9 @@
          
          $items=$this->customlibrary->getProductItemByproductId($record['product_id'],$min_price,$max_price); 
 
-         $firstItem=isset($items[0]) ? $items[0] : array();         
+         $firstItem=isset($items[0]) ? $items[0] : array(); 
+         $this->load->model('product_model', 'productObj');
+         $getOfferName=$this->productObj->get_offername($record['product_id']);         
     ?>
    <div class="col-lg-1-<?php echo isset($pcol) ? $pcol : 4; ?> col-md-4 col-12 col-sm-6">
       <div class="product-cart-wrap mb-30">
@@ -113,48 +115,51 @@
                   <div class="product-before-off-price"></div>
                   <span class="loaderdiv-header4tab-slide"></span>
                </div>
-                <!-- Offer section-->  
-               <div class="grid_offer_ad">
-                  <div class="ad_btn" onclick="ad_btn(<?php echo $record['product_id'];?>)">
-                     <h4>Har Din Sasta! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
-                  </div>
-                  <div class="ad_show_sec">
-                     <div class="product-category">
-                        <!--<a href="javascript:void(0);" tabindex="0">weqr</a>-->
+               <?php if(!empty($getOfferName)){ ?>
+                  <!-- Offer section-->  
+                  <div class="grid_offer_ad">        
+                     <div class="ad_btn" onclick="ad_btn(<?php echo $record['product_id'];?>)">
+                           <h4><?php echo (!empty($getOfferName)) ? $getOfferName[0]['offer_name'] : null;?><span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
                      </div>
-                     <h2><a href="<?php echo base_url("");?>" tabindex="0">SOYABEAN DANA</a></h2>
-                     <div class="product-card-bottom mt-15 mb-15">
-                        <div class="product-price">
-                     <span>₹<span class="price4tab-slide" id="price<?php echo $record['product_id'];?>"><?php echo isset($firstItem['price']) ? $firstItem['price'] : 0 ;?></span></span>
-                    <strike>
-                        <span style="font-size: 14px;font-weight: 400;color: #787878;">
-                           <span style="font-size: 14px;font-weight: 500;color: #787878;">MRP ₹</span>
-                           <span style="font-size: 14px;font-weight: 500;color: #787878;" class="beforeOffprice4tab-slide" id="mrp<?php echo $record['product_id'];?>" >
-                              <?php echo isset($firstItem['before_off_price']) ? $firstItem['before_off_price'] : 0 ;?>
-                           </span>
-                        </span>
-                     </strike>
-                  </div>
-                        <div class="product-before-off-price"></div>
-                        <span class="loaderdiv-header4tab-slide"></span>
-                     </div>
-                     <div class="ad_closed text-right" onclick="ad_closed(<?php echo $record['product_id'];?>)">
-                        <span class="material-symbols-outlined">cancel</span>
-                     </div>
-                     <div class="ad_banner">
-                        <div class="ad_percent_strip"><img src="<?php echo base_url();?>/include/frontend/assets/imgs/theme/default_card_tag_icon.webp" alt=""></div>
-                        <div class="ad_headline">
-                           <p>Har Din Sasta!</p>
+                     <div class="ad_show_sec">
+                        <div class="product-category">
+                            <!--<a href="javascript:void(0);" tabindex="0">weqr</a>-->
                         </div>
-                        <div class="ad_offer_percent">
-                           <h2>36% Off!</h2>
+                        <h2><a href="<?php echo base_url("");?>" tabindex="0"><?php echo $record['product_name'];?></a></h2>
+                        <div class="product-card-bottom mt-15 mb-15">
+                           <div class="product-price">
+                              <span>₹<span class="price4tab-slide" id="price<?php echo $record['product_id'];?>"><?php echo isset($firstItem['price']) ? $firstItem['price'] : 0 ;?></span></span>
+                              <strike>
+                                 <span style="font-size: 14px;font-weight: 400;color: #787878;">
+                                 <span style="font-size: 14px;font-weight: 500;color: #787878;">MRP ₹</span>
+                                    <span style="font-size: 14px;font-weight: 500;color: #787878;" class="beforeOffprice4tab-slide" id="mrp<?php echo $record['product_id'];?>" >
+                                       <?php echo isset($firstItem['before_off_price']) ? $firstItem['before_off_price'] : 0 ;?>
+                                    </span>
+                                 </span>
+                              </strike>
+                           </div>
+                           <div class="product-before-off-price"></div>
+                           <span class="loaderdiv-header4tab-slide"></span>
                         </div>
-                        <div class="ad_offer_desc">Get up to <b>3</b> qty at <b>₹58</b> and additional Qty at <b>₹66</b></div>
+                        <div class="ad_closed text-right" onclick="ad_closed(<?php echo $record['product_id'];?>)">
+                           <span class="material-symbols-outlined">cancel</span>
+                        </div>
+                        <div class="ad_banner">
+                           <div class="ad_percent_strip"><img src="<?php echo base_url();?>/include/frontend/assets/imgs/theme/default_card_tag_icon.webp" alt=""></div>
+                           <div class="ad_headline">
+                              
+                              <p><?php echo (!empty($getOfferName)) ? $getOfferName[0]['offer_name'] : null;?></p>
+                             
+                           </div>
+                           <div class="ad_offer_percent">
+                              <h2>36% Off!</h2>
+                           </div>
+                           <div class="ad_offer_desc">Get up to <b>3</b> qty at <b>₹58</b> and additional Qty at <b>₹66</b></div>
+                        </div>
                      </div>
                   </div>
-               </div>
-
-                <!-- End Offer section-->  
+                  <!-- End Offer section-->
+               <?php } ?>  
                </div>
          </div>
 

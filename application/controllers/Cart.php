@@ -23,7 +23,7 @@ class Cart extends CI_Controller {
         $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
 
         $data['cartviews'] = $this->load->view("frontend/component/cart",$data,true);
-        $data['offer_name'] = $this->productObj->get_offername();
+        //$data['offer_name'] = $this->productObj->get_offername();
         if ($this->input->is_ajax_request()) {
 
             echo json_encode(array("product"=>$data['cartviews']));
