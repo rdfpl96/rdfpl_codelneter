@@ -1,5 +1,14 @@
 <?php
 
+function convertArrayFormate($data){
+  
+   $return=array();
+   for($i=0; $i < count($data); $i++){
+      $ata=explode("=",$data[$i]);
+      $return[$ata[0]]=$ata[1];
+   }
+   return $return;
+}
 
 function generateSlugByName($str) { 
     

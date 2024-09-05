@@ -59,6 +59,21 @@ public function orderSave($array_order,$produsts){
 
   }
 
+public function insertPaymentResp($array_order){
+    $this->db->trans_begin(); 
+    // product Insert
+    $this->db->insert('tbl_payment', $array_order);
+   
+    if($this->db->trans_status() === FALSE){
+      $this->db->trans_rollback();
+      return false;
+    }else{
+      $this->db->trans_commit();
+      
+      return true;
+    }
+}
+
 
 public function updateItemQty($customer_id,$product_id,$item_id,$array_data){
 
