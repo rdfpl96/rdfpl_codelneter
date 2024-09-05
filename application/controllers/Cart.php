@@ -278,8 +278,8 @@ public function paymentOption(){
     $customer_id = $userCookies['customer_id'];
     $data['customer_id']=$customer_id;
 
-    $this->session->unset_userdata('couponDisc');
-    $this->session->unset_userdata('coupon_id');
+    // $this->session->unset_userdata('couponDisc');
+    // $this->session->unset_userdata('coupon_id');
 
     $products = $this->cartObj->getCartList($userCookies['customer_id']);
     if(count($products)>0){

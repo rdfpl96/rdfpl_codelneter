@@ -241,9 +241,9 @@ label.btn.inverse.active {
                                   <div class="custom_hr"></div>
                                    <?php foreach($couponList as $crecord){ ?>
                                       <div class="coupon_lists_info mt-20 mb-20">
-                                         <p>10% instant discount up to to Rs.200 on a minimum order Rs.1500, Valid ONCE on Tata Neu HDFC Bank Credit Cards. Get additional 5% NeuCoins (with NeuCard Infinity) &amp; additional 2% NeuCoins (with NeuCard Plus) for orders placed on bigbasket app &amp; 10% NeuCoins (NeuCard Infinity) &amp; additional 7% NeuCoins (NeuCard Plus) for orders placed on Big Basket through Tata Neu app. Uncapped.</p>
-                                         <p class="text-danger">Add Rs 1174 more of products to your basket and restart the checkout process</p>
-                                         <h5 onclick="selectCoupon('<?php echo $crecord['coupon_code'] ;?>');"><?php echo $crecord['coupon_code']?></h5>
+                                         <?php echo  stripslashes($crecord['description']); ?>
+                                         <h5 onclick="selectCoupon('<?php echo $crecord['coupon_code'] ;?>');">
+                                          <?php echo $crecord['coupon_code']?></h5>
                                       </div>
                                       <div class="custom_hr"></div>
                                    <?php } ?>
