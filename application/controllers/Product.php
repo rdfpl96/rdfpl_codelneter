@@ -62,7 +62,7 @@ class Product extends CI_Controller
       }
       //$sidecategories=$this->customlibrary->getTopCategory();
 
-      $data['bread'] = '<a href="shop">Shop</a>' . $breadcrum;
+      $data['bread'] = '<a href="' . base_url('shop') . '">Shop</a>' . $breadcrum;
       $data['productCount'] = count($products);
       $data['sidecategories'] = $sidecategories;
       $data['categoryName'] = $categoryName;
