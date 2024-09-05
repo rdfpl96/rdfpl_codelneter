@@ -83,17 +83,6 @@ class Payment extends REST_Controller{
 
     }
 
-
-    public function success($order_no){
-
-        if($this->paymentObj->orderExist($order_no)){
-            $data['order_no']=$order_no;
-          $this->load->view('frontend/payment/success',$data);  
-        }else{
-            $this->load->view('frontend/404page'); 
-        }
-        
-    }
 }
 
 ?>
