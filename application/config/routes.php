@@ -192,6 +192,7 @@ $route['shop/(:any)/(:any)']='product/index/$1/$2';
 $route['shop/(:any)/(:any)/(:any)']='product/index/$1/$2/$3';
 $route['product-filter']='product/search';
 $route['product/(:any)']='product/detail/$1';
+//$route['product/update_thumbs_action'] = 'product/update_thumbs_action';
 $route['rating-review-details'] = 'product/review_rating'; 
 $route['getSubCategoryTopId/(:num)']='common/getSubCategoryTopId/$1';
 $route['getChildDataBySubCatId/(:num)/(:num)']='common/getChildDataBySubCatId/$1/$2';
@@ -220,7 +221,7 @@ $route['add-to-wishlist']='wishlist/addToWishList';
 
 //add new address
 
-$route['add-neww-address']='common/addNewAddress';
+$route['add-neww-address']='customer/addNewAddress';
 $route['set-default-address']='customer/setDefaultAddress';
 $route['save-gst']='customer/saveGst';
 

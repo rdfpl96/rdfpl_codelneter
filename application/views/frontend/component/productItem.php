@@ -19,7 +19,9 @@
 
          $firstItem=isset($items[0]) ? $items[0] : array();   
          $this->load->model('product_model', 'productObj');
-         $getOfferName=$this->productObj->get_offername($record['product_id']);    
+         $getOfferName=$this->productObj->get_offername($record['product_id']);
+         // print_r($getOfferName);
+         // exit();   
     ?>
    <div class="col-lg-1-<?php echo isset($pcol) ? $pcol : 4; ?> col-md-4 col-12 col-sm-6">
       <div class="product-cart-wrap mb-30">
@@ -150,9 +152,9 @@
                              
                            </div>
                            <div class="ad_offer_percent">
-                              <h2>36% Off!</h2>
+                              <h2><?php echo (!empty($getOfferName)) ? $getOfferName[0]['value'] : null;?></h2>
                            </div>
-                           <div class="ad_offer_desc">Get up to <b>3</b> qty at <b>₹58</b> and additional Qty at <b>₹66</b></div>
+                           <div class="ad_offer_desc"><?php echo (!empty($getOfferName)) ? $getOfferName[0]['description'] : null;?></div>
                         </div>
                      </div>
                   </div>

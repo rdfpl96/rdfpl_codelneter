@@ -168,8 +168,18 @@ label.btn.inverse.active {
                                   <img src="https://uat.rdfpl.com/include/frontend/assets/imgs/theme/offer_perecnt.svg">
                                   <div class="voucher_header">
                                      <h4>Apply Voucher</h4>
-                                     <p class="text-muted">7 Vouchers Available</p>
-                                  </div>
+                                     <?php 
+                                         $today = date('Y-m-d');
+                                         $validCouponCount = 0;
+                                         foreach($couponList as $crecord) {
+                                             if ($today >= $crecord['start_date'] && $today <= $crecord['end_date']) {
+                                                 $validCouponCount++;
+                                             }
+                                         }
+                                     ?>
+                                     <p class="text-muted"><?php echo $validCouponCount; ?> Vouchers Available</p>
+                                 </div>
+
                                </div>
                                <div class="right_side_voucher">
                                   <span class="material-symbols-outlined">chevron_right</span>
@@ -178,7 +188,7 @@ label.btn.inverse.active {
                          </a>
                          <div class="order_summary_div mt-30">
                             <div class="order_summary_header mb-10 mt-10">
-                               <h4>Order Summarycdcd</h4>
+                               <h4>Order Summary</h4>
                             </div>
                             <div class="custom_hr"></div>
                             <div class="first_sec_summary  mb-10 mt-10">
@@ -239,15 +249,27 @@ label.btn.inverse.active {
                                 </div>
                                   <div class="loaderdiv-coupon" style="color:red" id="coupon_err_msg"></div>
                                   <div class="custom_hr"></div>
-                                   <?php foreach($couponList as $crecord){ ?>
-                                      <div class="coupon_lists_info mt-20 mb-20">
-                                         <?php echo  stripslashes($crecord['description']); ?>
-                                         <h5 onclick="selectCoupon('<?php echo $crecord['coupon_code'] ;?>');">
-                                          <?php echo $crecord['coupon_code']?></h5>
-                                      </div>
-                                      <div class="custom_hr"></div>
-                                   <?php } ?>
-                                </div>
+                                 <?php 
+                                 $today = date('Y-m-d');
+                                 $validCouponCount = 0;
+                                 foreach($couponList as $crecord) {
+                                     if ($today >= $crecord['start_date'] && $today <= $crecord['end_date']) {
+                                       $validCouponCount++;
+                                 ?>
+                                     <div class="coupon_lists_info mt-20 mb-20">
+                                         <h5 onclick="selectCoupon('<?php echo $crecord['coupon_code']; ?>');">
+                                             <?php echo $crecord['coupon_code']; ?>
+                                         </h5>
+                                         <p><?php echo stripslashes($crecord['description']); ?></p>
+                                         <p><?php echo stripslashes($crecord['start_date']); ?> To
+                                            <?php echo stripslashes($crecord['end_date']); ?></p>
+                                     </div>
+                                     <div class="custom_hr"></div>
+                                 <?php 
+                                     }
+                                 } 
+                                 ?>
+                           </div>
 
                             <?php 
                             }

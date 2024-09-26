@@ -173,19 +173,25 @@ $this->load->view('frontend/header');
                                 <h6>Personal Details</h6>
                                 <br>
                                 <form action="<?php echo base_url('add-neww-address')?>" method="post" id="addressForm" enctype="" onsubmit="createNewAddress();return false;">
+                                 <input type="hidden" value="delivery" name="address_type" id="address_type">
                                  <input type="hidden" name="addr_id" id="addr_id" value="">
                                     <div class="row">
-                                     <div class="form-group col-lg-4">
+                                     <div class="form-group col-lg-6">
                                          <label for="fname" class="form-label">First Name <span class="text-danger">*</span></label>
                                          <input type="text" name="fname" id="fname" placeholder="Enter First Name" value="" required>
                                          <span id="er_fname" class="form-text" style="color: red;"></span>
                                      </div>
-                                     <div class="form-group col-lg-4">
+                                     <div class="form-group col-lg-6">
+                                         <label for="lname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                         <input type="text" name="lname" id="lname" placeholder="Enter last Name" value="" required>
+                                         <span id="er_fname" class="form-text" style="color: red;"></span>
+                                     </div>
+                                     <div class="form-group col-lg-6">
                                          <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                          <input type="email" name="email" id="email" placeholder="Enter email id" value="" required onchange="validateEmail(this)">
                                          <span id="er_email" class="form-text" style="color: red;"></span>
                                      </div>
-                                     <div class="form-group col-lg-4">
+                                     <div class="form-group col-lg-6">
                                          <label for="mobile" class="form-label">Mobile No <span class="text-danger">*</span></label>
                                          <input type="text" name="mobile" id="mobile" placeholder="Enter Mobile Number" value="" required onchange="validateMobile(this)">
                                          <span id="er_mobile" class="form-text" style="color: red;"></span>
@@ -245,10 +251,10 @@ $this->load->view('frontend/header');
                                     <h6>*Address Type</h6>
                                     <br>
                                     <ul class="ad_type">
-                                        <li><input type="radio" name="address_type" id="home" value="Home" class="actinput" onclick="showOtheField('home');" required><label for="home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label></li>
-                                        <li><input type="radio" name="address_type" id="office" value="Office" class="actinput" onclick="showOtheField('office');" required><label for="office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label></li>
-                                        <li><input type="radio" name="address_type" id="other" value="Other" class="actinput" onclick="showOtheField('other');" required><label for="other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label></li>
-                                        <li><input type="text" class="form-control" name="address_type" id="other_loc" value="" placeholder="Type Here" style="display:none;"></li>
+                                        <li><input type="radio" name="location_type" id="home" value="Home" class="actinput" onclick="showOtheField('home');" required><label for="home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label></li>
+                                        <li><input type="radio" name="location_type" id="office" value="Office" class="actinput" onclick="showOtheField('office');" required><label for="office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label></li>
+                                        <li><input type="radio" name="location_type" id="other" value="Other" class="actinput" onclick="showOtheField('other');" required><label for="other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label></li>
+                                        <li><input type="text" class="form-control" name="location_type" id="other_loc" value="" placeholder="Type Here" style="display:none;"></li>
                                     </ul>
                                     <div class="delivery_check d-flex align-items-center pt-10">
                                         <input class="form-check-input class-price-desk0" type="checkbox" value="1" name="setAddressDefault">&nbsp;&nbsp;
@@ -394,17 +400,22 @@ $this->load->view('frontend/header');
                   <input type="hidden" name="edit_addr_id" id="edit_addr_id">
 
                     <div class="row">
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-6">
                             <label for="edit_fname" class="form-label">First Name <span class="text-danger">*</span></label>
                             <input type="text" name="fname" id="edit_fname" placeholder="Enter First Name" value="" required>
                             <span id="er_edit_fname" class="form-text" style="color: red;"></span>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-6">
+                            <label for="edit_lname" class="form-label">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" name="lname" id="edit_lname" placeholder="Enter Last Name" value="" required>
+                            <span id="er_edit_lname" class="form-text" style="color: red;"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
                             <label for="edit_email" class="form-label">Email <span class="text-danger">*</span></label>
                             <input type="email" name="email" id="edit_email" placeholder="Enter email id" value="" required>
                             <span id="er_edit_email" class="form-text" style="color: red;"></span>
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-6">
                             <label for="edit_mobile" class="form-label">Mobile No <span class="text-danger">*</span></label>
                             <input type="text" name="mobile" id="edit_mobile" placeholder="Enter Mobile Number" value="" required>
                             <span id="er_edit_mobile" class="form-text" style="color: red;"></span>
@@ -454,19 +465,19 @@ $this->load->view('frontend/header');
                     <ul class="ad_type">
                       <li>
                           <div class="address-type-container">
-                              <input type="radio" name="address_type" id="edit_home" value="Home" class="actinput" required>
+                              <input type="radio" name="location_type" id="edit_home" value="Home" class="actinput" required>
                               <label for="edit_home"><span class="material-symbols-outlined">home</span>&nbsp;&nbsp; Home</label>
                           </div>
                       </li>
                       <li>
                           <div class="address-type-container">
-                              <input type="radio" name="address_type" id="edit_office" value="Office" class="actinput" required>
+                              <input type="radio" name="location_type" id="edit_office" value="Office" class="actinput" required>
                               <label for="edit_office"><span class="material-symbols-outlined">work</span>&nbsp;&nbsp; Office</label>
                           </div>
                       </li>
                       <li>
                           <div class="address-type-container">
-                              <input type="radio" name="address_type" id="edit_other" value="Other" class="actinput" required>
+                              <input type="radio" name="location_type" id="edit_other" value="Other" class="actinput" required>
                               <label for="edit_other"><span class="material-symbols-outlined">location_on</span>&nbsp;&nbsp; Other</label>
                           </div>
                       </li>
@@ -789,6 +800,7 @@ function editAddress(addr_id) {
             if (response.status) {
                 $('#edit_addr_id').val(response.data.addr_id);
                 $('#edit_fname').val(response.data.fname);
+                $('#edit_lname').val(response.data.lname);
                 $('#edit_email').val(response.data.email);
                 $('#edit_mobile').val(response.data.mobile);
                 $('#edit_address1').val(response.data.address1);

@@ -1,12 +1,27 @@
 <?php 
 $items=$this->customlibrary->getProductItemByproductId($pdetail['product_id']); 
 $firstItem=isset($items[0]) ? $items[0] : array();
-$this->load->view('frontend/header'); 
-// <?php
-// print_r($pdetail['product_id']);
+$this->load->model('product_model', 'productObj');
+$getOfferName=$this->productObj->get_offername($pdetail['product_id']);
+// print_r($getOfferName);
+// exit();
+$this->load->view('frontend/header');
+?> 
+<?php
+// print_r($review['customer_name']);
 // exit();
 ?>
+<style type="text/css">
+   .thumb-icon {
+    cursor: pointer;
+    color: gray; /* Default color */
+    transition: color 0.3s;
+}
 
+.thumb-icon.active {
+    color: blue; /* Active color */
+}
+</style>
 <main class="main">
    <div class="page-header breadcrumb-wrap">
       <div class="container">
@@ -111,7 +126,7 @@ $this->load->view('frontend/header');
                            <a href="#product_details_offer_ad">
                               <div class="grid_offer_ad mt-20">
                                  <div class="ad_btn" style="width: 470px;">
-                                    <h4>Har Din Sasta! <span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
+                                    <h4><?php echo (!empty($getOfferName)) ? $getOfferName[0]['offer_name'] : null;?><span class="material-symbols-outlined">keyboard_arrow_down</span></h4>
                                  </div>
                               </div>
                            </a>
@@ -273,13 +288,13 @@ $this->load->view('frontend/header');
                                        <div class="ad_banner">
                                           <div class="ad_percent_strip"><img src="http://localhost/RDFPL_Lattest_BKP_12_April_2024/include/frontend/assets/imgs/theme/default_card_tag_icon.webp" alt=""></div>
                                           <div class="ad_headline">
-                                             <p>Har Din Sasta!</p>
+                                             <p><?php echo (!empty($getOfferName)) ? $getOfferName[0]['offer_name'] : null;?></p>
                                           </div>
 
                                           <div class="ad_offer_percent">
-                                             <h2>36% Off!</h2>
+                                             <h2><?php echo (!empty($getOfferName)) ? $getOfferName[0]['value'] : null;?></h2>
                                           </div>
-                                          <div class="ad_offer_desc">Get up to <b>3</b> qty at <b>₹58</b> and additional Qty at <b>₹66</b></div>
+                                          <div class="ad_offer_desc"><?php echo (!empty($getOfferName)) ? $getOfferName[0]['description'] : null;?></div>
                                        </div>
                                     </li>
                                  </ul>
@@ -338,29 +353,55 @@ $this->load->view('frontend/header');
                      <div class="col-md-4">
                         <div class="review_sec_left_sec">
                            <div class="total_reviews icon_fill">
-                              <h3 class="text-brand"><?php echo $average_rating; ?> <i class="material-symbols-outlined">star</i></h3>
-                              <p class="text-muted"><?php echo $total_ratings; ?> ratings &amp; <?php echo $total_reviews; ?> reviews</p>
-                              <div class="progress mt-30">
-                                 <span>5 star</span>
-                                 <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                              </div>
-                              <div class="progress">
-                                 <span>4 star</span>
-                                 <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                              </div>
-                              <div class="progress">
-                                 <span>3 star</span>
-                                 <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
-                              </div>
-                              <div class="progress">
-                                 <span>2 star</span>
-                                 <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
-                              </div>
-                              <div class="progress mb-30">
-                                 <span>1 star</span>
-                                 <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                              </div>
-                           </div>
+                            <h3 class="text-brand">
+                                <?php echo number_format($productRate['average_rating'], 1); ?> 
+                                <i class="material-symbols-outlined">star</i>
+                            </h3>
+                            <p class="text-muted">
+                                <?php echo $productRate['total_ratings']; ?> ratings &amp; <?php echo $productRate['total_reviews']; ?> reviews
+                            </p>
+                            <?php if ($productRate['total_ratings'] > 0): ?>
+                                <?php
+                                    $five_star_percentage = ($productRate['five_star'] / $productRate['total_ratings']) * 100;
+                                    $four_star_percentage = ($productRate['four_star'] / $productRate['total_ratings']) * 100;
+                                    $three_star_percentage = ($productRate['three_star'] / $productRate['total_ratings']) * 100;
+                                    $two_star_percentage = ($productRate['two_star'] / $productRate['total_ratings']) * 100;
+                                    $one_star_percentage = ($productRate['one_star'] / $productRate['total_ratings']) * 100;
+                                ?>
+                                <div class="progress mt-30">
+                                    <span>5 star</span>
+                                    <div class="progress-bar" role="progressbar" style="width: <?php echo $five_star_percentage; ?>%" aria-valuenow="<?php echo $five_star_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo number_format($five_star_percentage, 1); ?>%
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <span>4 star</span>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $four_star_percentage; ?>%" aria-valuenow="<?php echo $four_star_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo number_format($four_star_percentage, 1); ?>%
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <span>3 star</span>
+                                    <div class="progress-bar" role="progressbar" style="width: <?php echo $three_star_percentage; ?>%" aria-valuenow="<?php echo $three_star_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo number_format($three_star_percentage, 1); ?>%
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <span>2 star</span>
+                                    <div class="progress-bar" role="progressbar" style="width: <?php echo $two_star_percentage; ?>%" aria-valuenow="<?php echo $two_star_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo number_format($two_star_percentage, 1); ?>%
+                                    </div>
+                                </div>
+                                <div class="progress mb-30">
+                                    <span>1 star</span>
+                                    <div class="progress-bar" role="progressbar" style="width: <?php echo $one_star_percentage; ?>%" aria-valuenow="<?php echo $one_star_percentage; ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <?php echo number_format($one_star_percentage, 1); ?>%
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <p>No ratings available for this product.</p>
+                            <?php endif; ?>
+                        </div>
                            <div class="custom_hr"></div>
                            <!-- <h4 class="text-center mt-30 mb-20">Highlights</h4>
                            <div class="circle_progress_bar d-flex">
@@ -406,12 +447,14 @@ $this->load->view('frontend/header');
                                                          <?php echo htmlspecialchars($review['customer_name']); ?>, 
                                                          (<?php echo htmlspecialchars($this->common_model->dateDifference($review['add_date'])); ?> ago)
                                                      </p>
-                                                     <div class="thumb_icon">
-                                                         <?php echo htmlspecialchars($review['thumbs_up']); ?>
-                                                         <span class="material-symbols-outlined">thumb_up</span>
-                                                         <?php echo htmlspecialchars($review['thumbs_down']); ?>
-                                                         <span class="material-symbols-outlined">thumb_down</span>
-                                                     </div>
+                                                   <?php $active_like = ($review['thumb_action'] == 1) ? 'active' : ''; ?>
+                                                   <?php $active_dislike = ($review['thumb_action'] == 0) ? 'active' : ''; ?>
+
+                                                   <div class="thumb_icon">
+                                                       <span class="material-symbols-outlined thumb-icon <?php echo $active_like; ?>" id="like_<?php echo $review['rate_id']; ?>" onclick="thumbAction('<?php echo $review['rate_id']; ?>', 'like')">thumb_up</span>
+                                                       <span class="material-symbols-outlined thumb-icon <?php echo $active_dislike; ?>" id="dislike_<?php echo $review['rate_id']; ?>" onclick="thumbAction('<?php echo $review['rate_id']; ?>', 'dislike')">thumb_down</span>
+                                                   </div>
+
                                                  </div>
                                              </div>
                                          </div>
@@ -629,5 +672,32 @@ function buyNow(product_id){
          window.location='<?php echo base_url('checkout')?>';
       }
    });
+}
+</script>
+<script>
+function thumbAction(rate_id, action) {
+    $.ajax({
+        url: '<?php echo site_url('Product/update_thumbs_action'); ?>',
+        type: 'POST',
+        data: { rate_id: rate_id, action: action },
+        dataType: 'json',
+        success: function(response) {
+            console.log('ss=>', response);
+            if (response.status === 'success') {
+                // $('.thumb-icon').removeClass('active');
+                if (action === 'like') {
+                    $('#like_' + rate_id).addClass('active');
+
+                     $('#dislike_' + rate_id).removeClass('active');
+                } else {
+                    $('#dislike_' + rate_id).addClass('active');
+                     $('#like_' + rate_id).removeClass('active');
+
+                }
+            } else {
+                console.error('Error: ' + response.message);
+            }
+        }
+    });
 }
 </script>

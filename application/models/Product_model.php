@@ -123,39 +123,37 @@ class Product_model extends CI_Model
   }
 
 
-  public function getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $per_page, $page)
-  {
+ public function getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $per_page, $offset)
+{
     $array_data = array();
-    $this->db->select('P.product_id,P.product_name,P.slug,P.feature_img,PWM.cat_id,PWM.sub_cat_id,PWM.child_cat_id');
+    $this->db->select('P.product_id, P.product_name, P.slug, P.feature_img, PWM.cat_id, PWM.sub_cat_id, PWM.child_cat_id');
     $this->db->from('tbl_product AS P');
+    $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
+    $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
+    $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
+    $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
     $this->db->where('P.status', 1);
     $this->db->where('TC.status', 1);
     $this->db->where('SC.status', 1);
     $this->db->where('CC.status', 1);
     if ($slug1 != "") {
-      $this->db->where('TC.slug', $slug1);
+        $this->db->where('TC.slug', $slug1);
     }
     if ($slug2 != "") {
-      $this->db->where('SC.slug', $slug2);
+        $this->db->where('SC.slug', $slug2);
     }
     if ($slug3 != "") {
-      $this->db->where('CC.slug', $slug3);
+        $this->db->where('CC.slug', $slug3);
     }
-
-    $this->db->join('tbl_mapping_category_with_product AS PWM', 'P.product_id = PWM.mapping_product_id');
-    $this->db->join('tbl_category AS TC', 'PWM.cat_id = TC.cat_id');
-    $this->db->join('tbl_sub_category AS SC', 'PWM.sub_cat_id = SC.sub_cat_id');
-    $this->db->join('tbl_child_category AS CC', 'PWM.child_cat_id = CC.child_cat_id');
-    // $this->db->limit(30,0);
-
-    $this->db->limit($per_page, $page);
+    $this->db->limit($per_page, $offset);
     $query = $this->db->get();
     if ($query->num_rows() > 0) {
-      $array_data = $query->result_array();
+        $array_data = $query->result_array();
     }
-
     return $array_data;
-  }
+}
+ 
+
 
 
 
@@ -287,7 +285,7 @@ public function get_product_ratings($product_id) {
 }
 
 public function get_offername($product_id) {
-      $this->db->select('offers.offer_name, tbl_product.product_name, tbl_product.product_id,tbl_product_variants.pack_size, tbl_product_variants.units');
+      $this->db->select('offers.offer_name,offers.description,offers.value, tbl_product.product_name, tbl_product.product_id,tbl_product_variants.pack_size, tbl_product_variants.units');
       $this->db->from('offers');
       $this->db->join('tbl_product', 'offers.product_id = tbl_product.product_id', 'left');
       $this->db->join('tbl_product_variants', 'offers.variant_id = tbl_product_variants.variant_id', 'left');
@@ -295,5 +293,68 @@ public function get_offername($product_id) {
       $query = $this->db->get();
       return $query->result_array();
   }
+
+  public function get_review_by_id($rate_id) {
+        $this->db->where('rate_id', $rate_id);
+        $query = $this->db->get('tbl_rate_and_review');
+        return $query->row_array();
+    }
+
+  public function update_thumb_action($rate_id, $thumb_value) {
+      if (!$rate_id) {
+          log_message('error', 'Rate ID is missing.');
+          return false;
+      }
+      $this->db->set('thumb_action', $thumb_value);
+      $this->db->where('rate_id', $rate_id);
+      if (!$this->db->update('tbl_rate_and_review')) {
+          log_message('error', 'Database update failed: ' . $this->db->last_query());
+          return false;
+      }
+
+      return true;
+  }
+
+public function get_thumb_counts($rate_id) {
+    $this->db->select('SUM(thumb_action) as likes, COUNT(*) - SUM(thumb_action) as dislikes');
+    $this->db->where('rate_id', $rate_id);
+    $query = $this->db->get('tbl_rate_and_review');
+    
+    return $query->row_array();
+}
+
+
+public function getProductRatingSummary($product_id) {
+$this->db->select('
+            COUNT(*) as total_ratings,
+            SUM(CASE WHEN cust_rate = 5 THEN 1 ELSE 0 END) AS five_star,
+            SUM(CASE WHEN cust_rate = 4 THEN 1 ELSE 0 END) AS four_star,
+            SUM(CASE WHEN cust_rate = 3 THEN 1 ELSE 0 END) AS three_star,
+            SUM(CASE WHEN cust_rate = 2 THEN 1 ELSE 0 END) AS two_star,
+            SUM(CASE WHEN cust_rate = 1 THEN 1 ELSE 0 END) AS one_star,
+            AVG(cust_rate) AS average_rating,
+            COUNT(comment) as total_reviews
+        ');
+        $this->db->from('tbl_rate_and_review');
+        $this->db->where('product_id', $product_id);
+        $this->db->where('status', 1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return array(
+                'total_ratings' => 0,
+                'five_star' => 0,
+                'four_star' => 0,
+                'three_star' => 0,
+                'two_star' => 0,
+                'one_star' => 0,
+                'average_rating' => 0,
+                'total_reviews' => 0
+            );
+        }
+}
 
 }

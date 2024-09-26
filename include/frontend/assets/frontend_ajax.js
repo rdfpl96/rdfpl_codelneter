@@ -1,9 +1,9 @@
 // Pramod
-//var base_url = "https://site.rdfpl.com/";
+var base_url = "https://site.rdfpl.com/";
 
 // Pramod
-var base_url = window.location.origin;
-base_url += "/";
+//var base_url = "http://localhost/rdfpl/";
+//base_url += "/";
 // function showLogin(){
 //     alert('hi');
 //     $('#login-modal-user').modal({ show: true });
@@ -314,41 +314,79 @@ function getChildDataBySubCatId(tocat_id, sub_cat_id) {
 function eraseError() {
     $('#alertMess').html('');
 }
-function Login() {
+// function Login() {
 
+//     var email_mobi = $('#email_mobi').val();
+//     var html = '';
+//     $.ajax({
+//         type: "POST",
+//         dataType: "JSON",
+//         url: base_url + 'login',
+//         data: ({ email_mobi: email_mobi }),
+//         success: function (result) {
+//             if (result.status == 1) {
+//                 document.getElementById('email_mobi').readOnly = true;
+
+//                 $('#editfield').html('<div class="fa fa-pencil" onclick="editlogin()"></div>');
+
+//                 setTimeout(function () {
+//                     $('.login-otp-input').fadeIn().css('display', 'block');
+//                 }, 1000);
+
+//                 html = '<div class="alert-success alert-div">' + '<strong>Success!</strong> ' + result.message + '</div>';
+//                 $('#otpbtn').html(`<button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold oi confinue-login popup_login_btn" onclick="verifyOtp();return false;">Verify Otp</button>`);
+//             } else {
+//                 html = '<div class="alert-danger alert-div">' +
+//                     '<strong>Oops!</strong> ' + result.message +
+//                     '</div>';
+//                 $('.oi').addClass('confinue-login');
+//             }
+//             console.log(html);
+//             //loading('loaderdiv_login__','none');
+//             $('#alertMess').fadeIn().html(html);
+
+//         }
+//     })
+
+// }
+
+function Login() {
     var email_mobi = $('#email_mobi').val();
     var html = '';
-    $.ajax({
-        type: "POST",
-        dataType: "JSON",
-        url: base_url + 'login',
-        data: ({ email_mobi: email_mobi }),
-        success: function (result) {
-            if (result.status == 1) {
-                document.getElementById('email_mobi').readOnly = true;
 
-                $('#editfield').html('<div class="fa fa-pencil" onclick="editlogin()"></div>');
+    // Check if the input is an email or mobile number
+    var isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email_mobi); // Simple email regex
 
-                setTimeout(function () {
-                    $('.login-otp-input').fadeIn().css('display', 'block');
-                }, 1000);
+    if (isEmail) {
+        // Show mobile verification modal
+        $('#mobileVerificationModal').fadeIn();
+    } else {
+        // Proceed with mobile login
+        $.ajax({
+            type: "POST",
+            dataType: "JSON",
+            url: base_url + 'login',
+            data: { email_mobi: email_mobi },
+            success: function(result) {
+                if (result.status == 1) {
+                    document.getElementById('email_mobi').readOnly = true;
+                    $('#editfield').html('<div class="fa fa-pencil" onclick="editlogin()"></div>');
 
-                html = '<div class="alert-success alert-div">' + '<strong>Success!</strong> ' + result.message + '</div>';
-                $('#otpbtn').html(`<button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold oi confinue-login popup_login_btn" onclick="verifyOtp();return false;">Verify Otp</button>`);
-            } else {
-                html = '<div class="alert-danger alert-div">' +
-                    '<strong>Oops!</strong> ' + result.message +
-                    '</div>';
-                $('.oi').addClass('confinue-login');
+                    setTimeout(function() {
+                        $('.login-otp-input').fadeIn().css('display', 'block');
+                    }, 1000);
+
+                    html = '<div class="alert-success alert-div">' + '<strong>Success!</strong> ' + result.message + '</div>';
+                    $('#otpbtn').html(`<button type="button" class="btn btn-fill-out btn-block hover-up font-weight-bold oi confinue-login popup_login_btn" onclick="verifyOtp();return false;">Verify Otp</button>`);
+                } else {
+                    html = '<div class="alert-danger alert-div">' + '<strong>Oops!</strong> ' + result.message + '</div>';
+                }
+                $('#alertMess').fadeIn().html(html);
             }
-            console.log(html);
-            //loading('loaderdiv_login__','none');
-            $('#alertMess').fadeIn().html(html);
-
-        }
-    })
-
+        });
+    }
 }
+
 //
 // Edit email/mobile filed
 //

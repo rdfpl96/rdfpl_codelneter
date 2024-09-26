@@ -520,6 +520,7 @@ public function update_address() {
     $addr_id = $this->input->post('edit_addr_id');
     $data = array(
         'fname'        => $this->input->post('fname'),
+        'lname'        => $this->input->post('lname'),
         'email'        => $this->input->post('email'),
         'mobile'       => $this->input->post('mobile'),
         'address1'     => $this->input->post('address1'),

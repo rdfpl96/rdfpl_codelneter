@@ -75,14 +75,21 @@ class Product extends CI_Controller
     $this->load->view("frontend/product/index", $data);
   }
 
-public function shop($slug1=null, $slug2=null, $slug3=null)
+  public function shop($slug1 = null, $slug2 = null, $slug3 = null)
 {
+ 
     $total_rows = $this->productObj->get_Product_count($slug1, $slug2, $slug3);
+    // Pagination configuration
     $config = array();
-    $config["base_url"] = base_url() ."shop";
+    $config["base_url"] = base_url() . "shop";
     $config['total_rows'] = $total_rows;
-    $config["per_page"] = 12;
-    $config["uri_segment"] = 2;
+    $config["per_page"] = 20;
+    $config['use_page_numbers'] = TRUE;
+    $config['page_query_string'] = TRUE;
+    $config['query_string_segment'] = 'page';
+    $config['reuse_query_string'] = TRUE;
+ 
+    // Pagination HTML styling
     $config['full_tag_open'] = '<ul class="pagination" style="padding-bottom:20px;">';
     $config['full_tag_close'] = '</ul>';
     $config['first_link'] = 'First';
@@ -97,27 +104,25 @@ public function shop($slug1=null, $slug2=null, $slug3=null)
     $config['prev_link'] = 'Previous';
     $config['prev_tag_open'] = '<li class="paginate_button page-item page-link">';
     $config['prev_tag_close'] = '</li>';
-    $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link active-page" style="background-color: green !important;
-    border-color: green;">';
+    $config['cur_tag_open'] = '<li class="paginate_button page-item active"><a href="#" class="page-link active-page" style="background-color: green !important; border-color: green;">';
     $config['cur_tag_close'] = '</a></li>';
     $config['num_tag_open'] = '<li class="paginate_button page-item page-link">';
     $config['num_tag_close'] = '</li>';
     $this->pagination->initialize($config);
-    $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
-    // Fetch product list
-    $products = $this->productObj->getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $config["per_page"], $page);
-      // $data['offer_name'] = $this->productObj->get_offername();
+    $page = ($this->input->get('page')) ? $this->input->get('page') : 1;
+    $offset = ($page - 1) * $config["per_page"];
+    $products = $this->productObj->getProdcutListBySlug_pagination($slug1, $slug2, $slug3, $config["per_page"], $offset);
     $data['pagination_links'] = $this->pagination->create_links();
     $data['productCount'] = $total_rows;
     $data['sidecategories'] = $this->customlibrary->getTopCategory();
     $data['categoryName'] = "";
     $data['categoryLevel'] = "";
     $data['bread'] = 'Shop';
-    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products,"productRatings" =>$productRatings, 'pagination' => $data['pagination_links'],'offer_name' =>$data['offer_name'], 'pcol' => 4), TRUE);
+    $data['products'] = $this->load->view('frontend/component/productItem', array("productItems" => $products, 'pagination' => $data['pagination_links'], 'pcol' => 4), TRUE);
     $data['price_range'] = $this->productObj->getPriceRange();
-  
     $this->load->view("frontend/product/index", $data);
 }
+
 
 public function Price_range() {
   $data['price_range'] = $this->productObj->getPriceRange();
@@ -137,7 +142,8 @@ public function detail($pslug)
       $simillerProduct = $this->productObj->getProdcutListBySlug($pdetail['top_cat_slug'], $pdetail['sub_cat_slug'], $pdetail['child_cat_slug']);
       $reviews = $this->common_model->getReviewsByProductId($pdetail['product_id']);
       
-      $productRate = $this->customlibrary->getProductRatingSummary($pdetail['product_id']);
+      //$productRate = $this->customlibrary->getProductRatingSummary($pdetail['product_id']);
+      $productRate = $this->productObj->getProductRatingSummary($pdetail['product_id']);
     }
     
 
@@ -146,7 +152,7 @@ public function detail($pslug)
     $isCustomerLogin=isset($userCookies['isCustomerLogin']) ? $userCookies['isCustomerLogin'] : 0 ;
   
 
-    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'isCustomerLogin'=>$isCustomerLogin));
+    $this->load->view("frontend/product/detail",array('pdetail' => $pdetail, 'simillerProduct' => $simillerProduct, 'popupar' => $simillerProduct,'reviews' =>$reviews,'isCustomerLogin'=>$isCustomerLogin,'productRate' =>$productRate,));
   }
 
   public function search()
@@ -196,4 +202,44 @@ public function detail($pslug)
       redirect(base_url(), 'refresh');
     }
   }
+
+public function update_thumbs_action() {
+    $rate_id = $this->input->post('rate_id');
+    $action = $this->input->post('action');
+
+    if (!$rate_id || !$action) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid request data']);
+        return;
+    }
+
+    $thumb_value = ($action === 'like') ? 1 : 0;
+    $updated = $this->productObj->update_thumb_action($rate_id, $thumb_value);
+    
+    if ($updated) {
+        $counts = $this->productObj->get_thumb_counts($rate_id);
+        echo json_encode([
+            'status' => 'success',
+            'thumb_status' => ($thumb_value == 1) ? 'Liked' : 'Disliked',
+            'like_count' => $counts['likes'],
+            'dislike_count' => $counts['dislikes']
+        ]);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Update failed']);
+    }
+}
+
+public function get_reviews() {
+    $reviews = $this->productObj->get_reviews();
+    foreach ($reviews as &$review) {
+        $counts = $this->productObj->get_thumb_counts($review['rate_id']);
+        $review['like_count'] = $counts['likes'] ?? 0; 
+        $review['dislike_count'] = $counts['dislikes'] ?? 0;
+    }
+    $data['reviews'] = $reviews;
+    $this->load->view('your_view', $data);
+}
+
+
+
+
 }

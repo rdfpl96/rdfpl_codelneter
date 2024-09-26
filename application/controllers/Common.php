@@ -100,147 +100,7 @@ public function shipping_address_save() {
 
     }
 
-//new code by Aarti
-public function addNewAddress() {
-    $error = 0;
-    if ($this->input->is_ajax_request()) {
 
-        $form_detail = $_POST;
-        $userCookies = getCookies('customer');
-
-        // Get the address type and handle "Other" case
-        $address_type = isset($form_detail['address_type']) && $form_detail['address_type'] == 'Other' ? $form_detail['other_address_type'] : $form_detail['address_type'];
-
-        $nv = array(
-            'customer_id'           => $userCookies['customer_id'],
-            'fname'                 => isset($form_detail['fname']) && $form_detail['fname'] != '' ? addslashes($form_detail['fname']) : "",
-            'mobile'                => isset($form_detail['mobile']) && $form_detail['mobile'] != '' ? addslashes($form_detail['mobile']) : "",
-            'email'                 => isset($form_detail['email']) && $form_detail['email'] != '' ? addslashes($form_detail['email']) : "",
-            'address1'              => isset($form_detail['address1']) && $form_detail['address1'] != '' ? addslashes($form_detail['address1']) : "",
-            'address2'              => isset($form_detail['address2']) && $form_detail['address2'] != '' ? addslashes($form_detail['address2']) : "",
-            'landmark'              => isset($form_detail['landmark']) && $form_detail['landmark'] != '' ? addslashes($form_detail['landmark']) : "",
-            'area'                  => isset($form_detail['area']) && $form_detail['area'] != '' ? addslashes($form_detail['area']) : "",
-            'state_id'              => isset($form_detail['state_id']) && $form_detail['state_id'] != '' ? addslashes($form_detail['state_id']) : "",
-            'city'                  => isset($form_detail['city']) && $form_detail['city'] != '' ? addslashes($form_detail['city']) : "",
-            'address_type'          => $address_type,
-            'setAddressDefault'     => isset($form_detail['setAddressDefault']) && $form_detail['setAddressDefault'] != '' ? addslashes($form_detail['setAddressDefault']) : 0,
-            'pincode'               => isset($form_detail['pincode']) && $form_detail['pincode'] != '' ? addslashes($form_detail['pincode']) : "",
-        );
-
-         $sapAddress='{
-    
-    "BPAddresses": [
-        {   
-            "BPCode":"ECO10006",
-            "AddressName": '.$nv['fname'].',
-            "Street": '.$nv['area'].',
-            "Block": '.$nv['address2'].',
-            "ZipCode": '.$nv['pincode'].',
-            "City": '.$nv['city'].',
-            "Country": "IN",
-            "State": "KT",
-            "FederalTaxID": null,
-            "BuildingFloorRoom": '.$nv['address1'].',
-            "AddressType": "bo_ShipTo",
-            "AddressName2": null,
-            "AddressName3": null,
-            "TypeOfAddress": "Home",
-            "StreetNo": null,
-            "GlobalLocationNumber": null,
-            "GSTIN": "123456789012345",
-            "GstType": "gstRegularTDSISD",
-            "TaasEnabled": "tYES",
-            "U_EmailID": '.$nv['email'].',
-            "U_MobileNo": '.$nv['mobile'].'
-        }
-    ]
-
-    }';
-
-
-        // Validation checks
-        if ($nv['fname'] == '') {
-            $error = '1';
-            $error_tag = 'er_fname';
-            $err_msg = "Please enter your name.";
-        } else if (!preg_match('/^[\p{L} ]+$/u', $nv['fname'])) {
-            $error = '1';
-            $error_tag = 'er_name';
-            $err_msg = "Name must contain letters and spaces only";
-        } else if ($nv['mobile'] == '') {
-            $error = '1';
-            $error_tag = 'er_name';
-            $err_msg = "Please enter mobile";
-        } else if (strlen($nv['mobile']) !== 10) {
-            $error = '1';
-            $error_tag = 'er_mobile';
-            $err_msg = "Mobile must have 10 digits";
-        } else if ($nv['email'] == '') {
-            $error = '1';
-            $error_tag = 'er_email';
-            $err_msg = "Please enter valid email";
-        } else if ($nv['email'] != '' && !filter_var($nv['email'], FILTER_VALIDATE_EMAIL)) {
-            $error = '1';
-            $error_tag = 'er_email';
-            $err_msg = "Please enter valid email Id";
-        } else if ($nv['address1'] == '') {
-            $error = '1';
-            $error_tag = 'er_address1';
-            $err_msg = "Please enter house no.";
-        } else if ($nv['address2'] == '') {
-            $error = '1';
-            $error_tag = 'er_address2';
-            $err_msg = "Please enter Apartment name";
-        } else if ($nv['landmark'] == '') {
-            $error = '1';
-            $error_tag = 'er_landmark';
-            $err_msg = "Please enter landmark";
-        } else if ($nv['area'] == '') {
-            $error = '1';
-            $error_tag = 'er_area';
-            $err_msg = "Please enter area";
-        } else if ($nv['state_id'] == '') {
-            $error = '1';
-            $error_tag = 'er_state_id';
-            $err_msg = "Please select state";
-        } else if ($nv['city'] == '') {
-            $error = '1';
-            $error_tag = 'er_city';
-            $err_msg = "Please enter city name";
-        } else if ($nv['pincode'] == '') {
-            $error = '1';
-            $error_tag = 'er_pincode';
-            $err_msg = "Please enter pincode";
-        } else if (strlen($nv['pincode']) !== 6) {
-            $error = '1';
-            $error_tag = 'er_pincode';
-            $err_msg = "Pincode must have 6 digits";
-        } else if ($this->custObj->addressPincodeAlreadyExist($nv['pincode'], $userCookies['customer_id'])) {
-            $error = '1';
-            $error_tag = 'er_pincode';
-            $err_msg = "Pincode already exists";
-        } else {
-            $lastId=$this->custObj->addressSave($nv);
-            if($lastId) {
-                if($nv['setAddressDefault']==1){
-
-                   $this->custObj->setDefaultAddressByCust($lastId,$userCookies['customer_id']); 
-
-                   $this->sapservice->updateCustomer($sapAddress);
-                }
-                $error = 0;
-                $err_msg = "Address saved successfully";
-            }
-        }
-
-        $response = array('error' => $error, 'err_msg' => $err_msg);
-    } else {
-        $response = array('error' => 2, 'err_msg' => "Method not allowed");
-    }
-
-    echo json_encode($response);
-    exit();
-}
 
 public function my_account() {
     $user = $this->my_libraries->mh_getCookies('customer');
@@ -1300,7 +1160,9 @@ public function newletter(){
 public function rating_review_details($product_id){
     $userCookies = getCookies('customer');
     $data['reviews'] = $this->common_model->getReviewsByProductId($product_id);
-    $data['productRate'] = $this->customlibrary->getProductRatingSummary($product_id);
+    //$data['productRate'] = $this->customlibrary->getProductRatingSummary($product_id);
+    $productRatings = $this->productObj->getProductRatingSummary($product_id);
+    $data['productRate'] = $productRatings;
     $data['content']='frontend/component/rating_review_details';
     $this->load->view('frontend/template',$data);
 }     
