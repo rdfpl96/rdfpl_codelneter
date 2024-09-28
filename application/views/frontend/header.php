@@ -180,7 +180,7 @@
                      <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                         <nav>
                            <ul class="category-menu">
-                              <li class="hot-deals"><a href="<?php echo base_url('shop/beauty-hygiene')?>">Beauty & Hygiene cvb</a></li>
+                              <li class="hot-deals"><a href="<?php echo base_url('shop/beauty-hygiene')?>">Beauty & Hygiene </a></li>
                               <li><a href="<?php echo base_url('shop');?>">Shop</a></li>
                               <li><a href="<?php echo base_url('shop/foodgrains-oils')?>">Foodgrains &amp; Oils</a></li>
                               <li><a href="<?php echo base_url('shop/dry-fruits-nuts')?>">Dry Fruits &amp; Nuts</a></li>
