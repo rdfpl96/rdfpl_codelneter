@@ -26,11 +26,12 @@ class Order extends REST_Controller{
     public function index_get(){
         $arrayOrder=array();
         //
-        $customer_id=$this->authorization_token->userData()->customer_id;
+        echo $customer_id=$this->authorization_token->userData()->customer_id;
 
         // 
         $orders = $this->orderObj->getAllOrder(1,10,$customer_id);
-      
+        print_r($orders);
+        exit();
         if(count($orders)>0){
             foreach($orders as $record){
                 $record['order_payment_status']="Not Paid";
