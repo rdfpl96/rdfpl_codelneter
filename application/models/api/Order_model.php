@@ -22,8 +22,8 @@ class Order_model extends CI_Model{
     $array_data=array();
     $this->db->select('*');
     $this->db->from('tbl_order AS O');
-    $this->db->where('customer_id1',$customerId);
-    $this->db->limit($records_per_page,$start);
+    $this->db->where('customer_id',$customerId);
+    // $this->db->limit($records_per_page,$start);
     $this->db->order_by('O.order_date','DESC');
     $query=$this->db->get();
     if($query->num_rows()>0){
