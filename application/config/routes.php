@@ -55,8 +55,6 @@ $route['default_controller'] = 'home';
 
 
 $route['period_type']='admin/period_type';
-
-
 $route['admin/other-product']='Admin/otherProduct';
 $route['admin/other-product/add']='Admin/addOtherProduct';
 $route['admin']='AdminPanel/home/index';
@@ -66,7 +64,6 @@ $route['admin/product']='AdminPanel/product/index';
 $route['admin/product/create']='AdminPanel/product/create';
 $route['admin/product/save']='AdminPanel/product/save';
 $route['admin/other-product/edit/(:num)']='Admin/Edit_other_product/$1';
-
 $route['admin/product/edit/(:num)']='AdminPanel/Product/edit/$1';
 $route['admin/product/update/(:num)']='AdminPanel/product/update/$1';
 $route['admin/productItem']='AdminPanel/product/productitem';

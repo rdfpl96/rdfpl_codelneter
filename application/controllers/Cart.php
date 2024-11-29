@@ -15,13 +15,12 @@ class Cart extends CI_Controller {
   public function index(){
 
     $userCookies=getCookies('customer');
-  
     setCookies("buynowDetail",array('buytype'=>0));
 
     if(isset($userCookies['isCustomerLogin']) && $userCookies['isCustomerLogin']==1){
 
         $data['products'] = $this->cartObj->getCartList($userCookies['customer_id']);
-
+        $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($this->customlibrary->getDefaultAddressPincode());
         $data['cartviews'] = $this->load->view("frontend/component/cart",$data,true);
         //$data['offer_name'] = $this->productObj->get_offername();
         if ($this->input->is_ajax_request()) {
@@ -36,7 +35,7 @@ class Cart extends CI_Controller {
             $data['beforeCheckProducts'] = $this->cartObj->getBeforeCheckout();
 
             $data['isdelivered'] = $this->customlibrary->chkDeliveryLocation($this->customlibrary->getDefaultAddressPincode());
-
+            
             $this->load->view("frontend/cart/index",$data);
         }
     }else{

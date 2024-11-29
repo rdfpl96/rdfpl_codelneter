@@ -1,5 +1,5 @@
 // Pramod
-var base_url = "https://site.rdfpl.com/";
+var base_url = "http://localhost/local-rdfpl.com/";
 
 // Pramod
 //var base_url = "http://localhost/rdfpl/";
@@ -569,7 +569,6 @@ function saveToLater(cart_id) {
 }
 
 function deleteItem(cart_id) {
-
     $.ajax({
         type: "POST",
         dataType: "JSON",
@@ -588,7 +587,6 @@ function deleteItem(cart_id) {
 
             location.reload();
         }
-
     });
 }
 
